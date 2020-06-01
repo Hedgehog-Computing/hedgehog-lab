@@ -1,4 +1,4 @@
-import babel from '@babel/standalone';
+
 import template from "@babel/template";
 
 
@@ -10,6 +10,8 @@ import {
 } from 'semantic-ui-react'
 
 //the default string for user's input
+
+var babel = require( "@babel/standalone" );
 const default_string = 
 `
 
@@ -54,15 +56,6 @@ function babel_operator_overload ({ types: t }) {
     }
 }
 
-function lolizer() {
-    return {
-      visitor: {
-        Identifier(path) {
-          path.node.name = 'LOL';
-        }
-      }
-    }
-  }
 
 function preprocess(your_code:string): string{
     return your_code;
@@ -71,18 +64,27 @@ function preprocess(your_code:string): string{
 
 function transpile(your_code:string):string{
     babel.registerPlugin(
-        "overload", lolizer
+        "overload", babel_operator_overload
     )
 
+    babel.registerPreset(
+        '@babel/preset-env', require('@babel/preset-env')
+    )
+
+    babel.registerPreset(
+        '@babel/preset-typescript', require('@babel/preset-typescript')
+    )
     var output_vanilla_js_string = babel.transform(
-        transpile(your_code),   // the code
+        preprocess(your_code),   // the code
         {
             plugins:['overload'],
-            presets: ["env", "typescript"],
+            presets: ["@babel/preset-env", '@babel/preset-typescript'],
+            filename: "temp.js",
             sourceType: "script"
         }
     )
 
+    console.log(output_vanilla_js_string.code)
     return output_vanilla_js_string.code;
 }
 
