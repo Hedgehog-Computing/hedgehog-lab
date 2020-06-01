@@ -3,16 +3,26 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/cli": "^7.10.1",
+    "@babel/core": "^7.10.2",
+    "@babel/preset-typescript": "^7.10.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "codemirror": "^5.53.2",
+    "babel-plugin-operator-overload": "^2.0.0",
+    "babel-plugin-overload": "0.0.2",
+    "babel-template": "^6.26.0",
+    "codemirror": "^5.54.0",
+    "hedgehog-transpiler": "^1.0.1",
     "material-ui": "^0.20.2",
     "react": "^16.13.1",
-    "react-codemirror2": "^7.1.0",
+    "react-codemirror2": "^7.2.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
-    "react-split-pane": "^0.1.91"
+    "react-split-pane": "^0.1.91",
+    "semantic-ui-react": "^0.88.2",
+    "typescript": "^3.9.3",
+    "update": "^0.7.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/standalone": "^7.10.2"
   }
 }
