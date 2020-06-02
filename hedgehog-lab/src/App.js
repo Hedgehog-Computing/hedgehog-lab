@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import  HedgehogTranspiler from './transpiler';
+import  HedgehogLab from './hedgehog_lab';
 
 function App() {
   return (
     <div className="App">
-      <HedgehogTranspiler/>
+      <HedgehogLab/>
     </div>
 
   );
