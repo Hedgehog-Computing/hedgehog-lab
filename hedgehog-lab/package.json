@@ -47,6 +47,7 @@
     ]
   },
   "devDependencies": {
-    "@babel/standalone": "^7.10.2"
+    "@babel/standalone": "^7.10.2",
+    "gh-pages": "^3.0.0"
   }
 }

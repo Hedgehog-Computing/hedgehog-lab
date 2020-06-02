@@ -1,5 +1,12 @@
 import preprocess from './transpiler_preprocess';
 
+
+/*
+Credits: the babel plugin of operator overload is originally developed 
+by Benjamin Fox at:
+
+https://github.com/foxbenjaminfox/babel-plugin-overload
+*/
 function operator_overload_raw_function(_ref) {
     var t = _ref.types;
   
@@ -33,14 +40,18 @@ function operator_overload_raw_function(_ref) {
 function transpiler_core(your_code:string):string{
     //todo: move the registration of plugins and presets to the constructor
     var babel = require('@babel/standalone');
+
+    //register the overload plugin
     babel.registerPlugin(
         "overload", operator_overload_raw_function
     )
 
+    //register preset-env
     babel.registerPreset(
         '@babel/preset-env', require('@babel/preset-env')
     )
 
+    //register typescript preset
     babel.registerPreset(
         '@babel/preset-typescript', require('@babel/preset-typescript')
     )
@@ -56,6 +67,7 @@ function transpiler_core(your_code:string):string{
         }
     )
 
+    //return the code
     return output_vanilla_js_string.code;
 }
 
