@@ -21,9 +21,7 @@ import 'prismjs/components/prism-javascript';
 
 //the default string for user's input
 const default_string = 
-`
-
-//demo 1: create matrix and operator overload
+`//demo 1: create matrix and operator overload
 
 var A = new Mat([[1,2], [3,4]]);
 var B = new Mat([[1,2], [3,4]]);
@@ -32,16 +30,27 @@ var B = new Mat([[1,2], [3,4]]);
 var C = A + B*A + A.T() * 4.2 + new Mat().random(2,2);
 print("Matrix C is \\n" + C);
 
+// demo 2: matrix inverse
+var d = new Mat([[1,2],[2,1]])
+print("Inverse of matrix d is \\n")
+print(d^(-1))
 
-//demo 2: GPU acceleration of matrix multiply
-var d = new Mat().random(200,200);
-var e = new Mat().random(200,200);
+//demo 3: GPU acceleration of matrix multiply
+var x = new Mat().random(1000,1000);
 
-//set mode as 'gpu'
-d.mode = 'gpu'
-print("Matrix d * e is " + "\\n" + d*e);
+// do a 1000*1000 matrix multiplication without GPU acceleration
+const t0 = performance.now();
+var z1 = x*x;
+const t1 = performance.now();
+print(\`It takes $\{t1 - t0\} milliseconds for matrix multiplication without GPU.\`);
 
+//set mode as 'gpu', which will enable GPU acceleration
+const t2 = performance.now();
+x.mode = 'gpu'
+var z2 = x*x;
+const t3 = performance.now();
 
+print(\`It takes $\{t3 - t2\} milliseconds for matrix multiplication with GPU.\`);
 `;
 
 
@@ -68,10 +77,11 @@ class HedgehogLab extends Component {
   }
 
   handleCompileAndRun(event){
+
       console.log("start compiling");
       var compiled_result = transpile(this.state.user_input_code);
       this.setState({compiled_code: compiled_result});
-      var result = execute(compiled_result);
+     var result = execute(compiled_result);
       this.setState({execution_result: result});
       event.preventDefault();
   }

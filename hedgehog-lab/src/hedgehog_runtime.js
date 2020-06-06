@@ -1,7 +1,7 @@
 const { GPU } = require('gpu.js');
 const gpu = new GPU();
 
-
+const mathJS =  require('mathjs');
 
 
 
@@ -221,8 +221,8 @@ class Mat {
         //if right operand is -1, return the inverse matrix
         if (rightOperand == -1){
 
-            //todo: we need to implement a matrix inverse algorithm in this library without dependencies such as mathjs
-            return this;  
+            // matrix inverse with mathjs
+            return new Mat(mathJS.inv(this.val)); 
         }
         
         if (!Number.isInteger(rightOperand) || rightOperand<1) throw new Error("This right operand does not support ^ operator");
@@ -583,7 +583,15 @@ function json2mat(json_str: string): Mat {
     throw new Error("Fail to read matrix from json");
 }
 
+
+
+
+//below is the execution part 
+
+// _GLOBAL_RESULTS_ is a list of strings from user output
 var _GLOBAL_RESULTS_ = [];
+
+// print function is a function for user to output information
 function print(a) { _GLOBAL_RESULTS_.push(a); }
 
 function execute(your_code:string):string{
