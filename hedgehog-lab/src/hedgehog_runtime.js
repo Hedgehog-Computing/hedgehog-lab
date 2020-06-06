@@ -1,8 +1,23 @@
+const { GPU } = require('gpu.js');
+const gpu = new GPU();
+
+
+
+
+
 class Mat {
-    val: number[][]; rows: number; cols: number; GPU:boolean;
+
+    //the 2D array of matrix elements
+    val: number[][]; 
+    
+    //row and column of matrix
+    rows: number; cols: number; 
+    
+    // mode: the mode of matrix computation. It could only be 'gpu', 'wasm' or ''
+    mode:string;
     clear() { this.val = []; this.rows = 0; this.cols = 0; return this; }
     constructor(input?: number[][] | number[]| number) {
-        this.GPU = false;
+        this.mode = '';
         this.val = []; this.rows = 0; this.cols = 0;
         if (typeof input == 'number'){
             this.val = [[input]];
@@ -431,6 +446,9 @@ function minus(leftMat: Mat, rightMat: Mat): Mat {
 // leftMat * rightMat and return a new matrix
 function mul(leftMat: Mat, rightMat: Mat): Mat {
     if (leftMat.cols != rightMat.rows) throw new Error("Dimesion does not match for operation:muitiply");
+
+    if (leftMat.mode == 'gpu' || rightMat.mode == 'gpu') return mul_gpu(leftMat, rightMat);
+
     var m = leftMat.rows, n = leftMat.cols, p = rightMat.cols;
     var returnMatrix = new Mat().zeros(m, p);
     for (var i = 0; i < m; i++) {
@@ -443,11 +461,47 @@ function mul(leftMat: Mat, rightMat: Mat): Mat {
     return returnMatrix;
 }
 
+
+
 // leftMat * rightMat and save the result to left matrix
 function mulInPlace(leftMat: Mat, rightMat: Mat): Mat {
     var resultMatrix = mul(leftMat, rightMat);
     leftMat.copy(resultMatrix);
     return leftMat;
+}
+
+// leftMat * rightMat in GPU
+function mul_gpu(leftMat: mat, rightMat: mat): mat {
+
+    console.log("GPU is used for matrix multiplication acceleration.");
+    //const gpu = new gpu();
+    const m = leftMat.rows, n = leftMat.cols, p = rightMat.cols;
+
+
+    //here is a tricky thing: if we want to set the for-loop as the column number of left
+    //matrix n, it will throw an exception because the oprand 'n' cannot be passed
+    //into the backend. So we create the javascript function and compose the raw function
+    //string before passing it into the create kernal function of gpu.js
+    const mulfunction_part_1 = `function (a, b) {
+    let sum = 0;
+    for (let i = 0; i < `;
+
+    const mulfunction_part_2 = `; i++) {
+        sum += a[this.thread.y][i] * b[i][this.thread.x];
+    }
+    return sum;
+}`;
+
+    const mulfunction_string = mulfunction_part_1 + n.toString() + mulfunction_part_2;
+
+    const multiplyMatrix = gpu.createKernel(mulfunction_string).setOutput([m,p]);
+
+
+    const c = multiplyMatrix(leftMat.val, rightMat.val);
+    var returnMat = new mat();
+    returnMat.val = c;
+    returnMat.rows = m; returnMat.cols = p;
+    return returnMat;
 }
 
 

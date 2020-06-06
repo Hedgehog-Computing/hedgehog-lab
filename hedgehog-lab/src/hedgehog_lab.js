@@ -2,39 +2,49 @@ import  React, {Component}  from 'react';
 import {
   Form,
   TextArea,
+  Label,
 } from 'semantic-ui-react'
 
 import transpiler_core from './transpiler_core';
 
 import execute from './hedgehog_runtime';
 
+import Editor from 'react-simple-code-editor';
+
+import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+
+
+
 //the default string for user's input
 const default_string = 
-`var A = new Mat([[1,2], [3,4]]);
+`
+
+//demo 1: create matrix and operator overload
+
+var A = new Mat([[1,2], [3,4]]);
 var B = new Mat([[1,2], [3,4]]);
+
+// C = A + B*A + A'*4.2 + random(2,2)
 var C = A + B*A + A.T() * 4.2 + new Mat().random(2,2);
 print("Matrix C is \\n" + C);
 
-var d = new Mat([[1],[2]]);
-var e = new Mat([[1,2]]);
+
+//demo 2: GPU acceleration of matrix multiply
+var d = new Mat().random(200,200);
+var e = new Mat().random(200,200);
+
+//set mode as 'gpu'
+d.mode = 'gpu'
 print("Matrix d * e is " + "\\n" + d*e);
 
-if (e*d == 5){
-  print( "d*e is 5");
-}
-else
-{
-  print("d*e is not 5");
-}
+
 `;
 
 
-
-
-//todo: preprocess the code
-function preprocess(your_code:string): string{
-    return your_code;
-}
 
 
 function transpile(your_code:string):string{
@@ -74,29 +84,35 @@ class HedgehogLab extends Component {
   //handleChange = (e, { value }) => this.setState({ value })
 
   render() {
-    const { value } = this.state
     return (
+
       <Form>
-        <Form.Field
-          control={TextArea}
-          label='Input your code here'
-          placeholder='...'
-          value = {this.state.user_input_code}
-          onChange = {this.handleUserInputCodeChange}
-        />
-        <Form.Field
-          control={TextArea}
-          label='Compiled code'
-          placeholder='...'
-          value = {this.state.compiled_code}
-        />
-        <Form.Field
-          control={TextArea}
-          label='Execution results'
-          placeholder='...'
-          value = {this.state.execution_result}
-        />
+
         <Form.Button onClick={this.handleCompileAndRun}>Compile and run</Form.Button>
+        <Label>Your code:</Label>
+
+        <Editor
+          value={this.state.user_input_code}
+          aria-label="code editor"
+          onValueChange={code => this.setState({ user_input_code:code })}
+          highlight={code => highlight(code, languages.js)}
+          padding={10}
+          style={{
+            fontFamily: '"Fira code", "Fira Mono", monospace',
+            fontSize: 12,
+          }}
+        />
+
+
+
+
+        <Label>Execution Result:</Label>
+
+        <TextareaAutosize
+          value =   {this.state.execution_result}
+        />
+
+
       </Form>
     )
   }
@@ -104,3 +120,4 @@ class HedgehogLab extends Component {
 
 
 export default HedgehogLab;
+
