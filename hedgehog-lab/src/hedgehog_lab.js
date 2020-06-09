@@ -20,7 +20,7 @@ import 'prismjs/components/prism-javascript';
 
 
 //the default string for user's input
-const default_string = 
+const default_string =
 `//demo 1: create matrix and operator overload
 
 var A = new Mat([[1,2], [3,4]]);
@@ -108,7 +108,7 @@ class HedgehogLab extends Component {
           highlight={code => highlight(code, languages.js)}
           padding={10}
           style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
+            fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
             fontSize: 12,
           }}
         />
@@ -130,4 +130,3 @@ class HedgehogLab extends Component {
 
 
 export default HedgehogLab;
-
