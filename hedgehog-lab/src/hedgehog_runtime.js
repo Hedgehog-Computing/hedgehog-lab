@@ -8,11 +8,11 @@ const mathJS =  require('mathjs');
 class Mat {
 
     //the 2D array of matrix elements
-    val: number[][]; 
-    
+    val: number[][];
+
     //row and column of matrix
-    rows: number; cols: number; 
-    
+    rows: number; cols: number;
+
     // mode: the mode of matrix computation. It could only be 'gpu', 'wasm' or ''
     mode:string;
     clear() { this.val = []; this.rows = 0; this.cols = 0; return this; }
@@ -60,18 +60,18 @@ class Mat {
         return this;
     }
 
-    //generate a N-by-1 matrix by initializing a range vector [start:end:step]. 
+    //generate a N-by-1 matrix by initializing a range vector [start:end:step].
     range(arg1: number, arg2 = null, step = 1): Mat {
         var rangeVector = [];
         var start = 0, end = 0;
-        if (arg2==null) { start = 0; end = arg1; } // range from 0 to arg1 
+        if (arg2==null) { start = 0; end = arg1; } // range from 0 to arg1
         else { start = arg1; end = arg2; } //range from arg1 to arg2
         if (start < end) {
             for (var iterator = start; iterator < end; iterator += step) {
                 rangeVector.push(iterator);
             }
             return this.initVec(rangeVector);
-        }   
+        }
         for (var iterator = start; iterator > end; iterator += step) {  //else
             rangeVector.push(iterator);
         } return this.initVec(rangeVector);
@@ -140,13 +140,13 @@ class Mat {
     }
 
     //add, multiply, minus, divide with one scalar value
-    adds(val: number): Mat { 
-        var returnMatrix = this.clone(); 
-        returnMatrix.each(function (eachMatrixValue: number): number { return eachMatrixValue + val; }); 
-        return returnMatrix; 
+    adds(val: number): Mat {
+        var returnMatrix = this.clone();
+        returnMatrix.each(function (eachMatrixValue: number): number { return eachMatrixValue + val; });
+        return returnMatrix;
     }
-    muls(val: number): Mat { 
-        var returnMatrix = this.clone(); 
+    muls(val: number): Mat {
+        var returnMatrix = this.clone();
         returnMatrix.each(function (eachMatrixValue: number): number { return eachMatrixValue * val; });
         return returnMatrix.clone();
     }
@@ -167,8 +167,8 @@ class Mat {
         //if right operand is a raw array of number or 2D array, initialize the matrix first
         if (Array.isArray(rightOperand)){
             return add(this, new Mat(rightOperand));
-        } 
-        
+        }
+
         //if right operand is a number, add the number as a scalar
         if (typeof rightOperand == 'number'){
             return this.adds(rightOperand);
@@ -184,7 +184,7 @@ class Mat {
         //if right operand is a raw array of number or 2D array, initialize the matrix first
         if (Array.isArray(rightOperand)){
             return minus(this, new Mat(rightOperand));
-        } 
+        }
         //if right operand is a number, minus the number as a scalar
         if (typeof rightOperand == 'number'){
             return this.minuss(rightOperand);
@@ -202,7 +202,7 @@ class Mat {
         if (Array.isArray(rightOperand)){
             var rightOperandMatrix = new Mat(rightOperand);
             return mul(this, rightOperandMatrix);
-        } 
+        }
 
         //if right operand is a number, mul the number as a scalar
         if (typeof rightOperand == 'number'){
@@ -214,7 +214,7 @@ class Mat {
 
     // Mat ^ N, the power of a matrix
     // if N == -1, return the inverse matrix
-    // otherwise return the result of matrix multiplying itself 
+    // otherwise return the result of matrix multiplying itself
     [Symbol.for('^')] (rightOperand: number): Mat {
 
         if (this.rows != this.cols) throw new Error("This matrix does not support ^ operator");
@@ -222,9 +222,9 @@ class Mat {
         if (rightOperand == -1){
 
             // matrix inverse with mathjs
-            return new Mat(mathJS.inv(this.val)); 
+            return new Mat(mathJS.inv(this.val));
         }
-        
+
         if (!Number.isInteger(rightOperand) || rightOperand<1) throw new Error("This right operand does not support ^ operator");
 
         var returnMatrix = this.clone();
@@ -242,7 +242,7 @@ class Mat {
         if (Array.isArray(rightOperand)){
             var rightOperandMatrix = new Mat(rightOperand);
             return this.equals(rightOperandMatrix);
-        } 
+        }
 
         //if right operand is a number, mul the number as a scalar
         else if (typeof rightOperand == 'number'){
@@ -255,7 +255,7 @@ class Mat {
         //otherwise, minus the right operand as a matrix
         return this.equals(rightOperand);
     }
-    
+
 
     //setter and getter
     set(row: number, col: number, val: number): Mat { this.dimCheck(row, col); this.val[row][col] = val; return this; }
@@ -299,7 +299,7 @@ class Mat {
             throw new Error("Please check the dimensions of subMatrix");
         }
 
-        
+
         var returnMatrix = new Mat().zeros(rowEnd - rowStart, colEnd - colStart);
 
         for (var i = rowStart; i < rowEnd; i++) {
@@ -510,7 +510,7 @@ function dotMulInPlace(leftMat: Mat, rightMat: Mat): Mat {
     if (leftMat.rows != rightMat.rows || leftMat.cols != rightMat.cols) throw new Error("Dimesion does not match for operation:dot muitiply");
     for (var i = 0; i < leftMat.rows; i++) {
         for (var j = 0; j < leftMat.cols; j++) {
-            leftMat.val[i][j] *= rightMat.val[i][j]; 
+            leftMat.val[i][j] *= rightMat.val[i][j];
         }
     }
     return leftMat;
@@ -586,7 +586,7 @@ function json2mat(json_str: string): Mat {
 
 
 
-//below is the execution part 
+//below is the execution part
 
 // _GLOBAL_RESULTS_ is a list of strings from user output
 var _GLOBAL_RESULTS_ = [];
@@ -606,3 +606,4 @@ function execute(your_code:string):string{
 }
 
 export default execute;
+export {Mat};
