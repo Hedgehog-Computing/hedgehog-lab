@@ -56,18 +56,25 @@ function transpiler_core(your_code:string):string{
         '@babel/preset-typescript', require('@babel/preset-typescript')
     )
 
+    //register flow
+    babel.registerPreset(
+      '@babel/preset-flow', require('@babel/preset-flow')
+    )
+
     //the real compiling function
+
     var output_vanilla_js_string = babel.transform(
-        preprocess(your_code),   // the code
+      preprocess(your_code),   // the code
         {
             plugins:['overload'],
-            presets: ["@babel/preset-env", '@babel/preset-typescript'],
+            presets: ["@babel/preset-env", '@babel/preset-typescript', '@babel/preset-flow'],
             filename: "temp.js",
             sourceType: "script"
         }
     )
 
     //return the code
+    console.log("The output of transpiler core is: \n" + output_vanilla_js_string.code)
     return output_vanilla_js_string.code;
 }
 
