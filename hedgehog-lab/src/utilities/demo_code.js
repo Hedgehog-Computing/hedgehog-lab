@@ -1,8 +1,7 @@
-class demoCode{
+const demoCode = {
 
-    demo_1_Matrix  = 
-
-`
+  demo_1_Matrix:
+    `
 //1. Initialize matrix with a 2D array. You could create a Mat object or use mat() wrapper function since they are basically the same
 let a = mat([[1,2,3],[4,5,6],[7,8,9]]);
 print("Matrix a is: \\n" + a);
@@ -25,11 +24,10 @@ print("Creating a matrix of zeros:\\n" + zeros(2));
 
 //5. You can also create a sequence of number starting with 1 ending with 20 and increasing with step 3, then reshape it as a 3-by-3 matrix
 print("Matrix c is:\\n" + range(1,20,3).reshape(3,3));
-`;
-    
-demo_2_Operators = 
+`,
+  demo_2_Operators:
 
-`// Operator overloads are available for Mat class. 
+    `// Operator overloads are available for Mat class. 
 // Right operator could be Mat object, 2D or 1D array or number
 
 let A = mat([[1,2],[3,4]]);
@@ -68,10 +66,10 @@ else {
 // Also you can use both of them as an expression in Matlab-style
 let C = ( A.T()* B ) + ( B * 4 - A + 1 ) * ( B^(-1) );
 print("Matrix C (A'*B + (B*4 - A + 1) * (B^(-1)) is\\n" + C);
-`;
+`,
 
-demo_3_GPU_Acceleration = 
-`//Create a 1000-by-1000 matrix
+  demo_3_GPU_Acceleration:
+    `//Create a 1000-by-1000 matrix
 var x = random(1000,1000);
 
 // do a 1000*1000 matrix multiplication without GPU acceleration
@@ -87,10 +85,10 @@ x.mode = 'gpu'
 var z2 = x*x;
 toc();
 
-`;
+`,
 
-demo_4_build_in_functions = 
-`/*
+  demo_4_build_in_functions:
+    `/*
 There are many built-in functions which support matrix, including     
 sin, cos, abs, acos, acosh, sign, 
 sqrt, trunc, floor, ceil, exp, log,
@@ -104,9 +102,9 @@ print(log(A));  // log A with base e
 print(log(A,2));  // log A with base 2 
 
 //More functions are on the way...
-`;
-    demo_ = 
-`//demo 1: create matrix and operator overload
+`,
+  demo_:
+    `//demo 1: create matrix and operator overload
 
 var A = new Mat([[1,2], [3,4]]);
 var B = new Mat([[1,2], [3,4]]);
@@ -136,8 +134,7 @@ var z2 = x*x;
 const t3 = performance.now();
 
 print(\`It takes $\{t3 - t2\} milliseconds for matrix multiplication with GPU.\`);
-`;
+`
 }
 
-
-export default demoCode;
+export default demoCode
