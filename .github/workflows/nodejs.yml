@@ -1,0 +1,31 @@
+name: CI runner
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./hedgehog-lab
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Cache NPM dependencies
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.OS }}-npm-cache
+          restore-keys: |
+            ${{ runner.OS }}-npm-cache
+      - name: Install Dependencies
+        run: |
+          npm i
+        working-directory: ${{ env.working-directory }}
+      - name: Build
+        run: npm run build
+        env:
+          CI: true
+        working-directory: ${{ env.working-directory }}
