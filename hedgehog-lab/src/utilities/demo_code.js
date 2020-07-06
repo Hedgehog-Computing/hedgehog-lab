@@ -75,7 +75,7 @@ demo_3_GPU_Acceleration =
 var x = random(1000,1000);
 
 // do a 1000*1000 matrix multiplication without GPU acceleration
-print("Without GPU acceleartion...");
+print("Without GPU acceleration...");
 tic();
 var z1 = x*x;
 toc();
@@ -99,12 +99,146 @@ pow, round
 */
 
 let A = mat([[1,2],[3,4]]);
+
+// Show the output matrix in fixed-point format with 5 digits
+A.digits = 5;
+
 print(sin(A));
 print(log(A));  // log A with base e
 print(log(A,2));  // log A with base 2 
 
 //More functions are on the way...
 `;
+
+
+demo_5_insert_tex = 
+`let A = mat([[7,2],[2,1]]);
+
+// a short introduction
+tex("\\\\text{Cholesky decomposition is a classical matrix decomposition algorithm in this form:}")
+formulaTex("A=LL^{T},")
+
+
+// let's  calculate the cholesky now
+let L = chol(A).L;
+
+// and keep 5 digits 
+L.digits = 5
+tex("\\\\text{where A is a positive-definite and symmetric matrix.} \\\\\\\\ \\\\text{For example, we have } A = " + A.toTex() + "\\\\text{, and the decomposed matrix L is }" + L.toTex())
+`
+
+demo_6_graphics = 
+`// generate 2D points as vectors of x and y 
+let x = range(-10,10,0.1);
+let y = sin(x) + random(1,x.cols);
+let x_vec = x.toArray(); 
+let y_vec = y.toArray();
+
+// plot x and y as scatter 
+plot2D(x_vec,y_vec);  
+
+// ploy x and y as line
+plot2DLine(x_vec,y_vec);   
+
+// generate 3D points as vectors of x, y and z
+let size = 30;
+x = zeros(size);
+for (let i=0;i<size;i++) {for (let j=0;j<size;j++){x.val[i][j] = i-size/2;}}
+y = x.T();
+let z = x**2 + y**2;
+x_vec = x.toArray(); 
+y_vec = y.toArray();
+let z_vec = z.toArray(); 
+
+// plot x,y,z as scatter in 3D
+plot3D(x_vec,y_vec, z_vec);
+
+// mesh of x,y,z 
+plot3DMesh(x_vec,y_vec,z_vec);
+
+/* For more advanced features and different kinds of charts, 
+   please check the official website plotly.js https://plotly.com/javascript/
+   and use built-in function draw(data, layout) instead. Here is an example
+*/
+
+
+var trace1 = {
+  x: [1, 2,3,4,5],
+  y: [1, 2,2.5,3,3.1],
+  type: 'scatter',
+  name: '(1,1)'
+};
+
+var trace2 = {
+  x: [1, 2,3,4,5],
+  y: [1, 2,2.1,7,10],
+  type: 'scatter',
+  name: '(1,2)',
+  xaxis: 'x2',
+  yaxis: 'y2'
+};
+
+var trace3 = {
+  x: [1, 2,3,4,5],
+  y: [1, 2,2.1,7,10],
+  type: 'scatter',
+  name: '(1,2)',
+  xaxis: 'x3',
+  yaxis: 'y3'
+};
+
+var trace4 = {
+  x: [1, 2,3,4,5,6,7,8,9,10],
+  y: [1, 2,-1,-2,1,5,7,9,11],
+  type: 'scatter',
+  name: '(1,2)',
+  xaxis: 'x4',
+  yaxis: 'y4'
+};
+
+var data = [trace1, trace2, trace3, trace4];
+
+var layout = {
+  title: 'Multiple Custom Sized Subplots',
+  xaxis: {
+    domain: [0, 0.45],
+    anchor: 'y1'
+  },
+  yaxis: {
+    domain: [0.5, 1],
+    anchor: 'x1'
+  },
+  xaxis2: {
+    domain: [0.55, 1],
+    anchor: 'y2'
+  },
+  yaxis2: {
+    domain: [0.8, 1],
+    anchor: 'x2'
+  },
+  xaxis3: {
+    domain: [0.55, 1],
+    anchor: 'y3'
+  },
+  yaxis3: {
+    domain: [0.5, 0.75],
+    anchor: 'x3'
+  },
+  xaxis4: {
+    domain: [0, 1],
+    anchor: 'y4'
+  },
+  yaxis4: {
+    domain: [0, 0.45],
+    anchor: 'x4'
+  }
+};
+
+// with data and layout, we can directly pass them to draw() function
+draw(data,layout);
+
+`
+
     demo_ = 
 `//demo 1: create matrix and operator overload
 

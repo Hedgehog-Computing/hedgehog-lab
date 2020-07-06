@@ -2,6 +2,15 @@ import fetch_library from './utilities/fetch_library';
 
 function preprocess(your_code:string):string{
     return your_code;
+
+    // below is a fetch function to download a string from url
+    // it could be a library or a csv file or a json of matrix
+    // this is one of issues with highest priority in to-do list
+    let lib = fetch_library("https://gist.githubusercontent.com/lidangzzz/cc13e32762418a2b198759682f351f81/raw/d4f7a4046ee3fa53aa15728a31cc4a540a86713c/test1.js");
+    console.log("The source code after preprocessor");
+    let result = lib + "\n\n\n" + your_code;
+    console.log(result);
+    return result;
 }
 
 

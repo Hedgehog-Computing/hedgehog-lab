@@ -96,6 +96,42 @@ function draw(data:any, layout:any)
     _OUTPUT_ITEMS_LIST_.push(objItem);
 }
 
+// plot2D is a wrapper for draw() function for scatter plot on 2D only
+function plot2D(x_:any, y_:any){
+    draw([{x: x_, y: y_, type: 'scatter', mode: 'markers',
+          marker: {color: 'blue', size:'4'},}]);      
+}
+
+function plot2DLine(x_:any, y_:any){
+    draw([{x: x_, y: y_, type: 'scatter', mode: 'lines+markers',
+          marker: {color: 'blue', size:'4'},}]);  
+}
+
+// plot3D is a wrapper for draw() function for scatter plot on 3D only
+function plot3D(x_:any, y_:any, z_:any){
+    draw([{x:x_, y: y_, z: z_,mode: 'markers',marker: {color: 'blue',size: 4},type: 'scatter3d'}],{});
+}
+
+
+function plot3DMesh(x_:any, y_:any, z_:any){
+    draw([{x:x_, y: y_, z: z_,mode: 'markers',marker: {color: 'blue',size: 4},type: 'mesh3d'}],{});
+}
+
+// show Tex in MathJax
+function tex(inputTex:string){
+    let objItem = new OutputItem();
+    objItem.outputType = "tex";
+    objItem.text = inputTex;
+    _OUTPUT_ITEMS_LIST_.push(objItem);
+} 
+
+function formulaTex(inputTex:string){
+    let objItem = new OutputItem();
+    objItem.outputType = "formulaTex";
+    objItem.text = inputTex;
+    _OUTPUT_ITEMS_LIST_.push(objItem);
+}
+
 
 function executeOutput(your_code:string):any{
     let code_to_be_executed = your_code + "\n _OUTPUT_ITEMS_LIST_";

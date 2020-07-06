@@ -529,6 +529,27 @@ class Mat {
     toCsv():string { return mat2csv(this) ; }
     toJson():string { return JSON.stringify(this);}
 
+    toTex():string{
+        let returnString = '\\begin{bmatrix} ';
+        for (let i = 0; i < this.rows; i++) {
+            for (let j = 0; j < this.cols; j++) {
+
+                // if keeps all digits
+                if (this.digits == -1){
+                    if (j == 0) { returnString += String(this.val[i][j]); }
+                    else { returnString += ("  &  " + String(this.val[i][j])); }
+                }
+                else{
+                    if (j == 0) { returnString += this.val[i][j].toFixed(this.digits); }
+                    else { returnString += ("  &  " + this.val[i][j].toFixed(this.digits)); }
+                }
+            }
+            if (i!= this.rows-1) returnString += '  \\\\  ';
+        }
+    
+        return returnString + ' \\end{bmatrix}';
+    }
+
     //output the whole information to console
     log(): Mat { console.log(this); return this; }  //output in console
 
@@ -570,7 +591,7 @@ class Mat {
 
 //leftMatrix + rightMatrix, save the result into left matrix
 function addInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
-    if (leftMatrix.rows != rightMatrix.rows || leftMatrix.cols != rightMatrix.cols) throw new Error("Dimesion does not match for operation:add");
+    if (leftMatrix.rows != rightMatrix.rows || leftMatrix.cols != rightMatrix.cols) throw new Error("Dimension does not match for operation:add");
     let rows = leftMatrix.rows, cols = leftMatrix.cols;
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
@@ -587,7 +608,7 @@ function add(leftMat: Mat, rightMat: Mat): Mat {
 
 //leftMatrix - rightMatrix, save the result into left matrix
 function minusInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
-    if (leftMatrix.rows != rightMatrix.rows || leftMatrix.cols != rightMatrix.cols) throw new Error("Dimesion does not match for operation:minus");
+    if (leftMatrix.rows != rightMatrix.rows || leftMatrix.cols != rightMatrix.cols) throw new Error("Dimension does not match for operation:minus");
     let rows = leftMatrix.rows, cols = leftMatrix.cols;
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
@@ -605,7 +626,7 @@ function minus(leftMat: Mat, rightMat: Mat): Mat {
 
 // leftMat * rightMat and return a new matrix
 function multiply(leftMat: Mat, rightMat: Mat): Mat {
-    if (leftMat.cols != rightMat.rows) throw new Error("Dimesion does not match for operation:muitiply");
+    if (leftMat.cols != rightMat.rows) throw new Error("Dimension does not match for operation:muitiply");
 
     if (leftMat.mode == 'gpu' || rightMat.mode == 'gpu') return multiply_gpu(leftMat, rightMat);
 
@@ -667,7 +688,7 @@ function multiply_gpu(leftMat: Mat, rightMat: Mat): Mat {
 
 // leftMat .* rightMat, each element in leftMat multiply corresponding element in rightMat
 function dotMultiplyInPlace(leftMat: Mat, rightMat: Mat): Mat {
-    if (leftMat.rows != rightMat.rows || leftMat.cols != rightMat.cols) throw new Error("Dimesion does not match for operation:dot muitiply");
+    if (leftMat.rows != rightMat.rows || leftMat.cols != rightMat.cols) throw new Error("Dimension does not match for operation:dot muitiply");
     for (let i = 0; i < leftMat.rows; i++) {
         for (let j = 0; j < leftMat.cols; j++) {
             leftMat.val[i][j] *= rightMat.val[i][j]; 
@@ -682,7 +703,7 @@ function dotMultiply(leftMat: Mat, rightMat: Mat): Mat {
 
 // leftMat ./ rightMat
 function dotDivideInplace(leftMat:Mat, rightMat:Mat):Mat{
-    if (leftMat.rows != rightMat.rows || leftMat.cols != rightMat.cols) throw new Error("Dimesion does not match for operation: divide");
+    if (leftMat.rows != rightMat.rows || leftMat.cols != rightMat.cols) throw new Error("Dimension does not match for operation: divide");
     for (let i = 0; i < leftMat.rows; i++) {
         for (let j = 0; j < leftMat.cols; j++) {
             leftMat.val[i][j] /= rightMat.val[i][j]; 

@@ -62,17 +62,29 @@ class HedgehogLab extends Component {
 
   handleCompileAndRun(event){
 
-      console.log("start compiling");
+      console.log("Hedgehog Lab: Start Compiling...");
 
       //compile
-      var compiled_result = transpile(this.state.user_input_code);
+      let compiled_result = "";
+      try{
+        compiled_result = transpile(this.state.user_input_code);
+      }
+      catch (compileError){
+        this.setState({execution_output_string: "Exception caught by Babel compiler:\n\n" + compileError.toString()});
+        return;
+      }
       console.log("The compiled code to be executed:\n" + compiled_result);
       this.setState({compiled_code: compiled_result});
-      //var result = execute(compiled_result);
-      //this.setState({execution_result: result});
 
       //run and get the result
-      var output_list = executeOutput(compiled_result);
+      let output_list = "";
+      try{
+        output_list =  executeOutput(compiled_result);
+      } 
+      catch (executionError){
+        this.setState({execution_output_string: "Exception caught while executing the script:\n\n" + executionError.toString()});
+        return;
+      }
       this.setState({execution_output_list: output_list});
 
       //get all OutputItem with type === "print" and save to "execution_result"
@@ -115,6 +127,14 @@ class HedgehogLab extends Component {
       this.setState({
         user_input_code: tutorialObject.demo_4_build_in_functions
       })
+    }
+    else if (tutorialID === 5){
+      this.setState({
+        user_input_code: tutorialObject.demo_5_insert_tex
+      })
+    }
+    else if (tutorialID === 6){
+      this.setState({user_input_code: tutorialObject.demo_6_graphics})
     }
   }
 
@@ -170,9 +190,21 @@ class HedgehogLab extends Component {
         <Form.Button onClick={
           (event)=>this.handleLoadingTutorialCode(4, event)
         }>Tutorial 4: Built-in functions</Form.Button>
+        <Form.Button onClick={
+          (event)=>this.handleLoadingTutorialCode(5, event)
+        }>Tutorial 5: TeX in Hedgehog Lab</Form.Button>
+        <Form.Button onClick={
+          (event)=>this.handleLoadingTutorialCode(6, event)
+        }>Tutorial 6: Figures and plotting</Form.Button>
 
 
       </Form>
+
+      <Label color='green' basic>
+          <a href="https://github.com/lidangzzz/hedgehog-lab" target="_blank">Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab</a>
+          <br/>
+          <a href="https://twitter.com/lidangzzz" target="_blank">Follow my Twitter: @lidangzzz</a>
+      </Label>
       </div>
     )
   }
