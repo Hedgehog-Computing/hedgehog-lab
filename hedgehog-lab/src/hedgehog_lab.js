@@ -54,7 +54,9 @@ class HedgehogLab extends Component {
           user_input_code:default_string,
           compiled_code:'',
           execution_output_string:'',
-          execution_output_list:[]
+          execution_output_list:[],
+          auto_mode: true
+
         };
       this.handleCompileAndRun = this.handleCompileAndRun.bind(this);
       this.handleUserInputCodeChange = this.handleUserInputCodeChange.bind(this);
@@ -147,6 +149,7 @@ class HedgehogLab extends Component {
       <Form>
 
         <Form.Button size="lg" onClick={this.handleCompileAndRun}>Compile and run</Form.Button>
+
         <Label>Your code:</Label>
 
         <Editor

@@ -131,14 +131,12 @@ demo_6_graphics =
 `// generate 2D points as vectors of x and y 
 let x = range(-10,10,0.1);
 let y = sin(x) + random(1,x.cols);
-let x_vec = x.toArray(); 
-let y_vec = y.toArray();
 
 // plot x and y as scatter 
-plot2D(x_vec,y_vec);  
+plot2D(x.toArray(),y.toArray());  
 
 // ploy x and y as line
-plot2DLine(x_vec,y_vec);   
+plot2DLine(x.toArray(),y.toArray());   
 
 // generate 3D points as vectors of x, y and z
 let size = 30;
@@ -146,97 +144,48 @@ x = zeros(size);
 for (let i=0;i<size;i++) {for (let j=0;j<size;j++){x.val[i][j] = i-size/2;}}
 y = x.T();
 let z = x**2 + y**2;
-x_vec = x.toArray(); 
-y_vec = y.toArray();
-let z_vec = z.toArray(); 
 
 // plot x,y,z as scatter in 3D
-plot3D(x_vec,y_vec, z_vec);
+plot3D(x.toArray(),y.toArray(), z.toArray());
 
 // mesh of x,y,z 
-plot3DMesh(x_vec,y_vec,z_vec);
+plot3DMesh(x.toArray(),y.toArray(),z.toArray());
 
 /* For more advanced features and different kinds of charts, 
    please check the official website plotly.js https://plotly.com/javascript/
-   and use built-in function draw(data, layout) instead. Here is an example
+   and use built-in function draw(data, layout) instead.
 */
 
+/* For more advanced features and different kinds of charts, 
+   please check the official website plotly.js https://plotly.com/javascript/
+   and use built-in function draw(data, layout) instead.
+*/
+// Example 1 of draw()
+let z2 = z*(-1) + 300;
+let z2_vec = z2.toArray();
 
-var trace1 = {
-  x: [1, 2,3,4,5],
-  y: [1, 2,2.5,3,3.1],
-  type: 'scatter',
-  name: '(1,1)'
-};
+draw([{x:x.toArray(), y: y.toArray(), z: z.toArray(), mode: 'markers',marker: {color: 'blue',size: 2}, opacity: 0.5,type: 'scatter3d'}, {x:x.toArray(), y: y.toArray(), z: z2.toArray(),mode: 'markers',marker: {color: 'red',size: 2}, opacity: 0.5,type: 'mesh3d'}],{title:"Example 1 of draw()"});
 
-var trace2 = {
-  x: [1, 2,3,4,5],
-  y: [1, 2,2.1,7,10],
-  type: 'scatter',
-  name: '(1,2)',
-  xaxis: 'x2',
-  yaxis: 'y2'
-};
 
-var trace3 = {
-  x: [1, 2,3,4,5],
-  y: [1, 2,2.1,7,10],
-  type: 'scatter',
-  name: '(1,2)',
-  xaxis: 'x3',
-  yaxis: 'y3'
-};
 
-var trace4 = {
-  x: [1, 2,3,4,5,6,7,8,9,10],
-  y: [1, 2,-1,-2,1,5,7,9,11],
-  type: 'scatter',
-  name: '(1,2)',
-  xaxis: 'x4',
-  yaxis: 'y4'
-};
+// Example 2 of draw()
 
-var data = [trace1, trace2, trace3, trace4];
+// dataset group 1 
+let x1 = random(1,20)*2 + 2;
+let y1 = random(1,20)*3 + 3;
 
-var layout = {
-  title: 'Multiple Custom Sized Subplots',
-  xaxis: {
-    domain: [0, 0.45],
-    anchor: 'y1'
-  },
-  yaxis: {
-    domain: [0.5, 1],
-    anchor: 'x1'
-  },
-  xaxis2: {
-    domain: [0.55, 1],
-    anchor: 'y2'
-  },
-  yaxis2: {
-    domain: [0.8, 1],
-    anchor: 'x2'
-  },
-  xaxis3: {
-    domain: [0.55, 1],
-    anchor: 'y3'
-  },
-  yaxis3: {
-    domain: [0.5, 0.75],
-    anchor: 'x3'
-  },
-  xaxis4: {
-    domain: [0, 1],
-    anchor: 'y4'
-  },
-  yaxis4: {
-    domain: [0, 0.45],
-    anchor: 'x4'
-  }
-};
+// dataset group 2
+let x2 = random(1,20)* 1.5 + 5;
+let y2 = random(1,20)* 0.8 - 1;
 
-// with data and layout, we can directly pass them to draw() function
-draw(data,layout);
+// dataset group 3
+let x3 = random(1,30) * 1 - 1;
+let y3 = random(1,30) * 3 + 2;
 
+draw( 
+[{x:x1.toArray(), y:y1.toArray(), mode:"markers"}, {x:x2.toArray(), y:y2.toArray(), mode:"markers"}, {x:x3.toArray(), y:y3.toArray(), mode:"markers"}], 
+{shapes: [{type:'circle', xref:'x', yref:'y', x0 : x1.min(), y0:y1.min(), x1: x1.max(), y1: y1.max(), opacity: 0.2, fillcolor: "green"}, {type:'circle', xref:'x', yref:'y', x0 : x2.min(), y0:y2.min(), x1: x2.max(), y1: y2.max(), opacity: 0.2, fillcolor: "blue"}, {type:'circle', xref:'x', yref:'y', x0 : x3.min(), y0:y3.min(), x1: x3.max(), y1: y3.max(), opacity: 0.2, fillcolor: "red"}], title:"Example 2 of draw(): cluster"}
+);
 `
 
     demo_ = 

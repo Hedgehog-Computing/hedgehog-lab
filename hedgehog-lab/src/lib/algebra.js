@@ -1,5 +1,5 @@
 import _Mat from './matrix';
-import {lup, qr, } from 'mathjs';
+import {lup, qr} from 'mathjs';
 
 class Mat extends _Mat.Mat {};
 
@@ -40,9 +40,26 @@ class Chol{
 
 // LU
 class LU{
-
+    L:Mat;
+    U:Mat;
+    P:Mat;
+    constructor(A:Mat){
+        let result = lup(A.val);
+        this.L = new Mat(result.L);
+        this.U = new Mat(result.U);
+        this.P = new Mat(result.P);
+    }
 }
 
+// QR 
+class QR{
+    Q:Mat;
+    R:Mat;
+    constructor(A:Mat){
+        let result = qr(A.val);
+        this.Q = new Mat(result.Q);
+        this.R = new Mat(result.R); 
+    }
+}
 
-
-export {Chol}
+export {Chol, QR, LU}

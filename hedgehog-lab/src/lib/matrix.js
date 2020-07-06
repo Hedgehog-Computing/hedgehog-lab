@@ -85,6 +85,9 @@ class Mat {
         }
     }
 
+    min():number{   return Math.min(...this.toArray())  ;  }
+    max():number{   return Math.max(...this.toArray())  ;  }
+
     //initialize with 1D array (vector) into an N-by-1 matrix
     initVec(input1DArray: any): Mat {
         this.clear(); this.rows = 1; this.cols = input1DArray.length; this.val.push([...input1DArray]);

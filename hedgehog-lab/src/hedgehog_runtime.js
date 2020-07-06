@@ -1,7 +1,7 @@
 import React from 'react';
 import _Mat from './lib/matrix'
 import _MathLib from './lib/mathlib'
-import {Chol as _Chol } from './lib/algebra'
+import {Chol as _Chol, QR as _QR, LU as _LU } from './lib/algebra'
 import OutputItem from './output/output_item'
 /*
 
@@ -64,6 +64,13 @@ function range(start:number, end = null, step = 1):Mat {return mat().range(start
 class Chol extends _Chol {}
 function chol(A:Mat): Chol {return new Chol(A);}
 
+class QR extends _QR{}
+function qr(A:Mat): QR {return new QR(A);}
+
+class LU extends _LU{}
+function lu(A:Mat): LU {return new LU(A);}
+
+
 //tic and toc
 let timestamp = 0;
 function tic() {timestamp = performance.now()}
@@ -99,7 +106,7 @@ function draw(data:any, layout:any)
 // plot2D is a wrapper for draw() function for scatter plot on 2D only
 function plot2D(x_:any, y_:any){
     draw([{x: x_, y: y_, type: 'scatter', mode: 'markers',
-          marker: {color: 'blue', size:'4'},}]);      
+          marker: {color: 'blue', size:'2'},}]);      
 }
 
 function plot2DLine(x_:any, y_:any){
@@ -109,12 +116,12 @@ function plot2DLine(x_:any, y_:any){
 
 // plot3D is a wrapper for draw() function for scatter plot on 3D only
 function plot3D(x_:any, y_:any, z_:any){
-    draw([{x:x_, y: y_, z: z_,mode: 'markers',marker: {color: 'blue',size: 4},type: 'scatter3d'}],{});
+    draw([{x:x_, y: y_, z: z_,mode: 'markers',marker: {color: 'blue',size: 2}, opacity: 0.5,type: 'scatter3d'}],{});
 }
 
 
 function plot3DMesh(x_:any, y_:any, z_:any){
-    draw([{x:x_, y: y_, z: z_,mode: 'markers',marker: {color: 'blue',size: 4},type: 'mesh3d'}],{});
+    draw([{x:x_, y: y_, z: z_,mode: 'markers',marker: {color: 'blue',size: 2}, opacity: 0.5,type: 'mesh3d'}],{});
 }
 
 // show Tex in MathJax
