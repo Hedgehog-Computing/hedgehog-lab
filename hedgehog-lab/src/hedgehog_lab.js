@@ -31,6 +31,7 @@ print("hello world")
 `;
 
 
+
 class Mat extends _Mat.Mat {};
 
 // below is a wrapper of constructing a Mat object
@@ -159,7 +160,7 @@ class HedgehogLab extends Component {
           highlight={code => highlight(code, languages.js)}
           padding={10}
           style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
+            fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
             fontSize: 12,
           }}
         />
@@ -215,4 +216,3 @@ class HedgehogLab extends Component {
 
 
 export default HedgehogLab;
-
