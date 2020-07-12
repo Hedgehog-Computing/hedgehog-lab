@@ -33,7 +33,9 @@ function operator_overload_raw_function(_ref) {
   function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
   
   function invokedTemplate(op) {
-    return (0, _babelTemplate2.default)('\n      (function (LEFT_ARG, RIGHT_ARG) { \n        if (LEFT_ARG !== null && LEFT_ARG !== undefined\n             && LEFT_ARG[Symbol.for("' + op + '")])\n            return LEFT_ARG[Symbol.for("' + op + '")](RIGHT_ARG)\n        else return LEFT_ARG ' + op + ' RIGHT_ARG\n      })\n  ');
+    console.log("this is op") 
+    console.log(op)
+    return (0, _babelTemplate2.default)('\n      (function (LEFT_ARG, RIGHT_ARG) { \n        if (LEFT_ARG !== null && LEFT_ARG !== undefined\n             && LEFT_ARG[Symbol.for("' + op + '")])\n            return (LEFT_ARG[Symbol.for("' + op + '")](RIGHT_ARG))\n      else if (RIGHT_ARG instanceof Sym) return (sym(LEFT_ARG)[Symbol.for("' + op + '")](RIGHT_ARG))\n       else if ( LEFT_ARG instanceof Array && (RIGHT_ARG instanceof Mat)) return (mat(LEFT_ARG)[Symbol.for("' + op + '")](RIGHT_ARG)) \n          else if ( typeof LEFT_ARG === \'number\' && (RIGHT_ARG instanceof Mat)) return (scalar(LEFT_ARG)[Symbol.for("' + op + '")](RIGHT_ARG)) \n          else return LEFT_ARG ' + op + ' RIGHT_ARG\n      })\n  ');
   }
 
 

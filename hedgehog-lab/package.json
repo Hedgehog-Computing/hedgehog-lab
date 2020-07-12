@@ -23,6 +23,7 @@
     "material-ui": "^0.20.2",
     "mathjax": "^3.0.5",
     "mathjs": "^7.0.1",
+    "nerdamer": "^1.1.5",
     "plotly.js": "^1.45.3",
     "prismjs": "^1.20.0",
     "react": "^16.13.1",

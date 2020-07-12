@@ -188,6 +188,59 @@ draw(
 );
 `
 
+demo_7_symbolic = 
+`//define symbol x
+let x = sym('x')
+
+//write expression
+let fx = ( x^2 ) + exp(x) + sin(x)
+
+//print f(x) 
+formulaTex(\`f(x) = \` + fx.toTex())
+
+//print f'(x)
+formulaTex(\`f'(x) = \` + diff(fx,x).toTex())
+
+//print integrate of f(x)
+formulaTex(\`\\\\int{f(x)dx} = \` + integrate(fx,x).toTex())
+
+
+//define g(x)
+let gx = fx*fx + 1/fx + cos(x)
+
+//print g(x)
+formulaTex(\`g(x) = \` + gx.toTex())
+
+//print g'(x)
+formulaTex(\`g'(x) = \` + diff(gx,x).toTex())
+
+//print integrate of g(x)
+formulaTex(\`\\\\int{g(x)dx} = \` + integrate(gx,x).toTex())
+
+//define another two symbols
+let w = sym('w');
+let y = sym('y');
+
+//write another expression
+let W = (x^w) + sin(w+y) + (y^-2) + 1/w + log(cos(x) + sin(x))
+
+// W
+formulaTex(\`W(x,y,w) = \` + W.toTex())
+
+// dW / dx
+formulaTex(\`\\\\frac{dW(x,y,w)}{dx} = \` + diff(W,x).toTex());
+
+// dW / dy
+formulaTex(\`\\\\frac{dW(x,y,w)}{dy} = \` + diff(W,y).toTex());
+
+// dW / dw
+formulaTex(\`\\\\frac{dW(x,y,w)}{dw} = \` + diff(W,w).toTex());
+
+// integral W on x
+formulaTex(\`\\\\int{W(x,y,w)dx} = \` + integrate(W,x).toTex());
+`
+
+
     demo_ = 
 `//demo 1: create matrix and operator overload
 

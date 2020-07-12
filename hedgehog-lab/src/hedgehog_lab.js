@@ -139,6 +139,9 @@ class HedgehogLab extends Component {
     else if (tutorialID === 6){
       this.setState({user_input_code: tutorialObject.demo_6_graphics})
     }
+    else if (tutorialID === 7){
+      this.setState({user_input_code: tutorialObject.demo_7_symbolic})
+    }
   }
 
   //handleChange = (e, { value }) => this.setState({ value })
@@ -200,6 +203,9 @@ class HedgehogLab extends Component {
         <Form.Button onClick={
           (event)=>this.handleLoadingTutorialCode(6, event)
         }>Tutorial 6: Figures and plotting</Form.Button>
+        <Form.Button onClick={
+          (event)=>this.handleLoadingTutorialCode(7, event)
+        }>Tutorial 7: Symbolic computing</Form.Button>
 
 
       </Form>

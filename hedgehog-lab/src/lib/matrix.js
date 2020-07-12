@@ -1,4 +1,4 @@
-import { inv } from 'mathjs';
+import { inv, number } from 'mathjs';
 
 const { GPU } = require('gpu.js');
 const gpu = new GPU();
@@ -788,4 +788,23 @@ function json2mat(json_str: string): Mat {
     throw new Error("Fail to read matrix from json");
 }
 
-export default {Mat, mat2csv, mat2json, csv2mat, json2mat} ;  
+
+// Class Scalar is ONLY USED FOR OPERATOR OVERLOAD
+class Scalar{
+    val:number;
+    constructor(val:number):Scalar {     this.val = val;    }
+
+    //operator add
+    // scalar + rightMatrix
+    [Symbol.for('+')] (rightOperand: Mat ): Mat { return rightOperand.addScalar(this.val); }
+
+    // operator minus
+    // scalar - rightMatrix
+    [Symbol.for('-')] (rightOperand: Mat ): Mat { return rightOperand.multiplyScalar(-1).addScalar(this.val);}
+
+    // operator multiply
+    // scalar * rightMatrix == rightMatrix .* scalar
+    [Symbol.for('*')] (rightOperand: Mat | number| number[] | number[][]): Mat {return rightOperand.multiplyScalar(this.val);}
+}
+
+export default {Mat, mat2csv, mat2json, csv2mat, json2mat, Scalar} ;  
