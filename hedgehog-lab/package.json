@@ -44,6 +44,7 @@
   "scripts": {
     "start": "react-scripts --max_old_space_size=8192 start",
     "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts --max_old_space_size=8192 build",
+    "now-build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts --max_old_space_size=512 build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
