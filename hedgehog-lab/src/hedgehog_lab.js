@@ -197,7 +197,8 @@ class HedgehogLab extends Component {
                         style={{
                           fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
                           fontSize: 16,
-                          border: "1px"
+                          border: "1px",
+                          backgroundColor: "#edf2f7"
                         }}
                       />
                     </CardContent>
@@ -230,6 +231,10 @@ class HedgehogLab extends Component {
 
                   <TextareaAutosize
                     value={this.state.execution_output_string}
+                    style={{ 
+                      fontSize: 16,
+                      fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+                    }}
                   />
 
                   <div>
