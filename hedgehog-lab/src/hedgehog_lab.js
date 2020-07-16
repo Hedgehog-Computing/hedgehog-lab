@@ -11,8 +11,19 @@ import { executeOutput } from './hedgehog_runtime';
 
 import Editor from 'react-simple-code-editor';
 
-import { TextareaAutosize, Grid, Container } from '@material-ui/core';
-
+import {
+  TextareaAutosize,
+  Grid,
+  Container,
+  Button,
+  Box,
+  Typography,
+  AppBar,
+  Toolbar,
+  Card,
+  CardHeader,
+  CardContent
+} from '@material-ui/core';
 
 import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-clike';
@@ -38,14 +49,12 @@ class Mat extends _Mat.Mat { };
 // below is a wrapper of constructing a Mat object
 function mat(input?: number[][] | number[] | number): Mat { return new Mat(input); }
 
-
-
-
-
 function transpile(your_code: string): string {
   var output_vanilla_js_string = transpiler_core(your_code);
   return output_vanilla_js_string;
 }
+
+const tutorialText = ['Matrix', 'Operators', 'GPU Acceleration', 'Built-in functions', 'TeX in Hedgehog Lab', 'Figures and plotting', 'Symbolic computing']
 
 class HedgehogLab extends Component {
 
@@ -152,71 +161,89 @@ class HedgehogLab extends Component {
       <div>
         <div>
           <Container maxWidth="lg">
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <Form>
-                  <Form.Button size="lg" onClick={this.handleCompileAndRun}>Compile and run</Form.Button>
+            <div style={{ flexGrow: 1 }}>
+              <AppBar position="static" elevation={0} color="default">
+                <Toolbar>
+                  <Typography variant="h6" style={{ flexGrow: 1 }}>
+                    Hedgehog Lab
+                  </Typography>
+                  
+                  <Button color="inherit" style={{ textTransform: "none" }} target="_black" href="https://twitter.com/lidangzzz">Twitter</Button>
+                  <Button color="inherit" style={{ textTransform: "none" }} target="_black" href="https://github.com/lidangzzz/hedgehog-lab">Github</Button>
+                </Toolbar>
+              </AppBar>
+            </div>
 
-                  <Label>Your code:</Label>
+            <Box my={4}>
+              <Grid container spacing={3}>
+                <Grid item xs={12} md={6}>
+                  <Card variant="outlined">
+                    <CardHeader
+                      action={
+                        <Button variant="contained" color="primary" onClick={this.handleCompileAndRun} style={{ textTransform: "none" }}>
+                          Compile and run
+                        </Button>
+                      }
+                      title="Your code:"
+                    />
 
-                  <Editor
-                    value={this.state.user_input_code}
-                    aria-label="code editor"
-                    onValueChange={code => this.setState({ user_input_code: code })}
-                    highlight={code => highlight(code, languages.js)}
-                    padding={10}
-                    style={{
-                      fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
-                      fontSize: 12,
-                    }}
+                    <CardContent>
+                      <Editor
+                        value={this.state.user_input_code}
+                        aria-label="code editor"
+                        onValueChange={code => this.setState({ user_input_code: code })}
+                        highlight={code => highlight(code, languages.js)}
+                        padding={5}
+                        style={{
+                          fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+                          fontSize: 16,
+                          border: "1px"
+                        }}
+                      />
+                    </CardContent>
+                  </Card>
+
+                  <Box my={2}>
+                    <Typography variant="h6" gutterBottom>
+                      Hedgehog Lab Tutorials:
+                    </Typography>
+
+                    {
+                      [...tutorialText].map((item, i) => {
+                        return (
+                          <Box my={1}>
+                            <Button size="small" style={{ textTransform: "none" }} variant="contained" disableElevation onClick={
+                              (event) => this.handleLoadingTutorialCode(i + 1, event)
+                            }>
+                              Tutorial {i + 1}: {item}
+                            </Button>
+                          </Box>
+                        )
+                      })
+                    }
+                  </Box>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="h6" gutterBottom>
+                    Results
+                  </Typography>
+
+                  <TextareaAutosize
+                    value={this.state.execution_output_string}
                   />
-                </Form>
 
-                <Form>
-                  <br /><br />
-
-                  <Label>Hedgehog Lab Tutorials:</Label>
-                  <Form.Button onClick={
-                    (event) => this.handleLoadingTutorialCode(1, event)
-                  }>Tutorial 1: Matrix</Form.Button>
-                  <Form.Button onClick={
-                    (event) => this.handleLoadingTutorialCode(2, event)
-                  }>Tutorial 2: Operators</Form.Button>
-                  <Form.Button onClick={
-                    (event) => this.handleLoadingTutorialCode(3, event)
-                  }>Tutorial 3: GPU Acceleration</Form.Button>
-                  <Form.Button onClick={
-                    (event) => this.handleLoadingTutorialCode(4, event)
-                  }>Tutorial 4: Built-in functions</Form.Button>
-                  <Form.Button onClick={
-                    (event) => this.handleLoadingTutorialCode(5, event)
-                  }>Tutorial 5: TeX in Hedgehog Lab</Form.Button>
-                  <Form.Button onClick={
-                    (event) => this.handleLoadingTutorialCode(6, event)
-                  }>Tutorial 6: Figures and plotting</Form.Button>
-                  <Form.Button onClick={
-                    (event) => this.handleLoadingTutorialCode(7, event)
-                  }>Tutorial 7: Symbolic computing</Form.Button>
-                </Form>
+                  <div>
+                    <Output outputItemList={this.state.execution_output_list} />
+                  </div>
+                </Grid>
               </Grid>
-              <Grid item xs={12} md={6}>
-                <Label>Results:</Label>
 
-                <TextareaAutosize
-                  value={this.state.execution_output_string}
-                />
-
-                <div>
-                  <Output outputItemList={this.state.execution_output_list} />
-                </div>
-              </Grid>
-            </Grid>
-
-            <Label color='green' basic>
-              <a href="https://github.com/lidangzzz/hedgehog-lab" target="_blank">Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab</a>
-              <br />
-              <a href="https://twitter.com/lidangzzz" target="_blank">Follow my Twitter: @lidangzzz</a>
-            </Label>
+              <Label color='green' basic>
+                <a href="https://github.com/lidangzzz/hedgehog-lab" target="_blank">Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab</a>
+                <br />
+                <a href="https://twitter.com/lidangzzz" target="_blank">Follow my Twitter: @lidangzzz</a>
+              </Label>
+            </Box>
           </Container>
         </div>
       </div>
