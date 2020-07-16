@@ -235,6 +235,7 @@ class HedgehogLab extends Component {
                       fontSize: 16,
                       fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
                     }}
+                    disabled
                   />
 
                   <div>
