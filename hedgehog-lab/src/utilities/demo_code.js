@@ -240,6 +240,53 @@ formulaTex(\`\\\\frac{dW(x,y,w)}{dw} = \` + diff(W,w).toTex());
 formulaTex(\`\\\\int{W(x,y,w)dx} = \` + integrate(W,x).toTex());
 `
 
+demo_8_markdown = 
+`markdown(\`
+# Hedgehog Lab Markdown Example
+
+## Plain Text 
+
+This is an example for **plain text** in [Hedgehog Lab](https://github.com/lidangzzz/hedgehog-lab)
+
+## Code Example
+
+\\\`\\\`\\\`
+let matrixA = mat([[1,2,3],[4,5,6],[7,8,9]]);
+let matrixB = matrixA * matrixA.T();
+print(matrixB);
+\\\`\\\`\\\`
+
+## Table Features
+
+| Feature   | Support |
+| --------- | ------- |
+| tables    | ✔ |
+| alignment | ✔ |
+| wewt      | ✔ |
+
+## Feel free to arrange any TeX, plotting and Markdown blocks in Hedgehog Lab!
+\`)
+
+formulaTex(\`A = \` + range(1,26).reshape(5,5).toTex())
+
+let x = sym('x')
+let fx = sin(x) + cos(x) + 1/x;
+
+tex(\`\\\\text{Let's define a function in hedgehog lab as: }f(x) = \` + fx.toTex() + \` \\\\text{, and the derivative of the function is:}\`);
+formulaTex(\`f'(x) = \` + diff(fx,x).toTex());
+
+let X = range(1,10,0.01);
+let Y = sin(X);
+plot2DLine(X.toArray(), Y.toArray());
+
+markdown(\`
+---------------
+
+This document is created and maintained by Hedgehog Lab Community. The markdown feature is supported by [react-markdown](https://github.com/rexxars/react-markdown). Fork our project at [https://github.com/lidangzzz/hedgehog-lab](https://github.com/lidangzzz/hedgehog-lab)
+\`)
+
+
+`;
 
     demo_ = 
 `//demo 1: create matrix and operator overload

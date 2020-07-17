@@ -9,7 +9,11 @@ import transpiler_core from './transpiler_core';
 
 import { executeOutput } from './hedgehog_runtime';
 
-import Editor from 'react-simple-code-editor';
+//import Editor from 'react-simple-code-editor';
+
+import {ControlledEditor}  from '@monaco-editor/react';
+
+//import MonacoEditor from 'react-monaco-editor';
 
 import {
   TextareaAutosize,
@@ -54,7 +58,7 @@ function transpile(your_code: string): string {
   return output_vanilla_js_string;
 }
 
-const tutorialText = ['Matrix', 'Operators', 'GPU Acceleration', 'Built-in functions', 'TeX in Hedgehog Lab', 'Figures and plotting', 'Symbolic computing']
+const tutorialText = ['Matrix', 'Operators', 'GPU Acceleration', 'Built-in functions', 'TeX in Hedgehog Lab', 'Figures and plotting', 'Symbolic computing', 'Markdown']
 
 class HedgehogLab extends Component {
 
@@ -69,7 +73,6 @@ class HedgehogLab extends Component {
 
     };
     this.handleCompileAndRun = this.handleCompileAndRun.bind(this);
-    this.handleUserInputCodeChange = this.handleUserInputCodeChange.bind(this);
   }
 
   handleCompileAndRun(event) {
@@ -114,10 +117,6 @@ class HedgehogLab extends Component {
     event.preventDefault();
   }
 
-  handleUserInputCodeChange(event) {
-    this.setState({ user_input_code: event.target.value });
-  }
-
   handleLoadingTutorialCode(tutorialID, event) {
     let tutorialObject = new demoCode();
     if (tutorialID === 1) {
@@ -151,16 +150,25 @@ class HedgehogLab extends Component {
     else if (tutorialID === 7) {
       this.setState({ user_input_code: tutorialObject.demo_7_symbolic })
     }
+    else if (tutorialID === 8) {
+      this.setState({user_input_code:tutorialObject.demo_8_markdown})
+    }
   }
 
   //handleChange = (e, { value }) => this.setState({ value })
 
   render() {
+
+    const options = {
+      wordWrap: "on",
+    };
     return (
+
+      
 
       <div>
         <div>
-          <Container maxWidth="lg">
+          <Container maxWidth="xl">
             <div style={{ flexGrow: 1 }}>
               <AppBar position="static" elevation={0} color="default">
                 <Toolbar>
@@ -188,19 +196,17 @@ class HedgehogLab extends Component {
                     />
 
                     <CardContent>
-                      <Editor
-                        value={this.state.user_input_code}
-                        aria-label="code editor"
-                        onValueChange={code => this.setState({ user_input_code: code })}
-                        highlight={code => highlight(code, languages.js)}
-                        padding={5}
-                        style={{
-                          fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
-                          fontSize: 16,
-                          border: "1px",
-                          backgroundColor: "#edf2f7"
-                        }}
-                      />
+
+                    
+                    <ControlledEditor 
+                    height="90vh"
+                    language="javascript"
+                    value={this.state.user_input_code}
+                    onChange={(e,v)=> {this.setState({user_input_code: v}) }}
+                    options = {options}
+                  />
+                      
+
                     </CardContent>
                   </Card>
 
@@ -232,7 +238,7 @@ class HedgehogLab extends Component {
                   <TextareaAutosize
                     value={this.state.execution_output_string}
                     style={{ 
-                      fontSize: 16,
+                      //fontSize: 16,
                       fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
                     }}
                     disabled

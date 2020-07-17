@@ -163,6 +163,13 @@ function formulaTex(inputTex:string){
     _OUTPUT_ITEMS_LIST_.push(objItem);
 }
 
+function markdown(inputMarkdown:string){
+    let objItem = new OutputItem();
+    objItem.outputType = "markdown";
+    objItem.text = inputMarkdown;
+    _OUTPUT_ITEMS_LIST_.push(objItem);
+}
+
 
 function executeOutput(your_code:string):any{
     let code_to_be_executed = your_code + "\n _OUTPUT_ITEMS_LIST_";

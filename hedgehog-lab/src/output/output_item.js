@@ -13,6 +13,7 @@ class OutputItem{
     isDraw() {return this.outputType==="draw"}
     isTex() {return this.outputType === "tex"}
     isFormulaTex() {return this.outputType === "formulaTex"}
+    isMarkdown() {return this.outputType === "markdown"}
 }
 
 export default OutputItem;
