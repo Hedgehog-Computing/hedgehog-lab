@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
-import {
-  Form,
-  TextArea,
-  Label,
-} from 'semantic-ui-react'
 
 import transpiler_core from './transpiler_core';
 
 import { executeOutput } from './hedgehog_runtime';
 
 import { ControlledEditor } from '@monaco-editor/react';
-
 
 import {
   TextareaAutosize,
@@ -23,7 +17,8 @@ import {
   Toolbar,
   Card,
   CardHeader,
-  CardContent
+  CardContent,
+  Link
 } from '@material-ui/core';
 
 import { highlight, languages } from 'prismjs/components/prism-core';
@@ -232,21 +227,29 @@ class HedgehogLab extends Component {
                     <Output outputItemList={this.state.execution_output_list} />
                   </div>
                   <TextareaAutosize
-                  value={this.state.execution_output_string}
-                  style={{
-                    //fontSize: 16,
-                    fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
-                  }}
-                  disabled
-                />
+                    value={this.state.execution_output_string}
+                    style={{
+                      //fontSize: 16,
+                      fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+                    }}
+                    disabled
+                  />
                 </Grid>
               </Grid>
 
-              <Label color='green' basic>
-                <a href="https://github.com/lidangzzz/hedgehog-lab" target="_blank">Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab</a>
-                <br />
-                <a href="https://twitter.com/lidangzzz" target="_blank">Follow my Twitter: @lidangzzz</a>
-              </Label>
+              <div>
+                <Typography>
+                  <Link href="https://github.com/lidangzzz/hedgehog-lab" variant="title">
+                    {'Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab"'}
+                  </Link>
+
+                  <br />
+
+                  <Link href="https://twitter.com/lidangzzz" variant="title">
+                    {'Follow my Twitter: @lidangzzz'}
+                  </Link>
+                </Typography>
+              </div>
             </Box>
           </Container>
         </div>

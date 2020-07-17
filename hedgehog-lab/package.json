@@ -42,7 +42,6 @@
     "react-scripts": "3.4.1",
     "react-simple-code-editor": "^0.11.0",
     "react-split-pane": "^0.1.91",
-    "semantic-ui-react": "^0.88.2",
     "typescript": "^3.9.3",
     "update": "^0.7.4"
   },
