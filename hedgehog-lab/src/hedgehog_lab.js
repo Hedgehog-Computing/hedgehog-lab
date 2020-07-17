@@ -9,11 +9,8 @@ import transpiler_core from './transpiler_core';
 
 import { executeOutput } from './hedgehog_runtime';
 
-//import Editor from 'react-simple-code-editor';
+import { ControlledEditor } from '@monaco-editor/react';
 
-import {ControlledEditor}  from '@monaco-editor/react';
-
-//import MonacoEditor from 'react-monaco-editor';
 
 import {
   TextareaAutosize,
@@ -151,7 +148,7 @@ class HedgehogLab extends Component {
       this.setState({ user_input_code: tutorialObject.demo_7_symbolic })
     }
     else if (tutorialID === 8) {
-      this.setState({user_input_code:tutorialObject.demo_8_markdown})
+      this.setState({ user_input_code: tutorialObject.demo_8_markdown })
     }
   }
 
@@ -161,11 +158,9 @@ class HedgehogLab extends Component {
 
     const options = {
       wordWrap: "on",
+      scrollBeyondLastLine: false
     };
     return (
-
-      
-
       <div>
         <div>
           <Container maxWidth="xl">
@@ -175,7 +170,7 @@ class HedgehogLab extends Component {
                   <Typography variant="h6" style={{ flexGrow: 1 }}>
                     Hedgehog Lab
                   </Typography>
-                  
+
                   <Button color="inherit" style={{ textTransform: "none" }} target="_black" href="https://twitter.com/lidangzzz">Twitter</Button>
                   <Button color="inherit" style={{ textTransform: "none" }} target="_black" href="https://github.com/lidangzzz/hedgehog-lab">Github</Button>
                 </Toolbar>
@@ -196,17 +191,13 @@ class HedgehogLab extends Component {
                     />
 
                     <CardContent>
-
-                    
-                    <ControlledEditor 
-                    height="90vh"
-                    language="javascript"
-                    value={this.state.user_input_code}
-                    onChange={(e,v)=> {this.setState({user_input_code: v}) }}
-                    options = {options}
-                  />
-                      
-
+                      <ControlledEditor
+                        height="90vh"
+                        language="javascript"
+                        value={this.state.user_input_code}
+                        onChange={(e, v) => { this.setState({ user_input_code: v }) }}
+                        options={options}
+                      />
                     </CardContent>
                   </Card>
 
@@ -232,21 +223,22 @@ class HedgehogLab extends Component {
                 </Grid>
                 <Grid item xs={12} md={6}>
                   <Typography variant="h6" gutterBottom>
-                    Results
+                    Results:
                   </Typography>
 
-                  <TextareaAutosize
-                    value={this.state.execution_output_string}
-                    style={{ 
-                      //fontSize: 16,
-                      fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
-                    }}
-                    disabled
-                  />
+
 
                   <div>
                     <Output outputItemList={this.state.execution_output_list} />
                   </div>
+                  <TextareaAutosize
+                  value={this.state.execution_output_string}
+                  style={{
+                    //fontSize: 16,
+                    fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+                  }}
+                  disabled
+                />
                 </Grid>
               </Grid>
 
