@@ -45,10 +45,10 @@
     "update": "^0.7.4"
   },
   "scripts": {
-    "start": "react-scripts --max_old_space_size=8192 start",
-    "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts --max_old_space_size=8192 build",
-    "now-build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts --max_old_space_size=512 build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired --max_old_space_size=8192 start",
+    "build": "set \"GENERATE_SOURCEMAP=false\" && react-app-rewired --max_old_space_size=8192 build",
+    "now-build": "set \"GENERATE_SOURCEMAP=false\" && react-app-rewired --max_old_space_size=512 build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -68,6 +68,8 @@
   },
   "devDependencies": {
     "@babel/standalone": "^7.10.2",
-    "gh-pages": "^3.0.0"
+    "gh-pages": "^3.0.0",
+    "react-app-rewired": "^2.1.6",
+    "worker-loader": "^2.0.0"
   }
 }

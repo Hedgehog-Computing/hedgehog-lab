@@ -34,7 +34,7 @@ function scalar(val:number):Scalar {return new Scalar(val);}
 //other functions for symbolic computation
 
 //diff from nerdamer.
-//x: sym object for input expression, 
+//x: sym object for input expression,
 function diff(input: Sym, varName?:Sym, times=1):Sym { if (varName) {return new Sym(nerdamer.diff(input.toString(), varName.toString(), times).text());} return new Sym(nerdamer.diff(input.toString(), times).text());}
 
 //integrate from nerdamer
@@ -100,7 +100,7 @@ let timestamp = 0;
 function tic() {timestamp = performance.now()}
 function toc() {print(`Elapsed time: ${performance.now() - timestamp} milliseconds.`);}
 
-//below is the execution part 
+//below is the execution part
 
 // _GLOBAL_RESULTS_ is a list of strings from user output
 var _GLOBAL_RESULTS_ = [];
@@ -108,8 +108,8 @@ var _GLOBAL_RESULTS_ = [];
 var _OUTPUT_ITEMS_LIST_ = [];
 
 // print function is a function for user to output information
-function print(a:any) { 
-    _GLOBAL_RESULTS_.push(a); 
+function print(a:any) {
+    _GLOBAL_RESULTS_.push(a);
     let objItem = new OutputItem();
     objItem.outputType = "print";
     objItem.text = a;
@@ -130,12 +130,12 @@ function draw(data:any, layout:any)
 // plot2D is a wrapper for draw() function for scatter plot on 2D only
 function plot2D(x_:any, y_:any){
     draw([{x: x_, y: y_, type: 'scatter', mode: 'markers',
-          marker: {color: 'blue', size:'2'},}]);      
+          marker: {color: 'blue', size:'2'},}]);
 }
 
 function plot2DLine(x_:any, y_:any){
     draw([{x: x_, y: y_, type: 'scatter', mode: 'lines+markers',
-          marker: {color: 'blue', size:'4'},}]);  
+          marker: {color: 'blue', size:'4'},}]);
 }
 
 // plot3D is a wrapper for draw() function for scatter plot on 3D only
@@ -154,7 +154,7 @@ function tex(inputTex:string){
     objItem.outputType = "tex";
     objItem.text = inputTex;
     _OUTPUT_ITEMS_LIST_.push(objItem);
-} 
+}
 
 function formulaTex(inputTex:string){
     let objItem = new OutputItem();
