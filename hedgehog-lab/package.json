@@ -59,6 +59,9 @@
       "last 1 safari version"
     ]
   },
+  "engines": {
+    "node": ">=10.0.0"
+  },
   "devDependencies": {
     "gh-pages": "^3.0.0",
     "typescript": "^3.9.3"
