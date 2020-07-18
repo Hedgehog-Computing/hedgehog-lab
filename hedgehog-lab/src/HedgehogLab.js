@@ -70,7 +70,7 @@ class HedgehogLab extends Component {
       this.setState({
         execution_output_string:
           'Exception caught while executing the script:\n\n' +
-          executionError.toString(),
+          executionError.stack,
       });
       return;
     }

@@ -17,7 +17,7 @@ function invokedTemplate(op) {
         return (sym(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG));
       else if ( LEFT_ARG instanceof Array && (RIGHT_ARG instanceof Mat))
         return (mat(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG));
-      else if ( typeof LEFT_ARG === \'number\' && (RIGHT_ARG instanceof Mat))
+      else if ( typeof LEFT_ARG === 'number' && (RIGHT_ARG instanceof Mat))
         return (scalar(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG));
       else
         return LEFT_ARG ${op} RIGHT_ARG;
