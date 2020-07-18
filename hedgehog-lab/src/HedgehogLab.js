@@ -137,6 +137,7 @@ class HedgehogLab extends Component {
     // });
     //
     // this.setState({ execution_output_string: output_string });
+
     event.preventDefault();
   }
 
