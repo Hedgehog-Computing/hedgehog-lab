@@ -11,6 +11,9 @@ import {
   CardHeader,
   CardContent,
   Link,
+  List,
+  ListItem,
+  ListItemText,
 } from '@material-ui/core';
 
 import Output from './components/Output';
@@ -99,104 +102,139 @@ class HedgehogLab extends Component {
       scrollBeyondLastLine: false,
     };
     return (
-      <div>
-        <div>
-          <Box my={4}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} md={6}>
-                <Card variant="outlined">
-                  <CardHeader
-                    action={
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={this.handleCompileAndRun}
-                        style={{ textTransform: 'none' }}
+      <Box>
+        <Grid container>
+          <Grid item xs={12} md={12} lg={3} xl={2}>
+            <Card variant="outlined" style={{
+              backgroundColor: 'transparent',
+              height: '100%'
+            }}>
+              <CardHeader
+                title="Hedgehog Lab Tutorials:"
+              />
+
+              <List>
+                {tutorials.map((tutorial, i) => {
+                  return (
+                    <ListItem button>
+                      <ListItemText
+                        onClick={(event) =>
+                          this.handleLoadTutorial(i, event)
+                        }
                       >
-                        Compile and run
-                        </Button>
-                    }
-                    title="Your code:"
-                  />
+                        Tutorial {i + 1}: {tutorial.description}
+                      </ListItemText>
+                    </ListItem>
+                  );
+                })}
+              </List>
+            </Card>
+          </Grid>
 
-                  <CardContent>
-                    <ControlledEditor
-                      height="90vh"
-                      language="javascript"
-                      value={this.state.source}
-                      onChange={(e, v) => {
-                        this.setState({ source: v });
-                      }}
-                      options={options}
-                    />
-                  </CardContent>
-                </Card>
+          <Grid item xs={12} md={6} lg={5} xl={5} style={{
+            height: '90vh'
+          }}>
+            <Card variant="outlined" style={{
+              backgroundColor: 'transparent',
+              height: '100%'
+            }}>
+              <CardHeader
+                action={
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.handleCompileAndRun}
+                    style={{
+                      textTransform: 'none',
+                    }}
+                  >
+                    Compile and run
+                  </Button>
+                }
+                title="Your code:"
+              />
 
-                <Box my={2}>
-                  <Typography variant="h6" gutterBottom>
-                    Hedgehog Lab Tutorials:
-                  </Typography>
-
-                  {tutorials.map((tutorial, i) => {
-                    return (
-                      <Box my={1}>
-                        <Button
-                          size="small"
-                          style={{ textTransform: 'none' }}
-                          variant="contained"
-                          disableElevation
-                          onClick={(event) =>
-                            this.handleLoadTutorial(i, event)
-                          }
-                        >
-                          Tutorial {i + 1}: {tutorial.description}
-                        </Button>
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <Typography variant="h6" gutterBottom>
-                  Results:
-                  </Typography>
-
-                <div>
-                  <Output outputItemList={this.state.execution_output_list} />
-                </div>
-                <TextareaAutosize
-                  value={this.state.execution_output_string}
-                  style={{
-                    //fontSize: 16,
-                    fontFamily:
-                      "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+              <CardContent>
+                <ControlledEditor
+                  height="80vh"
+                  language="javascript"
+                  value={this.state.source}
+                  onChange={(e, v) => {
+                    this.setState({ source: v });
                   }}
-                  disabled
+                  options={options}
+                  theme="dark"
+                  style={{
+                    backgroundColor: 'transparent',
+                  }}
                 />
-              </Grid>
-            </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
 
-            <div>
-              <Typography>
-                <Link
-                  href="https://github.com/lidangzzz/hedgehog-lab"
-                  variant="title"
-                >
-                  {
-                    'Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab"'
-                  }
-                </Link>
+          <Grid item xs={12} md={6} lg={4} xl={5} style={{
+            minHeight: '90vh'
+          }}>
+            <Card variant="outlined" style={{
+              backgroundColor: 'transparent',
+              height: '100%',
+              overflowX: 'auto'
+            }}>
+              <CardHeader
+                title="Results:"
+              />
 
-                <br />
+              <CardContent>
+                <Output outputItemList={this.state.execution_output_list} />
 
-                <Link href="https://twitter.com/lidangzzz" variant="title">
-                  {'Follow my Twitter: @lidangzzz'}
-                </Link>
-              </Typography>
-            </div>
-          </Box>
+                {
+                  this.state.execution_output_string &&
+                  <TextareaAutosize
+                    value={this.state.execution_output_string}
+                    style={{
+                      //fontSize: 16,
+                      fontFamily:
+                        "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+                      backgroundColor: 'transparent',
+                      fontSize: '16px',
+                      color: '#fff',
+                      paddingTop: '5px',
+                      border: '.2px solid'
+                    }}
+                    disabled
+                  />
+                }
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
+        <div>
+          <Typography>
+            <Link
+              href="https://github.com/lidangzzz/hedgehog-lab"
+              variant="title"
+              style={{
+                color: 'white'
+              }}
+            >
+              {
+                'Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab'
+              }
+            </Link>
+
+            <br />
+
+            <Link href="https://twitter.com/lidangzzz"
+              variant="title"
+              style={{
+                color: 'white'
+              }}>
+              {'Follow my Twitter: @lidangzzz'}
+            </Link>
+          </Typography>
         </div>
-      </div>
+      </Box>
     );
   }
 }

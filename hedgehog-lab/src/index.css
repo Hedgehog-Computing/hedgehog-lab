@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont ;/*, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: -apple-system, BlinkMacSystemFont; /*, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;*/
   -webkit-font-smoothing: antialiased;
@@ -8,8 +8,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 /* Page */
@@ -31,8 +30,9 @@ body,
 }
 
 body {
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
-  font-size: 14px; 
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji;
+  font-size: 14px;
   line-height: 1.5;
   margin: 0;
   padding: 0;
@@ -82,7 +82,7 @@ body {
 }
 
 .button:hover {
-  background: linear-gradient(45deg, #E42B66, #E2433F);
+  background: linear-gradient(45deg, #e42b66, #e2433f);
 }
 
 /* Syntax highlighting */
@@ -146,10 +146,6 @@ body {
   cursor: help;
 }
 
-
-
-
-
 /*text area*/
 textarea {
   max-width: 100%;
@@ -157,3 +153,17 @@ textarea {
   width: 100%;
 }
 
+/*Editor*/
+.monaco-editor,
+.monaco-editor-background,
+.monaco-editor .inputarea.ime-input {
+  background-color: transparent !important;
+}
+
+.monaco-editor .margin {
+  background-color: transparent !important;
+}
+
+.view-lines {
+  font-family: 'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace !important;
+}

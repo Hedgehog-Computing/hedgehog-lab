@@ -7,7 +7,19 @@ import Markdown from 'react-markdown';
 const Output = ({ outputItemList }) => {
   const items = outputItemList.map((item) => {
     if (item.isDraw()) {
-      return <Plot data={item.data} layout={item.layout} />;
+      return <Plot data={item.data} layout={item.layout} layout={
+        {
+          plot_bgcolor: "#1a1d21",
+          paper_bgcolor: "#1a1d21",
+          xaxis: {
+            color: '#fff'
+          },
+          yaxis: {
+            color: '#fff'
+          },
+          color: '#fff'
+        }
+      } />;
     } else if (item.isTex()) {
       return (
         <MathJax.Provider>

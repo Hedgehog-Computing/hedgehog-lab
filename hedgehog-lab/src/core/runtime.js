@@ -258,7 +258,7 @@ function plot2D(x_: any, y_: any) {
       y: y_,
       type: 'scatter',
       mode: 'markers',
-      marker: { color: 'blue', size: '2' },
+      marker: { color: '#80deea', size: '2' },
     },
   ]);
 }
@@ -270,7 +270,7 @@ function plot2DLine(x_: any, y_: any) {
       y: y_,
       type: 'scatter',
       mode: 'lines+markers',
-      marker: { color: 'blue', size: '4' },
+      marker: { color: '#80deea', size: '4' },
     },
   ]);
 }
@@ -284,7 +284,7 @@ function plot3D(x_: any, y_: any, z_: any) {
         y: y_,
         z: z_,
         mode: 'markers',
-        marker: { color: 'blue', size: 2 },
+        marker: { color: '#80deea', size: 2 },
         opacity: 0.5,
         type: 'scatter3d',
       },
@@ -301,7 +301,7 @@ function plot3DMesh(x_: any, y_: any, z_: any) {
         y: y_,
         z: z_,
         mode: 'markers',
-        marker: { color: 'blue', size: 2 },
+        marker: { color: '#80deea', size: 2 },
         opacity: 0.5,
         type: 'mesh3d',
       },

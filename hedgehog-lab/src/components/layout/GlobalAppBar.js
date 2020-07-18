@@ -20,7 +20,7 @@ const appBarLink = [
 
 export default function GlobalAppBar() {
   return (
-    <AppBar position="static" elevation={0} color="default">
+    <AppBar position="static" elevation={0} color="primary">
       <Toolbar>
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           Hedgehog Lab

@@ -153,7 +153,7 @@ plot3DMesh(x.toArray(),y.toArray(),z.toArray());
 let z2 = z*(-1) + 300;
 let z2_vec = z2.toArray();
 
-draw([{x:x.toArray(), y: y.toArray(), z: z.toArray(), mode: 'markers',marker: {color: 'blue',size: 2}, opacity: 0.5,type: 'scatter3d'}, {x:x.toArray(), y: y.toArray(), z: z2.toArray(),mode: 'markers',marker: {color: 'red',size: 2}, opacity: 0.5,type: 'mesh3d'}],{title:"Example 1 of draw()"});
+draw([{x:x.toArray(), y: y.toArray(), z: z.toArray(), mode: 'markers',marker: {color: '#80deea',size: 2}, opacity: 0.5,type: 'scatter3d'}, {x:x.toArray(), y: y.toArray(), z: z2.toArray(),mode: 'markers',marker: {color: '#ef9a9a',size: 2}, opacity: 0.5,type: 'mesh3d'}],{title:"Example 1 of draw()"});
 
 
 
@@ -173,7 +173,7 @@ let y3 = random(1,30) * 3 + 2;
 
 draw( 
 [{x:x1.toArray(), y:y1.toArray(), mode:"markers"}, {x:x2.toArray(), y:y2.toArray(), mode:"markers"}, {x:x3.toArray(), y:y3.toArray(), mode:"markers"}], 
-{shapes: [{type:'circle', xref:'x', yref:'y', x0 : x1.min(), y0:y1.min(), x1: x1.max(), y1: y1.max(), opacity: 0.2, fillcolor: "green"}, {type:'circle', xref:'x', yref:'y', x0 : x2.min(), y0:y2.min(), x1: x2.max(), y1: y2.max(), opacity: 0.2, fillcolor: "blue"}, {type:'circle', xref:'x', yref:'y', x0 : x3.min(), y0:y3.min(), x1: x3.max(), y1: y3.max(), opacity: 0.2, fillcolor: "red"}], title:"Example 2 of draw(): cluster"}
+{shapes: [{type:'circle', xref:'x', yref:'y', x0 : x1.min(), y0:y1.min(), x1: x1.max(), y1: y1.max(), opacity: 0.2, fillcolor: "#a5d6a7"}, {type:'circle', xref:'x', yref:'y', x0 : x2.min(), y0:y2.min(), x1: x2.max(), y1: y2.max(), opacity: 0.2, fillcolor: "#80deea"}, {type:'circle', xref:'x', yref:'y', x0 : x3.min(), y0:y3.min(), x1: x3.max(), y1: y3.max(), opacity: 0.2, fillcolor: "#ef9a9a"}], title:"Example 2 of draw(): cluster"}
 );
 `;
 const symbolicSource = `//define symbol x
