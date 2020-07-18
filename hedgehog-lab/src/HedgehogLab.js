@@ -116,12 +116,10 @@ class HedgehogLab extends Component {
               <List>
                 {tutorials.map((tutorial, i) => {
                   return (
-                    <ListItem button>
-                      <ListItemText
-                        onClick={(event) =>
-                          this.handleLoadTutorial(i, event)
-                        }
-                      >
+                    <ListItem button onClick={(event) =>
+                      this.handleLoadTutorial(i, event)
+                    }>
+                      <ListItemText>
                         Tutorial {i + 1}: {tutorial.description}
                       </ListItemText>
                     </ListItem>
