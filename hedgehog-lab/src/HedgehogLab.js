@@ -185,7 +185,7 @@ class HedgehogLab extends Component {
             <Box my={4}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
-                  <Card variant="outlined">
+                  <Card variant="outlined" className={'your-code-card'}>
                     <CardHeader
                       action={
                         <div className="run-button">
@@ -242,7 +242,7 @@ class HedgehogLab extends Component {
                   </Box>
                 </Grid>
                 <Grid item xs={12} md={6}>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant="h5" gutterBottom className={'result-title'}>
                     Results:
                   </Typography>
 

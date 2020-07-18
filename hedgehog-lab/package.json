@@ -60,7 +60,6 @@
     ]
   },
   "devDependencies": {
-    "@babel/standalone": "^7.10.2",
     "gh-pages": "^3.0.0",
     "react-app-rewired": "^2.1.6",
     "worker-loader": "^2.0.0",
