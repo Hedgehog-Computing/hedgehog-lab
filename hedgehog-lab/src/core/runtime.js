@@ -1,25 +1,20 @@
-import _Mat from './lib/matrix';
+/**
+ * This is the core runtime for compiled hedgehog script,
+ * all the built-in functions and classes must be defined in this file
+ * to make sure that user can call it at function executeOutput()
+ */
+
+/* eslint-disable no-unused-vars */
+
+import nerdamer from 'nerdamer/all';
+
+import * as _Mat from './lib/matrix';
+import { Mat, Scalar } from './lib/matrix';
 import _MathLib from './lib/mathlib';
-import _Sym from './lib/symbolic';
-import { Chol as _Chol, QR as _QR, LU as _LU } from './lib/algebra';
+import { Sym } from './lib/symbolic';
+import { Chol, QR, LU } from './lib/algebra';
 import OutputItem from './output/output-item';
-var nerdamer = require('nerdamer');
-require('nerdamer/Algebra.js');
-require('nerdamer/Calculus.js');
-require('nerdamer/Solve.js');
-require('nerdamer/Extra.js');
 
-/*
-
-This is the core runtime for compiled hedgehog script,
-all the built-in functions and classes must be defined in this file
-to make sure that user can call it at function executeOutput()
-
-*/
-
-var Mat = _Mat.Mat;
-var Sym = _Sym;
-var Scalar = _Mat.Scalar;
 // below is a wrapper of constructing a Mat object
 function mat(input?: number[][] | number[] | number): Mat {
   return new Mat(input);
@@ -201,17 +196,14 @@ function range(start: number, end = null, step = 1): Mat {
 }
 
 //linear algebra
-class Chol extends _Chol {}
 function chol(A: Mat): Chol {
   return new Chol(A);
 }
 
-class QR extends _QR {}
 function qr(A: Mat): QR {
   return new QR(A);
 }
 
-class LU extends _LU {}
 function lu(A: Mat): LU {
   return new LU(A);
 }
@@ -228,9 +220,9 @@ function toc() {
 //below is the execution part
 
 // _GLOBAL_RESULTS_ is a list of strings from user output
-var _GLOBAL_RESULTS_ = [];
+let _GLOBAL_RESULTS_ = [];
 
-var _OUTPUT_ITEMS_LIST_ = [];
+let _OUTPUT_ITEMS_LIST_ = [];
 
 // print function is a function for user to output information
 function print(a: any) {
@@ -333,12 +325,14 @@ function markdown(inputMarkdown: string) {
 }
 
 function executeOutput(your_code: string): any {
-  let code_to_be_executed = your_code + '\n _OUTPUT_ITEMS_LIST_';
+  const code_to_be_executed = your_code + '\n _OUTPUT_ITEMS_LIST_';
 
-  var final_results = eval(code_to_be_executed);
+  // eslint-disable-next-line no-eval
+  const final_results = eval(code_to_be_executed);
+
   console.log('Execution results:');
   console.log(final_results);
-  var return_list = [...final_results];
+  const return_list = [...final_results];
   _GLOBAL_RESULTS_ = [];
   _OUTPUT_ITEMS_LIST_ = [];
   return return_list;

@@ -1,9 +1,7 @@
-import _Mat from './matrix';
+import { Mat } from './matrix';
 
-class Mat extends _Mat.Mat {}
-
-function to_matrix(A: _Mat.Mat | number[][] | number[] | number): Mat {
-  if (A instanceof _Mat.Mat) {
+function to_matrix(A: Mat | number[][] | number[] | number): Mat {
+  if (A instanceof Mat) {
     return A.clone();
   }
   return new Mat(A);

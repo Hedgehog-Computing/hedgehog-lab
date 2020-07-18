@@ -1,17 +1,16 @@
-import _Mat from './matrix';
+import { Mat } from './matrix';
 import { lup, qr } from 'mathjs';
 
-class Mat extends _Mat.Mat {}
-
 // Cholesky
-class Chol {
+export class Chol {
   L: Mat;
   constructor(A: Mat) {
-    if (A.rows != A.cols || A.rows == 0 || A.cols == 0)
+    if (A.rows !== A.cols || A.rows === 0 || A.cols === 0) {
       throw new Error('Wrong dimension of matrix A.');
+    }
 
     //dimension n
-    let n = A.rows;
+    const n = A.rows;
 
     //matrix L
     let L = new Mat().zeros(n, n);
@@ -24,7 +23,7 @@ class Chol {
           sum += L.val[i][j] * L.val[k][j];
         }
 
-        if (i == k) {
+        if (i === k) {
           L.val[i][k] = Math.sqrt(A.val[i][i] - sum);
         } else {
           L.val[i][k] = (1.0 / L.val[k][k]) * (A.val[i][k] - sum);
@@ -37,7 +36,7 @@ class Chol {
 }
 
 // LU
-class LU {
+export class LU {
   L: Mat;
   U: Mat;
   P: Mat;
@@ -50,7 +49,7 @@ class LU {
 }
 
 // QR
-class QR {
+export class QR {
   Q: Mat;
   R: Mat;
   constructor(A: Mat) {
@@ -59,5 +58,3 @@ class QR {
     this.R = new Mat(result.R);
   }
 }
-
-export { Chol, QR, LU };

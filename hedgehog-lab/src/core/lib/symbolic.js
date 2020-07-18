@@ -1,6 +1,6 @@
 import nerdamer from 'nerdamer';
 
-class Sym {
+export class Sym {
   expression: string;
   constructor(varName?: string) {
     if (varName) this.expression = '(' + varName + ')';
@@ -55,5 +55,3 @@ class Sym {
     return nerdamer(this.expression).toTeX();
   }
 }
-
-export default Sym;

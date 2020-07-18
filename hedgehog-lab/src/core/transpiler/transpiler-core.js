@@ -2,7 +2,7 @@ import preprocess from './preprocess';
 
 function transpilerCore(source) {
   //todo: move the registration of plugins and presets to the constructor
-  var babel = require('@babel/standalone');
+  const babel = require('@babel/standalone');
 
   //register the overload plugin
   babel.registerPlugin('overload', require('babel-plugin-overload'));
@@ -20,7 +20,7 @@ function transpilerCore(source) {
   babel.registerPreset('@babel/preset-flow', require('@babel/preset-flow'));
 
   //the real compiling function
-  var transpiled = babel.transform(
+  const transpiled = babel.transform(
     preprocess(source), // the code
     {
       plugins: ['overload'],
