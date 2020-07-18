@@ -104,102 +104,100 @@ class HedgehogLab extends Component {
     return (
       <div>
         <div>
-          <Container maxWidth="xl">
-            <Box my={4}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} md={6}>
-                  <Card variant="outlined">
-                    <CardHeader
-                      action={
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={this.handleCompileAndRun}
-                          style={{ textTransform: 'none' }}
-                        >
-                          Compile and run
+          <Box my={4}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <Card variant="outlined">
+                  <CardHeader
+                    action={
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={this.handleCompileAndRun}
+                        style={{ textTransform: 'none' }}
+                      >
+                        Compile and run
                         </Button>
-                      }
-                      title="Your code:"
+                    }
+                    title="Your code:"
+                  />
+
+                  <CardContent>
+                    <ControlledEditor
+                      height="90vh"
+                      language="javascript"
+                      value={this.state.source}
+                      onChange={(e, v) => {
+                        this.setState({ source: v });
+                      }}
+                      options={options}
                     />
+                  </CardContent>
+                </Card>
 
-                    <CardContent>
-                      <ControlledEditor
-                        height="90vh"
-                        language="javascript"
-                        value={this.state.source}
-                        onChange={(e, v) => {
-                          this.setState({ source: v });
-                        }}
-                        options={options}
-                      />
-                    </CardContent>
-                  </Card>
-
-                  <Box my={2}>
-                    <Typography variant="h6" gutterBottom>
-                      Hedgehog Lab Tutorials:
-                    </Typography>
-
-                    {tutorials.map((tutorial, i) => {
-                      return (
-                        <Box my={1}>
-                          <Button
-                            size="small"
-                            style={{ textTransform: 'none' }}
-                            variant="contained"
-                            disableElevation
-                            onClick={(event) =>
-                              this.handleLoadTutorial(i, event)
-                            }
-                          >
-                            Tutorial {i + 1}: {tutorial.description}
-                          </Button>
-                        </Box>
-                      );
-                    })}
-                  </Box>
-                </Grid>
-                <Grid item xs={12} md={6}>
+                <Box my={2}>
                   <Typography variant="h6" gutterBottom>
-                    Results:
+                    Hedgehog Lab Tutorials:
                   </Typography>
 
-                  <div>
-                    <Output outputItemList={this.state.execution_output_list} />
-                  </div>
-                  <TextareaAutosize
-                    value={this.state.execution_output_string}
-                    style={{
-                      //fontSize: 16,
-                      fontFamily:
-                        "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
-                    }}
-                    disabled
-                  />
-                </Grid>
+                  {tutorials.map((tutorial, i) => {
+                    return (
+                      <Box my={1}>
+                        <Button
+                          size="small"
+                          style={{ textTransform: 'none' }}
+                          variant="contained"
+                          disableElevation
+                          onClick={(event) =>
+                            this.handleLoadTutorial(i, event)
+                          }
+                        >
+                          Tutorial {i + 1}: {tutorial.description}
+                        </Button>
+                      </Box>
+                    );
+                  })}
+                </Box>
               </Grid>
+              <Grid item xs={12} md={6}>
+                <Typography variant="h6" gutterBottom>
+                  Results:
+                  </Typography>
 
-              <div>
-                <Typography>
-                  <Link
-                    href="https://github.com/lidangzzz/hedgehog-lab"
-                    variant="title"
-                  >
-                    {
-                      'Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab"'
-                    }
-                  </Link>
+                <div>
+                  <Output outputItemList={this.state.execution_output_list} />
+                </div>
+                <TextareaAutosize
+                  value={this.state.execution_output_string}
+                  style={{
+                    //fontSize: 16,
+                    fontFamily:
+                      "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+                  }}
+                  disabled
+                />
+              </Grid>
+            </Grid>
 
-                  <br />
+            <div>
+              <Typography>
+                <Link
+                  href="https://github.com/lidangzzz/hedgehog-lab"
+                  variant="title"
+                >
+                  {
+                    'Fork this repository at Github: https://github.com/lidangzzz/hedgehog-lab"'
+                  }
+                </Link>
 
-                  <Link href="https://twitter.com/lidangzzz" variant="title">
-                    {'Follow my Twitter: @lidangzzz'}
-                  </Link>
-                </Typography>
-              </div>
-            </Box>
-          </Container>
+                <br />
+
+                <Link href="https://twitter.com/lidangzzz" variant="title">
+                  {'Follow my Twitter: @lidangzzz'}
+                </Link>
+              </Typography>
+            </div>
+          </Box>
         </div>
       </div>
     );

@@ -7,6 +7,17 @@ import {
   Toolbar,
 } from '@material-ui/core';
 
+const appBarLink = [
+  {
+    title: 'Twitter',
+    url: 'https://twitter.com/lidangzzz'
+  },
+  {
+    title: 'Github',
+    url: 'https://github.com/lidangzzz/hedgehog-lab'
+  }
+]
+
 export default function GlobalAppBar() {
   return (
     <AppBar position="static" elevation={0} color="default">
@@ -15,23 +26,18 @@ export default function GlobalAppBar() {
           Hedgehog Lab
         </Typography>
 
-        <Button
-          color="inherit"
-          style={{ textTransform: 'none' }}
-          target="_black"
-          href="https://twitter.com/lidangzzz"
-        >
-          Twitter
-        </Button>
-
-        <Button
-          color="inherit"
-          style={{ textTransform: 'none' }}
-          target="_black"
-          href="https://github.com/lidangzzz/hedgehog-lab"
-        >
-          Github
-        </Button>
+        {appBarLink.map((item, i) => {
+          return (
+            <Button
+              color="inherit"
+              style={{ textTransform: 'none' }}
+              target="_black"
+              href={item.url}
+            >
+              {item.title}
+            </Button>
+          );
+        })}
       </Toolbar>
     </AppBar>
   )
