@@ -9,7 +9,6 @@
 import nerdamer from 'nerdamer/all';
 
 import * as _Mat from './lib/matrix';
-import { Mat, Scalar } from './lib/matrix';
 import _MathLib from './lib/mathlib';
 import { Sym as _Sym } from './lib/symbolic';
 import { Chol, QR, LU } from './lib/algebra';
@@ -17,6 +16,8 @@ import OutputItem from './output/output-item';
 
 // FIXME: eval() won't catch non-var declared variables
 var Sym = _Sym;
+var Mat = _Mat.Mat;
+var Scalar = _Mat.Scalar;
 
 // below is a wrapper of constructing a Mat object
 function mat(input?: number[][] | number[] | number): Mat {
