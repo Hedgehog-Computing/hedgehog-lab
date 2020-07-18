@@ -1,11 +1,12 @@
 import preprocess from './preprocess';
+import operatorOverload from './operator-overload';
 
 function transpilerCore(source) {
   //todo: move the registration of plugins and presets to the constructor
   const babel = require('@babel/standalone');
 
   //register the overload plugin
-  babel.registerPlugin('overload', require('babel-plugin-overload'));
+  babel.registerPlugin('overload', operatorOverload);
 
   //register preset-env
   babel.registerPreset('@babel/preset-env', require('@babel/preset-env'));
