@@ -1,11 +1,19 @@
 import React from 'react';
 import './App.css';
 import HedgehogLab from './HedgehogLab';
+import { Container } from '@material-ui/core';
+import GlobalAppBar from './components/layout/GlobalAppBar';
 
 const App = () => (
-  <div className="App">
+  <Container maxWidth="xl">
+    <div style={{ flexGrow: 1 }}>
+      <div className="App">
+        <GlobalAppBar />
+      </div>
+    </div>
+
     <HedgehogLab />
-  </div>
+  </Container>
 );
 
 export default App;

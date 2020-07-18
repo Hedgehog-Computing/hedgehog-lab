@@ -105,33 +105,6 @@ class HedgehogLab extends Component {
       <div>
         <div>
           <Container maxWidth="xl">
-            <div style={{ flexGrow: 1 }}>
-              <AppBar position="static" elevation={0} color="default">
-                <Toolbar>
-                  <Typography variant="h6" style={{ flexGrow: 1 }}>
-                    Hedgehog Lab
-                  </Typography>
-
-                  <Button
-                    color="inherit"
-                    style={{ textTransform: 'none' }}
-                    target="_black"
-                    href="https://twitter.com/lidangzzz"
-                  >
-                    Twitter
-                  </Button>
-                  <Button
-                    color="inherit"
-                    style={{ textTransform: 'none' }}
-                    target="_black"
-                    href="https://github.com/lidangzzz/hedgehog-lab"
-                  >
-                    Github
-                  </Button>
-                </Toolbar>
-              </AppBar>
-            </div>
-
             <Box my={4}>
               <Grid container spacing={3}>
                 <Grid item xs={12} md={6}>
