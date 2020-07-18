@@ -20,7 +20,6 @@
 
 .run-button .run-button-loading {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  left: calc(50% - 12px);
+  top: calc(50% - 12px);
 }
