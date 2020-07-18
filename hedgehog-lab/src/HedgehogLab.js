@@ -79,12 +79,12 @@ class HedgehogLab extends Component {
     //get all OutputItem with type === "print" and save to "execution_result"
     //to update the textbox
     let output_string = '';
-    output_list.map((element) => {
+    for (const element of output_list) {
       if (element.isPrint()) {
         console.log(element);
         output_string += element.text + '\n';
       }
-    });
+    }
 
     this.setState({ execution_output_string: output_string });
     event.preventDefault();
