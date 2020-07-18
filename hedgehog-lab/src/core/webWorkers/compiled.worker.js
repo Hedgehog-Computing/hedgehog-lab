@@ -1,6 +1,6 @@
-import transpiler_core from "../transpiler_core"
+import transpilerCore from '../transpiler/transpiler-core';
 
-const transpile = (your_code) => transpiler_core(your_code)
+const transpile = (your_code) => transpilerCore(your_code)
 
 self.addEventListener('message', (e) => {
   try {

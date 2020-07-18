@@ -1,14 +1,11 @@
 import React from 'react';
 import './App.css';
-import  HedgehogLab from './hedgehog_lab';
+import HedgehogLab from './HedgehogLab';
 
-function App() {
-  return (
-    <div className="App">
-      <HedgehogLab/>
-    </div>
-
-  );
-}
+const App = () => (
+  <div className="App">
+    <HedgehogLab />
+  </div>
+);
 
 export default App;

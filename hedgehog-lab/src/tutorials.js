@@ -1,8 +1,4 @@
-class demoCode{
-
-    demo_1_Matrix  = 
-
-`
+const matrixSource = `
 //1. Initialize matrix with a 2D array. You could create a Mat object or use mat() wrapper function since they are basically the same
 let a = mat([[1,2,3],[4,5,6],[7,8,9]]);
 print("Matrix a is: \\n" + a);
@@ -26,10 +22,8 @@ print("Creating a matrix of zeros:\\n" + zeros(2));
 //5. You can also create a sequence of number starting with 1 ending with 20 and increasing with step 3, then reshape it as a 3-by-3 matrix
 print("Matrix c is:\\n" + range(1,20,3).reshape(3,3));
 `;
-    
-demo_2_Operators = 
 
-`// Operator overloads are available for Mat class. 
+const operatorsSource = `// Operator overloads are available for Mat class. 
 // Right operator could be Mat object, 2D or 1D array or number
 
 let A = mat([[1,2],[3,4]]);
@@ -70,8 +64,7 @@ let C = ( A.T()* B ) + ( B * 4 - A + 1 ) * ( B^(-1) );
 print("Matrix C (A'*B + (B*4 - A + 1) * (B^(-1)) is\\n" + C);
 `;
 
-demo_3_GPU_Acceleration = 
-`//Create a 1000-by-1000 matrix
+const gpuAccelerationSource = `//Create a 1000-by-1000 matrix
 var x = random(1000,1000);
 
 // do a 1000*1000 matrix multiplication without GPU acceleration
@@ -89,8 +82,7 @@ toc();
 
 `;
 
-demo_4_build_in_functions = 
-`/*
+const buildInFunctionsSource = `/*
 There are many built-in functions which support matrix, including     
 sin, cos, abs, acos, acosh, sign, 
 sqrt, trunc, floor, ceil, exp, log,
@@ -110,9 +102,7 @@ print(log(A,2));  // log A with base 2
 //More functions are on the way...
 `;
 
-
-demo_5_insert_tex = 
-`let A = mat([[7,2],[2,1]]);
+const insertTexSource = `let A = mat([[7,2],[2,1]]);
 
 // a short introduction
 tex("\\\\text{Cholesky decomposition is a classical matrix decomposition algorithm in this form:}")
@@ -125,10 +115,9 @@ let L = chol(A).L;
 // and keep 5 digits 
 L.digits = 5
 tex("\\\\text{where A is a positive-definite and symmetric matrix.} \\\\\\\\ \\\\text{For example, we have } A = " + A.toTex() + "\\\\text{, and the decomposed matrix L is }" + L.toTex())
-`
+`;
 
-demo_6_graphics = 
-`// generate 2D points as vectors of x and y 
+const graphicsSource = `// generate 2D points as vectors of x and y 
 let x = range(-10,10,0.1);
 let y = sin(x) + random(1,x.cols);
 
@@ -186,10 +175,8 @@ draw(
 [{x:x1.toArray(), y:y1.toArray(), mode:"markers"}, {x:x2.toArray(), y:y2.toArray(), mode:"markers"}, {x:x3.toArray(), y:y3.toArray(), mode:"markers"}], 
 {shapes: [{type:'circle', xref:'x', yref:'y', x0 : x1.min(), y0:y1.min(), x1: x1.max(), y1: y1.max(), opacity: 0.2, fillcolor: "green"}, {type:'circle', xref:'x', yref:'y', x0 : x2.min(), y0:y2.min(), x1: x2.max(), y1: y2.max(), opacity: 0.2, fillcolor: "blue"}, {type:'circle', xref:'x', yref:'y', x0 : x3.min(), y0:y3.min(), x1: x3.max(), y1: y3.max(), opacity: 0.2, fillcolor: "red"}], title:"Example 2 of draw(): cluster"}
 );
-`
-
-demo_7_symbolic = 
-`//define symbol x
+`;
+const symbolicSource = `//define symbol x
 let x = sym('x')
 
 //write expression
@@ -238,10 +225,9 @@ formulaTex(\`\\\\frac{dW(x,y,w)}{dw} = \` + diff(W,w).toTex());
 
 // integral W on x
 formulaTex(\`\\\\int{W(x,y,w)dx} = \` + integrate(W,x).toTex());
-`
+`;
 
-demo_8_markdown = 
-`markdown(\`
+const markdownSource = `markdown(\`
 # Hedgehog Lab Markdown Example
 
 ## Plain Text 
@@ -288,39 +274,37 @@ This document is created and maintained by Hedgehog Lab Community. The markdown 
 
 `;
 
-    demo_ = 
-`//demo 1: create matrix and operator overload
-
-var A = new Mat([[1,2], [3,4]]);
-var B = new Mat([[1,2], [3,4]]);
-
-// C = A + B*A + A'*4.2 + random(2,2)
-var C = A + B*A + A.T() * 4.2 + new Mat().random(2,2);
-print("Matrix C is \\n" + C);
-
-// demo 2: matrix inverse
-var d = new Mat([[1,2],[2,1]])
-print("Inverse of matrix d is \\n")
-print(d^(-1))
-
-//demo 3: GPU acceleration of matrix multiply
-var x = new Mat().random(1000,1000);
-
-// do a 1000*1000 matrix multiplication without GPU acceleration
-const t0 = performance.now();
-var z1 = x*x;
-const t1 = performance.now();
-print(\`It takes $\{t1 - t0\} milliseconds for matrix multiplication without GPU.\`);
-
-//set mode as 'gpu', which will enable GPU acceleration
-const t2 = performance.now();
-x.mode = 'gpu'
-var z2 = x*x;
-const t3 = performance.now();
-
-print(\`It takes $\{t3 - t2\} milliseconds for matrix multiplication with GPU.\`);
-`;
-}
-
-
-export default demoCode;
+export const tutorials = [
+  {
+    description: 'Matrix',
+    source: matrixSource,
+  },
+  {
+    description: 'Operators',
+    source: operatorsSource,
+  },
+  {
+    description: 'GPU Acceleration',
+    source: gpuAccelerationSource,
+  },
+  {
+    description: 'Built-in functions',
+    source: buildInFunctionsSource,
+  },
+  {
+    description: 'TeX in Hedgehog Lab',
+    source: insertTexSource,
+  },
+  {
+    description: 'Figures and plotting',
+    source: graphicsSource,
+  },
+  {
+    description: 'Symbolic computing',
+    source: symbolicSource,
+  },
+  {
+    description: 'Markdown',
+    source: markdownSource,
+  },
+];

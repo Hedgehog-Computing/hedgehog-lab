@@ -1,4 +1,4 @@
-import { executeOutput } from "../hedgehog_runtime";
+import { executeOutput } from "../runtime";
 
 self.addEventListener('message', (e) => {
   try {
