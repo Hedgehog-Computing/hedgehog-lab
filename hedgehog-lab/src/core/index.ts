@@ -1,7 +1,6 @@
 import CompiledWorker from './webWorkers/compile.worker.js'
 import ResultWorker from './webWorkers/result.worker.js'
-// @ts-ignore
-import OutputItem from "./output/output-item.js";
+import OutputItem from "./output/output-item";
 import type OutputItemType from './output/output-item'
 import * as Comlink from 'comlink'
 
@@ -39,3 +38,9 @@ export const compiler = async (input: string) => {
     throw new Error(e.message)
   }
 }
+
+export const releaseWorker = () => {
+  compile[Comlink.releaseProxy]()
+  output[Comlink.releaseProxy]()
+}
+
