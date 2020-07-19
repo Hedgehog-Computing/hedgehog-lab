@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import {Box, Button, Card, CardContent, CardHeader, CircularProgress, Grid, Typography} from "@material-ui/core";
 import {ControlledEditor, ControlledEditorOnChange} from "@monaco-editor/react";
 // @ts-ignore
@@ -6,15 +6,22 @@ import {tutorials} from '../../tutorials';
 
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
-  handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
-  handleUploadSource: ControlledEditorOnChange
   source: string
   loading: boolean;
+  setSource: Dispatch<SetStateAction<string>>
 }
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
-  const { handleCompileAndRun, handleLoadTutorial, handleUploadSource, loading, source } = props
+  const { handleCompileAndRun, setSource, loading, source } = props
+
+  const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
+    setSource(tutorials[index].source as string)
+  }
+
+  const handleUploadSource: ControlledEditorOnChange = (e, v) => {
+    setSource(v as string)
+  }
 
   const options = {
     wordWrap: "on" as "on",

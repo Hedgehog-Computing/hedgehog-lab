@@ -40,6 +40,8 @@ const HedgehogLab: React.FC<{}> = () => {
   const handleCompileAndRun = (event: React.MouseEvent) => {
     console.log('Hedgehog Lab: Start Compiling...');
     setLoading(true)
+    setExecutionOutputString('')
+    setExecutionOutputList([])
     myCompiledWorker.postMessage(source)
 
     //compile
@@ -84,15 +86,6 @@ const HedgehogLab: React.FC<{}> = () => {
 
     event.preventDefault();
   }
-
-  const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
-    setSource(tutorials[index].source as string)
-  }
-
-  const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-    setSource(v as string)
-  }
-
 
   useEffect(() => {
     myCompiledWorker.onmessage = (m: MessageEvent) => {
@@ -146,14 +139,14 @@ const HedgehogLab: React.FC<{}> = () => {
             <Grid container spacing={3}>
               <YourCode
                 handleCompileAndRun={handleCompileAndRun}
-                handleLoadTutorial={handleLoadTutorial}
-                handleUploadSource={handleUploadSource}
+                setSource={setSource}
                 source={source}
                 loading={loading}
               />
               <Results
                 executionOutputList={executionOutputList}
                 executionOutputString={executionOutputString}
+                loading={loading}
               />
             </Grid>
             <Footer/>
