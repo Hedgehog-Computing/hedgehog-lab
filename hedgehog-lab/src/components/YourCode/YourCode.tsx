@@ -13,8 +13,11 @@ import {
   ControlledEditor,
   ControlledEditorOnChange,
 } from '@monaco-editor/react';
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 // @ts-ignore
 import { tutorials } from '../../tutorials';
+
+const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
@@ -38,6 +41,17 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     scrollBeyondLastLine: false,
   };
 
+  const handleEditorDidMount = (_: () => string, editor: monacoEditor.editor.IStandaloneCodeEditor) => {
+    editor.addAction({
+      id: COMPILE_AND_RUN_BUTTON_ID,
+      label: "compile-and-run-butt-label",
+      keybindings: [2051], // Monaco.KeyMod.CtrlCmd | Monaco.KeyCode.Enter == 2051
+      run: () => {
+        document.getElementById(COMPILE_AND_RUN_BUTTON_ID)?.click();
+      }
+    });
+  };
+
   return (
     <Grid item xs={12} md={6}>
       <Card variant="outlined" className={'your-code-card'}>
@@ -45,6 +59,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
           action={
             <div className="run-button">
               <Button
+                id={COMPILE_AND_RUN_BUTTON_ID}
                 variant="contained"
                 color="primary"
                 onClick={(e) => handleCompileAndRun(e)}
@@ -68,6 +83,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
             value={source}
             onChange={handleUploadSource}
             options={options}
+            editorDidMount={handleEditorDidMount}
           />
         </CardContent>
       </Card>
