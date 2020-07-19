@@ -8,7 +8,6 @@ function to_matrix(A: Mat | number[][] | number[] | number): Mat {
 }
 
 function sin(A: Mat | number[][] | number[] | number): Mat {
-  console.log(to_matrix(A));
   return to_matrix(A).each(Math.sin);
 }
 

@@ -232,7 +232,7 @@ export { _OUTPUT_ITEMS_LIST_ };
 export function print(a: any) {
   let objItem = new OutputItem();
   objItem.outputType = 'print';
-  objItem.text = a;
+  objItem.text = a.toString();
   _OUTPUT_ITEMS_LIST_.push(objItem);
 }
 
