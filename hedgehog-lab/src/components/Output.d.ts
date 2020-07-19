@@ -1,4 +1,4 @@
-import {FC} from 'react'
-import OutputItem from "../core/output";
+import React from 'react';
+import OutputItem from '../core/output';
 
-export default (props: {outputItemList: OutputItem[]}) => FC
+export default (props: { outputItemList: OutputItem[] }) => React.FC;

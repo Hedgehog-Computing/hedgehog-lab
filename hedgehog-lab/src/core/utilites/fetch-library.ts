@@ -1,4 +1,4 @@
-function fetchLibrary(lib_url) {
+function fetchLibrary(lib_url: string) {
   let raw_string_return = fetch(lib_url, { method: 'get' })
     .then(function (body) {
       return body.text();

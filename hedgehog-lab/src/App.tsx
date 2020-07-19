@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import HedgehogLab from './HedgehogLab.tsx';
+import HedgehogLab from './HedgehogLab';
 
 const App = () => (
   <div className="App">

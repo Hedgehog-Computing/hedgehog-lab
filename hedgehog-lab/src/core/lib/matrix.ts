@@ -116,7 +116,7 @@ export class Mat {
   }
 
   //generate a N-by-1 matrix by initializing a range vector [start:end:step].
-  range(arg1: number, arg2 = null, step = 1): Mat {
+  range(arg1: number, arg2: number | null = null, step = 1): Mat {
     let rangeVector = [];
     let start = 0,
       end = 0;
@@ -221,7 +221,10 @@ export class Mat {
   }
 
   // initialize a random matrix
-  random(row: number, col: number): Mat {
+  random(row: number, col?: number): Mat {
+    if (!col) {
+      col = row;
+    }
     this.clear();
     this.zeros(row, col);
     for (let row = 0; row < this.rows; row++) {
@@ -245,7 +248,7 @@ export class Mat {
     return this.T();
   }
 
-  each(func: Function): Mat {
+  each(func: (element: number) => number): Mat {
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.cols; col++)
         this.val[row][col] = func(this.val[row][col]);
@@ -494,7 +497,7 @@ export class Mat {
 
   //return a 1D array
   toArray(): number[] {
-    return [].concat(...this.val);
+    return new Array<number>().concat(...this.val);
   }
 
   //reshape matrix
@@ -807,11 +810,14 @@ function multiply_gpu(leftMat: Mat, rightMat: Mat): Mat {
   const mulfunction_string =
     mulfunction_part_1 + n.toString() + mulfunction_part_2;
 
-  const multiplyMatrix = gpu.createKernel(mulfunction_string).setOutput([m, p]);
+  // FIXME: evil as any
+  const multiplyMatrix = gpu
+    .createKernel(mulfunction_string as any)
+    .setOutput([m, p]);
 
   const c = multiplyMatrix(leftMat.val, rightMat.val);
   let returnMat = new Mat();
-  returnMat.val = c;
+  returnMat.val = c as number[][];
   returnMat.rows = m;
   returnMat.cols = p;
   return returnMat;
@@ -926,7 +932,7 @@ export function json2mat(json_str: string): Mat {
 // Class Scalar is ONLY USED FOR OPERATOR OVERLOAD
 export class Scalar {
   val: number;
-  constructor(val: number): Scalar {
+  constructor(val: number) {
     this.val = val;
   }
 
@@ -945,6 +951,9 @@ export class Scalar {
   // operator multiply
   // scalar * rightMatrix === rightMatrix .* scalar
   [Symbol.for('*')](rightOperand: Mat | number | number[] | number[][]): Mat {
-    return rightOperand.multiplyScalar(this.val);
+    if (rightOperand instanceof Mat) {
+      return rightOperand.multiplyScalar(this.val);
+    }
+    return new Mat(rightOperand).multiplyScalar(this.val);
   }
 }

@@ -51,7 +51,7 @@ function tanh(A: Mat | number[][] | number[] | number): Mat {
   return to_matrix(A).each(Math.tanh);
 }
 
-function pow(x?: Mat | number[][] | number[] | number, y: number): Mat {
+function pow(x: Mat | number[][] | number[] | number, y: number): Mat {
   return to_matrix(x).each((eachElement) => Math.pow(eachElement, y));
 }
 

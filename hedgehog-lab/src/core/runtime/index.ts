@@ -1,12 +1,12 @@
 /**
  * This is the core runtime for compiled hedgehog script,
- * all the built-in functions and classes must be defined in this file
+ * all the built-in functions and classes must be defined in prelude
  * to make sure that user can call it at function executeOutput()
  */
 
 import * as prelude from './prelude';
 
-export function executeOutput(code) {
+export function executeOutput(code: string) {
   let preludeImport = '';
 
   for (const key in prelude) {
