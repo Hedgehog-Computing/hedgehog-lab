@@ -1,9 +1,9 @@
-import React from 'react'
-import {Button, CircularProgress, Grid, TextareaAutosize, Typography} from "@material-ui/core";
+import React from 'react';
+import { CircularProgress, Grid, TextareaAutosize, Typography } from '@material-ui/core';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
-import Output from "../Output";
-import OutputItem from "../../core/output/";
+import Output from '../Output';
+import OutputItem from '../../core/output/output-item';
 
 interface ResultsProps {
   executionOutputList: OutputItem[],
@@ -12,8 +12,7 @@ interface ResultsProps {
 }
 
 const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
-
-  const { executionOutputList, executionOutputString, loading } = props
+  const { executionOutputList, executionOutputString, loading } = props;
 
   return (
     <Grid item xs={12} md={6}>
@@ -35,7 +34,7 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
                         style={{fontSize: 50}}
                       />
                 }
-                <p>{ loading ? 'Loading...' : 'Please write your code on the left and click the \'Compile and run\' button'}</p>
+                <p>{ loading ? 'Loading...' : `Please write your code on the ${document.body.clientWidth < 960 ? 'top' : 'left'} and click the 'Compile and run' button`}</p>
               </div>
             </div>
           ) : (
@@ -59,7 +58,7 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
           )
       }
     </Grid>
-  )
-}
+  );
+};
 
-export default Results
+export default Results;

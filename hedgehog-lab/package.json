@@ -60,6 +60,10 @@
     ]
   },
   "devDependencies": {
+    "@types/babel-template": "^6.25.2",
+    "@types/mathjs": "^6.0.5",
+    "@types/react-mathjax": "^1.0.0",
+    "@types/react-plotly.js": "^2.2.4",
     "gh-pages": "^3.0.0",
     "react-app-rewired": "^2.1.6",
     "typescript": "^3.9.3",

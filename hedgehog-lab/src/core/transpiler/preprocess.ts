@@ -1,6 +1,6 @@
 import fetchLibrary from '../utilites/fetch-library';
 
-function preprocess(source) {
+function preprocess(source: string) {
   return source;
 
   // below is a fetch function to download a string from url
@@ -84,7 +84,7 @@ using demo_function
 
 //Right now only import is used. Also preprocess will handle import for once and cannot traverse the dependency graph.
 //This will be done in a later version.
-async function preprocess_dependencies(your_code: string): string {
+async function preprocess_dependencies(your_code: string): Promise<string> {
   //1. split code by new lines
   let splitted_vector_of_string = your_code.split(/\r?\n/);
 

@@ -1,5 +1,5 @@
-import React from 'react'
-import {AppBar, Button, Toolbar, Typography, Icon} from "@material-ui/core";
+import React from 'react';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 import TwitterIcon from '@material-ui/icons/Twitter';
 
 const Header: React.FC<{}> = () => {
@@ -33,7 +33,7 @@ const Header: React.FC<{}> = () => {
         </Toolbar>
       </AppBar>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
