@@ -1,6 +1,5 @@
 import React from 'react';
 import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
-import TwitterIcon from '@material-ui/icons/Twitter';
 
 const Header: React.FC<{}> = () => {
   return (
@@ -11,16 +10,7 @@ const Header: React.FC<{}> = () => {
             <img src={process.env.PUBLIC_URL + "/cat.png"} style={{ height: '1.25rem' }}/>
             Hedgehog Lab
           </Typography>
-          <Button
-            color="inherit"
-            style={{ textTransform: 'none' }}
-            onClick={() => {window.open('https://twitter.com/lidangzzz')}}
-          >
-            <TwitterIcon
-              style={{ cursor: 'pointer', color: '#1976d2' }}
-            />
-            Twitter
-          </Button>
+
           <Button
             color="inherit"
             style={{ textTransform: 'none', height: 36 }}
