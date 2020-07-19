@@ -1,0 +1,25 @@
+.your-code-card .MuiCardHeader-action {
+  align-self: center;
+  margin-top: 0;
+  margin-right: 0;
+}
+
+.your-code-card .MuiCardHeader-action button {
+  height: 100%;
+}
+
+.result-title {
+  height: 64px;
+  padding: 16px 0;
+  margin-bottom: 16px!important;
+}
+
+.run-button {
+  position: relative;
+}
+
+.run-button .run-button-loading {
+  position: absolute;
+  left: calc(50% - 12px);
+  top: calc(50% - 12px);
+}
