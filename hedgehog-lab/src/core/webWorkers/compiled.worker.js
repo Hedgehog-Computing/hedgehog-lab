@@ -1,13 +1,15 @@
-import transpilerCore from '../transpiler/transpiler-core';
+import * as Comlink from 'comlink'
+import transpile from '../transpiler/transpiler-core'
 
-const transpile = (your_code) => transpilerCore(your_code)
+const compilerWorker = {
+  compile: (e) => {
+    try {
+      const workerResult = transpile(e)
+      return workerResult
+    } catch (e) {
+      throw new Error(e.toString())
+    }
+  },
+}
 
-self.addEventListener('message', (e) => {
-  try {
-    const workerResult = transpile(e.data);
-    self.postMessage({ status: 'success', result: workerResult });
-  } catch (compileError) {
-    self.postMessage({ status: 'error', errorMsg: compileError.toString() });
-  }
-})
-
+Comlink.expose(compilerWorker)
