@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Container, Box } from '@material-ui/core'
+import { Grid, Container, Box, CssBaseline, Toolbar } from '@material-ui/core'
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Header from './components/Header/Header'
 import YourCode from './components/YourCode/YourCode'
 import Results from './components/Results/Results'
@@ -7,9 +8,8 @@ import Footer from './components/Footer/Footer'
 import { tutorials } from './tutorials'
 import OutputItemType from './core/output/output-item'
 import { useMutation } from 'react-query'
-import { ControlledEditorOnChange } from '@monaco-editor/react'
 import { compiler, releaseWorker } from './core'
-
+import SideBar from './components/SideBar/SideBar';
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -55,29 +55,81 @@ const HedgehogLab: React.FC<{}> = () => {
       releaseWorker()
     }
   }, [])
+
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        display: 'flex',
+      },
+      content: {
+        flexGrow: 1,
+      },
+    }),
+  );
+
+  const classes = useStyles();
+
   return (
     <div>
-      <div>
+      <div className={classes.root}>
+        <CssBaseline />
+
         <Header />
-        <Container maxWidth="xl">
-          <Box my={4}>
-            <Grid container spacing={3}>
-              <YourCode
-                handleCompileAndRun={handleCompileAndRun}
-                handleLoadTutorial={handleLoadTutorial}
-                setSource={setSource}
-                source={source}
-                loading={isLoading}
-              />
-              <Results
-                executionOutputList={result.outputItem}
-                executionOutputString={result.outputString}
-                loading={isLoading}
-              />
+
+        <SideBar
+          handleCompileAndRun={handleCompileAndRun}
+          handleLoadTutorial={handleLoadTutorial}
+          setSource={setSource}
+          source={source}
+          loading={isLoading}
+        />
+
+        <main className={classes.content}>
+          <Toolbar />
+
+          <Grid container>
+            <Grid
+              item
+              xs={12}
+            >
+              <Grid
+                container
+                style={{
+                  height: "calc(100vh - 174px)"
+                }}
+              >
+                <Grid item xs={12} md={6}>
+                  <YourCode
+                    handleCompileAndRun={handleCompileAndRun}
+                    handleLoadTutorial={handleLoadTutorial}
+                    setSource={setSource}
+                    source={source}
+                    loading={isLoading}
+                  />
+                </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  style={{
+                    height: "calc(100vh - 64px)",
+                    overflowY: "auto"
+                  }}
+                >
+                  <Results
+                    executionOutputList={result.outputItem}
+                    executionOutputString={result.outputString}
+                    loading={isLoading}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
-            <Footer />
-          </Box>
-        </Container>
+          </Grid>
+
+          <Footer />
+        </main>
+
       </div>
     </div>
   )
