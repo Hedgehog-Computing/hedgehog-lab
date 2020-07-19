@@ -1,8 +1,9 @@
 import React from "react";
-import {Box, Button, Card, CardContent, CardHeader, CircularProgress, Grid, Typography} from "@material-ui/core";
-import {ControlledEditor, ControlledEditorOnChange} from "@monaco-editor/react";
+import { Box, Button, Card, CardContent, CardHeader, CircularProgress, Grid, Typography } from "@material-ui/core";
+import { ControlledEditor, ControlledEditorOnChange } from "@monaco-editor/react";
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 // @ts-ignore
-import {tutorials} from '../../tutorials';
+import { tutorials } from '../../tutorials';
 
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
@@ -15,6 +16,19 @@ interface YourCodeProps {
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
   const { handleCompileAndRun, handleLoadTutorial, handleUploadSource, loading, source } = props
+
+  function handleEditorDidMount(_: any, editor: monacoEditor.editor.IStandaloneCodeEditor) {
+    editor.addAction({
+      id: "ctrlcmd-enter-run-id", //TODO get unique id
+      label: "ctrlcmd-enter-run-label",
+      keybindings: [2051],
+      run: function (editor) {
+        console.log("invoke Compile and run");
+        document.getElementById('compile-and-run-button')?.click();
+      }
+    }
+    );
+  }
 
   const options = {
     wordWrap: "on" as "on",
@@ -29,6 +43,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
           action={
             <div className="run-button">
               <Button
+                id="compile-and-run-button"
                 variant="contained"
                 color="primary"
                 onClick={(e) => handleCompileAndRun(e)}
@@ -37,7 +52,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
               >
                 Compile and run
               </Button>
-              {loading && <CircularProgress size={24} className={'run-button-loading'}/>}
+              {loading && <CircularProgress size={24} className={'run-button-loading'} />}
             </div>
           }
           title="Your code:"
@@ -50,6 +65,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
             value={source}
             onChange={handleUploadSource}
             options={options}
+            editorDidMount={handleEditorDidMount}
           />
         </CardContent>
       </Card>
