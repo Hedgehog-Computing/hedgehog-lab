@@ -18,6 +18,7 @@
     "ace-builds": "^1.4.12",
     "babel-template": "^6.26.0",
     "chart.js": "^2.9.3",
+    "comlink": "^4.3.0",
     "gpu.js": "^2.9.4",
     "material-ui": "^0.20.2",
     "mathjax": "^3.0.5",
@@ -33,6 +34,7 @@
     "react-markdown": "^4.3.1",
     "react-mathjax": "^1.0.1",
     "react-plotly.js": "^2.4.0",
+    "react-query": "^2.5.4",
     "react-scripts": "3.4.1",
     "react-split-pane": "^0.1.91",
     "update": "^0.7.4"
