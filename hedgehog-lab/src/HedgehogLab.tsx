@@ -127,8 +127,8 @@ const HedgehogLab: React.FC<{}> = () => {
   return (
     <div>
       <div>
+        <Header />
         <Container maxWidth="xl">
-          <Header />
           <Box my={4}>
             <Grid container spacing={3}>
               <YourCode

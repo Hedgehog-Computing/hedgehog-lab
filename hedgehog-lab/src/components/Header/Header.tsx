@@ -4,10 +4,11 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 
 const Header: React.FC<{}> = () => {
   return (
-    <div style={{ flexGrow: 1 }}>
+    <div style={{ flexGrow: 1 }} className={'header'}>
       <AppBar position="static" elevation={0} color="default">
         <Toolbar>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
+          <Typography variant="h6" style={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+            <img src={process.env.PUBLIC_URL + "/cat.png"} style={{ height: '1.25rem' }}/>
             Hedgehog Lab
           </Typography>
           <Button
@@ -16,7 +17,7 @@ const Header: React.FC<{}> = () => {
             onClick={() => {window.open('https://twitter.com/lidangzzz')}}
           >
             <TwitterIcon
-              style={{ cursor: 'pointer' }}
+              style={{ cursor: 'pointer', color: '#1976d2' }}
             />
             Twitter
           </Button>
