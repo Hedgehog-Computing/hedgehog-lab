@@ -9,7 +9,7 @@ import OutputItemType from './core/output/output-item'
 import { useMutation } from 'react-query'
 import { ControlledEditorOnChange } from '@monaco-editor/react'
 import { compiler, releaseWorker } from './core'
-import * as Comlink from 'comlink'
+
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")

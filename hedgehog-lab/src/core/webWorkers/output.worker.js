@@ -1,11 +1,16 @@
-import { executeOutput } from "../runtime";
+import * as Comlink from 'comlink'
+import { executeOutput } from '../runtime'
 
+const outputWorker = {
+  output: (e) => {
+    try {
+      const workerResult = executeOutput(e)
+      return workerResult
+    } catch (e) {
+      throw new Error(e.toString())
+    }
+  },
+}
 
- self.addEventListener('message', (e) => {
-  try {
-    const workerResult = executeOutput(e.data)
-    self.postMessage({ status: 'success', result: workerResult });
-  } catch (executionError) {
-    self.postMessage({ status: 'error', errorMsg: executionError.toString() });
-  }
-})
+Comlink.expose(outputWorker)
+

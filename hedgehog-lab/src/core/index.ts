@@ -1,16 +1,16 @@
-import CompiledWorker from './webWorkers/compile.worker.js'
-import ResultWorker from './webWorkers/result.worker.js'
+import CompilerWorker from './webWorkers/compiled.worker.js'
+import OutputWorker from './webWorkers/output.worker.js'
 import OutputItem from "./output/output-item";
 import type OutputItemType from './output/output-item'
 import * as Comlink from 'comlink'
 
 const compile = Comlink.wrap<{
   compile: (data: string) => Promise<string>
-}>(new CompiledWorker()).compile
+}>(new CompilerWorker()).compile
 
 const output = Comlink.wrap<{
   output: (data: string) => Promise<any[]>
-}>(new ResultWorker()).output
+}>(new OutputWorker()).output
 
 export const compiler = async (input: string) => {
   console.log('Hedgehog Lab: Start Compiling...')
