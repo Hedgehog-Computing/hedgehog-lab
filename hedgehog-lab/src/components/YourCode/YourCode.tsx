@@ -1,30 +1,46 @@
-import React from "react";
-import {Box, Button, Card, CardContent, CardHeader, CircularProgress, Grid, Typography} from "@material-ui/core";
-import {ControlledEditor, ControlledEditorOnChange} from "@monaco-editor/react";
+import React from 'react';
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  CircularProgress,
+  Grid,
+  Typography,
+} from '@material-ui/core';
+import {
+  ControlledEditor,
+  ControlledEditorOnChange,
+} from '@monaco-editor/react';
 // @ts-ignore
-import {tutorials} from '../../tutorials';
+import { tutorials } from '../../tutorials';
 
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
-  handleUploadSource: ControlledEditorOnChange
-  source: string
+  handleUploadSource: ControlledEditorOnChange;
+  source: string;
   loading: boolean;
 }
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
-
-  const { handleCompileAndRun, handleLoadTutorial, handleUploadSource, loading, source } = props
+  const {
+    handleCompileAndRun,
+    handleLoadTutorial,
+    handleUploadSource,
+    loading,
+    source,
+  } = props;
 
   const options = {
-    wordWrap: "on" as "on",
+    wordWrap: 'on' as 'on',
     scrollBeyondLastLine: false,
   };
 
   return (
     <Grid item xs={12} md={6}>
       <Card variant="outlined" className={'your-code-card'}>
-
         <CardHeader
           action={
             <div className="run-button">
@@ -37,7 +53,9 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
               >
                 Compile and run
               </Button>
-              {loading && <CircularProgress size={24} className={'run-button-loading'}/>}
+              {loading && (
+                <CircularProgress size={24} className={'run-button-loading'} />
+              )}
             </div>
           }
           title="Your code:"
@@ -59,25 +77,27 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
           Hedgehog Lab Tutorials:
         </Typography>
 
-        {tutorials.map((tutorial: { description: React.ReactNode; }, i: number) => {
-          return (
-            <Box my={1}>
-              <Button
-                key={`${i}-${Date.now()}`}
-                size="small"
-                style={{ textTransform: 'none' }}
-                variant="contained"
-                disableElevation
-                onClick={(e) => handleLoadTutorial(e, i)}
-              >
-                Tutorial {i + 1}: {tutorial.description}
-              </Button>
-            </Box>
-          );
-        })}
+        {tutorials.map(
+          (tutorial: { description: React.ReactNode }, i: number) => {
+            return (
+              <Box my={1}>
+                <Button
+                  key={`${i}-${Date.now()}`}
+                  size="small"
+                  style={{ textTransform: 'none' }}
+                  variant="contained"
+                  disableElevation
+                  onClick={(e) => handleLoadTutorial(e, i)}
+                >
+                  Tutorial {i + 1}: {tutorial.description}
+                </Button>
+              </Box>
+            );
+          }
+        )}
       </Box>
     </Grid>
-  )
-}
+  );
+};
 
-export default YourCode
+export default YourCode;
