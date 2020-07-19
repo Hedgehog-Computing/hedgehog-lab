@@ -25,23 +25,31 @@ const HedgehogLab: React.FC<{}> = () => {
     outputString: '',
   })
   const [complie, { isLoading }] = useMutation(compiler, {
-    onSuccess: (result) => {
+    onSuccess: (result: React.SetStateAction<{ outputItem: OutputItemType[]; outputString: string }>) => {
       setResult(result)
     },
-    onError: (e) => {
+    onError: () => {
       console.log('Hedgehog Lab: Failed')
     },
   })
 
   const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
     setSource(tutorials[index].source as string)
+    setResult({
+      outputItem: [],
+      outputString: '',
+    })
     complie(tutorials[index].source as string)
   }
 
-  const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-    setSource(v as string)
+  const handleCompileAndRun = () => {
+    setResult({
+      outputItem: [],
+      outputString: '',
+    })
+    complie(source)
   }
-  
+
   useEffect(() => {
     return () => {
       releaseWorker()
@@ -50,20 +58,21 @@ const HedgehogLab: React.FC<{}> = () => {
   return (
     <div>
       <div>
-        <Container maxWidth='xl'>
-          <Header />
+        <Header />
+        <Container maxWidth="xl">
           <Box my={4}>
             <Grid container spacing={3}>
               <YourCode
-                handleCompileAndRun={() => complie(source)}
+                handleCompileAndRun={handleCompileAndRun}
                 handleLoadTutorial={handleLoadTutorial}
-                handleUploadSource={handleUploadSource}
+                setSource={setSource}
                 source={source}
                 loading={isLoading}
               />
               <Results
                 executionOutputList={result.outputItem}
                 executionOutputString={result.outputString}
+                loading={isLoading}
               />
             </Grid>
             <Footer />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import {
   Box,
   Button,
@@ -14,6 +14,7 @@ import {
   ControlledEditorOnChange,
 } from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
+
 // @ts-ignore
 import { tutorials } from '../../tutorials';
 
@@ -22,19 +23,24 @@ const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
-  handleUploadSource: ControlledEditorOnChange;
-  source: string;
+  source: string
   loading: boolean;
+  setSource: Dispatch<SetStateAction<string>>
 }
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
+
   const {
     handleCompileAndRun,
-    handleLoadTutorial,
-    handleUploadSource,
     loading,
+    setSource,
+    handleLoadTutorial,
     source,
   } = props;
+
+  const handleUploadSource: ControlledEditorOnChange = (e, v) => {
+    setSource(v as string)
+  }
 
   const options = {
     wordWrap: 'on' as 'on',
