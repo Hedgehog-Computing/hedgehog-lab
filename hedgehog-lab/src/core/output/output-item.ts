@@ -4,10 +4,10 @@
 // or a tuple of data and layout (into a figure of plotlyjs)
 // and type is a string of "print" or "draw" or "tex" or "formulaTex"
 class OutputItem {
-  outputType: string;
-  text: string;
-  data: [];
-  layout: {};
+  outputType?: string;
+  text?: string;
+  data?: any[];
+  layout?: {};
 
   // use arrow function will make web worker error
   // isPrint = () => this.outputType === 'print';
@@ -16,11 +16,21 @@ class OutputItem {
   // isFormulaTex = () => this.outputType === 'formulaTex';
   // isMarkdown = () => this.outputType === 'markdown';
 
-  isPrint() {return this.outputType === "print";}
-  isDraw() {return this.outputType==="draw"}
-  isTex() {return this.outputType === "tex"}
-  isFormulaTex() {return this.outputType === "formulaTex"}
-  isMarkdown() {return this.outputType === "markdown"}
+  isPrint() {
+    return this.outputType === 'print';
+  }
+  isDraw() {
+    return this.outputType === 'draw';
+  }
+  isTex() {
+    return this.outputType === 'tex';
+  }
+  isFormulaTex() {
+    return this.outputType === 'formulaTex';
+  }
+  isMarkdown() {
+    return this.outputType === 'markdown';
+  }
 }
 
 export default OutputItem;

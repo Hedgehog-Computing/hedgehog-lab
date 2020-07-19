@@ -1,16 +1,15 @@
-import React from 'react'
-import {Grid, TextareaAutosize, Typography} from "@material-ui/core";
-import Output from "../Output";
-import OutputItem from "../../core/output/";
+import React from 'react';
+import { Grid, TextareaAutosize, Typography } from '@material-ui/core';
+import Output from '../Output';
+import OutputItem from '../../core/output/output-item';
 
 interface ResultsProps {
-  executionOutputList: OutputItem[],
-  executionOutputString: string
+  executionOutputList: OutputItem[];
+  executionOutputString: string;
 }
 
 const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
-
-  const { executionOutputList, executionOutputString } = props
+  const { executionOutputList, executionOutputString } = props;
 
   return (
     <Grid item xs={12} md={6}>
@@ -30,7 +29,7 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
         disabled
       />
     </Grid>
-  )
-}
+  );
+};
 
-export default Results
+export default Results;

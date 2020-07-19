@@ -2,7 +2,7 @@ import CompiledWorker from './webWorkers/compile.worker.js'
 import ResultWorker from './webWorkers/result.worker.js'
 // @ts-ignore
 import OutputItem from "./output/output-item.js";
-import type OutputItemType from './output'
+import type OutputItemType from './output/output-item'
 import * as Comlink from 'comlink'
 
 const compile = Comlink.wrap<{

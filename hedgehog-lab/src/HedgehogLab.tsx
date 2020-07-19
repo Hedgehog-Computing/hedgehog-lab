@@ -10,7 +10,7 @@ import Results from "./components/Results/Results";
 import Footer from "./components/Footer/Footer";
 // @ts-expect-error
 import { tutorials } from './tutorials';
-import OutputItemType from "./core/output/";
+import OutputItemType from "./core/output/output-item";
 
 import {ControlledEditorOnChange} from "@monaco-editor/react";
 import { compiler } from './core'
@@ -46,15 +46,14 @@ const HedgehogLab: React.FC<{}> = () => {
   }
 
   const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-    setSource(v as string)
-  }
-
+    setSource(v as string);
+  };
 
   return (
     <div>
       <div>
         <Container maxWidth="xl">
-          <Header/>
+          <Header />
           <Box my={4}>
             <Grid container spacing={3}>
               <YourCode
@@ -69,13 +68,12 @@ const HedgehogLab: React.FC<{}> = () => {
                 executionOutputString={result.outputString}
               />
             </Grid>
-            <Footer/>
+            <Footer />
           </Box>
         </Container>
       </div>
     </div>
-  )
-
-}
+  );
+};
 
 export default HedgehogLab;

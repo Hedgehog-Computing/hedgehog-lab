@@ -1,5 +1,5 @@
-import React from 'react'
-import {Link, Typography} from "@material-ui/core";
+import React from 'react';
+import { Link, Typography } from '@material-ui/core';
 
 const Footer: React.FC<{}> = () => {
   return (
@@ -24,7 +24,7 @@ const Footer: React.FC<{}> = () => {
         </Link>
       </Typography>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
