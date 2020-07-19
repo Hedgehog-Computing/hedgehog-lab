@@ -1,6 +1,7 @@
 import { executeOutput } from "../runtime";
 
-self.addEventListener('message', (e) => {
+
+ self.addEventListener('message', (e) => {
   try {
     const workerResult = executeOutput(e.data)
     self.postMessage({ status: 'success', result: workerResult });
