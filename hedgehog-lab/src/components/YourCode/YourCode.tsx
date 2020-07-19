@@ -22,6 +22,7 @@ const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
+  handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
   source: string
   loading: boolean;
   setSource: Dispatch<SetStateAction<string>>
@@ -33,12 +34,9 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     handleCompileAndRun,
     loading,
     setSource,
+    handleLoadTutorial,
     source,
   } = props;
-
-  const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
-    setSource(tutorials[index].source as string)
-  }
 
   const handleUploadSource: ControlledEditorOnChange = (e, v) => {
     setSource(v as string)

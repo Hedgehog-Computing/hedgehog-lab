@@ -35,11 +35,11 @@ const HedgehogLab: React.FC<{}> = () => {
 
   const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
     setSource(tutorials[index].source as string)
+    setResult({
+      outputItem: [],
+      outputString: '',
+    })
     complie(tutorials[index].source as string)
-  }
-
-  const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-    setSource(v as string)
   }
 
   const handleCompileAndRun = () => {
@@ -64,6 +64,7 @@ const HedgehogLab: React.FC<{}> = () => {
             <Grid container spacing={3}>
               <YourCode
                 handleCompileAndRun={handleCompileAndRun}
+                handleLoadTutorial={handleLoadTutorial}
                 setSource={setSource}
                 source={source}
                 loading={isLoading}
