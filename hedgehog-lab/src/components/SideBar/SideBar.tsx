@@ -14,11 +14,7 @@ import {
 import { tutorials } from '../../tutorials';
 
 interface SideBarProps {
-  handleCompileAndRun: (event: React.MouseEvent) => void;
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
-  source: string
-  loading: boolean;
-  setSource: Dispatch<SetStateAction<string>>
 }
 
 const drawerWidth = 240;

@@ -77,11 +77,7 @@ const HedgehogLab: React.FC<{}> = () => {
         <Header />
 
         <SideBar
-          handleCompileAndRun={handleCompileAndRun}
           handleLoadTutorial={handleLoadTutorial}
-          setSource={setSource}
-          source={source}
-          loading={isLoading}
         />
 
         <main className={classes.content}>
@@ -101,7 +97,6 @@ const HedgehogLab: React.FC<{}> = () => {
                 <Grid item xs={12} md={6}>
                   <YourCode
                     handleCompileAndRun={handleCompileAndRun}
-                    handleLoadTutorial={handleLoadTutorial}
                     setSource={setSource}
                     source={source}
                     loading={isLoading}
