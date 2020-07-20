@@ -28,8 +28,15 @@ const HedgehogLab: React.FC<{}> = () => {
     onSuccess: (result: React.SetStateAction<{ outputItem: OutputItemType[]; outputString: string }>) => {
       setResult(result)
     },
-    onError: () => {
-      console.log('Hedgehog Lab: Failed')
+    onError: (lastError) => {
+
+      // It's necessary to output all exception messages to user at output textbox,
+      // including execution runtime exception and compiling exception -Lidang
+      console.log('Hedgehog Lab: Failed: ' + lastError.toString() )
+      setResult({
+        outputItem: [],
+        outputString: lastError.toString()
+      })
     },
   })
 
