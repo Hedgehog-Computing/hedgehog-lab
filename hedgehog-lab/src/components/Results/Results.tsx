@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress, Grid, TextareaAutosize, Typography, Card, CardHeader, Button, CardContent, Box, Divider } from '@material-ui/core';
+import { CircularProgress, TextareaAutosize, Card, CardHeader, CardContent, Divider } from '@material-ui/core';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
 import Output from '../Output';
@@ -20,7 +20,8 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
         style={{
           backgroundColor: 'transparent',
           height: "100%",
-          overflowY: "auto"
+          overflowY: "auto",
+          overflowX: "auto"
         }}>
         {
           executionOutputList.length === 0 && executionOutputString === '' ?

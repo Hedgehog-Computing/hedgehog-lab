@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Container, Box, CssBaseline, Toolbar } from '@material-ui/core'
+import { Grid, CssBaseline, Toolbar } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+
 import Header from './components/Header/Header'
 import YourCode from './components/YourCode/YourCode'
 import Results from './components/Results/Results'
@@ -74,7 +75,7 @@ const HedgehogLab: React.FC<{}> = () => {
       <div className={classes.root}>
         <CssBaseline />
 
-        <Header />
+        <Header handleLoadTutorial={handleLoadTutorial} />
 
         <SideBar
           handleLoadTutorial={handleLoadTutorial}

@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React from 'react';
 import {
   Drawer,
   List,
@@ -6,10 +6,11 @@ import {
   ListItemText,
   Toolbar,
   makeStyles,
-  Theme,
   createStyles,
-  ListSubheader
+  ListSubheader,
+  useMediaQuery
 } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 // @ts-ignore
 import { tutorials } from '../../tutorials';
 
@@ -19,7 +20,7 @@ interface SideBarProps {
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     drawer: {
       width: drawerWidth,
@@ -36,44 +37,49 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
+
   const {
     handleLoadTutorial,
   } = props;
 
   const classes = useStyles();
+  const theme = useTheme();
+  const lgBreakpointMatches = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
-    <Drawer
-      variant="permanent"
-      anchor="left"
-      className={classes.drawer}
-      classes={{
-        paper: classes.drawerPaper,
-      }}
-    >
-      <Toolbar />
-      <div className={classes.drawerContainer}>
-        <List
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Hedgehog Lab Tutorials:
+    <div>
+      <Drawer
+        variant={lgBreakpointMatches ? "permanent" : "temporary"}
+        anchor="left"
+        className={classes.drawer}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <Toolbar />
+        <div className={classes.drawerContainer}>
+          <List
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Hedgehog Lab Tutorials:
             </ListSubheader>
-          }
-        >
-          {tutorials.map(
-            (tutorial: { description: React.ReactNode }, i: number) => {
-              return (
-                <ListItem key={`${i}-${Date.now()}`} button onClick={(e) => handleLoadTutorial(e, i)}>
-                  <ListItemText primary={`${i + 1}: ${tutorial.description}`}>
-                    Tutorial {i + 1}: {tutorial.description}
-                  </ListItemText>
-                </ListItem>
-              );
             }
-          )}
-        </List>
-      </div>
-    </Drawer>
+          >
+            {tutorials.map(
+              (tutorial: { description: React.ReactNode }, i: number) => {
+                return (
+                  <ListItem key={`${i}-${Date.now()}`} button onClick={(e) => handleLoadTutorial(e, i)}>
+                    <ListItemText>
+                      Tutorial {i + 1}: {tutorial.description}
+                    </ListItemText>
+                  </ListItem>
+                );
+              }
+            )}
+          </List>
+        </div>
+      </Drawer>
+    </div>
   );
 };
 
