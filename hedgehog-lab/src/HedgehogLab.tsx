@@ -7,10 +7,7 @@ import Footer from './components/Footer/Footer'
 import { tutorials } from './tutorials'
 import OutputItemType from './core/output/output-item'
 import { useMutation } from 'react-query'
-import { ControlledEditorOnChange } from '@monaco-editor/react'
-import { compiler, releaseWorker } from './core'
-
-
+import { compiler, releaseWorker } from './compiler'
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
 `
@@ -25,17 +22,21 @@ const HedgehogLab: React.FC<{}> = () => {
     outputString: '',
   })
   const [complie, { isLoading }] = useMutation(compiler, {
-    onSuccess: (result: React.SetStateAction<{ outputItem: OutputItemType[]; outputString: string }>) => {
+    onSuccess: (
+      result: React.SetStateAction<{
+        outputItem: OutputItemType[]
+        outputString: string
+      }>
+    ) => {
       setResult(result)
     },
     onError: (lastError) => {
-
       // It's necessary to output all exception messages to user at output textbox,
       // including execution runtime exception and compiling exception -Lidang
-      console.log('Hedgehog Lab: Failed: ' + lastError.toString() )
+      console.log('Hedgehog Lab: Failed: ' + lastError.toString())
       setResult({
         outputItem: [],
-        outputString: lastError.toString()
+        outputString: lastError.toString(),
       })
     },
   })
@@ -66,7 +67,7 @@ const HedgehogLab: React.FC<{}> = () => {
     <div>
       <div>
         <Header />
-        <Container maxWidth="xl">
+        <Container maxWidth='xl'>
           <Box my={4}>
             <Grid container spacing={3}>
               <YourCode
