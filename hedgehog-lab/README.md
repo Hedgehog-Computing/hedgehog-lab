@@ -23,7 +23,7 @@ Once cloned, navigate to the folder by typing cd `hedgehog-lab` and then running
 
 ```bash
 # Navigate to the hedgehog-lab folder
-cd hedgehog-lab
+cd hedgehog-lab/hedgehog-lab
 
 # Install all project dependencies
 npm i
