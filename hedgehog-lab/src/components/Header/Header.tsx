@@ -5,11 +5,10 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  useMediaQuery,
   FormControlLabel,
   Switch
 } from '@material-ui/core';
-import { makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import SideBar from './SideBar';
 
 interface HeaderProps {
@@ -30,10 +29,9 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   } = props;
 
   const classes = useStyles();
-  const theme = useTheme();
   const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
   const lgBreakpointMatches = lgBreakpoint.matches
-  
+
   // SideBar open prop
   const [siderBarOpen, setOpen] = useState(lgBreakpointMatches ? true: false);
 
