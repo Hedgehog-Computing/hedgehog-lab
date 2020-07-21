@@ -7,15 +7,13 @@ import {
   Toolbar,
   makeStyles,
   createStyles,
-  ListSubheader,
-  useMediaQuery
-} from '@material-ui/core';
-import { useTheme } from '@material-ui/core/styles';
+  ListSubheader} from '@material-ui/core';
 // @ts-ignore
 import { tutorials } from '../../tutorials';
 
 interface SideBarProps {
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
+  siderBarOpen: boolean
 }
 
 const drawerWidth = 240;
@@ -40,23 +38,27 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
 
   const {
     handleLoadTutorial,
+    siderBarOpen
   } = props;
 
   const classes = useStyles();
-  const theme = useTheme();
-  const lgBreakpointMatches = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
     <div>
       <Drawer
-        variant={lgBreakpointMatches ? "permanent" : "temporary"}
+        variant="persistent"
         anchor="left"
         className={classes.drawer}
         classes={{
           paper: classes.drawerPaper,
         }}
+        open={siderBarOpen}
+        style={{
+          display: siderBarOpen ? "" : "none"
+        }}
       >
         <Toolbar />
+
         <div className={classes.drawerContainer}>
           <List
             subheader={
@@ -68,7 +70,13 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
             {tutorials.map(
               (tutorial: { description: React.ReactNode }, i: number) => {
                 return (
-                  <ListItem key={`${i}-${Date.now()}`} button onClick={(e) => handleLoadTutorial(e, i)}>
+                  <ListItem
+                    key={`${i}-${Date.now()}`}
+                    button
+                    onClick={
+                      (e) => handleLoadTutorial(e, i)
+                    }
+                  >
                     <ListItemText>
                       Tutorial {i + 1}: {tutorial.description}
                     </ListItemText>

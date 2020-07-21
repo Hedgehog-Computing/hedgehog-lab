@@ -10,7 +10,6 @@ import { tutorials } from './tutorials'
 import OutputItemType from './core/output/output-item'
 import { useMutation } from 'react-query'
 import { compiler, releaseWorker } from './core'
-import SideBar from './components/SideBar/SideBar';
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -76,10 +75,6 @@ const HedgehogLab: React.FC<{}> = () => {
         <CssBaseline />
 
         <Header handleLoadTutorial={handleLoadTutorial} />
-
-        <SideBar
-          handleLoadTutorial={handleLoadTutorial}
-        />
 
         <main className={classes.content}>
           <Toolbar />

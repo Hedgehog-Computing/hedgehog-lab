@@ -1,8 +1,7 @@
-import React, { useState, MouseEvent } from 'react';
-import { AppBar, Button, Toolbar, Typography, IconButton, useMediaQuery, Menu, MenuItem, Hidden } from '@material-ui/core';
+import React, { useState } from 'react';
+import { AppBar, Button, Toolbar, Typography, IconButton, useMediaQuery, FormControlLabel, Switch } from '@material-ui/core';
 import { makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { tutorials } from '../../tutorials';
+import SideBar from './SideBar';
 
 interface HeaderProps {
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
@@ -25,87 +24,66 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const theme = useTheme();
   const lgBreakpointMatches = useMediaQuery(theme.breakpoints.up('lg'));
 
-  const [tutorialsEl, setTutorialsEl] = useState<null | HTMLElement>(null);
+  // SideBar open prop
+  const [siderBarOpen, setOpen] = useState(false);
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    /**
-     * Warning: finddomnode is deprecated in strictmode,
-     * Here is known issue: https://github.com/mui-org/material-ui/issues/13394
-     */
-    setTutorialsEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setTutorialsEl(null);
+  const handleSideBarOpen = () => {
+    setOpen(!siderBarOpen);
   };
 
   return (
-    <AppBar position="fixed" elevation={0} color="default" className={classes.appBar}>
-      <Toolbar>
-        <IconButton edge="start" color="inherit" aria-label="menu">
-          <img src={process.env.PUBLIC_URL + "/cat.png"} style={{ height: '1.25rem' }} alt="Hedgehog Lab Logo" />
-        </IconButton>
+    <div>
+      <AppBar position="fixed" elevation={0} color="default" className={classes.appBar}>
+        <Toolbar>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={siderBarOpen}
+                onChange={handleSideBarOpen}
+                name="handleSideBarOpen"
+                color="primary"
+              />
+            }
+            label="Tutorials"
+          />
 
-        <Typography
-          variant={lgBreakpointMatches ? "h6" : "body1"}
-          style={{
-            flexGrow: 1,
-            display: 'flex',
-            alignItems: 'center'
-          }}>
-          Hedgehog Lab
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            style={{ display: lgBreakpointMatches ? "inline" : "none" }}
+          >
+            <img src={process.env.PUBLIC_URL + "/cat.png"} style={{ height: '1.25rem' }} alt="Hedgehog Lab Logo" />
+          </IconButton>
+
+          <Typography
+            variant={lgBreakpointMatches ? "h6" : "body1"}
+            style={{
+              flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center'
+            }}>
+            Hedgehog Lab
         </Typography>
 
-        <Hidden lgUp>
           <Button
-            aria-controls="tutorials-menu"
-            aria-haspopup="true"
-            onClick={handleClick}
+            color="inherit"
             style={{ textTransform: 'none', height: 36 }}
-            endIcon={<ExpandMoreIcon />}
+            onClick={() => { window.open('https://github.com/lidangzzz/hedgehog-lab') }}
           >
-            Tutorials
+            <img
+              alt="GitHub stars"
+              src="https://img.shields.io/github/stars/lidangzzz/hedgehog-lab?style=social"
+            />
           </Button>
-          <Menu
-            id="tutorials-menu"
-            anchorEl={tutorialsEl}
-            keepMounted
-            open={Boolean(tutorialsEl)}
-            onClose={handleClose}
-          >
-            {!lgBreakpointMatches && tutorials.map(
-              (tutorial: { description: React.ReactNode }, i: number) => {
-                return (
-                  <MenuItem
-                    key={`${i}-${Date.now()}`}
-                    dense
-                    onClick={
-                      (e) => {
-                        handleLoadTutorial(e, i);
-                        handleClose()
-                      }
-                    }
-                  >
-                    Tutorial {i + 1}: {tutorial.description}
-                  </MenuItem>
-                );
-              }
-            )}
-          </Menu>
-        </Hidden>
+        </Toolbar>
+      </AppBar>
 
-        <Button
-          color="inherit"
-          style={{ textTransform: 'none', height: 36 }}
-          onClick={() => { window.open('https://github.com/lidangzzz/hedgehog-lab') }}
-        >
-          <img
-            alt="GitHub stars"
-            src="https://img.shields.io/github/stars/lidangzzz/hedgehog-lab?style=social"
-          />
-        </Button>
-      </Toolbar>
-    </AppBar>
+      <SideBar
+        handleLoadTutorial={handleLoadTutorial}
+        siderBarOpen={siderBarOpen}
+      />
+    </div>
   );
 };
 
