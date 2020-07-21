@@ -1,7 +1,5 @@
 <h1 align="center">Hedgehog Lab</h1>
 
-# Hedgehog Lab
-
 [Hedgehog Lab](https://hedgehog-lab.github.io/) Hedgehog Lab is an open source scientific computation tool in the browser.
 
 Try it at [https://hedgehog-lab.github.io/](https://hedgehog-lab.github.io/)
