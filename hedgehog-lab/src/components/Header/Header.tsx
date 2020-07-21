@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { AppBar, Button, Toolbar, Typography, IconButton, useMediaQuery, FormControlLabel, Switch } from '@material-ui/core';
+import {
+  AppBar,
+  Button,
+  Toolbar,
+  Typography,
+  IconButton,
+  useMediaQuery,
+  FormControlLabel,
+  Switch
+} from '@material-ui/core';
 import { makeStyles, Theme, createStyles, useTheme } from '@material-ui/core/styles';
 import SideBar from './SideBar';
 
@@ -22,10 +31,11 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
   const classes = useStyles();
   const theme = useTheme();
-  const lgBreakpointMatches = useMediaQuery(theme.breakpoints.up('lg'));
-
+  const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
+  const lgBreakpointMatches = lgBreakpoint.matches
+  
   // SideBar open prop
-  const [siderBarOpen, setOpen] = useState(false);
+  const [siderBarOpen, setOpen] = useState(lgBreakpointMatches ? true: false);
 
   const handleSideBarOpen = () => {
     setOpen(!siderBarOpen);

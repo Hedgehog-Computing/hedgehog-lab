@@ -7,7 +7,8 @@ import {
   Toolbar,
   makeStyles,
   createStyles,
-  ListSubheader} from '@material-ui/core';
+  ListSubheader
+} from '@material-ui/core';
 // @ts-ignore
 import { tutorials } from '../../tutorials';
 
