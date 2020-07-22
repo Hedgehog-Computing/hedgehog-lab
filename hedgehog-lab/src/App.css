@@ -17,7 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60vh;
+  height: 100%;
 }
 
 .no-code .no-code-content {

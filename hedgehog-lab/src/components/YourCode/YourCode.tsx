@@ -1,13 +1,10 @@
 import React, { Dispatch, SetStateAction } from 'react';
 import {
-  Box,
   Button,
   Card,
   CardContent,
   CardHeader,
   CircularProgress,
-  Grid,
-  Typography,
 } from '@material-ui/core';
 import {
   ControlledEditor,
@@ -16,13 +13,11 @@ import {
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 
 // @ts-ignore
-import { tutorials } from '../../tutorials';
 
 const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
-  handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
   source: string
   loading: boolean;
   setSource: Dispatch<SetStateAction<string>>
@@ -34,7 +29,6 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     handleCompileAndRun,
     loading,
     setSource,
-    handleLoadTutorial,
     source,
   } = props;
 
@@ -59,8 +53,8 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
   };
 
   return (
-    <Grid item xs={12} md={6}>
-      <Card variant="outlined" className={'your-code-card'}>
+    <div style={{ height: "100%" }}>
+      <Card variant="outlined" className={'your-code-card'} style={{ height: "100%" }}>
         <CardHeader
           action={
             <div className="run-button">
@@ -83,42 +77,20 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         />
 
         <CardContent>
-          <ControlledEditor
-            height="90vh"
-            language="javascript"
-            value={source}
-            onChange={handleUploadSource}
-            options={options}
-            editorDidMount={handleEditorDidMount}
-          />
+          <div style={{
+            height: 'calc(100vh - 174px)'
+          }}>
+            <ControlledEditor
+              language="javascript"
+              value={source}
+              onChange={handleUploadSource}
+              options={options}
+              editorDidMount={handleEditorDidMount}
+            />
+          </div>
         </CardContent>
       </Card>
-
-      <Box my={2}>
-        <Typography variant="h6" gutterBottom>
-          Hedgehog Lab Tutorials:
-        </Typography>
-
-        {tutorials.map(
-          (tutorial: { description: React.ReactNode }, i: number) => {
-            return (
-              <Box my={1}>
-                <Button
-                  key={`${i}-${Date.now()}`}
-                  size="small"
-                  style={{ textTransform: 'none' }}
-                  variant="contained"
-                  disableElevation
-                  onClick={(e) => handleLoadTutorial(e, i)}
-                >
-                  Tutorial {i + 1}: {tutorial.description}
-                </Button>
-              </Box>
-            );
-          }
-        )}
-      </Box>
-    </Grid>
+    </div>
   );
 };
 
