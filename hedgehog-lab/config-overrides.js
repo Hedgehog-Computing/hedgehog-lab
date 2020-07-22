@@ -3,7 +3,10 @@ module.exports = function override(config) {
     {
       test: /\.worker\.js$/,
       use: { loader: 'worker-loader' },
-    },
-    ])
+    }, {
+      test: /\.txt$/i,
+      use: 'raw-loader',
+    }
+  ])
   return config
 }

@@ -1,0 +1,97 @@
+declare class Mat {
+
+}
+
+declare class Scalar {
+    
+}
+
+declare class Sym {
+    
+}
+
+declare class Chol {
+    
+}
+
+declare class QR {
+    
+}
+
+declare class LU {
+    
+}
+
+type OutputItem = any
+
+
+
+/**
+ * wrapper of constructing a Mat object
+ */
+declare function mat(input?: number[][] | number[] | number): Mat;
+/**
+ * wrapper for Sym class
+ */
+declare function sym(varName: string): Sym;
+/**
+ * wrapper for Scalar class
+ */
+declare function scalar(val: number): Scalar;
+/**
+ * diff from nerdamer.
+ *
+ * x: sym object for input expression,
+ */
+declare function diff(input: Sym, varName?: Sym, times?: number): Sym;
+/**
+ * integrate from nerdamer
+ */
+declare function integrate(input: Sym, varName?: Sym): Sym;
+declare function csv2mat(strCSV: string): Mat;
+declare function mat2csv(A: Mat): string;
+declare function json2mat(json_str: string): Mat;
+declare function mat2json(A: Mat): string;
+declare function sin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function cos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function abs(A: Mat | number[][] | number[] | number): Mat;
+declare function acos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function acosh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function sign(A: Mat | number[][] | number[] | number): Mat;
+declare function sqrt(A: Mat | number[][] | number[] | number): Mat;
+declare function trunc(A: Mat | number[][] | number[] | number): Mat;
+declare function floor(A: Mat | number[][] | number[] | number): Mat;
+declare function ceil(A: Mat | number[][] | number[] | number): Mat;
+declare function exp(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function log(A: Mat | number[][] | number[] | number | Sym, base?: number): Mat | Sym;
+declare function asin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function asinh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function atan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function atanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function tan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function tanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym;
+declare function pow(A: Mat | number[][] | number[] | number, y: number): Mat;
+declare function round(A: Mat | number[][] | number[] | number): Mat;
+declare function Ns(row: number, col: number, N: number): Mat;
+declare function ones(row: number, col?: number): Mat;
+declare function zeros(row: number, col?: number): Mat;
+declare function diag(input_array: number[]): Mat;
+declare function eye(row: number, col?: number): Mat;
+declare function random(row: number, col?: number): Mat;
+declare function range(start: number, end?: any, step?: number): Mat;
+declare function chol(A: Mat): Chol;
+declare function qr(A: Mat): QR;
+declare function lu(A: Mat): LU;
+declare function tic(): void;
+declare function toc(): void;
+declare let _OUTPUT_ITEMS_LIST_: OutputItem[];
+{ _OUTPUT_ITEMS_LIST_ };
+declare function print(a: any): void;
+declare function draw(data: any, layout?: any): void;
+declare function plot2D(x_: any, y_: any): void;
+declare function plot2DLine(x_: any, y_: any): void;
+declare function plot3D(x_: any, y_: any, z_: any): void;
+declare function plot3DMesh(x_: any, y_: any, z_: any): void;
+declare function tex(inputTex: string): void;
+declare function formulaTex(inputTex: string): void;
+declare function markdown(inputMarkdown: string): void;
