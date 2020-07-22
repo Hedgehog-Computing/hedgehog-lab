@@ -1,68 +1,75 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> For historical reasons, we have temporarily switched the package manager to NPM
 
-## Available Scripts
+---
+# Contributing Guide
 
-In the project directory, you can run:
+## Setting up your environment
 
-### `yarn start`
+If you are making a Pull Request, please fork the hedgehog-lab repository before continuing.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+More information on forking or GitHub usage please navigate: https://docs.github.com/en/github/getting-started-with-github
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```bash
+# Example of cloning the hedgehog-lab repository (forked)
 
-### `yarn test`
+# Using HTTPS
+git clone https://github.com/<your_username>/hedgehog-lab.git
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Using SSH
+git clone git@github.com:<your_username>/hedgehog-lab.git
+```
 
-### `yarn build`
+Once cloned, navigate to the folder by typing cd `hedgehog-lab` and then running the following commands:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+# Navigate to the hedgehog-lab folder
+cd hedgehog-lab/hedgehog-lab
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+# Install all project dependencies
+npm i
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Start the project
+npm run start
+```
 
-### `yarn eject`
+Start your local development server(may take awhile) by running `npm run start` in the terminal.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Recommended packages(draft)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+> About this section, The core team is under discussion, So you may not follow these Settings for the time being.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Commitizen(draft)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The [Commitizen](https://github.com/commitizen/cz-cli) allows for easy to read and organized commits with minimal change to normal commit functions. To get started, Please navigate: https://github.com/commitizen/cz-cli
 
-## Learn More
+### Commit Guidelines w/Commitizen(draft)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+All commits will be auto-formatted by commitizen following a fluid interface
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Commit types(draft)
 
-### Code Splitting
+* **feat**: Commits that result in new features. Backward compatible features will release with the next MINOR whereas breaking changes will be in the next MAJOR. The body of a commit with breaking changes must begin with BREAKING CHANGE, followed by a description of how the API has changed.
+* **fix**: Commits that provide fixes for bugs within hedgehog-lab's codebase.
+* **docs**: Commits that provide updates to the docs.
+* **style**: Commits that do not affect how the code runs, these are simply changes to formatting.
+* **refactor**: Commits that neither fixes a bug nor adds a feature.
+* **perf**: Commits that improve performance.
+* **test**: Commits that add missing or correct existing tests.
+* **chore**: Other commits that don't modify core or test files.
+* **revert**: Commits that revert previous commits.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+## Submitting Changes / Pull Requests(draft)
 
-### Analyzing the Bundle Size
+> About this section, The core team is under discussion and organizing branches, So you may not follow these Settings for the time being.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+Before doing any commits, you will want to pull down the latest and greatest from dev. From here, merge, and resolve any conflicts between your branch and dev. Its a good rule of thumb to pull frequently as development is constantly happening.
 
-### Making a Progressive Web App
+### Pull Requests For hedgehog-lab(draft)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+> Pull requests related to the hedgehog-lab core:  
+* For bug fixes and documentation updates submit pull requests to master.  
+* For new features and enhancements submit pull requests to dev
 
-### Advanced Configuration
+### Pull Requests For Docs
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+For any pull requests related to hedgehog-lab docs, submit your pull request to the master branch.
