@@ -42,8 +42,8 @@ export class LU {
   P: Mat;
   constructor(A: Mat) {
     let result = lup(A.val);
-    this.L = new Mat(result.L);
-    this.U = new Mat(result.U);
+    this.L = new Mat(result.L as any);
+    this.U = new Mat(result.U as any);
     this.P = new Mat(result.P);
   }
 }
@@ -54,7 +54,7 @@ export class QR {
   R: Mat;
   constructor(A: Mat) {
     let result = qr(A.val);
-    this.Q = new Mat(result.Q);
-    this.R = new Mat(result.R);
+    this.Q = new Mat(result.Q as any);
+    this.R = new Mat(result.R as any);
   }
 }

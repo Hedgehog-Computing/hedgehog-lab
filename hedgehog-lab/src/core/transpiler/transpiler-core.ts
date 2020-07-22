@@ -1,7 +1,7 @@
 import preprocess from './preprocess';
 import operatorOverload from './operator-overload';
 
-function transpilerCore(source) {
+function transpilerCore(source: string) {
   //todo: move the registration of plugins and presets to the constructor
   const babel = require('@babel/standalone');
 

@@ -8,7 +8,6 @@ function to_matrix(A: Mat | number[][] | number[] | number): Mat {
 }
 
 function sin(A: Mat | number[][] | number[] | number): Mat {
-  console.log(to_matrix(A));
   return to_matrix(A).each(Math.sin);
 }
 
@@ -52,7 +51,7 @@ function tanh(A: Mat | number[][] | number[] | number): Mat {
   return to_matrix(A).each(Math.tanh);
 }
 
-function pow(x?: Mat | number[][] | number[] | number, y: number): Mat {
+function pow(x: Mat | number[][] | number[] | number, y: number): Mat {
   return to_matrix(x).each((eachElement) => Math.pow(eachElement, y));
 }
 

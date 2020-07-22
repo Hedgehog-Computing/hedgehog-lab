@@ -1,3 +1,4 @@
+// @ts-ignore
 import nerdamer from 'nerdamer/all';
 
 import { Mat, Scalar } from '../lib/matrix';
@@ -77,13 +78,13 @@ export function mat2json(A: Mat): string {
 }
 
 //Math Lib functions
-export function sin(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function sin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('sin(' + A.expression + ')');
   }
   return _MathLib.sin(A);
 }
-export function cos(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function cos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('cos(' + A.expression + ')');
   }
@@ -92,13 +93,15 @@ export function cos(A: Mat | number[][] | number[] | number | Sym): Mat {
 export function abs(A: Mat | number[][] | number[] | number): Mat {
   return _MathLib.abs(A);
 }
-export function acos(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function acos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('acos(' + A.expression + ')');
   }
   return _MathLib.acos(A);
 }
-export function acosh(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function acosh(
+  A: Mat | number[][] | number[] | number | Sym
+): Mat | Sym {
   if (A instanceof Sym) {
     return sym('acosh(' + A.expression + ')');
   }
@@ -119,7 +122,7 @@ export function floor(A: Mat | number[][] | number[] | number): Mat {
 export function ceil(A: Mat | number[][] | number[] | number): Mat {
   return _MathLib.ceil(A);
 }
-export function exp(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function exp(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('exp(' + A.expression + ')');
   }
@@ -128,60 +131,64 @@ export function exp(A: Mat | number[][] | number[] | number | Sym): Mat {
 export function log(
   A: Mat | number[][] | number[] | number | Sym,
   base?: number
-): Mat {
+): Mat | Sym {
   if (A instanceof Sym) {
     return sym('log(' + A.expression + ')');
   }
   return _MathLib.log(A, base);
 }
-export function asin(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function asin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('asin(' + A.expression + ')');
   }
   return _MathLib.asin(A);
 }
-export function asinh(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function asinh(
+  A: Mat | number[][] | number[] | number | Sym
+): Mat | Sym {
   if (A instanceof Sym) {
     return sym('asinh(' + A.expression + ')');
   }
   return _MathLib.asinh(A);
 }
-export function atan(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function atan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('atan(' + A.expression + ')');
   }
   return _MathLib.atan(A);
 }
-export function atanh(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function atanh(
+  A: Mat | number[][] | number[] | number | Sym
+): Mat | Sym {
   if (A instanceof Sym) {
     return sym('atanh(' + A.expression + ')');
   }
   return _MathLib.atanh(A);
 }
-export function tan(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function tan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('tan(' + A.expression + ')');
   }
   return _MathLib.tan(A);
 }
-export function tanh(A: Mat | number[][] | number[] | number | Sym): Mat {
+export function tanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('tanh(' + A.expression + ')');
   }
   return _MathLib.tanh(A);
 }
-export function pow(A: Mat | number[][] | number[] | number): Mat {
-  return _MathLib.pow(A);
+export function pow(A: Mat | number[][] | number[] | number, y: number): Mat {
+  return _MathLib.pow(A, y);
 }
 export function round(A: Mat | number[][] | number[] | number): Mat {
   return _MathLib.round(A);
 }
 
 //matrix constructors
-export function Ns(row: Number, col: number, N: number): Mat {
-  return mat().Ns(N);
+export function Ns(row: number, col: number, N: number): Mat {
+  return mat().Ns(row, col, N);
 }
-export function ones(row: number, col: ?number): Mat {
+export function ones(row: number, col?: number): Mat {
   return mat().ones(row, col);
 }
 export function zeros(row: number, col?: number): Mat {
@@ -224,7 +231,7 @@ export function toc() {
 
 //below is the execution part
 
-let _OUTPUT_ITEMS_LIST_ = [];
+let _OUTPUT_ITEMS_LIST_: OutputItem[] = [];
 
 export { _OUTPUT_ITEMS_LIST_ };
 
@@ -232,12 +239,12 @@ export { _OUTPUT_ITEMS_LIST_ };
 export function print(a: any) {
   let objItem = new OutputItem();
   objItem.outputType = 'print';
-  objItem.text = a;
+  objItem.text = a.toString();
   _OUTPUT_ITEMS_LIST_.push(objItem);
 }
 
 //draw function is a function for user to draw figures using plotly.js
-export function draw(data: any, layout: any) {
+export function draw(data: any, layout?: any) {
   let objItem = new OutputItem();
   objItem.outputType = 'draw';
   objItem.data = data;

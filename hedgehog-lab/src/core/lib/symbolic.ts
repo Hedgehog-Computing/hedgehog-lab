@@ -12,6 +12,8 @@ export class Sym {
       return new Sym(this.expression + '+' + rightOperand.expression);
     } else if (typeof rightOperand === 'number') {
       return new Sym(this.expression + '+' + rightOperand.toString());
+    } else {
+      throw new Error('This right operand does not support + operator');
     }
   }
 
@@ -20,6 +22,8 @@ export class Sym {
       return new Sym(this.expression + '-' + rightOperand.expression);
     } else if (typeof rightOperand === 'number') {
       return new Sym(this.expression + '-' + rightOperand.toString());
+    } else {
+      throw new Error('This right operand does not support - operator');
     }
   }
 
@@ -28,6 +32,8 @@ export class Sym {
       return new Sym(this.expression + '*' + rightOperand.expression);
     } else if (typeof rightOperand === 'number') {
       return new Sym(this.expression + '*' + rightOperand.toString());
+    } else {
+      throw new Error('This right operand does not support * operator');
     }
   }
 
@@ -36,6 +42,8 @@ export class Sym {
       return new Sym(this.expression + '/' + rightOperand.expression);
     } else if (typeof rightOperand === 'number') {
       return new Sym(this.expression + '/' + rightOperand.toString());
+    } else {
+      throw new Error('This right operand does not support / operator');
     }
   }
 
@@ -44,6 +52,8 @@ export class Sym {
       return new Sym(this.expression + '^' + rightOperand.expression);
     } else if (typeof rightOperand === 'number') {
       return new Sym(this.expression + '^' + rightOperand.toString());
+    } else {
+      throw new Error('This right operand does not support ^ operator');
     }
   }
 
