@@ -1,3 +1,4 @@
+/* eslint import/no-webpack-loader-syntax: off */
 import React, { Dispatch, SetStateAction } from 'react';
 import {
   Button,
@@ -13,20 +14,13 @@ import {
 } from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 
-import libContent from '../../core/runtime/prelude.d.ts.txt'
-import fetchLibrary from '../../core/utilites/fetch-library'
-
-
-const loadMonacoTask = monaco.init()
-const loadContentTask = fetchLibrary(libContent)
-
-Promise.all([loadMonacoTask, loadContentTask]).then(([monaco, content]) => {
-  console.error(monaco)
-  console.error(content)
-  monaco.languages.typescript.javascriptDefaults.addExtraLib(content, 'prelude.d.ts')
-})
+import libContent from '!raw-loader!../../core/runtime/prelude.d.ts.txt'
 
 // @ts-ignore
+
+monaco.init().then(monaco => {
+  monaco.languages.typescript.javascriptDefaults.addExtraLib(libContent, 'prelude.d.ts')
+})
 
 const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 
