@@ -5,27 +5,31 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./hedgehog-lab
     steps:
       - uses: actions/checkout@v1
+
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Cache NPM dependencies
-        uses: actions/cache@v1
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ~/.npm
-          key: ${{ runner.OS }}-npm-cache
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.OS }}-npm-cache
+            ${{ runner.os }}-yarn-
+
       - name: Install Dependencies
         run: |
-          npm i
-        working-directory: ${{ env.working-directory }}
+          yarn --frozen-lockfile --non-interactive
+
       - name: Build
-        run: npm run build
+        run: yarn lerna run build --stream
         env:
           CI: true
-        working-directory: ${{ env.working-directory }}
