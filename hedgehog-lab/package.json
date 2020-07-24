@@ -36,7 +36,8 @@
     "react-query": "^2.5.4",
     "react-scripts": "3.4.1",
     "react-split-pane": "^0.1.91",
-    "update": "^0.7.4"
+    "update": "^0.7.4",
+    "axios": "^0.19.2"
   },
   "scripts": {
     "start": "react-app-rewired --max_old_space_size=8192 start",
