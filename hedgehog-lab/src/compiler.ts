@@ -4,17 +4,35 @@ import { OutputItem } from './core'
 import type { OutputItemType } from './core'
 import * as Comlink from 'comlink'
 
-const compile = Comlink.wrap<{
-  compile: (data: string) => Promise<string>
-}>(new CompilerWorker()).compile
+let compilerWorker = new CompilerWorker()
 
-const output = Comlink.wrap<{
+let outputWorker = new OutputWorker()
+
+let compile = Comlink.wrap<{
+  compile: (data: string) => Promise<string>
+}>(compilerWorker).compile
+
+let output = Comlink.wrap<{
   output: (data: string) => Promise<any[]>
-}>(new OutputWorker()).output
+}>(outputWorker).output
+
+let compileCancel: { (): void; (reason?: any): void } | null
+
+let outputCancel: { (): void; (reason?: any): void } | null
 
 export const compiler = async (input: string) => {
-  const code = await compile(input)
-  const result = await output(code)
+  const code: string = await new Promise(async (resolve, reject) => {
+    compileCancel = reject
+    const compileString = await compile(input)
+    resolve(compileString)
+  })
+  compileCancel = null
+  const result: any[] = await new Promise(async (resolve, reject) => {
+    outputCancel = reject
+    const outputList =await output(code)
+    resolve(outputList)
+  })
+  outputCancel = null
   const outPutItemPrototype = Object.create(new OutputItem())
   const outputItem = result.map((item: { __proto__: any }) => {
     item.__proto__ = outPutItemPrototype
@@ -23,8 +41,7 @@ export const compiler = async (input: string) => {
   let outputString = ''
   outputItem.forEach((element: OutputItemType) => {
     if (element.isPrint()) {
-      // todo 这里text对象的toString被覆写了，我找不到覆写方法的位置，导致text.value为array时最终输出为[object object] there text object's toString function be overwritten, please fix the bug
-      outputString += element.text + '\n'
+       outputString += element.text + '\n'
     }
   })
   return {
@@ -36,4 +53,28 @@ export const compiler = async (input: string) => {
 export const releaseWorker = () => {
   compile[Comlink.releaseProxy]()
   output[Comlink.releaseProxy]()
+}
+
+export const restartWorker = () => {
+  if (compileCancel) {
+    compileCancel()
+  }
+
+  if (outputCancel) {
+    outputCancel()
+  }
+
+  compilerWorker.terminate()
+  outputWorker.terminate()
+
+  compilerWorker = new CompilerWorker()
+  outputWorker = new OutputWorker()
+
+  compile = Comlink.wrap<{
+    compile: (data: string) => Promise<string>
+  }>(compilerWorker).compile
+
+  output = Comlink.wrap<{
+    output: (data: string) => Promise<any[]>
+  }>(outputWorker).output
 }
