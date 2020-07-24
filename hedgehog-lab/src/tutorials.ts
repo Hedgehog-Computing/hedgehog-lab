@@ -64,10 +64,10 @@ let C = ( A.T()* B ) + ( B * 4 - A + 1 ) * ( B^(-1) );
 print("Matrix C (A'*B + (B*4 - A + 1) * (B^(-1)) is\\n" + C);
 `;
 
-const gpuAccelerationSource = `//Create a 100-by-100 matrix
-var x = random(100,100);
+const gpuAccelerationSource = `//Create a 1000-by-1000 matrix
+var x = random(1000,1000);
 
-// do a 100*100 matrix multiplication without GPU acceleration
+// do a 1000*1000 matrix multiplication without GPU acceleration
 print("Without GPU acceleration...");
 tic();
 var z1 = x*x;
