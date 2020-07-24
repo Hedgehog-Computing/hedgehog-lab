@@ -17,19 +17,12 @@ function transpilerCore(source: string) {
     require('@babel/preset-typescript')
   );
 
-  //register flow
-  babel.registerPreset('@babel/preset-flow', require('@babel/preset-flow'));
-
   //the real compiling function
   const transpiled = babel.transform(
     preprocess(source), // the code
     {
       plugins: ['overload'],
-      presets: [
-        '@babel/preset-env',
-        '@babel/preset-typescript',
-        '@babel/preset-flow',
-      ],
+      presets: ['@babel/preset-env', '@babel/preset-typescript'],
       filename: 'temp.js',
       sourceType: 'script',
     }

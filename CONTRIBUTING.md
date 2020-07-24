@@ -1,6 +1,3 @@
-> For historical reasons, we have temporarily switched the package manager to NPM
-
----
 # Contributing Guide
 
 ## Setting up your environment
@@ -48,15 +45,15 @@ All commits will be auto-formatted by commitizen following a fluid interface
 
 ### Commit types(draft)
 
-* **feat**: Commits that result in new features. Backward compatible features will release with the next MINOR whereas breaking changes will be in the next MAJOR. The body of a commit with breaking changes must begin with BREAKING CHANGE, followed by a description of how the API has changed.
-* **fix**: Commits that provide fixes for bugs within hedgehog-lab's codebase.
-* **docs**: Commits that provide updates to the docs.
-* **style**: Commits that do not affect how the code runs, these are simply changes to formatting.
-* **refactor**: Commits that neither fixes a bug nor adds a feature.
-* **perf**: Commits that improve performance.
-* **test**: Commits that add missing or correct existing tests.
-* **chore**: Other commits that don't modify core or test files.
-* **revert**: Commits that revert previous commits.
+- **feat**: Commits that result in new features. Backward compatible features will release with the next MINOR whereas breaking changes will be in the next MAJOR. The body of a commit with breaking changes must begin with BREAKING CHANGE, followed by a description of how the API has changed.
+- **fix**: Commits that provide fixes for bugs within hedgehog-lab's codebase.
+- **docs**: Commits that provide updates to the docs.
+- **style**: Commits that do not affect how the code runs, these are simply changes to formatting.
+- **refactor**: Commits that neither fixes a bug nor adds a feature.
+- **perf**: Commits that improve performance.
+- **test**: Commits that add missing or correct existing tests.
+- **chore**: Other commits that don't modify core or test files.
+- **revert**: Commits that revert previous commits.
 
 ## Submitting Changes / Pull Requests(draft)
 
@@ -66,9 +63,10 @@ Before doing any commits, you will want to pull down the latest and greatest fro
 
 ### Pull Requests For hedgehog-lab(draft)
 
-> Pull requests related to the hedgehog-lab core:  
-* For bug fixes and documentation updates submit pull requests to master.  
-* For new features and enhancements submit pull requests to dev
+> Pull requests related to the hedgehog-lab core:
+
+- For bug fixes and documentation updates submit pull requests to master.
+- For new features and enhancements submit pull requests to dev
 
 ### Pull Requests For Docs
 

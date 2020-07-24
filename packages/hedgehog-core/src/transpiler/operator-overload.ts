@@ -5,9 +5,11 @@
  * https://github.com/foxbenjaminfox/babel-plugin-overload
  */
 
+// @ts-ignore
 import template from 'babel-template';
+import * as types from '@babel/types';
 
-function invokedTemplate(op) {
+function invokedTemplate(op: any) {
   return template(`
     (function (LEFT_ARG, RIGHT_ARG) { 
       if (LEFT_ARG !== null && LEFT_ARG !== undefined
@@ -25,10 +27,10 @@ function invokedTemplate(op) {
   `);
 }
 
-export default function ({ types: t }) {
+export default function ({ types: t }: { types: typeof types }) {
   return {
     visitor: {
-      BinaryExpression(path) {
+      BinaryExpression(path: any) {
         if (path.node.hasOwnProperty('_fromTemplate')) return;
 
         const func = invokedTemplate(path.node.operator)({

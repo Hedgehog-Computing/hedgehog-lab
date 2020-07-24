@@ -1,70 +1,70 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, CssBaseline, Toolbar } from '@material-ui/core'
+import React, { useState, useEffect } from 'react';
+import { Grid, CssBaseline, Toolbar } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-import Header from './components/Header/Header'
-import YourCode from './components/YourCode/YourCode'
-import Results from './components/Results/Results'
-import Footer from './components/Footer/Footer'
-import { tutorials } from './tutorials'
-import OutputItemType from './core/output/output-item'
-import { useMutation } from 'react-query'
-import { compiler, releaseWorker } from './compiler'
+import Header from './components/Header/Header';
+import YourCode from './components/YourCode/YourCode';
+import Results from './components/Results/Results';
+import Footer from './components/Footer/Footer';
+import { tutorials } from './tutorials';
+import { OutputItemType } from '@hedgehog/core';
+import { useMutation } from 'react-query';
+import { compiler, releaseWorker } from './compiler';
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
-`
+`;
 
 const HedgehogLab: React.FC<{}> = () => {
-  const [source, setSource] = useState<string>(DEFAULT_SOURCE)
+  const [source, setSource] = useState<string>(DEFAULT_SOURCE);
   const [result, setResult] = useState<{
-    outputItem: OutputItemType[]
-    outputString: string
+    outputItem: OutputItemType[];
+    outputString: string;
   }>({
     outputItem: [],
     outputString: '',
-  })
+  });
   const [complie, { isLoading }] = useMutation(compiler, {
     onSuccess: (
       result: React.SetStateAction<{
-        outputItem: OutputItemType[]
-        outputString: string
+        outputItem: OutputItemType[];
+        outputString: string;
       }>
     ) => {
-      setResult(result)
+      setResult(result);
     },
     onError: (lastError) => {
       // It's necessary to output all exception messages to user at output textbox,
       // including execution runtime exception and compiling exception -Lidang
-      console.log('Hedgehog Lab: Failed: ' + lastError.toString())
+      console.log('Hedgehog Lab: Failed: ' + lastError.toString());
       setResult({
         outputItem: [],
         outputString: lastError.toString(),
-      })
+      });
     },
-  })
+  });
 
   const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
-    setSource(tutorials[index].source as string)
+    setSource(tutorials[index].source as string);
     setResult({
       outputItem: [],
       outputString: '',
-    })
-    complie(tutorials[index].source as string)
-  }
+    });
+    complie(tutorials[index].source as string);
+  };
 
   const handleCompileAndRun = () => {
     setResult({
       outputItem: [],
       outputString: '',
-    })
-    complie(source)
-  }
+    });
+    complie(source);
+  };
 
   useEffect(() => {
     return () => {
-      releaseWorker()
-    }
-  }, [])
+      releaseWorker();
+    };
+  }, []);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -74,7 +74,7 @@ const HedgehogLab: React.FC<{}> = () => {
       content: {
         flexGrow: 1,
       },
-    }),
+    })
   );
 
   const classes = useStyles();
@@ -90,14 +90,11 @@ const HedgehogLab: React.FC<{}> = () => {
           <Toolbar />
 
           <Grid container>
-            <Grid
-              item
-              xs={12}
-            >
+            <Grid item xs={12}>
               <Grid
                 container
                 style={{
-                  height: "calc(100vh - 174px)"
+                  height: 'calc(100vh - 174px)',
                 }}
               >
                 <Grid item xs={12} md={6}>
@@ -114,8 +111,8 @@ const HedgehogLab: React.FC<{}> = () => {
                   xs={12}
                   md={6}
                   style={{
-                    height: "calc(100vh - 64px)",
-                    overflowY: "auto"
+                    height: 'calc(100vh - 64px)',
+                    overflowY: 'auto',
                   }}
                 >
                   <Results
@@ -130,10 +127,9 @@ const HedgehogLab: React.FC<{}> = () => {
 
           <Footer />
         </main>
-
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default HedgehogLab
+export default HedgehogLab;

@@ -1,0 +1,54 @@
+{
+  "name": "@hedgehog/lab",
+  "version": "0.7.0",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@hedgehog/core": "0.7.0",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@monaco-editor/react": "^3.4.2",
+    "comlink": "^4.3.0",
+    "monaco-editor": "^0.20.0",
+    "plotly.js": "^1.54.6",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-markdown": "^4.3.1",
+    "react-mathjax": "^1.0.1",
+    "react-plotly.js": "^2.4.0",
+    "react-query": "^2.5.6",
+    "worker-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.3.3",
+    "@types/jest": "^24.0.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "customize-cra": "^1.0.0",
+    "react-app-rewired": "^2.1.6",
+    "react-refresh": "^0.8.3",
+    "react-scripts": "3.4.1"
+  },
+  "scripts": {
+    "start": "CI=true react-app-rewired start",
+    "watch": "CI=true react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
