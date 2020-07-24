@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Axios from 'axios'
 import { Grid, CssBaseline, Toolbar } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { useMutation } from 'react-query'
 
 import Header from './components/Header/Header'
 import YourCode from './components/YourCode/YourCode'
@@ -9,7 +10,7 @@ import Results from './components/Results/Results'
 import Footer from './components/Footer/Footer'
 import { tutorials } from './tutorials'
 import OutputItemType from './core/output/output-item'
-import { useMutation } from 'react-query'
+import AbortError from "./type/AbortError";
 import { compiler, releaseWorker, restartWorker } from './compiler'
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -36,10 +37,10 @@ const HedgehogLab: React.FC<{}> = () => {
     onError: (lastError) => {
       // It's necessary to output all exception messages to user at output textbox,
       // including execution runtime exception and compiling exception -Lidang
-      lastError ? console.log('Hedgehog Lab: Failed: ' + lastError.toString()) : console.log('Hedgehog Lab: Failed: web worker terminate')
+      console.log('Hedgehog Lab: Failed: ' + lastError.toString())
       setResult({
         outputItem: [],
-        outputString: lastError ? lastError.toString() : '',
+        outputString: lastError instanceof AbortError ? '' : lastError.toString(),
       })
     },
   })

@@ -3,6 +3,7 @@ import OutputWorker from './output.worker.js'
 import { OutputItem } from './core'
 import type { OutputItemType } from './core'
 import * as Comlink from 'comlink'
+import AbortError from "./type/AbortError";
 
 let compilerWorker = new CompilerWorker()
 
@@ -57,11 +58,11 @@ export const releaseWorker = () => {
 
 export const restartWorker = () => {
   if (compileCancel) {
-    compileCancel()
+    compileCancel(new AbortError('web worker terminate'))
   }
 
   if (outputCancel) {
-    outputCancel()
+    outputCancel(new AbortError('web worker terminate'))
   }
 
   compilerWorker.terminate()
