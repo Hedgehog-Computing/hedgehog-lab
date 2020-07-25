@@ -4,7 +4,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CircularProgress,
 } from '@material-ui/core';
 import {
   ControlledEditor,
@@ -18,6 +17,7 @@ const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 
 interface YourCodeProps {
   handleCompileAndRun: (event: React.MouseEvent) => void;
+  handleStop: (event: React.MouseEvent) => void;
   source: string
   loading: boolean;
   setSource: Dispatch<SetStateAction<string>>
@@ -30,6 +30,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     loading,
     setSource,
     source,
+    handleStop
   } = props;
 
   const handleUploadSource: ControlledEditorOnChange = (e, v) => {
@@ -58,19 +59,27 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         <CardHeader
           action={
             <div className="run-button">
-              <Button
-                id={COMPILE_AND_RUN_BUTTON_ID}
-                variant="contained"
-                color="primary"
-                onClick={(e) => handleCompileAndRun(e)}
-                style={{ textTransform: 'none' }}
-                disabled={loading}
-              >
-                Compile and run
-              </Button>
-              {loading && (
-                <CircularProgress size={24} className={'run-button-loading'} />
-              )}
+              {
+                loading ?
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    style={{ textTransform: 'none', width: 140 }}
+                    onClick={(e) => handleStop(e)}
+                  >
+                    Stop
+                  </Button>
+                  :
+                  <Button
+                    id={COMPILE_AND_RUN_BUTTON_ID}
+                    variant="contained"
+                    color="primary"
+                    onClick={(e) => handleCompileAndRun(e)}
+                    style={{ textTransform: 'none' }}
+                  >
+                    Compile and run
+                  </Button>
+              }
             </div>
           }
           title="Your code:"
