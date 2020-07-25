@@ -56,14 +56,13 @@ All commits will be auto-formatted by commitizen following a fluid interface
 
 > About this section, The core team is under discussion and organizing branches, So you may not follow these Settings for the time being.
 
-Before doing any commits, you will want to pull down the latest and greatest from dev. From here, merge, and resolve any conflicts between your branch and dev. Its a good rule of thumb to pull frequently as development is constantly happening.
+Before doing any commits, you will want to pull down the latest and greatest from master. From here, merge, and resolve any conflicts between your branch and master. Its a good rule of thumb to pull frequently as development is constantly happening.
 
 ### Pull Requests For hedgehog-lab(draft)
 
 > Pull requests related to the hedgehog-lab core:
 
-- For bug fixes and documentation updates submit pull requests to master.
-- For new features and enhancements submit pull requests to dev
+- For any new features, bug fixes and documentation updates, submit pull requests to master.
 
 ### Pull Requests For Docs
 
