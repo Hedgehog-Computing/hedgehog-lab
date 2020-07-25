@@ -26,11 +26,7 @@ yarn install
 yarn watch
 ```
 
-<<<<<<< HEAD
-Start your local development server(may take several minutes the first time) by running `yarn watch` in the terminal.
-=======
 Start your local development server(may take several minutes) by running `yarn watch` in the terminal.
->>>>>>> 1f85349... Update CONTRIBUTING.md
 
 ## Recommended packages(draft)
 
