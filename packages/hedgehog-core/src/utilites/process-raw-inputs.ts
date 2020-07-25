@@ -32,13 +32,16 @@ export default function processRawInputs(
  * let a = mat([[1,1,4], [5,1,4]]);
  * rawInputsToTex`A = ${a}`; //=> "A = \begin{bmatrix}...\end{bmatrix}"
  *
+ * @example
+ * rawInputsToTex(a); //=> "\begin{bmatrix}...\end{bmatrix}"
+ *
  * @param tmpl template call site object or anything
  * @param vals substituion values
  *
  * @returns
  *    1. the TeX string of the first argument if it contains `.toTex()` method;
- *    2. the generated string if the first argument is a
- *       template call site object(i.e. contains a `.raw` property);
+ *    2. the generated string if the first argument is a template call site object
+ *       (i.e. contains a `.raw` property);
  *    3. otherwise returns the first argument as is.
  */
 export function rawInputsToTex(
