@@ -4,11 +4,19 @@ import Plot from 'react-plotly.js';
 import MathJax from 'react-mathjax';
 import Markdown from 'react-markdown';
 
-const Output = ({ outputItemList }) => {
+import {
+  OutputItem,
+  isDrawingItem,
+  isTeXItem,
+  isFormulaItem,
+  isMarkdownItem,
+} from '@hedgehog/core';
+
+const Output = ({ outputItemList }: { outputItemList: OutputItem[] }) => {
   const items = outputItemList.map((item) => {
-    if (item.isDraw()) {
+    if (isDrawingItem(item)) {
       return <Plot data={item.data} layout={item.layout} />;
-    } else if (item.isTex()) {
+    } else if (isTeXItem(item)) {
       return (
         <MathJax.Provider>
           <div>
@@ -16,7 +24,7 @@ const Output = ({ outputItemList }) => {
           </div>
         </MathJax.Provider>
       );
-    } else if (item.isFormulaTex()) {
+    } else if (isFormulaItem(item)) {
       return (
         <MathJax.Provider>
           <div>
@@ -24,16 +32,20 @@ const Output = ({ outputItemList }) => {
           </div>
         </MathJax.Provider>
       );
-    } else if (item.isMarkdown()) {
+    } else if (isMarkdownItem(item)) {
       return <Markdown source={item.text} />;
     } else {
       return <React.Fragment />;
     }
   });
 
-  return items.map((item, index) => (
-    <React.Fragment key={index}>{item}</React.Fragment>
-  ));
+  return (
+    <>
+      {items.map((item, index) => (
+        <React.Fragment key={index}>{item}</React.Fragment>
+      ))}
+    </>
+  );
 };
 
 export default Output;

@@ -6,7 +6,7 @@ import * as _Mat from '../lib/matrix';
 import _MathLib from '../lib/mathlib';
 import { Sym } from '../lib/symbolic';
 import { Chol, QR, LU } from '../lib/algebra';
-import OutputItem from '../output/output-item';
+import { OutputItem } from '../output/output-item';
 
 export { Sym, Mat, Scalar, _Mat };
 
@@ -236,20 +236,13 @@ let _OUTPUT_ITEMS_LIST_: OutputItem[] = [];
 export { _OUTPUT_ITEMS_LIST_ };
 
 // print function is a function for user to output information
-export function print(a: any) {
-  let objItem = new OutputItem();
-  objItem.outputType = 'print';
-  objItem.text = a.toString();
-  _OUTPUT_ITEMS_LIST_.push(objItem);
+export function print(data: any) {
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'TEXT', text: data.toString() });
 }
 
 //draw function is a function for user to draw figures using plotly.js
 export function draw(data: any, layout?: any) {
-  let objItem = new OutputItem();
-  objItem.outputType = 'draw';
-  objItem.data = data;
-  objItem.layout = layout;
-  _OUTPUT_ITEMS_LIST_.push(objItem);
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'DRAWING', data, layout });
 }
 
 // plot2D is a wrapper for draw() function for scatter plot on 2D only
@@ -314,22 +307,13 @@ export function plot3DMesh(x_: any, y_: any, z_: any) {
 
 // show Tex in MathJax
 export function tex(inputTex: string) {
-  let objItem = new OutputItem();
-  objItem.outputType = 'tex';
-  objItem.text = inputTex;
-  _OUTPUT_ITEMS_LIST_.push(objItem);
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'TEX', text: inputTex });
 }
 
 export function formulaTex(inputTex: string) {
-  let objItem = new OutputItem();
-  objItem.outputType = 'formulaTex';
-  objItem.text = inputTex;
-  _OUTPUT_ITEMS_LIST_.push(objItem);
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'FORMULA', text: inputTex });
 }
 
 export function markdown(inputMarkdown: string) {
-  let objItem = new OutputItem();
-  objItem.outputType = 'markdown';
-  objItem.text = inputMarkdown;
-  _OUTPUT_ITEMS_LIST_.push(objItem);
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'MARKDOWN', text: inputMarkdown });
 }

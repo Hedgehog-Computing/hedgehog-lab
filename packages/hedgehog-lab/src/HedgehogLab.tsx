@@ -7,7 +7,7 @@ import YourCode from './components/YourCode/YourCode';
 import Results from './components/Results/Results';
 import Footer from './components/Footer/Footer';
 import { tutorials } from './tutorials';
-import { OutputItemType } from '@hedgehog/core';
+import { OutputItem } from '@hedgehog/core';
 import { useMutation } from 'react-query';
 import { compiler, releaseWorker } from './compiler';
 const DEFAULT_SOURCE = `//write your code here
@@ -17,7 +17,7 @@ print("hello world")
 const HedgehogLab: React.FC<{}> = () => {
   const [source, setSource] = useState<string>(DEFAULT_SOURCE);
   const [result, setResult] = useState<{
-    outputItem: OutputItemType[];
+    outputItem: OutputItem[];
     outputString: string;
   }>({
     outputItem: [],
@@ -26,7 +26,7 @@ const HedgehogLab: React.FC<{}> = () => {
   const [complie, { isLoading }] = useMutation(compiler, {
     onSuccess: (
       result: React.SetStateAction<{
-        outputItem: OutputItemType[];
+        outputItem: OutputItem[];
         outputString: string;
       }>
     ) => {

@@ -2,35 +2,57 @@
 // which will be used to render a react component at output class
 // which can be a string (into a react label)
 // or a tuple of data and layout (into a figure of plotlyjs)
-// and type is a string of "print" or "draw" or "tex" or "formulaTex"
-class OutputItem {
-  outputType?: string;
-  text?: string;
-  data?: any[];
-  layout?: {};
+// and type is a string of "TEXT" or "DRAWING" or "TEX" or "FORMULA"
 
-  // use arrow function will make web worker error
-  // isPrint = () => this.outputType === 'print';
-  // isDraw = () => this.outputType === 'draw';
-  // isTex = () => this.outputType === 'tex';
-  // isFormulaTex = () => this.outputType === 'formulaTex';
-  // isMarkdown = () => this.outputType === 'markdown';
+export type TextItem = {
+  itemType: 'TEXT';
+  text: string;
+};
 
-  isPrint() {
-    return this.outputType === 'print';
-  }
-  isDraw() {
-    return this.outputType === 'draw';
-  }
-  isTex() {
-    return this.outputType === 'tex';
-  }
-  isFormulaTex() {
-    return this.outputType === 'formulaTex';
-  }
-  isMarkdown() {
-    return this.outputType === 'markdown';
-  }
-}
+export const isTextItem = (item: OutputItem): item is TextItem => {
+  return item.itemType === 'TEXT';
+};
 
-export default OutputItem;
+export type DrawingItem = {
+  itemType: 'DRAWING';
+  data: any;
+  layout: any;
+};
+
+export const isDrawingItem = (item: OutputItem): item is DrawingItem => {
+  return item.itemType === 'DRAWING';
+};
+
+export type TeXItem = {
+  itemType: 'TEX';
+  text: string;
+};
+
+export const isTeXItem = (item: OutputItem): item is TeXItem => {
+  return item.itemType === 'TEX';
+};
+
+export type FormulaItem = {
+  itemType: 'FORMULA';
+  text: string;
+};
+
+export const isFormulaItem = (item: OutputItem): item is FormulaItem => {
+  return item.itemType === 'FORMULA';
+};
+
+export type MarkdownItem = {
+  itemType: 'MARKDOWN';
+  text: string;
+};
+
+export const isMarkdownItem = (item: OutputItem): item is MarkdownItem => {
+  return item.itemType === 'MARKDOWN';
+};
+
+export type OutputItem =
+  | TextItem
+  | DrawingItem
+  | TeXItem
+  | FormulaItem
+  | MarkdownItem;

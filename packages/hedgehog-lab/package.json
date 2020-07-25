@@ -24,6 +24,8 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/react-mathjax": "^1.0.0",
+    "@types/react-plotly.js": "^2.2.4",
     "cross-env": "^7.0.2",
     "customize-cra": "^1.0.0",
     "react-app-rewired": "^2.1.6",
