@@ -115,6 +115,14 @@ let L = chol(A).L;
 // and keep 5 digits 
 L.digits = 5
 tex("\\\\text{where A is a positive-definite and symmetric matrix.} \\\\\\\\ \\\\text{For example, we have } A = " + A.toTex() + "\\\\text{, and the decomposed matrix L is }" + L.toTex())
+
+// You can use tag functions to simplify the code
+tex\`\\textit{Here comes HE}\`
+formulaTex\`
+  \\Theta
+    \\text{\${'\\u002e'.repeat(2)}}
+  \\Theta
+\`
 `;
 
 const graphicsSource = `// generate 2D points as vectors of x and y 
