@@ -123,6 +123,11 @@ formulaTex\`
     \\text{\${'\\u002e'.repeat(2)}}
   \\Theta
 \`
+
+// and the \`toTex()\` method will be automatically called
+formulaTex\`
+  \${mat([[1,1,4],[5,1,4]])}
+\`
 `;
 
 const graphicsSource = `// generate 2D points as vectors of x and y 
