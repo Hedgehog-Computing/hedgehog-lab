@@ -22,3 +22,29 @@ export default function processRawInputs(
 ): string | any {
   return tmpl?.raw ? String.raw(tmpl, ...vals) : tmpl;
 }
+
+/**
+ * This function behaves the same as @function processRawInputs(),
+ * except that substituion values will be automatically converted
+ * into TeX if possible.
+ *
+ * @example
+ * let a = mat([[1,1,4], [5,1,4]]);
+ * rawInputsToTex`A = ${a}`; //=> "A = \begin{bmatrix}...\end{bmatrix}"
+ *
+ * @param tmpl template call site object or anything
+ * @param vals substituion values
+ *
+ * @returns the generated string when the first argument is a
+ *    template call site object(i.e. contains a `.raw` property),
+ *    otherwise returns the first argument as is.
+ */
+export function rawInputsToTex(
+  tmpl?: TemplateStringsArray | any,
+  ...vals: any[]
+): string | any {
+  // automatically converts substituion values into TeX if possible
+  vals = vals.map(v => v?.toTex?.() ?? v);
+
+  return processRawInputs(tmpl, ...vals);
+}
