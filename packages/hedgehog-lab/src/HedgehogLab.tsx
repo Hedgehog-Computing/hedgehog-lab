@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Axios from 'axios'
 import { Grid, CssBaseline, Toolbar } from '@material-ui/core'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useMutation } from 'react-query'
@@ -8,9 +7,11 @@ import Header from './components/Header/Header'
 import YourCode from './components/YourCode/YourCode'
 import Results from './components/Results/Results'
 import Footer from './components/Footer/Footer'
+import DownloadSnackbar from "./components/DownloadSnackbar/DownloadSnackbar";
 import { tutorials } from './tutorials'
 import { OutputItem } from '@hedgehog/core'
 import AbortError from "./type/AbortError";
+import { useQuery } from "./hooks";
 import { compiler, releaseWorker, restartWorker } from './compiler'
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -44,6 +45,7 @@ const HedgehogLab: React.FC<{}> = () => {
       })
     },
   });
+  const { auto_run: autoRun, your_url: yourUrl } = useQuery()
 
   const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
     setSource(tutorials[index].source as string)
@@ -74,27 +76,6 @@ const HedgehogLab: React.FC<{}> = () => {
 
 
   useEffect(() => {
-
-    const getUrlData = async () => {
-      try {
-        const { auto_run: autoRun, your_url: yourUrl } = window.location.search.slice(1).split('&').map(item => ({[item.split('=')[0]]: item.split('=')[1]})).reduce((prev, item) => ({...prev, ...item}), {})
-        const result = await Axios.get(decodeURIComponent(yourUrl))
-        setSource(result.data)
-        if (autoRun) {
-          setResult({
-            outputItem: [],
-            outputString: '',
-          })
-          complie(result.data)
-        }
-      } catch (e) {
-        console.log(e)
-      }
-    }
-
-    if (window.location.search.length > 1) {
-      getUrlData()
-    }
     return () => {
       releaseWorker();
     };
@@ -163,6 +144,15 @@ const HedgehogLab: React.FC<{}> = () => {
           <Footer />
         </main>
       </div>
+      {
+        yourUrl && <DownloadSnackbar
+          setResult={setResult}
+          setSource={setSource}
+          complie={complie}
+          yourUrl={yourUrl}
+          autoRun={!!autoRun}
+        />
+      }
     </div>
   );
 };
