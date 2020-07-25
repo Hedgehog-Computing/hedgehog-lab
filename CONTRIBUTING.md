@@ -26,15 +26,15 @@ yarn install
 yarn watch
 ```
 
-Start your local development server(may take a while) by running `yarn watch` in the terminal.
+Start your local development server(may take several minutes the first time) by running `yarn watch` in the terminal.
 
 ## Recommended packages(draft)
 
-> About this section, The core team is under discussion, So you may not follow these Settings for the time being.
+> These rules are still work in progress, so are not strictly enforced for the time being.
 
 ### Commitizen(draft)
 
-The [Commitizen](https://github.com/commitizen/cz-cli) allows for easy to read and organized commits with minimal change to normal commit functions. To get started, Please navigate: [https://github.com/commitizen/cz-cli](https://github.com/commitizen/cz-cli)
+The [Commitizen](https://github.com/commitizen/cz-cli) allows for easy to read and organized commits with minimal change to normal commit functions. To get started, please visit: [https://github.com/commitizen/cz-cli](https://github.com/commitizen/cz-cli)
 
 ### Commit Guidelines w/Commitizen(draft)
 
@@ -54,16 +54,17 @@ All commits will be auto-formatted by commitizen following a fluid interface
 
 ## Submitting Changes / Pull Requests(draft)
 
-> About this section, The core team is under discussion and organizing branches, So you may not follow these Settings for the time being.
+> These rules are still work in progress, so are not strictly enforced for the time being.
 
-Before doing any commits, you will want to pull down the latest and greatest from master. From here, merge, and resolve any conflicts between your branch and master. Its a good rule of thumb to pull frequently as development is constantly happening.
+Please rebase your change on the latest master before submitting your PR. We suggest you pull at least daily to avoid digressing too far from the master branch.
+Keep your repo fresh can minimize the churn addressing conflicting changes. 
 
 ### Pull Requests For hedgehog-lab(draft)
 
 > Pull requests related to the hedgehog-lab core:
 
-- For any new features, bug fixes and documentation updates, submit pull requests to master.
+- For any new features, bug fixes and documentation updates, please submit pull requests to master.
 
 ### Pull Requests For Docs
 
-For any pull requests related to hedgehog-lab docs, submit your pull request to the master branch.
+For any pull requests related to hedgehog-lab docs, please submit your pull request to the master branch.
