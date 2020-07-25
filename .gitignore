@@ -1,3 +1,28 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/yarn
+# Edit at https://www.toptal.com/developers/gitignore?templates=yarn
+
+### yarn ###
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+
+# .yarn/unplugged and .yarn/build-state.yml should likely always be ignored since
+# they typically hold machine-specific build artifacts. Ignoring them might however
+# prevent Zero-Installs from working (to prevent this, set enableScripts to false).
+.yarn/unplugged
+.yarn/build-state.yml
+
+# .yarn/cache and .pnp.* may be safely ignored, but you'll need to run yarn install
+# to regenerate them between each branch switch.
+# Uncomment the following lines if you're not using Zero-Installs:
+# .yarn/cache
+# .pnp.*
+
+# End of https://www.toptal.com/developers/gitignore/api/yarn
+
+# Created by https://www.toptal.com/developers/gitignore/api/node
+# Edit at https://www.toptal.com/developers/gitignore?templates=node
+
+### Node ###
 # Logs
 logs
 *.log
@@ -84,7 +109,7 @@ dist
 
 # Gatsby files
 .cache/
-# Comment in the public line in if your project uses Gatsby and *not* Next.js
+# Comment in the public line in if your project uses Gatsby and not Next.js
 # https://nextjs.org/blog/next-9-1#public-directory-support
 # public
 
@@ -105,3 +130,11 @@ dist
 
 # Vscode setting file
 .vscode
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# End of https://www.toptal.com/developers/gitignore/api/node
+
+
+.DS_Store
