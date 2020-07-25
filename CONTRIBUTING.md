@@ -4,7 +4,7 @@
 
 If you are making a Pull Request, please fork the hedgehog-lab repository before continuing.
 
-More information on forking or GitHub usage please navigate: [https://docs.github.com/en/github/getting-started-with-github](https://docs.github.com/en/github/getting-started-with-github)
+For more information on forking or GitHub usage, please navigate to: [https://docs.github.com/en/github/getting-started-with-github](https://docs.github.com/en/github/getting-started-with-github)
 
 ```bash
 # Example of cloning the hedgehog-lab repository (forked)
@@ -26,7 +26,11 @@ yarn install
 yarn watch
 ```
 
+<<<<<<< HEAD
 Start your local development server(may take several minutes the first time) by running `yarn watch` in the terminal.
+=======
+Start your local development server(may take several minutes) by running `yarn watch` in the terminal.
+>>>>>>> 1f85349... Update CONTRIBUTING.md
 
 ## Recommended packages(draft)
 
