@@ -4,7 +4,7 @@
 
 If you are making a Pull Request, please fork the hedgehog-lab repository before continuing.
 
-More information on forking or GitHub usage please navigate: https://docs.github.com/en/github/getting-started-with-github
+More information on forking or GitHub usage please navigate: [https://docs.github.com/en/github/getting-started-with-github](https://docs.github.com/en/github/getting-started-with-github)
 
 ```bash
 # Example of cloning the hedgehog-lab repository (forked)
@@ -19,17 +19,14 @@ git clone git@github.com:<your_username>/hedgehog-lab.git
 Once cloned, navigate to the folder by typing cd `hedgehog-lab` and then running the following commands:
 
 ```bash
-# Navigate to the hedgehog-lab folder
-cd hedgehog-lab/hedgehog-lab
-
 # Install all project dependencies
-npm i
+yarn install
 
 # Start the project
-npm run start
+yarn watch
 ```
 
-Start your local development server(may take awhile) by running `npm run start` in the terminal.
+Start your local development server(may take a while) by running `yarn watch` in the terminal.
 
 ## Recommended packages(draft)
 
@@ -37,7 +34,7 @@ Start your local development server(may take awhile) by running `npm run start` 
 
 ### Commitizen(draft)
 
-The [Commitizen](https://github.com/commitizen/cz-cli) allows for easy to read and organized commits with minimal change to normal commit functions. To get started, Please navigate: https://github.com/commitizen/cz-cli
+The [Commitizen](https://github.com/commitizen/cz-cli) allows for easy to read and organized commits with minimal change to normal commit functions. To get started, Please navigate: [https://github.com/commitizen/cz-cli](https://github.com/commitizen/cz-cli)
 
 ### Commit Guidelines w/Commitizen(draft)
 

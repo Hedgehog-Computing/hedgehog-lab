@@ -18,25 +18,22 @@ git clone https://github.com/lidangzzz/hedgehog-lab.git
 git clone git@github.com:lidangzzz/hedgehog-lab.git
 ```
 
-Once cloned, switch to the master branch and navigate to the folder by typing cd `hedgehog-lab/hedgehog-lab` and then running the following commands:
+Once cloned, switch to the master branch and navigate to the folder by typing `cd hedgehog-lab` and then running the following commands:
 
 ```bash
 # Switch to the master branch
 git checkout master
 
-# Navigate to the hedgehog-lab folder
-cd hedgehog-lab/hedgehog-lab
-
 # Install all project dependencies
-npm i
+yarn install
 
 # Start the project
-npm run start
+yarn watch
 ```
 
 ## Contributing
 
-Read our [contributing guide](/hedgehog-lab/README.md) to learn how to develop the project.
+Read our [contributing guide](CONTRIBUTING.md) to learn how to develop the project.
 
 ## License
 
