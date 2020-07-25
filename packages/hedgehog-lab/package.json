@@ -31,9 +31,9 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "cross-env CI=true react-app-rewired start",
-    "watch": "cross-env CI=true react-app-rewired start",
-    "build": "cross-env CI=true react-app-rewired build",
+    "start": "cross-env CI=true react-app-rewired --max_old_space_size=8192 start",
+    "watch": "cross-env CI=true react-app-rewired --max_old_space_size=8192 start",
+    "build": "cross-env CI=true GENERATE_SOURCEMAP=false react-app-rewired --max_old_space_size=8192 build",
     "test": "cross-env CI=true react-app-rewired test",
     "eject": "react-scripts eject"
   },
