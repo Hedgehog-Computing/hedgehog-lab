@@ -35,14 +35,21 @@ export default function processRawInputs(
  * @param tmpl template call site object or anything
  * @param vals substituion values
  *
- * @returns the generated string when the first argument is a
- *    template call site object(i.e. contains a `.raw` property),
- *    otherwise returns the first argument as is.
+ * @returns
+ *    1. the TeX string of the first argument if it contains `.toTex()` method;
+ *    2. the generated string if the first argument is a
+ *       template call site object(i.e. contains a `.raw` property);
+ *    3. otherwise returns the first argument as is.
  */
 export function rawInputsToTex(
   tmpl?: TemplateStringsArray | any,
   ...vals: any[]
 ): string | any {
+  // returns the TeX string of `tmpl` if it contains `.toTex()` method
+  if (tmpl?.toTex) {
+    return tmpl.toTex();
+  }
+
   // automatically converts substituion values into TeX if possible
   vals = vals.map(v => v?.toTex?.() ?? v);
 
