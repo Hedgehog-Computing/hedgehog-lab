@@ -30,6 +30,6 @@ jobs:
           yarn --frozen-lockfile --non-interactive
 
       - name: Build
-        run: yarn lerna run build --stream
+        run: yarn build
         env:
           CI: true
