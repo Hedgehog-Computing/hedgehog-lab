@@ -1,34 +1,55 @@
-import CompilerWorker from './compiler.worker.ts';
-import OutputWorker from './output.worker.ts';
-import { OutputItem, isTextItem } from '@hedgehog/core';
-import * as Comlink from 'comlink';
+import CompilerWorker from './compiler.worker.ts'
+import OutputWorker from './output.worker.ts'
+import { OutputItem, isTextItem } from '@hedgehog/core'
+import * as Comlink from 'comlink'
 
-const compile = Comlink.wrap<{
-  compile: (data: string) => Promise<string>;
-}>(new CompilerWorker()).compile;
+export interface OutputResult {
+  outputItem: OutputItem[]
+  outputString: string
+}
 
-const output = Comlink.wrap<{
-  output: (data: string) => Promise<any[]>;
-}>(new OutputWorker()).output;
+type CancelablePromise<T> = Promise<T> & {
+  cancel: () => any
+}
 
-export const compiler = async (input: string) => {
-  const code = await compile(input);
-  const result = await output(code);
+export const compiler = (...param: readonly [string, string]) => {
+  const compilerWorker = new CompilerWorker()
+  const outputWorker = new OutputWorker()
 
-  let outputString = '';
-  let outputItem = result;
-  outputItem.forEach((element: OutputItem) => {
-    if (isTextItem(element)) {
-      outputString += element.text + '\n';
+  const compile = Comlink.wrap<{
+    compile: (data: string) => Promise<string>
+  }>(compilerWorker).compile
+
+  const output = Comlink.wrap<{
+    output: (data: string) => Promise<any[]>
+  }>(outputWorker).output
+
+  const run = async () => {
+    const code = await compile(param[1])
+    const result = await output(code)
+    let outputString = ''
+    let outputItem = result
+    outputItem.forEach((element: OutputItem) => {
+      if (isTextItem(element)) {
+        outputString += element.text + '\n'
+      }
+    })
+    return {
+      outputString,
+      outputItem,
     }
-  });
-  return {
-    outputString,
-    outputItem,
-  };
-};
+  }
 
-export const releaseWorker = () => {
-  compile[Comlink.releaseProxy]();
-  output[Comlink.releaseProxy]();
-};
+  const cancel = () => {
+    compilerWorker.terminate()
+    outputWorker.terminate()
+
+    // unlisten worker
+    compile[Comlink.releaseProxy]()
+    output[Comlink.releaseProxy]()
+  }
+  const result = run()
+  // provide the cancel function for react-query
+  ;(result as CancelablePromise<OutputResult>).cancel = cancel
+  return result
+}
