@@ -2,7 +2,6 @@
   "plugins": ["prettier", "@typescript-eslint"],
   "parser":  "@typescript-eslint/parser",
   "extends": [
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
@@ -16,22 +15,9 @@
         "singleQuote": true,
         "bracketSpacing": true,
         "jsxBracketSameLine": true,
-        "alwaysParens": "avoid",
+        "alwaysParens":"avoid",
         "@typescript-eslint/ban-ts-ignore": "off"
       }
     ]
-  },
-  "settings": {
-    "react": {
-      "pragma": "React",
-      "version": "detect"
-    }
-  },
-  "parserOptions": {
-    "ecmaVersion": 2019,
-    "sourceType": "module",
-    "ecmaFeatures":{
-      "jsx":true
-    }
   }
 }

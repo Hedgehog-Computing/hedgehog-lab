@@ -30,11 +30,15 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-mathjax": "^1.0.0",
     "@types/react-plotly.js": "^2.2.4",
+    "@typescript-eslint/eslint-plugin": "^3.7.0",
+    "@typescript-eslint/parser": "^3.7.0",
     "cross-env": "^7.0.2",
     "customize-cra": "^1.0.0",
+    "eslint": "^7.5.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
     "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
+    "pre-commit": "^1.2.2",
     "prettier": "^2.0.5",
     "react-app-rewired": "^2.1.6",
     "react-refresh": "^0.8.3",
@@ -46,23 +50,16 @@
     "build": "cross-env CI=true GENERATE_SOURCEMAP=false react-app-rewired --max_old_space_size=8192 build",
     "test": "cross-env CI=true react-app-rewired test",
     "eject": "react-scripts eject",
-    "prettier": "prettier --trailing-comma es5 --single-quote --write '**/*.{js,json,md}'",
-    "lint": "eslint . --fix"
+    "prettier": "prettier --single-quote --write '**/*.{js,jsx,ts,tsx}'",
+    "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx "
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn lint"
     }
-  },
-  "lint-staged": {
-    "**/*.js": [
-      "prettier --trailing-comma es5 --single-quote --write",
-      "eslint",
-      "git add"
-    ]
   },
   "browserslist": {
     "production": [
