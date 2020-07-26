@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   AppBar,
   Button,
@@ -9,10 +9,10 @@ import {
   Switch
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import SideBar from './SideBar';
 
 interface HeaderProps {
-  handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
+  sidebarToggler: () => void;
+  sidebarInitState: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -25,20 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
   const {
-    handleLoadTutorial,
+    sidebarToggler,
+    sidebarInitState
   } = props;
 
   const classes = useStyles();
-  const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
-  const lgBreakpointMatches = lgBreakpoint.matches
-
-  // SideBar open prop
-  const [siderBarOpen, setOpen] = useState(lgBreakpointMatches ? true: false);
-
-  const handleSideBarOpen = () => {
-    setOpen(!siderBarOpen);
-  };
-
   return (
     <div>
       <AppBar position="fixed" elevation={0} color="default" className={classes.appBar}>
@@ -46,8 +37,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
           <FormControlLabel
             control={
               <Switch
-                checked={siderBarOpen}
-                onChange={handleSideBarOpen}
+                checked={sidebarInitState}
+                onChange={sidebarToggler}
                 name="handleSideBarOpen"
                 color="primary"
               />
@@ -59,20 +50,20 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             edge="start"
             color="inherit"
             aria-label="menu"
-            style={{ display: lgBreakpointMatches ? "inline" : "none" }}
+            style={{ display: "inline"}}
           >
             <img src={process.env.PUBLIC_URL + "/cat.png"} style={{ height: '1.25rem' }} alt="Hedgehog Lab Logo" />
           </IconButton>
 
           <Typography
-            variant={lgBreakpointMatches ? "h6" : "body1"}
+            variant={"h6"}
             style={{
               flexGrow: 1,
               display: 'flex',
               alignItems: 'center'
             }}>
             Hedgehog Lab
-        </Typography>
+          </Typography>
 
           <Button
             color="inherit"
@@ -87,10 +78,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         </Toolbar>
       </AppBar>
 
-      <SideBar
-        handleLoadTutorial={handleLoadTutorial}
-        siderBarOpen={siderBarOpen}
-      />
     </div>
   );
 };

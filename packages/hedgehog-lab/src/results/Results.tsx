@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
-import Output from '../output/Output';
+import Output from '../webworker/Output';
 import { OutputItem } from '@hedgehog/core';
 
 interface ResultsProps {

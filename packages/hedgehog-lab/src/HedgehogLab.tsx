@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, CssBaseline, Toolbar } from '@material-ui/core';
+import { Grid, CssBaseline } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 import Header from './header/Header';
 import YourCode from './yourcode/YourCode';
 import Results from './results/Results';
 import Footer from './footer/Footer';
-import { tutorials } from './tutorials';
+import Sidebar from './sidebar/Sidebar';
+import { tutorials } from './tutorials/Tutorials';
 import { OutputItem } from '@hedgehog/core';
 import { useMutation } from 'react-query';
 import { compiler, releaseWorker } from './webworker/compiler';
@@ -43,6 +44,8 @@ const HedgehogLab: React.FC<{}> = () => {
     },
   });
 
+  const [sidebarState, setSidebarState] = useState<boolean>(false);
+
   const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
     setSource(tutorials[index].source as string);
     setResult({
@@ -74,8 +77,20 @@ const HedgehogLab: React.FC<{}> = () => {
       content: {
         flexGrow: 1,
       },
+      contentHeader: {
+        display: "flex",
+        alignItems: "center",
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: "flex-end"
+      },
     })
   );
+
+  const sidebarToggler = () => {
+    setSidebarState(sidebarState ? false : true);
+  }
 
   const classes = useStyles();
 
@@ -83,12 +98,13 @@ const HedgehogLab: React.FC<{}> = () => {
     <div>
       <div className={classes.root}>
         <CssBaseline />
-
-        <Header handleLoadTutorial={handleLoadTutorial} />
-
+        <Sidebar
+          handleLoadTutorial={handleLoadTutorial}
+          siderBarOpen={sidebarState}
+        />
+        <Header sidebarInitState={sidebarState} sidebarToggler={sidebarToggler} />
         <main className={classes.content}>
-          <Toolbar />
-
+          <div className={classes.contentHeader} />
           <Grid container>
             <Grid item xs={12}>
               <Grid

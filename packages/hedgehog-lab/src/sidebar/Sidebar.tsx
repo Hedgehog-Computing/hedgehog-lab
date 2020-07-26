@@ -4,22 +4,22 @@ import {
   List,
   ListItem,
   ListItemText,
-  Toolbar,
   makeStyles,
   createStyles,
-  ListSubheader
+  ListSubheader,
+  Theme,
 } from '@material-ui/core';
 // @ts-ignore
-import { tutorials } from '../tutorials';
+import { tutorials } from '../tutorials/Tutorials';
 
-interface SideBarProps {
+interface SidebarProps {
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
   siderBarOpen: boolean
 }
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawer: {
       width: drawerWidth,
@@ -31,11 +31,18 @@ const useStyles = makeStyles(() =>
     drawerContainer: {
       overflow: 'auto',
     },
+    drawerHeader: {
+      display: "flex",
+      alignItems: "center",
+      padding: theme.spacing(0, 1),
+      // necessary for content to be below app bar
+      ...theme.mixins.toolbar,
+      justifyContent: "flex-end"
+    },
   }),
 );
 
-
-const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
+const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
 
   const {
     handleLoadTutorial,
@@ -58,7 +65,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
           display: siderBarOpen ? "" : "none"
         }}
       >
-        <Toolbar />
+        <div className={classes.drawerHeader} />
 
         <div className={classes.drawerContainer}>
           <List
@@ -92,4 +99,4 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
   );
 };
 
-export default SideBar;
+export default Sidebar;
