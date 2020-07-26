@@ -1,37 +1,29 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react'
 import {
   Button,
   Card,
   CardContent,
-  CardHeader,
-} from '@material-ui/core';
+  CardHeader
+} from '@material-ui/core'
 import {
   ControlledEditor,
   ControlledEditorOnChange,
-} from '@monaco-editor/react';
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
-
+} from '@monaco-editor/react'
+import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api'
+import { queryCache } from 'react-query'
 // @ts-ignore
 
-const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
+const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id'
 
 interface YourCodeProps {
-  handleCompileAndRun: (event: React.MouseEvent) => void;
-  handleStop: (event: React.MouseEvent) => void;
+  handleCompileAndRun: (event: React.MouseEvent) => void
   source: string
-  loading: boolean;
+  loading: boolean
   setSource: Dispatch<SetStateAction<string>>
 }
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
-
-  const {
-    handleCompileAndRun,
-    loading,
-    setSource,
-    source,
-    handleStop
-  } = props;
+  const { handleCompileAndRun, loading, setSource, source } = props
 
   const handleUploadSource: ControlledEditorOnChange = (e, v) => {
     setSource(v as string)
@@ -40,22 +32,28 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
   const options = {
     wordWrap: 'on' as 'on',
     scrollBeyondLastLine: false,
-  };
+  }
 
-  const handleEditorDidMount = (_: () => string, editor: monacoEditor.editor.IStandaloneCodeEditor) => {
+  const handleEditorDidMount = (
+    _: () => string,
+    editor: monacoEditor.editor.IStandaloneCodeEditor
+  ) => {
     editor.addAction({
       id: COMPILE_AND_RUN_BUTTON_ID,
-      label: "compile-and-run-butt-label",
+      label: 'compile-and-run-butt-label',
       keybindings: [2051], // Monaco.KeyMod.CtrlCmd | Monaco.KeyCode.Enter == 2051
       run: () => {
-        document.getElementById(COMPILE_AND_RUN_BUTTON_ID)?.click();
-      }
-    });
-  };
+        document.getElementById(COMPILE_AND_RUN_BUTTON_ID)?.click()
+      },
+    })
+  }
 
   return (
-    <div style={{ height: "100%" }}>
-      <Card variant="outlined" className={'your-code-card'} style={{ height: "100%" }}>
+    <div style={{ height: '100%' }}>
+      <Card
+        variant='outlined'
+        className={'your-code-card'}
+        style={{ height: '100%' }}>
         <CardHeader
           action={
             <div className="run-button">
@@ -65,7 +63,18 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                     variant="contained"
                     color="secondary"
                     style={{ textTransform: 'none', width: 140 }}
-                    onClick={(e) => handleStop(e)}
+                    onClick={() => {
+                      // stop the web-worker
+                      queryCache.cancelQueries(['compiler'])
+                      // set result to initial state
+                      queryCache.setQueryData(
+                        ['compiler', source],
+                        (data) => ({
+                          outputItem: [],
+                          outputString: '',
+                        })
+                      )
+                    }}
                   >
                     Stop
                   </Button>
@@ -82,15 +91,16 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
               }
             </div>
           }
-          title="Your code:"
+          title='Your code:'
         />
 
         <CardContent>
-          <div style={{
-            height: 'calc(100vh - 174px)'
-          }}>
+          <div
+            style={{
+              height: 'calc(100vh - 174px)',
+            }}>
             <ControlledEditor
-              language="javascript"
+              language='javascript'
               value={source}
               onChange={handleUploadSource}
               options={options}
@@ -100,7 +110,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         </CardContent>
       </Card>
     </div>
-  );
-};
+  )
+}
 
-export default YourCode;
+export default YourCode

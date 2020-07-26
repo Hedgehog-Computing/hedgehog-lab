@@ -1,75 +1,56 @@
-import CompilerWorker from './compiler.worker.ts';
-import OutputWorker from './output.worker.ts';
-import { OutputItem, isTextItem } from '@hedgehog/core';
-import * as Comlink from 'comlink';
-import AbortError from "./type/AbortError";
+import CompilerWorker from './compiler.worker.ts'
+import OutputWorker from './output.worker.ts'
+import { OutputItem, isTextItem } from '@hedgehog/core'
+import * as Comlink from 'comlink'
 
-let compilerWorker = new CompilerWorker()
-
-let outputWorker = new OutputWorker()
-
-let compile = Comlink.wrap<{
-  compile: (data: string) => Promise<string>
-}>(compilerWorker).compile
-
-let output = Comlink.wrap<{
-  output: (data: string) => Promise<any[]>
-}>(outputWorker).output
-
-let compileCancel: { (): void; (reason?: any): void } | null
-
-let outputCancel: { (): void; (reason?: any): void } | null
-
-export const compiler = async (input: string) => {
-  const code: string = await new Promise(async (resolve, reject) => {
-    compileCancel = reject
-    resolve(await compile(input))
-  })
-  compileCancel = null
-  const result: any[] = await new Promise(async (resolve, reject) => {
-    outputCancel = reject
-    resolve(await output(code))
-  })
-  outputCancel = null
-
-  let outputString = '';
-  let outputItem = result;
-  outputItem.forEach((element: OutputItem) => {
-    if (isTextItem(element)) {
-      outputString += element.text + '\n';
-    }
-  });
-  return {
-    outputString,
-    outputItem,
-  };
+export interface OutputResult {
+  outputItem: OutputItem[]
+  outputString: string
 }
 
-export const releaseWorker = () => {
-  compile[Comlink.releaseProxy]();
-  output[Comlink.releaseProxy]();
-};
+type CancelablePromise<T> = Promise<T> & {
+  cancel: () => any
+}
 
-export const restartWorker = () => {
-  if (compileCancel) {
-    compileCancel(new AbortError('web worker terminate'))
-  }
+export const compiler = (...param: readonly [string, string]) => {
+  const compilerWorker = new CompilerWorker()
+  const outputWorker = new OutputWorker()
 
-  if (outputCancel) {
-    outputCancel(new AbortError('web worker terminate'))
-  }
-
-  compilerWorker.terminate()
-  outputWorker.terminate()
-
-  compilerWorker = new CompilerWorker()
-  outputWorker = new OutputWorker()
-
-  compile = Comlink.wrap<{
+  const compile = Comlink.wrap<{
     compile: (data: string) => Promise<string>
   }>(compilerWorker).compile
 
-  output = Comlink.wrap<{
+  const output = Comlink.wrap<{
     output: (data: string) => Promise<any[]>
   }>(outputWorker).output
+
+  const run = async () => {
+    const code = await compile(param[1])
+    const result = await output(code)
+    let outputString = ''
+    let outputItem = result
+    outputItem.forEach((element: OutputItem) => {
+      if (isTextItem(element)) {
+        outputString += element.text + '\n'
+      }
+    })
+    return {
+      outputString,
+      outputItem,
+    }
+  }
+
+  const cancel = () => {
+    compilerWorker.terminate()
+    outputWorker.terminate()
+
+    // unlisten worker
+    compile[Comlink.releaseProxy]()
+    output[Comlink.releaseProxy]()
+  }
+
+  const result = run()
+  // provide the cancel function for react-query
+  ;(result as CancelablePromise<OutputResult>).cancel = cancel
+  return result
 }

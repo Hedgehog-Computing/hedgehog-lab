@@ -8,10 +8,11 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@monaco-editor/react": "^3.4.2",
-    "axios": "^0.19.2",
     "comlink": "^4.3.0",
+    "ky": "^0.23.0",
     "monaco-editor": "^0.20.0",
     "plotly.js": "^1.54.6",
+    "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
@@ -24,12 +25,17 @@
     "@pmmmwh/react-refresh-webpack-plugin": "^0.3.3",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
+    "@types/qs": "^6.9.4",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-mathjax": "^1.0.0",
     "@types/react-plotly.js": "^2.2.4",
     "cross-env": "^7.0.2",
     "customize-cra": "^1.0.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
     "react-app-rewired": "^2.1.6",
     "react-refresh": "^0.8.3",
     "react-scripts": "3.4.1"
@@ -39,10 +45,24 @@
     "watch": "cross-env CI=true react-app-rewired --max_old_space_size=8192 start",
     "build": "cross-env CI=true GENERATE_SOURCEMAP=false react-app-rewired --max_old_space_size=8192 build",
     "test": "cross-env CI=true react-app-rewired test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --trailing-comma es5 --single-quote --write '**/*.{js,json,md}'",
+    "lint": "eslint . --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier --trailing-comma es5 --single-quote --write",
+      "eslint",
+      "git add"
+    ]
   },
   "browserslist": {
     "production": [

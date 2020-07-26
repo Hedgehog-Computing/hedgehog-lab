@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { MutateOptions } from "react-query";
 import { Snackbar } from '@material-ui/core';
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { OutputItem } from '@hedgehog/core'
-import Axios from "axios";
+import ky from "ky";
 
 type AlertType = 'success' | 'error' | 'info'
 
@@ -13,8 +12,8 @@ const Alert = (props: AlertProps) => {
 
 interface DownloadSnackbarProps {
   setSource: React.Dispatch<React.SetStateAction<string>>;
+  setInput: React.Dispatch<React.SetStateAction<string>>;
   setResult: React.Dispatch<React.SetStateAction<{outputItem: OutputItem[], outputString: string}>>;
-  complie: (variables: string, options?: (MutateOptions<React.SetStateAction<{outputItem: OutputItem[], outputString: string}>, string, Error, unknown> | undefined)) => Promise<React.SetStateAction<{outputItem: OutputItem[], outputString: string}>>;
   autoRun: boolean;
   yourUrl: string;
 }
@@ -32,7 +31,7 @@ export interface State {
 
 const DownloadSnackbar: React.FC<DownloadSnackbarProps> = (props: DownloadSnackbarProps) => {
 
-  const { setResult, autoRun, complie, setSource, yourUrl} = props
+  const { setResult, autoRun, setInput, setSource, yourUrl} = props
 
   const [snackPack, setSnackPack] = useState<SnackbarMessage[]>([]);
   const [open, setOpen] = useState(false);
@@ -52,8 +51,8 @@ const DownloadSnackbar: React.FC<DownloadSnackbarProps> = (props: DownloadSnackb
   useEffect(() => {
     const getUrlData = async () => {
       try {
-        const result = await Axios.get(decodeURIComponent(yourUrl))
-        setSource(result.data)
+        const result = await ky.get(yourUrl).text()
+        setSource(result)
         setSnackPack((prev) => [...prev, { message: "Download your script success", key: new Date().getTime() }]);
         setAlertType('success')
         if (autoRun) {
@@ -61,17 +60,17 @@ const DownloadSnackbar: React.FC<DownloadSnackbarProps> = (props: DownloadSnackb
             outputItem: [],
             outputString: '',
           })
-          complie(result.data)
+          setInput(result)
         }
       } catch (e) {
-        setSnackPack((prev) => [...prev, { message: "sorry, download your script failed", key: new Date().getTime() }]);
+        setSnackPack((prev) => [...prev, { message: "Sorry, download your script failed", key: new Date().getTime() }]);
         setAlertType('error')
       }
     }
     setSnackPack((prev) => [...prev, { message: "Downloading your script, please don't click the 'Compile and run' button or select tutorial", key: new Date().getTime() }]);
     setAlertType('info')
     getUrlData()
-  }, [complie, autoRun, setResult, setSource, yourUrl])
+  }, [setInput, autoRun, setResult, setSource, yourUrl])
 
   const handleClose = (event: React.SyntheticEvent | MouseEvent, reason?: string) => {
     if (reason === 'clickaway') {
