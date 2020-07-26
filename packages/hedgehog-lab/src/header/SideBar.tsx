@@ -10,7 +10,7 @@ import {
   ListSubheader
 } from '@material-ui/core';
 // @ts-ignore
-import { tutorials } from '../../tutorials';
+import { tutorials } from '../tutorials';
 
 interface SideBarProps {
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Grid, CssBaseline, Toolbar } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
-import Header from './components/Header/Header';
-import YourCode from './components/YourCode/YourCode';
-import Results from './components/Results/Results';
-import Footer from './components/Footer/Footer';
+import Header from './header/Header';
+import YourCode from './yourcode/YourCode';
+import Results from './results/Results';
+import Footer from './footer/Footer';
 import { tutorials } from './tutorials';
 import { OutputItem } from '@hedgehog/core';
 import { useMutation } from 'react-query';
-import { compiler, releaseWorker } from './compiler';
+import { compiler, releaseWorker } from './webworker/compiler';
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
 `;
