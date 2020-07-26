@@ -16,7 +16,7 @@
  *    template call site object(i.e. contains a `.raw` property),
  *    otherwise returns the first argument as is.
  */
-export default function processRawInputs(
+export function processRawInputs(
   tmpl?: TemplateStringsArray | any,
   ...vals: any[]
 ): string | any {
