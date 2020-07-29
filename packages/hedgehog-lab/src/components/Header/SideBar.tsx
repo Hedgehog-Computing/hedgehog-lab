@@ -9,12 +9,11 @@ import {
   createStyles,
   ListSubheader
 } from '@material-ui/core';
-// @ts-ignore
 import { tutorials } from '../../tutorials';
 
 interface SideBarProps {
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
-  siderBarOpen: boolean
+  siderBarOpen: boolean;
 }
 
 const drawerWidth = 240;
@@ -23,24 +22,19 @@ const useStyles = makeStyles(() =>
   createStyles({
     drawer: {
       width: drawerWidth,
-      flexShrink: 0,
+      flexShrink: 0
     },
     drawerPaper: {
-      width: drawerWidth,
+      width: drawerWidth
     },
     drawerContainer: {
-      overflow: 'auto',
-    },
-  }),
+      overflow: 'auto'
+    }
+  })
 );
 
-
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
-
-  const {
-    handleLoadTutorial,
-    siderBarOpen
-  } = props;
+  const { handleLoadTutorial, siderBarOpen } = props;
 
   const classes = useStyles();
 
@@ -51,13 +45,12 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
         anchor="left"
         className={classes.drawer}
         classes={{
-          paper: classes.drawerPaper,
+          paper: classes.drawerPaper
         }}
         open={siderBarOpen}
         style={{
-          display: siderBarOpen ? "" : "none"
-        }}
-      >
+          display: siderBarOpen ? '' : 'none'
+        }}>
         <Toolbar />
 
         <div className={classes.drawerContainer}>
@@ -65,26 +58,20 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
                 Hedgehog Lab Tutorials:
-            </ListSubheader>
-            }
-          >
-            {tutorials.map(
-              (tutorial: { description: React.ReactNode }, i: number) => {
-                return (
-                  <ListItem
-                    key={`${i}-${Date.now()}`}
-                    button
-                    onClick={
-                      (e) => handleLoadTutorial(e, i)
-                    }
-                  >
-                    <ListItemText>
-                      Tutorial {i + 1}: {tutorial.description}
-                    </ListItemText>
-                  </ListItem>
-                );
-              }
-            )}
+              </ListSubheader>
+            }>
+            {tutorials.map((tutorial: { description: React.ReactNode }, i: number) => {
+              return (
+                <ListItem
+                  key={`${i}-${Date.now()}`}
+                  button
+                  onClick={(e) => handleLoadTutorial(e, i)}>
+                  <ListItemText>
+                    Tutorial {i + 1}: {tutorial.description}
+                  </ListItemText>
+                </ListItem>
+              );
+            })}
           </List>
         </div>
       </Drawer>

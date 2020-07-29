@@ -5,7 +5,7 @@ import {
   Card,
   CardHeader,
   CardContent,
-  Divider,
+  Divider
 } from '@material-ui/core';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
@@ -28,9 +28,8 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
           backgroundColor: 'transparent',
           height: '100%',
           overflowY: 'auto',
-          overflowX: 'auto',
-        }}
-      >
+          overflowX: 'auto'
+        }}>
         {executionOutputList.length === 0 && executionOutputString === '' ? (
           <div className={'no-code'}>
             <div className="no-code-content">
@@ -67,8 +66,7 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
                   value={executionOutputString}
                   style={{
                     //fontSize: 16,
-                    fontFamily:
-                      "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace",
+                    fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace"
                   }}
                   disabled
                 />

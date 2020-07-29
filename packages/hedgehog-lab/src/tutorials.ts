@@ -285,34 +285,34 @@ This document is created and maintained by Hedgehog Lab Community. The markdown 
 export const tutorials = [
   {
     description: 'Matrix',
-    source: matrixSource,
+    source: matrixSource
   },
   {
     description: 'Operators',
-    source: operatorsSource,
+    source: operatorsSource
   },
   {
     description: 'GPU Acceleration',
-    source: gpuAccelerationSource,
+    source: gpuAccelerationSource
   },
   {
     description: 'Built-in functions',
-    source: buildInFunctionsSource,
+    source: buildInFunctionsSource
   },
   {
     description: 'TeX in Hedgehog Lab',
-    source: insertTexSource,
+    source: insertTexSource
   },
   {
     description: 'Figures and plotting',
-    source: graphicsSource,
+    source: graphicsSource
   },
   {
     description: 'Symbolic computing',
-    source: symbolicSource,
+    source: symbolicSource
   },
   {
     description: 'Markdown',
-    source: markdownSource,
-  },
+    source: markdownSource
+  }
 ];

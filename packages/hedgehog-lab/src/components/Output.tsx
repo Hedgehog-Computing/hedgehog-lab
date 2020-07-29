@@ -9,7 +9,7 @@ import {
   isDrawingItem,
   isTeXItem,
   isFormulaItem,
-  isMarkdownItem,
+  isMarkdownItem
 } from '@hedgehog/core';
 
 const Output = ({ outputItemList }: { outputItemList: OutputItem[] }) => {

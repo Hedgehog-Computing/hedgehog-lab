@@ -1,35 +1,52 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Qs from 'qs';
 import { Grid, CssBaseline, Toolbar } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
+import DownloadSnackbar from './components/DownloadSnackbar/DownloadSnackbar';
 import Header from './components/Header/Header';
 import YourCode from './components/YourCode/YourCode';
 import Results from './components/Results/Results';
 import Footer from './components/Footer/Footer';
 import { tutorials } from './tutorials';
-import { OutputItem } from '@hedgehog/core';
-import { useMutation } from 'react-query';
-import { compiler, releaseWorker } from './compiler';
+import { queryCache, useQuery } from 'react-query';
+import { compiler } from './compiler';
+import type { OutputResult } from './compiler';
+
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
 `;
 
-const HedgehogLab: React.FC<{}> = () => {
+const HedgehogLab: React.FC = () => {
   const [source, setSource] = useState<string>(DEFAULT_SOURCE);
-  const [result, setResult] = useState<{
-    outputItem: OutputItem[];
-    outputString: string;
-  }>({
+  const [input, setInput] = useState<string>('');
+  const [result, setResult] = useState<OutputResult>({
     outputItem: [],
-    outputString: '',
+    outputString: ''
   });
-  const [complie, { isLoading }] = useMutation(compiler, {
-    onSuccess: (
-      result: React.SetStateAction<{
-        outputItem: OutputItem[];
-        outputString: string;
-      }>
-    ) => {
+
+  const params = window.location.search;
+
+  let yourUrl = null;
+
+  let autoRun = null;
+
+  if (params) {
+    const obj = Qs.parse(params, { ignoreQueryPrefix: true });
+    yourUrl = obj.your_url ? (obj.your_url as string) : null;
+    autoRun = obj.auto_run === 'true';
+  }
+
+  const { isFetching: isLoading, refetch } = useQuery<
+    OutputResult,
+    readonly [string, string],
+    Error
+  >(['compiler', input], compiler, {
+    retry: false,
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+    enabled: false,
+    onSuccess: (result: OutputResult) => {
       setResult(result);
     },
     onError: (lastError) => {
@@ -38,46 +55,50 @@ const HedgehogLab: React.FC<{}> = () => {
       console.log('Hedgehog Lab: Failed: ' + lastError.toString());
       setResult({
         outputItem: [],
-        outputString: lastError.toString(),
+        outputString: lastError.toString()
       });
-    },
+    }
   });
 
   const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
     setSource(tutorials[index].source as string);
     setResult({
       outputItem: [],
-      outputString: '',
+      outputString: ''
     });
-    complie(tutorials[index].source as string);
+    setInput(tutorials[index].source as string);
   };
 
   const handleCompileAndRun = () => {
     setResult({
       outputItem: [],
-      outputString: '',
+      outputString: ''
     });
-    complie(source);
+    if (source === input) {
+      refetch({ force: true } as any);
+    } else {
+      setInput(source);
+    }
   };
-
-  useEffect(() => {
-    return () => {
-      releaseWorker();
-    };
-  }, []);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
-        display: 'flex',
+        display: 'flex'
       },
       content: {
-        flexGrow: 1,
-      },
+        flexGrow: 1
+      }
     })
   );
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if (!!input) refetch({ force: true } as any);
+  }, [input, refetch]);
+
+  useEffect(() => queryCache.cancelQueries(['compiler']), []);
 
   return (
     <div>
@@ -94,9 +115,8 @@ const HedgehogLab: React.FC<{}> = () => {
               <Grid
                 container
                 style={{
-                  height: 'calc(100vh - 174px)',
-                }}
-              >
+                  height: 'calc(100vh - 174px)'
+                }}>
                 <Grid item xs={12} md={6}>
                   <YourCode
                     handleCompileAndRun={handleCompileAndRun}
@@ -112,9 +132,8 @@ const HedgehogLab: React.FC<{}> = () => {
                   md={6}
                   style={{
                     height: 'calc(100vh - 64px)',
-                    overflowY: 'auto',
-                  }}
-                >
+                    overflowY: 'auto'
+                  }}>
                   <Results
                     executionOutputList={result.outputItem}
                     executionOutputString={result.outputString}
@@ -128,6 +147,15 @@ const HedgehogLab: React.FC<{}> = () => {
           <Footer />
         </main>
       </div>
+      {yourUrl && (
+        <DownloadSnackbar
+          setResult={setResult}
+          setSource={setSource}
+          setInput={setInput}
+          yourUrl={yourUrl}
+          autoRun={!!autoRun}
+        />
+      )}
     </div>
   );
 };
