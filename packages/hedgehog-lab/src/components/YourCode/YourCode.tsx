@@ -49,7 +49,12 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{ textTransform: 'none', width: 140 }}
+                  style={{
+                    textTransform: 'none',
+                    width: 140,
+                    background:
+                      'linear-gradient(45deg, rgba(244, 168, 215, 1) 30%, rgba(222, 184, 238, 1) 90%)'
+                  }}
                   onClick={() => {
                     // stop the web-worker
                     queryCache.cancelQueries(['compiler']);
@@ -67,7 +72,11 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                   variant="contained"
                   color="primary"
                   onClick={(e) => handleCompileAndRun(e)}
-                  style={{ textTransform: 'none' }}>
+                  style={{
+                    textTransform: 'none',
+                    background:
+                      'linear-gradient(45deg, rgba(152, 217, 255, 1) 30%, rgba(190, 200, 252, 1) 90%)'
+                  }}>
                   Compile and run
                 </Button>
               )}

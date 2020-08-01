@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SideBarItem from './SideBarItem'
 import {
   Drawer,
   List,
@@ -9,15 +8,22 @@ import {
   makeStyles,
   createStyles,
   ListSubheader,
-  Tooltip,
-  Button
+  Tooltip
 } from '@material-ui/core';
+import SideBarItem from './SideBarItem';
+import UploadButton from './UploadButton';
+import SaveButton from './SaveButton';
+import DelButton from './DelButton';
 import { tutorials } from '../../tutorials';
-import {Theme} from "@material-ui/core/styles";
-import clsx from "clsx";
+import { Theme } from '@material-ui/core/styles';
+import clsx from 'clsx';
 
 interface SideBarProps {
   handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
+  handleLoadFile: (str: string) => void;
+  getLocalCodeList: () => void;
+  localList: { description: string; source: string }[];
+  source: string;
   siderBarOpen: boolean;
 }
 
@@ -28,19 +34,19 @@ const useStyles = makeStyles((theme: Theme) =>
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
-      whiteSpace: 'nowrap',
+      whiteSpace: 'nowrap'
     },
     drawerOpen: {
       width: drawerWidth,
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
+        duration: theme.transitions.duration.enteringScreen
+      })
     },
     drawerClose: {
       transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+        duration: theme.transitions.duration.leavingScreen
       }),
       overflowX: 'hidden',
       width: 0
@@ -51,10 +57,10 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'flex-end',
       padding: theme.spacing(0, 1),
       // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
+      ...theme.mixins.toolbar
     },
     drawerContainer: {
-      overflowX: "hidden",
+      overflowX: 'hidden',
       overflowY: 'auto',
       height: '100%',
       '&::-webkit-scrollbar': {
@@ -66,13 +72,13 @@ const useStyles = makeStyles((theme: Theme) =>
         display: 'fixed',
         borderRadius: 10,
         '-webkit-box-shadow': 'inset 0 0 5px rgba(0,0,0,0.2)',
-        background: '#535353',
+        background: '#535353'
       },
       '&::-webkit-scrollbar-track': {
         display: 'fixed',
         '-webkit-box-shadow': 'inset 0 0 1px rgba(0,0,0,0)',
         borderRadius: 10,
-        background: '#ccc',
+        background: '#ccc'
       }
     },
     listItem: {
@@ -80,19 +86,26 @@ const useStyles = makeStyles((theme: Theme) =>
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       display: 'inline-block',
-      width: '100%',
+      width: '100%'
     },
     tooltip: {
       fontSize: '1rem'
     },
     nested: {
-      paddingLeft: theme.spacing(4),
-    },
+      paddingLeft: theme.spacing(4)
+    }
   })
 );
 
 const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
-  const { handleLoadTutorial, siderBarOpen } = props;
+  const {
+    handleLoadTutorial,
+    siderBarOpen,
+    handleLoadFile,
+    getLocalCodeList,
+    source,
+    localList
+  } = props;
 
   const [open, setOpen] = useState('Tutorials');
 
@@ -106,20 +119,21 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     }
   };
 
+  console.log(localList);
+
   return (
     <Drawer
       variant="permanent"
       className={clsx(classes.drawer, {
         [classes.drawerOpen]: siderBarOpen,
-        [classes.drawerClose]: !siderBarOpen,
+        [classes.drawerClose]: !siderBarOpen
       })}
       classes={{
         paper: clsx({
           [classes.drawerOpen]: siderBarOpen,
-          [classes.drawerClose]: !siderBarOpen,
-        }),
-      }}
-    >
+          [classes.drawerClose]: !siderBarOpen
+        })
+      }}>
       <Toolbar />
 
       <div className={classes.drawerContainer}>
@@ -132,26 +146,23 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
           <SideBarItem
             handleSideBarItemClick={handleSideBarItemClick}
             name={'Tutorials'}
-            open={open}
-          >
+            open={open}>
             {tutorials.map((tutorial: { description: React.ReactNode }, i: number) => {
               return (
                 <ListItem
                   key={`${i}-${Date.now()}`}
                   button
                   className={classes.nested}
-                  onClick={(e) => handleLoadTutorial(e, i)}
-                >
+                  onClick={(e) => handleLoadTutorial(e, i)}>
                   <ListItemText>
                     <Tooltip
                       placement="top"
                       classes={{ tooltip: classes.tooltip }}
                       title={tutorial.description as string}
-                      arrow
-                    >
-                    <span
-                      className={classes.listItem}
-                    >Tutorial {i + 1}: {tutorial.description}</span>
+                      arrow>
+                      <span className={classes.listItem}>
+                        Tutorial {i + 1}: {tutorial.description}
+                      </span>
                     </Tooltip>
                   </ListItemText>
                 </ListItem>
@@ -160,45 +171,38 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
           </SideBarItem>
           <SideBarItem
             handleSideBarItemClick={handleSideBarItemClick}
-            name={'Local code'}
-            open={open}
-          >
-            {tutorials.map((tutorial: { description: React.ReactNode }, i: number) => {
-              return (
-                <ListItem
-                  key={`${i}-${Date.now()}`}
-                  button
-                  className={classes.nested}
-                  onClick={(e) => handleLoadTutorial(e, i)}
-                >
-                  <ListItemText>
-                    <Tooltip
-                      placement="top"
-                      classes={{ tooltip: classes.tooltip }}
-                      title={tutorial.description as string}
-                      arrow
-                    >
-                    <span
-                      className={classes.listItem}
-                    >Tutorial {i + 1}: {tutorial.description}</span>
-                    </Tooltip>
-                  </ListItemText>
-                </ListItem>
-              );
-            })}
+            name={'Local Code'}
+            open={open}>
+            {localList.length > 0 &&
+              localList.map((item: { description: string; source: string }, i: number) => {
+                return (
+                  <ListItem
+                    key={`${i}-${Date.now()}`}
+                    button
+                    className={classes.nested}
+                    onClick={() => handleLoadFile(item.source)}>
+                    <ListItemText>
+                      <Tooltip
+                        placement="top"
+                        classes={{ tooltip: classes.tooltip }}
+                        title={item.description}
+                        arrow>
+                        <span className={classes.listItem}>{item.description}</span>
+                      </Tooltip>
+                    </ListItemText>
+                    <DelButton name={item.description} getLocalCodeList={getLocalCodeList} />
+                  </ListItem>
+                );
+              })}
           </SideBarItem>
         </List>
       </div>
-
-      <Button
-        variant="contained"
-        color="primary"
-        style={{
-          height: '5%'
-        }}
-      >Upload</Button>
+      <div>
+        <UploadButton handleLoadFile={handleLoadFile} />
+        <SaveButton source={source} getLocalCodeList={getLocalCodeList} />
+      </div>
     </Drawer>
-  )
-}
+  );
+};
 
 export default SideBar;

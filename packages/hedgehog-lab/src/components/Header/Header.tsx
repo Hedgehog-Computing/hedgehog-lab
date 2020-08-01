@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  AppBar,
-  Button,
-  Toolbar,
-  Typography,
-  IconButton,
-} from '@material-ui/core';
+import { AppBar, Button, Toolbar, Typography, IconButton } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
+import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 
 interface HeaderProps {
   siderBarOpen: boolean;
@@ -37,25 +31,29 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     <div>
       <AppBar position="fixed" elevation={0} color="default" className={classes.appBar}>
         <Toolbar>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            style={{ display: lgBreakpointMatches ? 'inline' : 'none' }}
+            onClick={handleSideBarOpen}>
+            {siderBarOpen ? (
+              <ArrowBackOutlinedIcon style={{ fontSize: '1.25rem' }} />
+            ) : (
+              <img
+                src={process.env.PUBLIC_URL + '/cat.png'}
+                style={{ height: '1.25rem' }}
+                alt="Hedgehog Lab Logo"
+              />
+            )}
+          </IconButton>
 
           <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
             style={{ display: lgBreakpointMatches ? 'inline' : 'none' }}
-            onClick={handleSideBarOpen}
-          >
-            {
-              siderBarOpen ?
-                <ArrowBackOutlinedIcon style={{ fontSize: '1.25rem' }} />
-              :
-                <img
-                  src={process.env.PUBLIC_URL + '/cat.png'}
-                  style={{ height: '1.25rem' }}
-                  alt="Hedgehog Lab Logo"
-                />
-            }
-          </IconButton>
+            onClick={handleSideBarOpen}></IconButton>
 
           <Typography
             variant={lgBreakpointMatches ? 'h6' : 'body1'}
@@ -80,8 +78,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
           </Button>
         </Toolbar>
       </AppBar>
-
-      {/*<SideBar handleLoadTutorial={handleLoadTutorial} siderBarOpen={siderBarOpen} />*/}
     </div>
   );
 };

@@ -1,16 +1,17 @@
-import React, { HTMLAttributes } from 'react'
-import { Collapse, List, ListItem, ListItemText } from "@material-ui/core";
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import React, { HTMLAttributes } from 'react';
+import { Collapse, List, ListItem, ListItemText } from '@material-ui/core';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 interface SideBarItemProps {
-  handleSideBarItemClick: (open: string) => void,
-  open: string,
-  name: string,
+  handleSideBarItemClick: (open: string) => void;
+  open: string;
+  name: string;
 }
 
-const SideBarItem: React.FC<SideBarItemProps & HTMLAttributes<HTMLElement>> = (props: SideBarItemProps & HTMLAttributes<HTMLElement>) => {
-
-  const { open, name, handleSideBarItemClick, children } = props
+const SideBarItem: React.FC<SideBarItemProps & HTMLAttributes<HTMLElement>> = (
+  props: SideBarItemProps & HTMLAttributes<HTMLElement>
+) => {
+  const { open, name, handleSideBarItemClick, children } = props;
 
   return (
     <React.Fragment>
@@ -20,13 +21,11 @@ const SideBarItem: React.FC<SideBarItemProps & HTMLAttributes<HTMLElement>> = (p
       </ListItem>
       <Collapse in={open === name} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {
-            children
-          }
+          {children}
         </List>
       </Collapse>
     </React.Fragment>
-  )
-}
+  );
+};
 
-export default SideBarItem
+export default SideBarItem;
