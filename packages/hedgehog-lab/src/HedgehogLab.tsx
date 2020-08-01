@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import YourCode from './components/YourCode/YourCode';
 import Results from './components/Results/Results';
 import Footer from './components/Footer/Footer';
+import SideBar from "./components/SideBar/SideBar";
 import { tutorials } from './tutorials';
 import { queryCache, useQuery } from 'react-query';
 import { compiler } from './compiler';
@@ -20,6 +21,10 @@ print("hello world")
 const HedgehogLab: React.FC = () => {
   const [source, setSource] = useState<string>(DEFAULT_SOURCE);
   const [input, setInput] = useState<string>('');
+  const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
+  const lgBreakpointMatches = lgBreakpoint.matches;
+  // SideBar open prop
+  const [siderBarOpen, setOpen] = useState(lgBreakpointMatches);
   const [result, setResult] = useState<OutputResult>({
     outputItem: [],
     outputString: ''
@@ -105,8 +110,15 @@ const HedgehogLab: React.FC = () => {
       <div className={classes.root}>
         <CssBaseline />
 
-        <Header handleLoadTutorial={handleLoadTutorial} />
-
+        <Header
+          siderBarOpen={siderBarOpen}
+          setOpen={setOpen}
+          lgBreakpointMatches={lgBreakpointMatches}
+        />
+        <SideBar
+          handleLoadTutorial={handleLoadTutorial}
+          siderBarOpen={siderBarOpen}
+        />
         <main className={classes.content}>
           <Toolbar />
 

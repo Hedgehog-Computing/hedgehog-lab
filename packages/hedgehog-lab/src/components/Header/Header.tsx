@@ -1,37 +1,33 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   AppBar,
   Button,
   Toolbar,
   Typography,
   IconButton,
-  FormControlLabel,
-  Switch
 } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import SideBar from './SideBar';
+import ArrowBackOutlinedIcon from "@material-ui/icons/ArrowBackOutlined";
 
 interface HeaderProps {
-  handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
+  siderBarOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  lgBreakpointMatches: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     appBar: {
-      zIndex: theme.zIndex.drawer + 1
+      zIndex: theme.zIndex.drawer + 1,
+      borderBottom: '1px solid #E0E0E0'
     }
   })
 );
 
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
-  const { handleLoadTutorial } = props;
+  const { siderBarOpen, setOpen, lgBreakpointMatches } = props;
 
   const classes = useStyles();
-  const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
-  const lgBreakpointMatches = lgBreakpoint.matches;
-
-  // SideBar open prop
-  const [siderBarOpen, setOpen] = useState(lgBreakpointMatches ? true : false);
 
   const handleSideBarOpen = () => {
     setOpen(!siderBarOpen);
@@ -41,28 +37,24 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     <div>
       <AppBar position="fixed" elevation={0} color="default" className={classes.appBar}>
         <Toolbar>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={siderBarOpen}
-                onChange={handleSideBarOpen}
-                name="handleSideBarOpen"
-                color="primary"
-              />
-            }
-            label="Tutorials"
-          />
 
           <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
-            style={{ display: lgBreakpointMatches ? 'inline' : 'none' }}>
-            <img
-              src={process.env.PUBLIC_URL + '/cat.png'}
-              style={{ height: '1.25rem' }}
-              alt="Hedgehog Lab Logo"
-            />
+            style={{ display: lgBreakpointMatches ? 'inline' : 'none' }}
+            onClick={handleSideBarOpen}
+          >
+            {
+              siderBarOpen ?
+                <ArrowBackOutlinedIcon style={{ fontSize: '1.25rem' }} />
+              :
+                <img
+                  src={process.env.PUBLIC_URL + '/cat.png'}
+                  style={{ height: '1.25rem' }}
+                  alt="Hedgehog Lab Logo"
+                />
+            }
           </IconButton>
 
           <Typography
@@ -89,7 +81,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         </Toolbar>
       </AppBar>
 
-      <SideBar handleLoadTutorial={handleLoadTutorial} siderBarOpen={siderBarOpen} />
+      {/*<SideBar handleLoadTutorial={handleLoadTutorial} siderBarOpen={siderBarOpen} />*/}
     </div>
   );
 };

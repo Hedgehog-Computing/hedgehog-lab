@@ -41,7 +41,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
   return (
     <div style={{ height: '100%' }}>
-      <Card variant="outlined" className={'your-code-card'} style={{ height: '100%' }}>
+      <Card className={'your-code-card'} style={{ height: '100%' }}>
         <CardHeader
           action={
             <div className="run-button">
