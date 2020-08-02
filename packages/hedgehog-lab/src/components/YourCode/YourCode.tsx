@@ -51,9 +51,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                   color="secondary"
                   style={{
                     textTransform: 'none',
-                    width: 140,
-                    background:
-                      'linear-gradient(45deg, rgba(244, 168, 215, 1) 30%, rgba(222, 184, 238, 1) 90%)'
+                    width: 140
                   }}
                   onClick={() => {
                     // stop the web-worker
@@ -73,9 +71,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                   color="primary"
                   onClick={(e) => handleCompileAndRun(e)}
                   style={{
-                    textTransform: 'none',
-                    background:
-                      'linear-gradient(45deg, rgba(152, 217, 255, 1) 30%, rgba(190, 200, 252, 1) 90%)'
+                    textTransform: 'none'
                   }}>
                   Compile and run
                 </Button>

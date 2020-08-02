@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { green } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -9,9 +10,12 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     upLoad: {
       width: '50%',
-      background: 'linear-gradient(45deg, rgba(222, 184, 238, 1) 30%, rgba(190, 200, 252, 1) 90%)',
+      background: green[500],
       fontSize: '0.875rem',
-      fontWeight: 500
+      fontWeight: 500,
+      '&:hover': {
+        backgroundColor: green[700]
+      }
     }
   })
 );

@@ -7,15 +7,19 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { purple } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     save: {
       width: '50%',
-      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      backgroundColor: purple[500],
       fontSize: '0.875rem',
       fontWeight: 500,
-      color: 'white'
+      color: 'white',
+      '&:hover': {
+        backgroundColor: purple[700]
+      }
     }
   })
 );

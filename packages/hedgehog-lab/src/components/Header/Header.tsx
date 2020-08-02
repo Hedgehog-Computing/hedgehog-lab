@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Button, Toolbar, Typography, IconButton } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
+import MenuIcon from '@material-ui/icons/Menu';
 
 interface HeaderProps {
   siderBarOpen: boolean;
@@ -35,25 +36,19 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             edge="start"
             color="inherit"
             aria-label="menu"
-            style={{ display: lgBreakpointMatches ? 'inline' : 'none' }}
+            style={{ display: 'inline' }}
             onClick={handleSideBarOpen}>
             {siderBarOpen ? (
               <ArrowBackOutlinedIcon style={{ fontSize: '1.25rem' }} />
             ) : (
-              <img
-                src={process.env.PUBLIC_URL + '/cat.png'}
-                style={{ height: '1.25rem' }}
-                alt="Hedgehog Lab Logo"
-              />
+              // <img
+              //   src={process.env.PUBLIC_URL + '/cat.png'}
+              //   style={{ height: '1.25rem' }}
+              //   alt="Hedgehog Lab Logo"
+              // />
+              <MenuIcon style={{ fontSize: '1.25rem' }} />
             )}
           </IconButton>
-
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            style={{ display: lgBreakpointMatches ? 'inline' : 'none' }}
-            onClick={handleSideBarOpen}></IconButton>
 
           <Typography
             variant={lgBreakpointMatches ? 'h6' : 'body1'}

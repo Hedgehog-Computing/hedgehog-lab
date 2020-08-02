@@ -158,3 +158,9 @@ textarea {
   width: 100%;
 }
 
+@media (max-width: 960px) {
+  html {
+    overflow: auto;
+  }
+}
+
