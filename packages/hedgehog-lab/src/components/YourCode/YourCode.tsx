@@ -41,7 +41,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
   return (
     <div style={{ height: '100%' }}>
-      <Card variant="outlined" className={'your-code-card'} style={{ height: '100%' }}>
+      <Card className={'your-code-card'} style={{ height: '100%' }}>
         <CardHeader
           action={
             <div className="run-button">
@@ -49,7 +49,10 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                 <Button
                   variant="contained"
                   color="secondary"
-                  style={{ textTransform: 'none', width: 140 }}
+                  style={{
+                    textTransform: 'none',
+                    width: 140
+                  }}
                   onClick={() => {
                     // stop the web-worker
                     queryCache.cancelQueries(['compiler']);
@@ -67,7 +70,9 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                   variant="contained"
                   color="primary"
                   onClick={(e) => handleCompileAndRun(e)}
-                  style={{ textTransform: 'none' }}>
+                  style={{
+                    textTransform: 'none'
+                  }}>
                   Compile and run
                 </Button>
               )}

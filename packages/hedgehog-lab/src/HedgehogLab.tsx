@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import YourCode from './components/YourCode/YourCode';
 import Results from './components/Results/Results';
 import Footer from './components/Footer/Footer';
+import SideBar from './components/SideBar/SideBar';
 import { tutorials } from './tutorials';
 import { queryCache, useQuery } from 'react-query';
 import { compiler } from './compiler';
@@ -20,10 +21,35 @@ print("hello world")
 const HedgehogLab: React.FC = () => {
   const [source, setSource] = useState<string>(DEFAULT_SOURCE);
   const [input, setInput] = useState<string>('');
+  const [localList, setLocalList] = useState<{ description: string; source: string }[]>([]);
+  const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
+  const lgBreakpointMatches = lgBreakpoint.matches;
+  // SideBar open prop
+  const [siderBarOpen, setOpen] = useState(lgBreakpointMatches);
   const [result, setResult] = useState<OutputResult>({
     outputItem: [],
     outputString: ''
   });
+
+  const getLocalCodeList = () => {
+    const result = localStorage.getItem('localNameList');
+    if (result) {
+      const list = JSON.parse(result) as string[];
+      const newLocalList = [];
+      for (let i = 0; i < list.length; i++) {
+        if (list[i] !== 'localNameList') {
+          newLocalList.push({
+            description: list[i],
+            source: localStorage.getItem(list[i]) as string
+          });
+        }
+      }
+      console.log(newLocalList);
+      setLocalList(newLocalList);
+    } else {
+      localStorage.setItem('localNameList', JSON.stringify(['localNameList']));
+    }
+  };
 
   const params = window.location.search;
 
@@ -61,12 +87,24 @@ const HedgehogLab: React.FC = () => {
   });
 
   const handleLoadTutorial = (event: React.MouseEvent, index: number) => {
-    setSource(tutorials[index].source as string);
+    const str = tutorials[index].source as string;
+    if (str === source) return;
+    setSource(str);
     setResult({
       outputItem: [],
       outputString: ''
     });
-    setInput(tutorials[index].source as string);
+    setInput(str);
+  };
+
+  const handleLoadFile = (str: string) => {
+    if (str === source) return;
+    setSource(str);
+    setResult({
+      outputItem: [],
+      outputString: ''
+    });
+    setInput(str);
   };
 
   const handleCompileAndRun = () => {
@@ -98,14 +136,30 @@ const HedgehogLab: React.FC = () => {
     if (!!input) refetch({ force: true } as any);
   }, [input, refetch]);
 
-  useEffect(() => queryCache.cancelQueries(['compiler']), []);
+  useEffect(() => {
+    queryCache.cancelQueries(['compiler']);
+    getLocalCodeList();
+  }, []);
 
   return (
     <div>
       <div className={classes.root}>
         <CssBaseline />
 
-        <Header handleLoadTutorial={handleLoadTutorial} />
+        <Header
+          siderBarOpen={siderBarOpen}
+          setOpen={setOpen}
+          lgBreakpointMatches={lgBreakpointMatches}
+        />
+
+        <SideBar
+          handleLoadTutorial={handleLoadTutorial}
+          siderBarOpen={siderBarOpen}
+          handleLoadFile={handleLoadFile}
+          source={source}
+          getLocalCodeList={getLocalCodeList}
+          localList={localList}
+        />
 
         <main className={classes.content}>
           <Toolbar />
@@ -147,6 +201,7 @@ const HedgehogLab: React.FC = () => {
           <Footer />
         </main>
       </div>
+
       {yourUrl && (
         <DownloadSnackbar
           setResult={setResult}
