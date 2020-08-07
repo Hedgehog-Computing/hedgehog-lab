@@ -2,7 +2,7 @@
 
 ##### DATE COMING SOON
 
-Big Thanks to the 
+Big Thanks to the 6 contributorswho made this release possible. 
 
 ### `hedgehog-lab`
 
