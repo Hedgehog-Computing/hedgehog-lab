@@ -21,4 +21,4 @@ Big Thanks to the
 
 - [Docs] Correct syntax errors (#73) @mtx2d
 - [Docs] Modify the development branch instructions (#70) @imtsuki
-- [Docs] Release CHANGELOG @AGDholo
+- [Docs] Release CHANGELOG (#78)@AGDholo
