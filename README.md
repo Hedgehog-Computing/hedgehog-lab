@@ -31,6 +31,12 @@ yarn install
 yarn watch
 ```
 
+## Video Tutorial
+
+1. [Introduction](https://youtu.be/OtEH0LX5C6M)
+2. [Matrix](https://youtu.be/ctJejZ7Nldg)
+3. [GPU acceleration](https://youtu.be/OtEH0LX5C6M)
+
 ## Contributing
 
 Read our [contributing guide](CONTRIBUTING.md) to learn how to develop the project.
