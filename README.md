@@ -40,8 +40,8 @@ yarn watch
 
 ### Bilibili
 1. [入门](https://www.bilibili.com/video/BV12t4y1v7rw)
-2. [没有人比我更懂矩阵](https://youtu.be/ctJejZ7Nldg)
-3. [3分钟安装+入门跨平台GPU并行计算](https://youtu.be/OtEH0LX5C6M)
+2. [没有人比我更懂矩阵](https://www.bilibili.com/video/BV1Zp4y1r7eq)
+3. [3分钟安装+入门跨平台GPU并行计算](https://www.bilibili.com/video/BV1T5411L7Mf)
 
 ## Contributing
 
