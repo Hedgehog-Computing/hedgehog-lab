@@ -33,9 +33,15 @@ yarn watch
 
 ## Video Tutorial
 
+### Youtube
 1. [Introduction](https://youtu.be/rGkFI0Z-i-c)
 2. [Matrix](https://youtu.be/ctJejZ7Nldg)
 3. [GPU acceleration](https://youtu.be/OtEH0LX5C6M)
+
+### Bilibili
+1. [入门](https://www.bilibili.com/video/BV12t4y1v7rw)
+2. [没有人比我更懂矩阵](https://youtu.be/ctJejZ7Nldg)
+3. [3分钟安装+入门跨平台GPU并行计算](https://youtu.be/OtEH0LX5C6M)
 
 ## Contributing
 
