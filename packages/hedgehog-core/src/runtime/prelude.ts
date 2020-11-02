@@ -7,7 +7,7 @@ import _MathLib from '../lib/mathlib';
 import { Sym } from '../lib/symbolic';
 import { Chol, QR, LU } from '../lib/algebra';
 import { OutputItem } from '../output/output-item';
-import processRawInputs from '../utilites/process-raw-inputs';
+import { rawInputsToTex } from '../utilites/process-raw-inputs';
 
 export { Sym, Mat, Scalar, _Mat };
 
@@ -308,12 +308,12 @@ export function plot3DMesh(x_: any, y_: any, z_: any) {
 
 // show Tex in MathJax
 export function tex(...inputs: any[]) {
-  const inputTex: string = processRawInputs(...inputs);
+  const inputTex: string = rawInputsToTex(...inputs);
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'TEX', text: inputTex });
 }
 
 export function formulaTex(...inputs: any[]) {
-  const inputTex: string = processRawInputs(...inputs);
+  const inputTex: string = rawInputsToTex(...inputs);
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'FORMULA', text: inputTex });
 }
 
