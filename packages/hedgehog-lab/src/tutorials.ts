@@ -124,9 +124,14 @@ formulaTex\`
   \\Theta
 \`
 
-// and the \`toTex()\` method will be automatically called
+// The \`toTex()\` method can be automatically called in formulaTex function...
 formulaTex\`
-  \${mat([[1,1,4],[5,1,4]])}
+  A = \${mat([[1,1,4],[5,1,4]])}
+\`
+
+// .. and tex function
+tex\`
+  X = \${mat().random(2,2)}
 \`
 `;
 
