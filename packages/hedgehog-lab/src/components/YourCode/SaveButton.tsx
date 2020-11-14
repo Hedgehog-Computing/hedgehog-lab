@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,7 +6,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import IconButton from '@material-ui/core/IconButton';
+import SaveIcon from '@material-ui/icons/Save';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {Tooltip} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,7 +17,12 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '50%',
       fontSize: '0.875rem',
       fontWeight: 500,
-      color: 'white',
+      color: 'rgba(0, 0, 0, 0.87)',
+      height: '100%',
+      marginLeft: '0.5rem'
+    },
+    tooltip: {
+      fontSize: '1rem'
     }
   })
 );
@@ -64,14 +72,19 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
 
   return (
     <React.Fragment>
-      <Button
-        variant="contained"
-        color="primary"
-        component="span"
-        onClick={handleClickOpen}
-        className={classes.save}>
-        SAVE
-      </Button>
+      <Tooltip
+        placement="top"
+        classes={{ tooltip: classes.tooltip }}
+        title={'You can save the code to the local browser'}
+        arrow>
+        <IconButton
+          color="primary"
+          component="span"
+          onClick={handleClickOpen}
+          className={classes.save}>
+          <SaveIcon/>
+        </IconButton>
+      </Tooltip>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Save Your Code</DialogTitle>
         <DialogContent>
@@ -103,4 +116,5 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
   );
 };
 
-export default SaveButton;
+export default SaveButton
+

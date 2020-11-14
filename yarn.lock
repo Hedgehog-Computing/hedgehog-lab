@@ -2545,6 +2545,18 @@
   dependencies:
     "@babel/types" "^7.0.0"
 
+"@types/babel__preset-env@^7.9.1":
+  version "7.9.1"
+  resolved "https://registry.npm.taobao.org/@types/babel__preset-env/download/@types/babel__preset-env-7.9.1.tgz#ba6bc73bfaa2050ca5459235fb73e146d0f66aa6"
+  integrity sha1-umvHO/qiBQylRZI1+3PhRtD2aqY=
+
+"@types/babel__standalone@^7.1.3":
+  version "7.1.3"
+  resolved "https://registry.npm.taobao.org/@types/babel__standalone/download/@types/babel__standalone-7.1.3.tgz#e275639469c056f7cecc4963c88a803f028236dd"
+  integrity sha1-4nVjlGnAVvfOzEljyIqAPwKCNt0=
+  dependencies:
+    "@babel/core" "^7.1.0"
+
 "@types/babel__template@*":
   version "7.0.2"
   resolved "https://registry.npm.taobao.org/@types/babel__template/download/@types/babel__template-7.0.2.tgz?cache=0&sync_timestamp=1588201036585&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbabel__template%2Fdownload%2F%40types%2Fbabel__template-7.0.2.tgz#4ff63d6b52eddac1de7b975a5223ed32ecea9307"
@@ -4583,12 +4595,7 @@ clone@^1.0.2:
   resolved "https://registry.npm.taobao.org/clone/download/clone-1.0.4.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fclone%2Fdownload%2Fclone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
-clsx@^1.0.4:
-  version "1.1.1"
-  resolved "https://registry.npm.taobao.org/clsx/download/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
-  integrity sha1-mLMTT5q73yOyZjSRrOE8XAOnMYg=
-
-clsx@^1.1.1:
+clsx@^1.0.4, clsx@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.1.tgz#98b3134f9abbdf23b2663491ace13c5c03a73188"
   integrity sha512-6/bPho624p3S2pMyvP5kKBPXnI3ufHLObBFCfgx+LkeR5lg2XYy2hqZqUf45ypD8COn2bhgGJSUE+l5dhNBieA==

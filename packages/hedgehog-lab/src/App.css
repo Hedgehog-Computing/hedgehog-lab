@@ -37,6 +37,9 @@
 
 .run-button {
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .run-button .run-button-loading {
@@ -44,3 +47,28 @@
   left: calc(50% - 12px);
   top: calc(50% - 12px);
 }
+
+.uploader-dragger {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #f8f9fa;
+  border: 1px dashed #f8f9fa;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 20px;
+  text-align: center;
+}
+
+.uploader-dragger:hover {
+  border: 1px dashed #0d6efd;
+}
+
+.uploader-dragger.is-dragover {
+  border: 2px dashed #0d6efd;
+  background: #0d6efd;
+  opacity: 0.2;
+}
+
+

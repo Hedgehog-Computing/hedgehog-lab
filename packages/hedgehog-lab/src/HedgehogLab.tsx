@@ -44,7 +44,6 @@ const HedgehogLab: React.FC = () => {
           });
         }
       }
-      console.log(newLocalList);
       setLocalList(newLocalList);
     } else {
       localStorage.setItem('localNameList', JSON.stringify(['localNameList']));
@@ -156,7 +155,6 @@ const HedgehogLab: React.FC = () => {
           handleLoadTutorial={handleLoadTutorial}
           siderBarOpen={siderBarOpen}
           handleLoadFile={handleLoadFile}
-          source={source}
           getLocalCodeList={getLocalCodeList}
           localList={localList}
         />
@@ -177,6 +175,8 @@ const HedgehogLab: React.FC = () => {
                     setSource={setSource}
                     source={source}
                     loading={isLoading}
+                    handleLoadFile={handleLoadFile}
+                    getLocalCodeList={getLocalCodeList}
                   />
                 </Grid>
 

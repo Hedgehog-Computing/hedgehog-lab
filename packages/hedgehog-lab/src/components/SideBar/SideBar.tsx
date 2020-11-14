@@ -11,8 +11,6 @@ import {
   Tooltip
 } from '@material-ui/core';
 import SideBarItem from './SideBarItem';
-import UploadButton from './UploadButton';
-import SaveButton from './SaveButton';
 import DelButton from './DelButton';
 import { tutorials } from '../../tutorials';
 import { Theme } from '@material-ui/core/styles';
@@ -23,7 +21,6 @@ interface SideBarProps {
   handleLoadFile: (str: string) => void;
   getLocalCodeList: () => void;
   localList: { description: string; source: string }[];
-  source: string;
   siderBarOpen: boolean;
 }
 
@@ -103,7 +100,6 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     siderBarOpen,
     handleLoadFile,
     getLocalCodeList,
-    source,
     localList
   } = props;
 
@@ -118,8 +114,6 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
       setOpen(name);
     }
   };
-
-  console.log(localList);
 
   return (
     <Drawer
@@ -197,10 +191,10 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
           </SideBarItem>
         </List>
       </div>
-      <div>
-        <UploadButton handleLoadFile={handleLoadFile} />
-        <SaveButton source={source} getLocalCodeList={getLocalCodeList} />
-      </div>
+      {/*<div>*/}
+      {/*  <UploadButton handleLoadFile={handleLoadFile} />*/}
+      {/*  <SaveButton source={source} getLocalCodeList={getLocalCodeList} />*/}
+      {/*</div>*/}
     </Drawer>
   );
 };

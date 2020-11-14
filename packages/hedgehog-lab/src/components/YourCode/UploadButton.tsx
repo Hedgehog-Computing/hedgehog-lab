@@ -1,7 +1,8 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { green } from '@material-ui/core/colors';
+import IconButton from '@material-ui/core/IconButton';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import {Tooltip} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -9,13 +10,13 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'none'
     },
     upLoad: {
-      width: '50%',
-      background: green[500],
+      width: '100%',
       fontSize: '0.875rem',
       fontWeight: 500,
-      '&:hover': {
-        backgroundColor: green[700]
-      }
+      color: 'rgba(0, 0, 0, 0.87)'
+    },
+    tooltip: {
+      fontSize: '1rem'
     }
   })
 );
@@ -57,13 +58,19 @@ const UploadButton: React.FC<UploadButtonProps> = (props: UploadButtonProps) => 
         type="file"
         onChange={handleFileChange}
       />
-      <label htmlFor="contained-button-file">
-        <Button variant="contained" color="primary" component="span" className={classes.upLoad}>
-          Upload
-        </Button>
-      </label>
+      <Tooltip
+        placement="top"
+        classes={{ tooltip: classes.tooltip }}
+        title={'Load local .md or .js files'}
+        arrow>
+        <label htmlFor="contained-button-file">
+          <IconButton color="primary" component="span" className={classes.upLoad}>
+            <CloudUploadIcon/>
+          </IconButton>
+        </label>
+      </Tooltip>
     </React.Fragment>
   );
 };
 
-export default UploadButton;
+export default UploadButton
