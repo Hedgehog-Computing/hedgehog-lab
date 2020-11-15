@@ -30,6 +30,8 @@
     },
     "devDependencies": {
         "@babel/types": "^7.10.5",
+        "@types/babel__preset-env": "^7.9.1",
+        "@types/babel__standalone": "^7.1.3",
         "@types/mathjs": "^6.0.5",
         "@typescript-eslint/eslint-plugin": "^3.7.0",
         "@typescript-eslint/parser": "^3.7.0",
