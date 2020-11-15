@@ -119,7 +119,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     }
   };
 
-  console.log(localList);
+  //console.log(localList);
 
   return (
     <Drawer

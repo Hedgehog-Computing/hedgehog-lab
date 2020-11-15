@@ -18,10 +18,12 @@ export function executeOutput(code: string) {
     'prelude',
     preludeImport + code + '\n return _OUTPUT_ITEMS_LIST_;'
   );
+
   const results = fn.call({}, prelude);
 
   console.log('Execution results:');
   console.log(results);
+  console.log('-- End of execution results:');
 
   const returnList = [...results];
   prelude._OUTPUT_ITEMS_LIST_.length = 0;

@@ -1,17 +1,22 @@
-import fetchLibrary from '../utilites/fetch-library';
 
-function preprocess(source: string) {
-  return source;
+async function fetchLibrary(lib_url: string) {
+  let raw_string_return = fetch(lib_url, { method: 'get' })
+    .then(function (body) {
+      return body.text();
+    })
+    .then(function (data) {
+      return data;
+    });
 
-  // below is a fetch function to download a string from url
-  // it could be a library or a csv file or a json of matrix
-  // this is one of issues with highest priority in to-do list
-  let lib = fetchLibrary(
-    'https://gist.githubusercontent.com/lidangzzz/cc13e32762418a2b198759682f351f81/raw/d4f7a4046ee3fa53aa15728a31cc4a540a86713c/test1.js'
-  );
-  console.log('The source code after preprocessor');
-  let result = lib + '\n\n\n' + source;
+    return raw_string_return;
+}
+
+
+async function preprocess(source: string): Promise<string> {
+  console.log('The source code after preprocessing');
+  let result = await preprocessDFS(source , 'root');
   console.log(result);
+  console.log('End of the source code after preprocessing');
   return result;
 }
 
@@ -22,7 +27,7 @@ by feteching the strings of libraries and adding at the top of the source code.
 
 For example, the input string is --
 
-import http://a.com/my_function.js
+*import http://a.com/my_function.js
 let matrixA = mat([[1,2,3],[4,5,6]])
 let result = my_function(matrixA)
 print(result)
@@ -50,6 +55,23 @@ let result = my_function(matrixA)
 print(result)
 
 
+or the input string is 
+
+func = *import http://a.com/my_function.js
+let matrixA = mat([[1,2,3],[4,5,6]])
+let result = my_function(matrixA)
+print(result)
+
+and the preprocessed string will be 
+
+func = function my_function(matrixA: Mat):Mat
+{
+    return matrixA * matrixA.T();
+}
+let matrixA = mat([[1,2,3],[4,5,6]])
+let result = func(matrixA)
+print(result)
+
 ---
 
 
@@ -57,7 +79,7 @@ Syntax: each third-party dependency line MUST start with keyword "import" follow
 
 For example:
 
-import http://a.com/b.js
+*import http://a.com/b.js
 
 
 Todo: 
@@ -82,46 +104,58 @@ using demo_function
 
 */
 
-//Right now only import is used. Also preprocess will handle import for once and cannot traverse the dependency graph.
-//This will be done in a later version.
-async function preprocess_dependencies(your_code: string): Promise<string> {
-  //1. split code by new lines
-  let splitted_vector_of_string = your_code.split(/\r?\n/);
 
-  //2. traverse each line of source code and replace "import [url]" by the actual code
-  let return_source_code = '';
 
-  try {
-    splitted_vector_of_string.forEach((eachLine) => {
-      //if the first seven chars are "import "
-      if (eachLine.substring(0, 7) === 'import ') {
-        let lib_url = eachLine.substring(7); //get the remaining string from 7 as URL
-        let lib_source_code = fetch(lib_url, { method: 'get' })
-          .then(function (body) {
-            let real_library = body.text();
-            return real_library;
-          })
-          .then(async function (real_library) {
-            console.log('Fetch library URL: ' + lib_url);
-            console.log('Fetch return raw string: \n' + real_library);
-            return_source_code += await real_library;
-          }); //fetch the library source code
+// code is the string of code, and strCurrentCallStack is the full call stack at current process
+// for example 
+async function preprocessDFS(code: string, strCurrentCallStack: string): Promise<string> {
+  //1. split the codes into lines
+  let vecSplittedString = code.split(/\r?\n/);
 
-        //TODO: parse the library source code recursively, traverse the dependency graph
-      }
+  //2. initialize the the chunk of string to return
+  let returnCode = '';
 
-      //if this line does not contain "import" keyword, just add this line of code to "return_source_code"
+  //3. process each line of code
+  try{
+    for (let i=0;i<vecSplittedString.length; i++){
+      //3.1 if current line of code doesn't contain "*import ", just append it to returnCode
+      if (!vecSplittedString[i].includes("*import ")){  returnCode += '\n' + vecSplittedString[i]; }
+      //3.2 otherwise, split the string by "*import ", keep the first part (if it exists), then download 
+      //    and fetch the second part recursively (which should be and must be a valid URL)
       else {
-        return_source_code += eachLine + '\n';
+        let currentString = vecSplittedString[i];
+        let splittedResult = currentString.split("*import ");
+        if (splittedResult.length!=2) {
+          throw "Invalid current line of code for preprocessing: \n" 
+          + "\nCall stack: \n" + strCurrentCallStack 
+          + "\nCurrent line: "+ currentString + "\n";
+        }
+        //3.2.1 add the first part
+        returnCode += splittedResult[0];
+        //3.2.2 download the library from URL
+        let libraryFromUrl = await fetch(splittedResult[1], { method: 'get' })
+        .then(function (body) {
+          let real_library = body.text();
+          return real_library;
+        }); 
+
+        //3.2.3 get the current file information (get "FunctionABC.js" from URL string http://mywebsite/FunctionABC.js)
+        let splittedURLResult =  splittedResult[1].split('/');
+        let strCallStack = strCurrentCallStack + " -> " + splittedURLResult[splittedResult.length-1];
+        
+        //3.2.4 process the big chunk of code
+        let currentResult  = await preprocessDFS(libraryFromUrl, strCallStack);
+
+        //3.2.5 append it to the end of returnCode
+        returnCode += currentResult + "\n";
       }
-    });
-  } catch (err) {
-    console.log('Exception while fetching library: ' + err);
+    }
+  }
+  catch (err) {
+    throw "Exception while preprocessing the script.\n" + "Error: " + err + "\nCall stack: " + strCurrentCallStack;
   }
 
-  console.log('Source code after preprocess:');
-  console.log(return_source_code);
-  return await return_source_code;
+  return await returnCode;
 }
 
 export default preprocess;
