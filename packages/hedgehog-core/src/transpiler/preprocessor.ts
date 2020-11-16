@@ -12,7 +12,7 @@ async function fetchLibrary(lib_url: string) {
 }
 
 
-async function preprocess(source: string): Promise<string> {
+async function preprocessor(source: string): Promise<string> {
   console.log('The source code after preprocessing');
   let result = await preprocessDFS(source , 'root');
   console.log(result);
@@ -158,4 +158,4 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
   return await returnCode;
 }
 
-export default preprocess;
+export default preprocessor;

@@ -1,4 +1,4 @@
-import preprocess from './preprocess';
+import preprocessor from './preprocessor';
 import operatorOverload from './operator-overload';
 
 async function transpilerCore(source: string) {
@@ -18,7 +18,7 @@ async function transpilerCore(source: string) {
   );
 
   //the real compiling function
-  let preprocessed_code = await preprocess(source);
+  let preprocessed_code = await preprocessor(source);
   const transpiled = babel.transform(
     preprocessed_code, // the code
     {
