@@ -292,6 +292,94 @@ This document is created and maintained by Hedgehog Lab Community. The markdown 
 
 `;
 
+
+const moduleSource = `
+/*
+  File: fibonacci.hs
+  Location: https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
+
+  function fibonacci(x){
+    if (x<0) return 0;
+    if (x==1 || x==0) return 1;
+
+    //elst x>=2
+    let dp = [1,1]
+    for (let i=2;i<=x;i++){ let val = dp[dp.length-1] + dp[dp.length-2]; dp.push(val)}
+    return dp[x];
+}
+*/
+
+
+// 1. import the function from URL...
+*import https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
+
+
+// 2. then use it.
+for (let i=0;i<10;i++) {
+    print("Fibonacci with index " + i + ": " + fibonacci(i) );
+}
+
+//3. or import as a local function/class/variable
+myFibonacci = *import https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
+
+for (let i=0;i<10;i++) {
+  print("myFibonacci with index " + i + ": " + myFibonacci(i));
+}
+
+/*
+Comments: 
+
+1. The fibonacci.hs file located at follow url will be imported 
+automatically from the preprocessor by replacing the "import URL"  
+part with the big chunk of raw string from the file into your script
+(just like C++ macro #include<your_header.h>). 
+
+2. If you are a module/library/class/function developer, please make sure 
+that every function/class/variable is imported inside your scope, for example:
+--
+my_function.hs
+
+function my_function(x,y,z){
+  let f1 = * import http://myWebsite.com/f1.hs   
+  let f2 = * import http://myWebsite.com/f2.hs
+  let val = f1(x) + f2(y) + z*z;
+  return val;
+}
+--
+which will guarantee that all imported functions/classes (f1 and f2)
+are defined and used only in your scope of "myfunction". This won't 
+pollute any functions/classes/variables out of your scope.
+
+3. If you are a teacher or researcher sharing a piece of code with others,
+then it's a good choice that includes all necessary functions/classes/variables
+into a single hs file so that other people can import once and have all setup
+ready, for example
+--
+environment_setup.hs
+
+let dataset_1 = getDataset1();
+let dataset_2 = getDataset2();
+function regression(x,y){...}
+class MyClass1{ ... }
+let ground_truth = [1,1,1,0,0,...]
+let test_dataset = getTestDataset();
+--
+
+Then other people can includes all above by adding one line of code at beginning
+* import http://..../environment_setup.hs
+
+doSomething(dataset_1);
+draw(regression(dataset_2));
+...
+
+4. Do NOT put space between * and "import". Also even if *"import" is used in comments,
+it will still be used as a macro & string replacement. So do not use in comments at 
+this version.
+*/
+
+
+`;
+
 export const tutorials = [
   {
     description: 'Matrix',
@@ -324,5 +412,9 @@ export const tutorials = [
   {
     description: 'Markdown',
     source: markdownSource
+  },
+  {
+    description: 'Module',
+    source: moduleSource,
   }
 ];

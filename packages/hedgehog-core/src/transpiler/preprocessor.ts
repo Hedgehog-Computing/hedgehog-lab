@@ -106,8 +106,7 @@ using demo_function
 
 
 
-// code is the string of code, and strCurrentCallStack is the full call stack at current process
-// for example 
+// code is the string of code, and strCurrentCallStack is the full call stack 
 async function preprocessDFS(code: string, strCurrentCallStack: string): Promise<string> {
   //1. split the codes into lines
   let vecSplittedString = code.split(/\r?\n/);
@@ -118,6 +117,7 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
   //3. process each line of code
   try{
     for (let i=0;i<vecSplittedString.length; i++){
+      returnCode += '\n';
       //3.1 if current line of code doesn't contain "*import ", just append it to returnCode
       if (!vecSplittedString[i].includes("*import ")){  returnCode += '\n' + vecSplittedString[i]; }
       //3.2 otherwise, split the string by "*import ", keep the first part (if it exists), then download 
@@ -125,13 +125,14 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
       else {
         let currentString = vecSplittedString[i];
         let splittedResult = currentString.split("*import ");
-        if (splittedResult.length!=2) {
+        if (splittedResult.length<2) {
           throw "Invalid current line of code for preprocessing: \n" 
           + "\nCall stack: \n" + strCurrentCallStack 
           + "\nCurrent line: "+ currentString + "\n";
         }
         //3.2.1 add the first part
         returnCode += splittedResult[0];
+        console.log(splittedResult[0] + " is added to source code" )
         //3.2.2 download the library from URL
         let libraryFromUrl = await fetch(splittedResult[1], { method: 'get' })
         .then(function (body) {
