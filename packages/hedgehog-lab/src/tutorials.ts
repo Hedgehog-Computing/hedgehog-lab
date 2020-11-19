@@ -116,23 +116,21 @@ let L = chol(A).L;
 L.digits = 5
 tex("\\\\text{where A is a positive-definite and symmetric matrix.} \\\\\\\\ \\\\text{For example, we have } A = " + A.toTex() + "\\\\text{, and the decomposed matrix L is }" + L.toTex())
 
-// You can use tag functions to simplify the code
-tex\`\\textit{Here comes HE}\`
-formulaTex\`
-  \\Theta
-    \\text{\${'\\u002e'.repeat(2)}}
-  \\Theta
-\`
 
-// The \`toTex()\` method can be automatically called in formulaTex function...
+// The \`toTex()\` method can be automatically called in formulaTex function. You can embed functions inside \${} to execute while rendering TeX formular or text..
 formulaTex\`
   A = \${mat([[1,1,4],[5,1,4]])}
+  \\\\\\\\
+  B = \${B= mat([[1,2],[3,4]])}
+  \\\\\\\\
+  C = \${C = mat([[-1,-2],[0,2]])}
+  \\\\\\\\
+  CBC^{-1} + BB^{T} = \${C*B*(C^(-1)) + B*B.T()}
 \`
+print("Matrix A is \\n" + A)
+print("Matrix B is \\n" + B)
+print("Matrix C is \\n" + C)
 
-// .. and tex function
-tex\`
-  X = \${mat().random(2,2)}
-\`
 `;
 
 const graphicsSource = `// generate 2D points as vectors of x and y
@@ -163,10 +161,6 @@ plot3DMesh(x.toArray(),y.toArray(),z.toArray());
    and use built-in function draw(data, layout) instead.
 */
 
-/* For more advanced features and different kinds of charts,
-   please check the official website plotly.js https://plotly.com/javascript/
-   and use built-in function draw(data, layout) instead.
-*/
 // Example 1 of draw()
 let z2 = z*(-1) + 300;
 let z2_vec = z2.toArray();
@@ -260,14 +254,6 @@ let matrixB = matrixA * matrixA.T();
 print(matrixB);
 \\\`\\\`\\\`
 
-## Table Features
-
-| Feature   | Support |
-| --------- | ------- |
-| tables    | ✔ |
-| alignment | ✔ |
-| wewt      | ✔ |
-
 ## Feel free to arrange any TeX, plotting and Markdown blocks in Hedgehog Lab!
 \`)
 
@@ -325,58 +311,6 @@ myFibonacci = *import https://gist.githubusercontent.com/lidangzzz/86c78163bf783
 for (let i=0;i<10;i++) {
   print("myFibonacci with index " + i + ": " + myFibonacci(i));
 }
-
-/*
-Comments: 
-
-1. The fibonacci.hs file located at follow url will be imported 
-automatically from the preprocessor by replacing the "import URL"  
-part with the big chunk of raw string from the file into your script
-(just like C++ macro #include<your_header.h>). 
-
-2. If you are a module/library/class/function developer, please make sure 
-that every function/class/variable is imported inside your scope, for example:
---
-my_function.hs
-
-function my_function(x,y,z){
-  let f1 = * import http://myWebsite.com/f1.hs   
-  let f2 = * import http://myWebsite.com/f2.hs
-  let val = f1(x) + f2(y) + z*z;
-  return val;
-}
---
-which will guarantee that all imported functions/classes (f1 and f2)
-are defined and used only in your scope of "myfunction". This won't 
-pollute any functions/classes/variables out of your scope.
-
-3. If you are a teacher or researcher sharing a piece of code with others,
-then it's a good choice that includes all necessary functions/classes/variables
-into a single hs file so that other people can import once and have all setup
-ready, for example
---
-environment_setup.hs
-
-let dataset_1 = getDataset1();
-let dataset_2 = getDataset2();
-function regression(x,y){...}
-class MyClass1{ ... }
-let ground_truth = [1,1,1,0,0,...]
-let test_dataset = getTestDataset();
---
-
-Then other people can includes all above by adding one line of code at beginning
-* import http://..../environment_setup.hs
-
-doSomething(dataset_1);
-draw(regression(dataset_2));
-...
-
-4. Do NOT put space between * and "import". Also even if *"import" is used in comments,
-it will still be used as a macro & string replacement. So do not use in comments at 
-this version.
-*/
-
 
 `;
 

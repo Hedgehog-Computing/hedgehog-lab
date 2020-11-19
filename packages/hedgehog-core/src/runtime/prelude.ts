@@ -8,8 +8,13 @@ import { Sym } from '../lib/symbolic';
 import { Chol, QR, LU } from '../lib/algebra';
 import { OutputItem } from '../output/output-item';
 import { rawInputsToTex } from '../utilites/process-raw-inputs';
+const fetch = require('sync-fetch');
 
-export { Sym, Mat, Scalar, _Mat };
+import { GPU } from 'gpu.js';
+
+import * as mathjs from 'mathjs';
+
+export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs };
 
 /**
  * wrapper of constructing a Mat object
@@ -319,4 +324,13 @@ export function formulaTex(...inputs: any[]) {
 
 export function markdown(inputMarkdown: string) {
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'MARKDOWN', text: inputMarkdown });
+}
+
+/*
+Synchrnous get function.
+Input: string, URL
+Output: string, text of URL
+*/
+export function get(input:string):string{
+  return fetch(input).text();
 }

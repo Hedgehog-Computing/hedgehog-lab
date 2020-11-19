@@ -65,8 +65,8 @@ const HedgehogLab: React.FC = () => {
 
   const { isFetching: isLoading, refetch } = useQuery<
     OutputResult,
-    readonly [string, string],
-    Error
+    readonly [string, string]
+    //Error
   >(['compiler', input], compiler, {
     retry: false,
     refetchInterval: false,
@@ -75,7 +75,7 @@ const HedgehogLab: React.FC = () => {
     onSuccess: (result: OutputResult) => {
       setResult(result);
     },
-    onError: (lastError) => {
+    onError: (lastError:any) => {
       // It's necessary to output all exception messages to user at output textbox,
       // including execution runtime exception and compiling exception -Lidang
       console.log('Hedgehog Lab: Failed: ' + lastError.toString());
