@@ -116,23 +116,21 @@ let L = chol(A).L;
 L.digits = 5
 tex("\\\\text{where A is a positive-definite and symmetric matrix.} \\\\\\\\ \\\\text{For example, we have } A = " + A.toTex() + "\\\\text{, and the decomposed matrix L is }" + L.toTex())
 
-// You can use tag functions to simplify the code
-tex\`\\textit{Here comes HE}\`
-formulaTex\`
-  \\Theta
-    \\text{\${'\\u002e'.repeat(2)}}
-  \\Theta
-\`
 
-// The \`toTex()\` method can be automatically called in formulaTex function...
+// The \`toTex()\` method can be automatically called in formulaTex function. You can embed functions inside \${} to execute while rendering TeX formular or text..
 formulaTex\`
   A = \${mat([[1,1,4],[5,1,4]])}
+  \\\\\\\\
+  B = \${B= mat([[1,2],[3,4]])}
+  \\\\\\\\
+  C = \${C = mat([[-1,-2],[0,2]])}
+  \\\\\\\\
+  CBC^{-1} + BB^{T} = \${C*B*(C^(-1)) + B*B.T()}
 \`
+print("Matrix A is \\n" + A)
+print("Matrix B is \\n" + B)
+print("Matrix C is \\n" + C)
 
-// .. and tex function
-tex\`
-  X = \${mat().random(2,2)}
-\`
 `;
 
 const graphicsSource = `// generate 2D points as vectors of x and y
@@ -163,10 +161,6 @@ plot3DMesh(x.toArray(),y.toArray(),z.toArray());
    and use built-in function draw(data, layout) instead.
 */
 
-/* For more advanced features and different kinds of charts,
-   please check the official website plotly.js https://plotly.com/javascript/
-   and use built-in function draw(data, layout) instead.
-*/
 // Example 1 of draw()
 let z2 = z*(-1) + 300;
 let z2_vec = z2.toArray();
@@ -260,14 +254,6 @@ let matrixB = matrixA * matrixA.T();
 print(matrixB);
 \\\`\\\`\\\`
 
-## Table Features
-
-| Feature   | Support |
-| --------- | ------- |
-| tables    | ✔ |
-| alignment | ✔ |
-| wewt      | ✔ |
-
 ## Feel free to arrange any TeX, plotting and Markdown blocks in Hedgehog Lab!
 \`)
 
@@ -289,6 +275,42 @@ markdown(\`
 This document is created and maintained by Hedgehog Lab Community. The markdown feature is supported by [react-markdown](https://github.com/rexxars/react-markdown). Fork our project at [https://github.com/lidangzzz/hedgehog-lab](https://github.com/lidangzzz/hedgehog-lab)
 \`)
 
+
+`;
+
+
+const moduleSource = `
+/*
+  File: fibonacci.hs
+  Location: https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
+
+  function fibonacci(x){
+    if (x<0) return 0;
+    if (x==1 || x==0) return 1;
+
+    //elst x>=2
+    let dp = [1,1]
+    for (let i=2;i<=x;i++){ let val = dp[dp.length-1] + dp[dp.length-2]; dp.push(val)}
+    return dp[x];
+}
+*/
+
+
+// 1. import the function from URL...
+*import https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
+
+
+// 2. then use it.
+for (let i=0;i<10;i++) {
+    print("Fibonacci with index " + i + ": " + fibonacci(i) );
+}
+
+//3. or import as a local function/class/variable
+myFibonacci = *import https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
+
+for (let i=0;i<10;i++) {
+  print("myFibonacci with index " + i + ": " + myFibonacci(i));
+}
 
 `;
 
@@ -324,5 +346,9 @@ export const tutorials = [
   {
     description: 'Markdown',
     source: markdownSource
+  },
+  {
+    description: 'Module',
+    source: moduleSource,
   }
 ];

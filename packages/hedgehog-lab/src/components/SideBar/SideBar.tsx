@@ -115,6 +115,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     }
   };
 
+
   return (
     <Drawer
       variant="permanent"
@@ -191,10 +192,6 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
           </SideBarItem>
         </List>
       </div>
-      {/*<div>*/}
-      {/*  <UploadButton handleLoadFile={handleLoadFile} />*/}
-      {/*  <SaveButton source={source} getLocalCodeList={getLocalCodeList} />*/}
-      {/*</div>*/}
     </Drawer>
   );
 };

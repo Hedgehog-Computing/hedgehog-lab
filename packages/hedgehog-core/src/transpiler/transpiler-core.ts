@@ -1,4 +1,4 @@
-import preprocess from './preprocess';
+import preprocessor from './preprocessor';
 import operatorOverload from './operator-overload';
 
 async function transpilerCore(source: string) {
@@ -16,8 +16,9 @@ async function transpilerCore(source: string) {
   babel.registerPreset('@babel/preset-typescript', await import('@babel/preset-typescript'));
 
   //the real compiling function
+  let preprocessed_code = await preprocessor(source);
   const transpiled = babel.transform(
-    preprocess(source), // the code
+    preprocessed_code, // the code
     {
       plugins: ['overload'],
       presets: ['@babel/preset-env', '@babel/preset-typescript'],
