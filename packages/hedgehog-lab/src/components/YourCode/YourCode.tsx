@@ -22,7 +22,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
   const options = {
     wordWrap: 'on' as const,
-    scrollBeyondLastLine: false
+    scrollBeyondLastLine: false,
   };
 
   const handleEditorDidMount = (

@@ -24,6 +24,7 @@ const HedgehogLab: React.FC = () => {
   const [localList, setLocalList] = useState<{ description: string; source: string }[]>([]);
   const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
   const lgBreakpointMatches = lgBreakpoint.matches;
+  console.log(lgBreakpoint)
   // SideBar open prop
   const [siderBarOpen, setOpen] = useState(lgBreakpointMatches);
   const [result, setResult] = useState<OutputResult>({

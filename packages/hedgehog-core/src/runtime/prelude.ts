@@ -8,13 +8,33 @@ import { Sym } from '../lib/symbolic';
 import { Chol, QR, LU } from '../lib/algebra';
 import { OutputItem } from '../output/output-item';
 import { rawInputsToTex } from '../utilites/process-raw-inputs';
+
+/*
+Third party libraries
+*/
+
+// synchrounous fetch
 const fetch = require('sync-fetch');
 
+// gpu.js
 import { GPU } from 'gpu.js';
 
+// math.js
 import * as mathjs from 'mathjs';
 
-export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs };
+// ml.js
+
+// tensorflow.js
+import * as tf from '@tensorflow/tfjs';
+
+// opencv.js
+
+// d3.js
+
+//tvm.js
+
+
+export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, Chol };
 
 /**
  * wrapper of constructing a Mat object
@@ -253,6 +273,18 @@ export function draw(data: any, layout?: any) {
 
 // plot2D is a wrapper for draw() function for scatter plot on 2D only
 export function plot2D(x_: any, y_: any) {
+  if (x_ instanceof Mat && y_ instanceof Mat) {
+    draw([
+      {
+        x: x_.toArray(),
+        y: y_.toArray(),
+        type: 'scatter',
+        mode: 'markers',
+        marker: { color: 'blue', size: '2' },
+      },
+    ]);
+    return;
+  }
   draw([
     {
       x: x_,
@@ -265,6 +297,18 @@ export function plot2D(x_: any, y_: any) {
 }
 
 export function plot2DLine(x_: any, y_: any) {
+  if (x_ instanceof Mat && y_ instanceof Mat) {
+    draw([
+      {
+        x: x_.toArray(),
+        y: y_.toArray(),
+        type: 'scatter',
+        mode: 'lines+markers',
+        marker: { color: 'blue', size: '4' },
+      },
+    ]);
+    return;
+  }
   draw([
     {
       x: x_,
@@ -278,6 +322,23 @@ export function plot2DLine(x_: any, y_: any) {
 
 // plot3D is a wrapper for draw() function for scatter plot on 3D only
 export function plot3D(x_: any, y_: any, z_: any) {
+  if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat){
+    draw(
+      [
+        {
+          x: x_.toArray(),
+          y: y_.toArray(),
+          z: z_.toArray(),
+          mode: 'markers',
+          marker: { color: 'blue', size: 2 },
+          opacity: 0.5,
+          type: 'scatter3d',
+        },
+      ],
+      {}
+    );
+    return;
+  }
   draw(
     [
       {
@@ -295,6 +356,22 @@ export function plot3D(x_: any, y_: any, z_: any) {
 }
 
 export function plot3DMesh(x_: any, y_: any, z_: any) {
+  if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat){
+    draw(
+      [
+        {
+          x: x_.toArray(),
+          y: y_.toArray(),
+          z: z_.toArray(),
+          mode: 'markers',
+          marker: { color: 'blue', size: 2 },
+          opacity: 0.5,
+          type: 'mesh3d',
+        },
+      ],
+      {}
+    );
+  }
   draw(
     [
       {
