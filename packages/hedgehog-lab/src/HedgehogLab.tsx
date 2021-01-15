@@ -22,11 +22,12 @@ const HedgehogLab: React.FC = () => {
   const [source, setSource] = useState<string>(DEFAULT_SOURCE);
   const [input, setInput] = useState<string>('');
   const [localList, setLocalList] = useState<{ description: string; source: string }[]>([]);
-  const lgBreakpoint = window.matchMedia('(min-width: 1280px)');
+  const lgBreakpoint = window.matchMedia('(min-width: 1910px)');
   const lgBreakpointMatches = lgBreakpoint.matches;
-  console.log(lgBreakpoint)
   // SideBar open prop
   const [siderBarOpen, setOpen] = useState(lgBreakpointMatches);
+  const [codeEditorOpen, setCodeEditorOpen] = useState(true);
+
   const [result, setResult] = useState<OutputResult>({
     outputItem: [],
     outputString: ''
@@ -45,7 +46,7 @@ const HedgehogLab: React.FC = () => {
           });
         }
       }
-      console.log(newLocalList);
+      //console.log(newLocalList);
       setLocalList(newLocalList);
     } else {
       localStorage.setItem('localNameList', JSON.stringify(['localNameList']));
@@ -54,14 +55,26 @@ const HedgehogLab: React.FC = () => {
 
   const params = window.location.search;
 
+  // Below are parameters that control the behavior
+
+  // The URL of a script. If user pass a path of script as URL, then download and load into code editor
   let yourUrl = null;
 
+  // If auto_run=true, then hedgehog lab will run the script automatically after loading the code
   let autoRun = null;
+
+  // Code is an encoded string of script. If code string is not empty, hedgehog lab will decode the parameter string and load to code editor
+  let code = null;
+
+  // If show_code === false, the hedgehog lab will load automatically with code panel hidden. This can help user to generate a report in full screen
+  let showCode = true;
 
   if (params) {
     const obj = Qs.parse(params, { ignoreQueryPrefix: true });
     yourUrl = obj.your_url ? (obj.your_url as string) : null;
     autoRun = obj.auto_run === 'true';
+    code = obj.code? (obj.code as string): null;
+    showCode = obj.show_code === 'true';
   }
 
   const { isFetching: isLoading, refetch } = useQuery<
@@ -79,7 +92,7 @@ const HedgehogLab: React.FC = () => {
     onError: (lastError:any) => {
       // It's necessary to output all exception messages to user at output textbox,
       // including execution runtime exception and compiling exception -Lidang
-      console.log('Hedgehog Lab: Failed: ' + lastError.toString());
+      console.log('Hedgehog Lab error: \n' + lastError.toString());
       setResult({
         outputItem: [],
         outputString: lastError.toString()
@@ -151,6 +164,8 @@ const HedgehogLab: React.FC = () => {
           siderBarOpen={siderBarOpen}
           setOpen={setOpen}
           lgBreakpointMatches={lgBreakpointMatches}
+          switchShowCodes = {codeEditorOpen}
+          setShowCode = {setCodeEditorOpen}
         />
 
         <SideBar

@@ -270,19 +270,19 @@ export const tutorials = [
     source: gpuAccelerationSource
   },
   {
-    description: 'Built-in functions',
+    description: 'Built-in Functions',
     source: buildInFunctionsSource
   },
   {
-    description: 'TeX in Hedgehog Lab',
+    description: 'TeX',
     source: insertTexSource
   },
   {
-    description: 'Figures and plotting',
+    description: 'Figures',
     source: graphicsSource
   },
   {
-    description: 'Symbolic computing',
+    description: 'Symbolic Computing',
     source: symbolicSource
   },
   {

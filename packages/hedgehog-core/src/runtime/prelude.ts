@@ -9,6 +9,9 @@ import { Chol, QR, LU } from '../lib/algebra';
 import { OutputItem } from '../output/output-item';
 import { rawInputsToTex } from '../utilites/process-raw-inputs';
 
+import * as React from 'react';
+import * as d3 from 'd3';
+
 /*
 Third party libraries
 */
@@ -34,7 +37,7 @@ import * as tf from '@tensorflow/tfjs';
 //tvm.js
 
 
-export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, Chol };
+export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, Chol, React, d3 };
 
 /**
  * wrapper of constructing a Mat object
@@ -371,6 +374,7 @@ export function plot3DMesh(x_: any, y_: any, z_: any) {
       ],
       {}
     );
+    return;
   }
   draw(
     [
@@ -399,7 +403,8 @@ export function formulaTex(...inputs: any[]) {
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'FORMULA', text: inputTex });
 }
 
-export function markdown(inputMarkdown: string) {
+export function markdown(...inputs: any[]) {
+  const inputMarkdown: string = rawInputsToTex(...inputs);
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'MARKDOWN', text: inputMarkdown });
 }
 

@@ -37,12 +37,13 @@ function getPackageLocation(packageName: string, theFullListInJson: string): str
 
 /*
 Parse the registered package (the type 1 of import macro: *import PACKAGE_NAME: LIB_NAME_LIST)
-Input: the second part of current line splitted by "*import". For example, current line is "*import std:magic, cholesky",
+Input: secondPart: the second part of current line splitted by "*import". For example, current line is "*import std:magic, cholesky",
        then the input will be "std:magic, cholesky"; if current line is "let myMagic = *import std:magic", then the input should 
        be "std:magic, cholesky"
+       strCurrentCallStack: current call stack
 Output: A list of string, each string represents the corresponding hhs source file
 */
-async function parseRegisterdPackage(secondPart: string): Promise<Array<string>> {
+async function parseRegisterdPackage(secondPart: string, strCurrentCallStack:string): Promise<Array<string>> {
   let returnListOfFunctions: string[] = [];
   let theFullListInJson = await fetch("https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json", { method: 'get' }).then(body => body.text());
   let splittedResult = secondPart.split(':');
@@ -72,11 +73,15 @@ async function parseRegisterdPackage(secondPart: string): Promise<Array<string>>
       if (setHHSCompleteList.has(eachItemWithoutSpace)) {
         let currentHHSLocation = packageLocation + eachItemWithoutSpace + ".hhs";
         let currentItemSourceCode = await fetch(currentHHSLocation, { method: 'get' }).then(body => body.text());
-        returnListOfFunctions.push(currentItemSourceCode);
+
+        // After get the whole hhs source file, preprocess the string via DFS preprocessor
+        // to handle the dependencies of current source file string
+        let preprocessedCurrentItemSourceCode = await preprocessDFS(currentItemSourceCode, strCurrentCallStack + " -> " + strCurrentCallStack + ":" + eachItemWithoutSpace);
+        returnListOfFunctions.push(preprocessedCurrentItemSourceCode);
       }
     }
   }
-  else { throw "Cannot find \"includes\" key in the hedgehog-package.json configuration file! Please add a key with name \"includes\" with a complete list of exported libraries. Exception at " +  secondPart}
+  else { throw "Cannot find \"includes\" key in the hedgehog-package.json configuration file! Please add a key with name \"includes\" with a complete list of exported libraries. Exception at " +  secondPart + ".\nCall Stack at: " + strCurrentCallStack}
   return returnListOfFunctions;
 }
 
@@ -136,7 +141,7 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
 
         else{
           // otherwise, try to split with colon and comma and fetch the registered packages
-          let result = await parseRegisterdPackage(splittedResult[1]);
+          let result = await parseRegisterdPackage(splittedResult[1], strCurrentCallStack);
           let combined_result = "";
           result.forEach(element => {
             combined_result += element + "\n"
