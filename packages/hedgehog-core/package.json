@@ -21,8 +21,10 @@
     "dependencies": {
         "@babel/core": "^7.10.5",
         "@babel/preset-env": "^7.10.4",
+        "@babel/preset-react": "^7.12.10",
         "@babel/preset-typescript": "^7.10.4",
         "@babel/standalone": "^7.10.5",
+        "@tensorflow/tfjs": "^2.7.0",
         "babel-template": "^6.26.0",
         "gpu.js": "^2.9.5",
         "mathjs": "^7.1.0",

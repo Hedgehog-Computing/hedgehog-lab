@@ -75,6 +75,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                     width: 140,
                     marginLeft: '1rem'
                   }}
+                  size = "small"
                   onClick={() => {
                     // stop the web-worker
                     queryCache.cancelQueries(['compiler']);
@@ -91,17 +92,17 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                   id={COMPILE_AND_RUN_BUTTON_ID}
                   variant="contained"
                   color="primary"
+                  size = "small"
                   onClick={(e) => handleCompileAndRun(e)}
                   style={{
                     textTransform: 'none',
                     marginLeft: '1rem'
                   }}>
-                  Compile and run
+                  Run
                 </Button>
               )}
             </div>
           }
-          title="Your code:"
         />
 
         <CardContent>
@@ -116,6 +117,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
               onChange={handleUploadSource}
               options={options}
               editorDidMount={handleEditorDidMount}
+              
             />
           </div>
         </CardContent>

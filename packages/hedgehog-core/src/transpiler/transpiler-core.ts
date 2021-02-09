@@ -11,6 +11,9 @@ async function transpilerCore(source: string) {
   //register preset-env
   babel.registerPreset('@babel/preset-env', await import('@babel/preset-env'));
 
+  //register jsx preset
+  babel.registerPreset('@babel/preset-react', require('@babel/preset-react'));
+
   //register typescript preset
   // @ts-ignore
   babel.registerPreset('@babel/preset-typescript', await import('@babel/preset-typescript'));
@@ -21,9 +24,9 @@ async function transpilerCore(source: string) {
     preprocessed_code, // the code
     {
       plugins: ['overload'],
-      presets: ['@babel/preset-env', '@babel/preset-typescript'],
-      filename: 'temp.js',
-      sourceType: 'script'
+      presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+      filename: 'source.tsx',
+      sourceType: 'script',
     }
   );
 
