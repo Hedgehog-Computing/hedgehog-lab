@@ -2747,6 +2747,11 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
+"@types/resize-observer-browser@^0.1.5":
+  version "0.1.5"
+  resolved "https://registry.npm.taobao.org/@types/resize-observer-browser/download/@types/resize-observer-browser-0.1.5.tgz#36d897708172ac2380cd486da7a3daf1161c1e23"
+  integrity sha1-NtiXcIFyrCOAzUhtp6Pa8RYcHiM=
+
 "@types/source-list-map@*":
   version "0.1.2"
   resolved "https://registry.npm.taobao.org/@types/source-list-map/download/@types/source-list-map-0.1.2.tgz#0078836063ffaf17412349bba364087e0ac02ec9"
@@ -10733,6 +10738,11 @@ lodash.templatesettings@^4.0.0:
   dependencies:
     lodash._reinterpolate "^3.0.0"
 
+lodash.throttle@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.npm.taobao.org/lodash.throttle/download/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha1-wj6RtxAkKscMN/HhzaknTMOb8vQ=
+
 lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.npm.taobao.org/lodash.uniq/download/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
@@ -11359,10 +11369,10 @@ modify-values@^1.0.0:
   resolved "https://registry.npm.taobao.org/modify-values/download/modify-values-1.0.1.tgz#b3939fa605546474e3e3e3c63d64bd43b4ee6022"
   integrity sha1-s5OfpgVUZHTj4+PGPWS9Q7TuYCI=
 
-monaco-editor@^0.20.0:
-  version "0.20.0"
-  resolved "https://registry.npm.taobao.org/monaco-editor/download/monaco-editor-0.20.0.tgz#5d5009343a550124426cb4d965a4d27a348b4dea"
-  integrity sha1-XVAJNDpVASRCbLTZZaTSejSLTeo=
+monaco-editor@*, monaco-editor@^0.23.0:
+  version "0.23.0"
+  resolved "https://registry.npm.taobao.org/monaco-editor/download/monaco-editor-0.23.0.tgz#24844ba5640c7adb3a2a3ff3b520cf2d7170a6f0"
+  integrity sha1-JIRLpWQMets6Kj/ztSDPLXFwpvA=
 
 monotone-convex-hull-2d@^1.0.1:
   version "1.0.1"
@@ -13994,6 +14004,14 @@ react-mathjax@^1.0.1:
   dependencies:
     load-script "^1.0.0"
 
+react-monaco-editor@^0.43.0:
+  version "0.43.0"
+  resolved "https://registry.npm.taobao.org/react-monaco-editor/download/react-monaco-editor-0.43.0.tgz#495578470db7b27ab306af813b31f206a6bf9d1c"
+  integrity sha1-SVV4Rw23snqzBq+BOzHyBqa/nRw=
+  dependencies:
+    monaco-editor "*"
+    prop-types "^15.7.2"
+
 react-plotly.js@^2.4.0:
   version "2.4.0"
   resolved "https://registry.npm.taobao.org/react-plotly.js/download/react-plotly.js-2.4.0.tgz#7a8fd89ffa126daa36a5855890282960e2e4eaf0"
@@ -14012,6 +14030,16 @@ react-refresh@^0.8.3:
   version "0.8.3"
   resolved "https://registry.npm.taobao.org/react-refresh/download/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha1-ch1GV2ctQAxePHXQY8SoX7LV1o8=
+
+react-resize-detector@^6.6.4:
+  version "6.6.4"
+  resolved "https://registry.npm.taobao.org/react-resize-detector/download/react-resize-detector-6.6.4.tgz?cache=0&sync_timestamp=1616243263759&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-resize-detector%2Fdownload%2Freact-resize-detector-6.6.4.tgz#704a6c985d666d119d833e908cc555b186cfea0c"
+  integrity sha1-cEpsmF1mbRGdgz6QjMVVsYbP6gw=
+  dependencies:
+    "@types/resize-observer-browser" "^0.1.5"
+    lodash.debounce "^4.0.8"
+    lodash.throttle "^4.1.1"
+    resize-observer-polyfill "^1.5.1"
 
 react-scripts@3.4.1:
   version "3.4.1"
@@ -14608,6 +14636,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/requires-port/download/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.npm.taobao.org/resize-observer-polyfill/download/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha1-DpAg3T0hAkRY1OvSfiPkAmmBBGQ=
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
