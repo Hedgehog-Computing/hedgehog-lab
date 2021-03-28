@@ -119,7 +119,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
     }
   };
 
-  console.log(localList);
+  //console.log(localList);
 
   return (
     <Drawer
@@ -161,7 +161,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
                       title={tutorial.description as string}
                       arrow>
                       <span className={classes.listItem}>
-                        Tutorial {i + 1}: {tutorial.description}
+                        {i + 1}: {tutorial.description}
                       </span>
                     </Tooltip>
                   </ListItemText>

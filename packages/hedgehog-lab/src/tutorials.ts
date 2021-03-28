@@ -116,22 +116,14 @@ let L = chol(A).L;
 L.digits = 5
 tex("\\\\text{where A is a positive-definite and symmetric matrix.} \\\\\\\\ \\\\text{For example, we have } A = " + A.toTex() + "\\\\text{, and the decomposed matrix L is }" + L.toTex())
 
-// You can use tag functions to simplify the code
-tex\`\\textit{Here comes HE}\`
-formulaTex\`
-  \\Theta
-    \\text{\${'\\u002e'.repeat(2)}}
-  \\Theta
-\`
 
-// The \`toTex()\` method can be automatically called in formulaTex function...
+// The \`toTex()\` method can be automatically called in formulaTex function. You can embed functions inside \${} to execute while rendering TeX formular or text..
 formulaTex\`
-  A = \${mat([[1,1,4],[5,1,4]])}
-\`
-
-// .. and tex function
-tex\`
-  X = \${mat().random(2,2)}
+  B = \${B= mat([[1,2],[3,4]])}
+  \\\\\\\\
+  C = \${C = mat([[-1,-2],[0,2]])}
+  \\\\\\\\
+  CBC^{-1} + BB^{T} = \${C*B*(C^(-1)) + B*B.T()}
 \`
 `;
 
@@ -140,10 +132,10 @@ let x = range(-10,10,0.1);
 let y = sin(x) + random(1,x.cols);
 
 // plot x and y as scatter
-plot2D(x.toArray(),y.toArray());
+plot2D(x,y);
 
 // ploy x and y as line
-plot2DLine(x.toArray(),y.toArray());
+plot2DLine(x,y);
 
 // generate 3D points as vectors of x, y and z
 let size = 30;
@@ -153,52 +145,21 @@ y = x.T();
 let z = x**2 + y**2;
 
 // plot x,y,z as scatter in 3D
-plot3D(x.toArray(),y.toArray(), z.toArray());
+plot3D(x,y,z);
 
 // mesh of x,y,z
-plot3DMesh(x.toArray(),y.toArray(),z.toArray());
+plot3DMesh(x,y,z)
 
 /* For more advanced features and different kinds of charts,
    please check the official website plotly.js https://plotly.com/javascript/
    and use built-in function draw(data, layout) instead.
 */
-
-/* For more advanced features and different kinds of charts,
-   please check the official website plotly.js https://plotly.com/javascript/
-   and use built-in function draw(data, layout) instead.
-*/
-// Example 1 of draw()
-let z2 = z*(-1) + 300;
-let z2_vec = z2.toArray();
-
-draw([{x:x.toArray(), y: y.toArray(), z: z.toArray(), mode: 'markers',marker: {color: 'blue',size: 2}, opacity: 0.5,type: 'scatter3d'}, {x:x.toArray(), y: y.toArray(), z: z2.toArray(),mode: 'markers',marker: {color: 'red',size: 2}, opacity: 0.5,type: 'mesh3d'}],{title:"Example 1 of draw()"});
-
-
-
-// Example 2 of draw()
-
-// dataset group 1
-let x1 = random(1,20)*2 + 2;
-let y1 = random(1,20)*3 + 3;
-
-// dataset group 2
-let x2 = random(1,20)* 1.5 + 5;
-let y2 = random(1,20)* 0.8 - 1;
-
-// dataset group 3
-let x3 = random(1,30) * 1 - 1;
-let y3 = random(1,30) * 3 + 2;
-
-draw(
-[{x:x1.toArray(), y:y1.toArray(), mode:"markers"}, {x:x2.toArray(), y:y2.toArray(), mode:"markers"}, {x:x3.toArray(), y:y3.toArray(), mode:"markers"}],
-{shapes: [{type:'circle', xref:'x', yref:'y', x0 : x1.min(), y0:y1.min(), x1: x1.max(), y1: y1.max(), opacity: 0.2, fillcolor: "green"}, {type:'circle', xref:'x', yref:'y', x0 : x2.min(), y0:y2.min(), x1: x2.max(), y1: y2.max(), opacity: 0.2, fillcolor: "blue"}, {type:'circle', xref:'x', yref:'y', x0 : x3.min(), y0:y3.min(), x1: x3.max(), y1: y3.max(), opacity: 0.2, fillcolor: "red"}], title:"Example 2 of draw(): cluster"}
-);
 `;
 const symbolicSource = `//define symbol x
 let x = sym('x')
 
 //write expression
-let fx = ( x^2 ) + exp(x) + sin(x)
+let fx = ( x^2 ) + exp(x)
 
 //print f(x)
 formulaTex\`f(x) = \${fx}\`
@@ -211,7 +172,7 @@ formulaTex\`\\int{f(x)dx} = \${integrate(fx,x)}\`
 
 
 //define g(x)
-let gx = fx*fx + 1/fx + cos(x)
+let gx = fx + 1/fx + cos(x)
 
 //print g(x)
 formulaTex\`g(x) = \${gx}\`
@@ -226,8 +187,8 @@ formulaTex\`\\int{g(x)dx} = \${integrate(gx,x)}\`
 let w = sym('w');
 let y = sym('y');
 
-//write another expression
-let W = (x^w) + sin(w+y) + (y^-2) + 1/w + log(cos(x) + sin(x))
+//write another expression with three variables: x,y,w
+let W = (x^w) + sin(w+y) + (y^-2) + 1/w
 
 // W
 formulaTex\`W(x,y,w) = \${W}\`
@@ -238,11 +199,8 @@ formulaTex\`\\frac{dW(x,y,w)}{dx} = \${diff(W,x)}\`
 // dW / dy
 formulaTex\`\\frac{dW(x,y,w)}{dy} = \${diff(W,y)}\`
 
-// dW / dw
-formulaTex\`\\frac{dW(x,y,w)}{dw} = \${diff(W,w)}\`
-
 // integral W on x
-formulaTex\`\\int{W(x,y,w)dx} = \${integrate(W,x)}\`
+formulaTex\`\\int{W(x,y,w)dx} = \${integrate(W,w)}\`
 `;
 
 const markdownSource = `markdown(\`
@@ -259,14 +217,6 @@ let matrixA = mat([[1,2,3],[4,5,6],[7,8,9]]);
 let matrixB = matrixA * matrixA.T();
 print(matrixB);
 \\\`\\\`\\\`
-
-## Table Features
-
-| Feature   | Support |
-| --------- | ------- |
-| tables    | ✔ |
-| alignment | ✔ |
-| wewt      | ✔ |
 
 ## Feel free to arrange any TeX, plotting and Markdown blocks in Hedgehog Lab!
 \`)
@@ -292,6 +242,20 @@ This document is created and maintained by Hedgehog Lab Community. The markdown 
 
 `;
 
+
+const moduleSource = `
+// import any HHS file on the web from URL
+*import https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
+
+
+// then use it.
+print(fibonacci(5))
+
+// You can also use or create any package at https://github.com/Hedgehog-Computing/Hedgehog-Package-Manager
+*import std: magic
+print(magic(7))
+`;
+
 export const tutorials = [
   {
     description: 'Matrix',
@@ -306,23 +270,27 @@ export const tutorials = [
     source: gpuAccelerationSource
   },
   {
-    description: 'Built-in functions',
+    description: 'Built-in Functions',
     source: buildInFunctionsSource
   },
   {
-    description: 'TeX in Hedgehog Lab',
+    description: 'TeX',
     source: insertTexSource
   },
   {
-    description: 'Figures and plotting',
+    description: 'Figures',
     source: graphicsSource
   },
   {
-    description: 'Symbolic computing',
+    description: 'Symbolic Computing',
     source: symbolicSource
   },
   {
     description: 'Markdown',
     source: markdownSource
+  },
+  {
+    description: 'Module',
+    source: moduleSource,
   }
 ];

@@ -1,7 +1,7 @@
-import preprocess from './preprocess';
+import preprocessor from './preprocessor';
 import operatorOverload from './operator-overload';
 
-function transpilerCore(source: string) {
+async function transpilerCore(source: string) {
   //todo: move the registration of plugins and presets to the constructor
   const babel = require('@babel/standalone');
 
@@ -11,6 +11,9 @@ function transpilerCore(source: string) {
   //register preset-env
   babel.registerPreset('@babel/preset-env', require('@babel/preset-env'));
 
+  //register jsx preset
+  babel.registerPreset('@babel/preset-react', require('@babel/preset-react'));
+
   //register typescript preset
   babel.registerPreset(
     '@babel/preset-typescript',
@@ -18,12 +21,13 @@ function transpilerCore(source: string) {
   );
 
   //the real compiling function
+  let preprocessed_code = await preprocessor(source);
   const transpiled = babel.transform(
-    preprocess(source), // the code
+    preprocessed_code, // the code
     {
       plugins: ['overload'],
-      presets: ['@babel/preset-env', '@babel/preset-typescript'],
-      filename: 'temp.js',
+      presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+      filename: 'source.tsx',
       sourceType: 'script',
     }
   );
