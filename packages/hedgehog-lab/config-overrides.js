@@ -4,11 +4,10 @@ const {
   getBabelLoader,
   addWebpackPlugin,
   addWebpackModuleRule,
-  useEslintRc,
+  disableEsLint,
 } = require("customize-cra");
 const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { ESBuildPlugin } = require("esbuild-loader");
-const path = require("path");
 
 module.exports = (config, env) => {
   const prod = config.mode === "production";
@@ -29,7 +28,7 @@ module.exports = (config, env) => {
         },
       ],
     }),
-    useEslintRc(path.resolve(__dirname, "./.eslintrc")),
+    disableEsLint(),
     addWebpackModuleRule({
       test: /.jsx?$/,
       use: [
