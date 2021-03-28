@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '50%',
       fontSize: '0.875rem',
       fontWeight: 500,
-      color: 'white',
+      color: 'white'
     }
   })
 );

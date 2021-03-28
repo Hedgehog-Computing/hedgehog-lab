@@ -14,7 +14,7 @@
     "comlink": "^4.3.0",
     "esbuild-loader": "^2.9.1",
     "ky": "^0.23.0",
-    "monaco-editor": "^0.20.0",
+    "monaco-editor": "^0.23.0",
     "plotly.js": "^1.54.6",
     "qs": "^6.9.4",
     "react": "^16.13.1",
@@ -22,8 +22,10 @@
     "react-dom": "^16.13.1",
     "react-markdown": "^4.3.1",
     "react-mathjax": "^1.0.1",
+    "react-monaco-editor": "^0.43.0",
     "react-plotly.js": "^2.4.0",
     "react-query": "^2.5.6",
+    "react-resize-detector": "^6.6.4",
     "worker-loader": "^2.0.0"
   },
   "devDependencies": {
