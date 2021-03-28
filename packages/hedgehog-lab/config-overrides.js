@@ -4,36 +4,46 @@ const {
   getBabelLoader,
   addWebpackPlugin,
   addWebpackModuleRule,
+  useEslintRc,
 } = require("customize-cra");
 const ReactRefreshPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const { ESBuildPlugin } = require("esbuild-loader");
+const path = require("path");
 
 module.exports = (config, env) => {
   const prod = config.mode === "production";
   const babelLoader = getBabelLoader(config);
-  console.log(prod, config.mode);
-  return override(
-    !prod &&
-      addWebpackModuleRule({
-        test: /.tsx?$/,
-        use: [
-          {
-            loader: "esbuild-loader",
-            options: { loader: "tsx", target: "es2015" },
-          },
-        ],
-      }),
 
-    !prod &&
-      addWebpackModuleRule({
-        test: /.jsx?$/,
-        use: [
-          {
-            loader: "esbuild-loader",
-            options: { loader: "jsx", target: "es2015" },
+  return override(
+    addWebpackModuleRule({
+      test: /.tsx?$/,
+      use: [
+        {
+          loader: "esbuild-loader",
+          options: {
+            loader: "tsx",
+            target: "es2015",
+            jsxFactory: "React.createElement",
+            jsxFragment: "React.Fragment",
           },
-        ],
-      }),
+        },
+      ],
+    }),
+    useEslintRc(path.resolve(__dirname, "./.eslintrc")),
+    addWebpackModuleRule({
+      test: /.jsx?$/,
+      use: [
+        {
+          loader: "esbuild-loader",
+          options: {
+            loader: "jsx",
+            target: "es2015",
+            jsxFactory: "React.createElement",
+            jsxFragment: "React.Fragment",
+          },
+        },
+      ],
+    }),
     // You can choose to just use worker-loader! instead if you want
     addWebpackModuleRule({
       test: /\.worker\.[jt]sx?$/,
@@ -42,7 +52,7 @@ module.exports = (config, env) => {
         { loader: babelLoader.loader, options: babelLoader.options },
       ],
     }),
-    !prod && addWebpackPlugin(new ESBuildPlugin()),
+    addWebpackPlugin(new ESBuildPlugin()),
     !prod && addBabelPlugin("react-refresh/babel"),
     !prod && addWebpackPlugin(new ReactRefreshPlugin())
   )(config, env);

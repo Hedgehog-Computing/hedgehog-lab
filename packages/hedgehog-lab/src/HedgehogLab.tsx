@@ -73,7 +73,7 @@ const HedgehogLab: React.FC = () => {
     const obj = Qs.parse(params, { ignoreQueryPrefix: true });
     yourUrl = obj.your_url ? (obj.your_url as string) : null;
     autoRun = obj.auto_run === 'true';
-    code = obj.code? (obj.code as string): null;
+    code = obj.code ? (obj.code as string) : null;
     showCode = obj.show_code === 'true';
   }
 
@@ -89,7 +89,7 @@ const HedgehogLab: React.FC = () => {
     onSuccess: (result: OutputResult) => {
       setResult(result);
     },
-    onError: (lastError:any) => {
+    onError: (lastError: any) => {
       // It's necessary to output all exception messages to user at output textbox,
       // including execution runtime exception and compiling exception -Lidang
       console.log('Hedgehog Lab error: \n' + lastError.toString());
@@ -164,8 +164,8 @@ const HedgehogLab: React.FC = () => {
           siderBarOpen={siderBarOpen}
           setOpen={setOpen}
           lgBreakpointMatches={lgBreakpointMatches}
-          switchShowCodes = {codeEditorOpen}
-          setShowCode = {setCodeEditorOpen}
+          switchShowCodes={codeEditorOpen}
+          setShowCode={setCodeEditorOpen}
         />
 
         <SideBar

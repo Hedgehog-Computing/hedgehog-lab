@@ -1,25 +1,13 @@
 {
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["@typescript-eslint"],
   "parser":  "@typescript-eslint/parser",
   "extends": [
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "printWidth": 100,
-        "tabWidth": 2,
-        "semi": true,
-        "trailingComma": "none",
-        "singleQuote": true,
-        "bracketSpacing": true,
-        "jsxBracketSameLine": true,
-        "alwaysParens": "avoid",
-        "@typescript-eslint/ban-ts-ignore": "off"
-      }
-    ]
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["off"]
   },
   "settings": {
     "react": {

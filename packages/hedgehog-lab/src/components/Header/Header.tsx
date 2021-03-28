@@ -12,7 +12,7 @@ interface HeaderProps {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   lgBreakpointMatches: boolean;
   switchShowCodes: boolean;
-  setShowCode:   React.Dispatch<React.SetStateAction<boolean>>;
+  setShowCode: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,9 +33,9 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     setOpen(!siderBarOpen);
   };
 
-  const handleShowOrHideCodes = () =>{
+  const handleShowOrHideCodes = () => {
     setShowCode(!switchShowCodes);
-  }
+  };
 
   /*todo: add show code
   
@@ -48,7 +48,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             />
           </FormGroup>
 
-  */         
+  */
 
   return (
     <div>
@@ -63,13 +63,13 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             {siderBarOpen ? (
               <ArrowBackOutlinedIcon style={{ fontSize: '1.25rem' }} />
             ) : (
-                // <img
-                //   src={process.env.PUBLIC_URL + '/cat.png'}
-                //   style={{ height: '1.25rem' }}
-                //   alt="Hedgehog Lab Logo"
-                // />
-                <MenuIcon style={{ fontSize: '1.25rem' }} />
-              )}
+              // <img
+              //   src={process.env.PUBLIC_URL + '/cat.png'}
+              //   style={{ height: '1.25rem' }}
+              //   alt="Hedgehog Lab Logo"
+              // />
+              <MenuIcon style={{ fontSize: '1.25rem' }} />
+            )}
           </IconButton>
 
           <Typography
@@ -81,7 +81,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             }}>
             Hedgehog Lab
           </Typography>
-
 
           <Button
             color="inherit"

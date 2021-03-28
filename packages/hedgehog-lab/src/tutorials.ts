@@ -242,7 +242,6 @@ This document is created and maintained by Hedgehog Lab Community. The markdown 
 
 `;
 
-
 const moduleSource = `
 // import any HHS file on the web from URL
 *import https://gist.githubusercontent.com/lidangzzz/86c78163bf7838220224530d6e36aec9/raw/da89c75d4b6671dc0936240a62d483bf67e2b9ef/fibonacci.hs
@@ -291,6 +290,6 @@ export const tutorials = [
   },
   {
     description: 'Module',
-    source: moduleSource,
+    source: moduleSource
   }
 ];

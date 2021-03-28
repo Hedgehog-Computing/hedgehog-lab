@@ -51,7 +51,7 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
           </div>
         ) : (
           <React.Fragment>
-            <CardHeader/>
+            <CardHeader />
 
             <Divider />
 
