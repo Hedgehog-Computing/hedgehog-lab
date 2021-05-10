@@ -26,7 +26,6 @@ const HedgehogLab: React.FC = () => {
   const lgBreakpointMatches = lgBreakpoint.matches;
   // SideBar open prop
   const [siderBarOpen, setOpen] = useState(false);  //lgBreakpointMatches);
-  const [codeEditorOpen, setCodeEditorOpen] = useState(true);
 
   const [result, setResult] = useState<OutputResult>({
     outputItem: [],
@@ -71,7 +70,7 @@ const HedgehogLab: React.FC = () => {
   let autoRun = false;
 
   // Code is an encoded string of script. If code string is not empty, hedgehog lab will decode the parameter string and load to code editor
-  let code = "print(\'hello world\');";
+  let code = "print('hello world');";
 
 
   if (params) {
@@ -186,8 +185,6 @@ const HedgehogLab: React.FC = () => {
           siderBarOpen={siderBarOpen}
           setOpen={setOpen}
           lgBreakpointMatches={lgBreakpointMatches}
-          switchShowCodes = {codeEditorOpen}
-          setShowCode = {setCodeEditorOpen}
           source = {source}
         />
 

@@ -50,9 +50,4 @@ export const isMarkdownItem = (item: OutputItem): item is MarkdownItem => {
   return item.itemType === 'MARKDOWN';
 };
 
-export type OutputItem =
-  | TextItem
-  | DrawingItem
-  | TeXItem
-  | FormulaItem
-  | MarkdownItem;
+export type OutputItem = TextItem | DrawingItem | TeXItem | FormulaItem | MarkdownItem;

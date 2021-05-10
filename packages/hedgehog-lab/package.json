@@ -24,6 +24,7 @@
     "react-mathjax": "^1.0.1",
     "react-plotly.js": "^2.4.0",
     "react-query": "^2.5.6",
+    "request": "2.79.0",
     "worker-loader": "^2.0.0"
   },
   "devDependencies": {

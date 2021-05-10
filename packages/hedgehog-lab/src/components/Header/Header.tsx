@@ -23,8 +23,6 @@ interface HeaderProps {
   siderBarOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   lgBreakpointMatches: boolean;
-  switchShowCodes: boolean;
-  setShowCode:   React.Dispatch<React.SetStateAction<boolean>>;
   source: string;
 }
 
@@ -119,7 +117,7 @@ const encodingShareableUrlWithURL = (yourUrl:string, autoRun:boolean):string=>{
 
 
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
-  const { siderBarOpen, setOpen, lgBreakpointMatches, switchShowCodes, setShowCode, source } = props;
+  const { siderBarOpen, setOpen, lgBreakpointMatches, source } = props;
 
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [encodedUrlWithSourceCode, setEncodedUrlWithSoourceCode] = React.useState("");

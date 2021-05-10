@@ -7,7 +7,6 @@ import {
   Toolbar,
   makeStyles,
   createStyles,
-  ListSubheader,
   Tooltip
 } from '@material-ui/core';
 import SideBarItem from './SideBarItem';
