@@ -9,6 +9,7 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@monaco-editor/react": "^3.4.2",
     "@tensorflow/tfjs": "^2.7.0",
+    "clipboard-copy": "^4.0.1",
     "clsx": "^1.1.1",
     "codemirror": "^5.58.3",
     "comlink": "^4.3.0",

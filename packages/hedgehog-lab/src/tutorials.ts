@@ -1,17 +1,15 @@
 const matrixSource = `
-//1. Initialize matrix with a 2D array. You could create a Mat object or use mat() wrapper function since they are basically the same
-let a = mat([[1,2,3],[4,5,6],[7,8,9]]);
+//1. Initialize matrix with a 2D array.
+A = mat([[1,2,3],[4,5,6],[7,8,9]]);
 print("Matrix a is: \\n" + a);
 
 //2. You could also create an N-by-1 matrix with 1D array
 print("Another matrix is: \\n" + mat([1,2,3,4]));
 
 //3. A matrix can be initialized by a string in CSV format
-let b = csv2mat(\`
-1,2
-3,4
-\`);
-print("Creating a matrix from csv: \\n" + b);
+B = csv2mat(\`1,2
+3,4\`);
+print("Creating a matrix from csv: \\n" + B);
 
 //4. Also there are some useful built-in functions to create different kinds of matrix
 print("Creating a 3-by-3 eye matrix:\\n" + eye(3));

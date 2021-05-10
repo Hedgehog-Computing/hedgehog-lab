@@ -3,9 +3,7 @@ import {
   CircularProgress,
   TextareaAutosize,
   Card,
-  CardHeader,
   CardContent,
-  Divider
 } from '@material-ui/core';
 import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
@@ -51,10 +49,6 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
           </div>
         ) : (
           <React.Fragment>
-            <CardHeader/>
-
-            <Divider />
-
             <CardContent>
               {executionOutputList.length > 0 && (
                 <div>

@@ -137,12 +137,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
       <Toolbar />
 
       <div className={classes.drawerContainer}>
-        <List
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Welcome to Hedgehog Lab!
-            </ListSubheader>
-          }>
+        <List>
           <SideBarItem
             handleSideBarItemClick={handleSideBarItemClick}
             name={'Tutorials'}
@@ -150,6 +145,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
             {tutorials.map((tutorial: { description: React.ReactNode }, i: number) => {
               return (
                 <ListItem
+                  dense = {true}
                   key={`${i}-${Date.now()}`}
                   button
                   className={classes.nested}
@@ -177,6 +173,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
               localList.map((item: { description: string; source: string }, i: number) => {
                 return (
                   <ListItem
+                    dense = {true}
                     key={`${i}-${Date.now()}`}
                     button
                     className={classes.nested}

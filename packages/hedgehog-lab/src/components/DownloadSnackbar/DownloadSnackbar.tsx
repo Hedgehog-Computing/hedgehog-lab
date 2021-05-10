@@ -51,6 +51,7 @@ const DownloadSnackbar: React.FC<DownloadSnackbarProps> = (props: DownloadSnackb
 
   useEffect(() => {
     const getUrlData = async () => {
+
       try {
         const result = await ky.get(yourUrl).text();
         setSource(result);

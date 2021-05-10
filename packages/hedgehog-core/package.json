@@ -29,7 +29,8 @@
         "gpu.js": "^2.9.5",
         "mathjs": "^7.1.0",
         "nerdamer": "^1.1.5",
-        "sync-fetch": "^0.3.0"
+        "sync-fetch": "^0.3.0",
+        "typescript": "^3.9.7"
     },
     "devDependencies": {
         "@babel/types": "^7.10.5",

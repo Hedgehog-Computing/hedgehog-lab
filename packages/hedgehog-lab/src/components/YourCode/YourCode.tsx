@@ -84,7 +84,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         <CardContent>
           <div
             style={{
-              height: 'calc(100vh - 174px)'
+              height: 'calc(100vh - 160px)'
             }}>
             <ControlledEditor
               language="javascript"
