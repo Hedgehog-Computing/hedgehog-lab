@@ -9,7 +9,6 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@monaco-editor/react": "^3.4.2",
     "@tensorflow/tfjs": "^2.7.0",
-    "clipboard-copy": "^4.0.1",
     "clsx": "^1.1.1",
     "codemirror": "^5.58.3",
     "comlink": "^4.3.0",
@@ -24,7 +23,6 @@
     "react-mathjax": "^1.0.1",
     "react-plotly.js": "^2.4.0",
     "react-query": "^2.5.6",
-    "request": "2.79.0",
     "worker-loader": "^2.0.0"
   },
   "devDependencies": {
