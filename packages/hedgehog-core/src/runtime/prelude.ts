@@ -17,6 +17,7 @@ Third party libraries
 */
 
 // synchrounous fetch
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const fetch = require('sync-fetch');
 
 // gpu.js
@@ -69,9 +70,7 @@ export function scalar(val: number): Scalar {
  */
 export function diff(input: Sym, varName?: Sym, times = 1): Sym {
   if (varName) {
-    return new Sym(
-      nerdamer.diff(input.toString(), varName.toString(), times).text()
-    );
+    return new Sym(nerdamer.diff(input.toString(), varName.toString(), times).text());
   }
   return new Sym(nerdamer.diff(input.toString(), times).text());
 }
@@ -81,9 +80,7 @@ export function diff(input: Sym, varName?: Sym, times = 1): Sym {
  */
 export function integrate(input: Sym, varName?: Sym): Sym {
   if (varName) {
-    return new Sym(
-      nerdamer.integrate(input.toString(), varName.toString()).text()
-    );
+    return new Sym(nerdamer.integrate(input.toString(), varName.toString()).text());
   }
   return new Sym(nerdamer.integrate(input.toString()).text());
 }
@@ -128,9 +125,7 @@ export function acos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   }
   return _MathLib.acos(A);
 }
-export function acosh(
-  A: Mat | number[][] | number[] | number | Sym
-): Mat | Sym {
+export function acosh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('acosh(' + A.expression + ')');
   }
@@ -157,10 +152,7 @@ export function exp(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   }
   return _MathLib.exp(A);
 }
-export function log(
-  A: Mat | number[][] | number[] | number | Sym,
-  base?: number
-): Mat | Sym {
+export function log(A: Mat | number[][] | number[] | number | Sym, base?: number): Mat | Sym {
   if (A instanceof Sym) {
     return sym('log(' + A.expression + ')');
   }
@@ -172,9 +164,7 @@ export function asin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   }
   return _MathLib.asin(A);
 }
-export function asinh(
-  A: Mat | number[][] | number[] | number | Sym
-): Mat | Sym {
+export function asinh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('asinh(' + A.expression + ')');
   }
@@ -186,9 +176,7 @@ export function atan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   }
   return _MathLib.atan(A);
 }
-export function atanh(
-  A: Mat | number[][] | number[] | number | Sym
-): Mat | Sym {
+export function atanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
   if (A instanceof Sym) {
     return sym('atanh(' + A.expression + ')');
   }
@@ -251,9 +239,11 @@ export function lu(A: Mat): LU {
 
 //tic and toc
 let timestamp = 0;
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function tic() {
   timestamp = performance.now();
 }
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function toc() {
   print(`Elapsed time: ${performance.now() - timestamp} milliseconds.`);
 }
@@ -265,16 +255,19 @@ let _OUTPUT_ITEMS_LIST_: OutputItem[] = [];
 export { _OUTPUT_ITEMS_LIST_ };
 
 // print function is a function for user to output information
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function print(data: any) {
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'TEXT', text: data.toString() });
 }
 
 //draw function is a function for user to draw figures using plotly.js
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function draw(data: any, layout?: any) {
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'DRAWING', data, layout });
 }
 
 // plot2D is a wrapper for draw() function for scatter plot on 2D only
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function plot2D(x_: any, y_: any) {
   if (x_ instanceof Mat && y_ instanceof Mat) {
     draw([
@@ -299,6 +292,7 @@ export function plot2D(x_: any, y_: any) {
   ]);
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function plot2DLine(x_: any, y_: any) {
   if (x_ instanceof Mat && y_ instanceof Mat) {
     draw([
@@ -324,6 +318,7 @@ export function plot2DLine(x_: any, y_: any) {
 }
 
 // plot3D is a wrapper for draw() function for scatter plot on 3D only
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function plot3D(x_: any, y_: any, z_: any) {
   if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat){
     draw(
@@ -358,6 +353,7 @@ export function plot3D(x_: any, y_: any, z_: any) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function plot3DMesh(x_: any, y_: any, z_: any) {
   if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat){
     draw(
@@ -393,16 +389,19 @@ export function plot3DMesh(x_: any, y_: any, z_: any) {
 }
 
 // show Tex in MathJax
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function tex(...inputs: any[]) {
   const inputTex: string = rawInputsToTex(...inputs);
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'TEX', text: inputTex });
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function formulaTex(...inputs: any[]) {
   const inputTex: string = rawInputsToTex(...inputs);
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'FORMULA', text: inputTex });
 }
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function markdown(...inputs: any[]) {
   const inputMarkdown: string = rawInputsToTex(...inputs);
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'MARKDOWN', text: inputMarkdown });
@@ -413,6 +412,6 @@ Synchrnous get function.
 Input: string, URL
 Output: string, text of URL
 */
-export function get(input:string):string{
+export function get(input: string): string {
   return fetch(input).text();
 }

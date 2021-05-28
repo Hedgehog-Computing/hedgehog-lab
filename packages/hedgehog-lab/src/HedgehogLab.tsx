@@ -25,8 +25,7 @@ const HedgehogLab: React.FC = () => {
   const lgBreakpoint = window.matchMedia('(min-width: 1910px)');
   const lgBreakpointMatches = lgBreakpoint.matches;
   // SideBar open prop
-  const [siderBarOpen, setOpen] = useState(lgBreakpointMatches);
-  const [codeEditorOpen, setCodeEditorOpen] = useState(true);
+  const [siderBarOpen, setOpen] = useState(false);  //lgBreakpointMatches);
 
   const [result, setResult] = useState<OutputResult>({
     outputItem: [],
@@ -34,22 +33,29 @@ const HedgehogLab: React.FC = () => {
   });
 
   const getLocalCodeList = () => {
-    const result = localStorage.getItem('localNameList');
-    if (result) {
-      const list = JSON.parse(result) as string[];
-      const newLocalList = [];
-      for (let i = 0; i < list.length; i++) {
-        if (list[i] !== 'localNameList') {
-          newLocalList.push({
-            description: list[i],
-            source: localStorage.getItem(list[i]) as string
-          });
+    try{
+      const result = localStorage.getItem('localNameList');
+      if (result) {
+        const list = JSON.parse(result) as string[];
+        const newLocalList = [];
+        for (let i = 0; i < list.length; i++) {
+          if (list[i] !== 'localNameList') {
+            
+            newLocalList.push({
+              description: list[i],
+              source: localStorage.getItem(list[i]) as string
+            });
+            
+          }
         }
+        //console.log(newLocalList);
+        setLocalList(newLocalList);
+      } else {
+        localStorage.setItem('localNameList', JSON.stringify(['localNameList']));
       }
-      //console.log(newLocalList);
-      setLocalList(newLocalList);
-    } else {
-      localStorage.setItem('localNameList', JSON.stringify(['localNameList']));
+    }
+    catch(err){
+      throw new Error("Error while getting local code list: " + err);
     }
   };
 
@@ -61,21 +67,21 @@ const HedgehogLab: React.FC = () => {
   let yourUrl = null;
 
   // If auto_run=true, then hedgehog lab will run the script automatically after loading the code
-  let autoRun = null;
+  let autoRun = false;
 
   // Code is an encoded string of script. If code string is not empty, hedgehog lab will decode the parameter string and load to code editor
-  let code = null;
+  let code = "print('hello world');";
 
-  // If show_code === false, the hedgehog lab will load automatically with code panel hidden. This can help user to generate a report in full screen
-  let showCode = true;
 
   if (params) {
     const obj = Qs.parse(params, { ignoreQueryPrefix: true });
     yourUrl = obj.your_url ? (obj.your_url as string) : null;
     autoRun = obj.auto_run === 'true';
-    code = obj.code ? (obj.code as string) : null;
-    showCode = obj.show_code === 'true';
+    code = obj.code? (obj.code as string): "";
+    console.log(code);
   }
+
+
 
   const { isFetching: isLoading, refetch } = useQuery<
     OutputResult,
@@ -155,6 +161,21 @@ const HedgehogLab: React.FC = () => {
     getLocalCodeList();
   }, []);
 
+  useEffect(()=>{
+    if (!!code) {
+      setSource(code);
+      if (autoRun===true){
+        setResult({
+          outputItem: [],
+          outputString: ''
+        });
+        setInput(code)
+      }
+    }
+
+
+  },[autoRun, code])
+
   return (
     <div>
       <div className={classes.root}>
@@ -164,8 +185,7 @@ const HedgehogLab: React.FC = () => {
           siderBarOpen={siderBarOpen}
           setOpen={setOpen}
           lgBreakpointMatches={lgBreakpointMatches}
-          switchShowCodes={codeEditorOpen}
-          setShowCode={setCodeEditorOpen}
+          source = {source}
         />
 
         <SideBar
@@ -218,7 +238,7 @@ const HedgehogLab: React.FC = () => {
         </main>
       </div>
 
-      {yourUrl && (
+      {((yourUrl)) && (
         <DownloadSnackbar
           setResult={setResult}
           setSource={setSource}

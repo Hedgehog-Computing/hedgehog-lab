@@ -13,5 +13,6 @@
   "scripts": {
     "watch": "lerna run --parallel watch",
     "build": "lerna run build --stream"
-  }
+  },
+  "dependencies": {}
 }

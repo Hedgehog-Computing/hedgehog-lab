@@ -88,11 +88,9 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         />
 
         <CardContent>
-          <ResizeObserver
-            onResize={(width, height) => {
-              if (editor) {
-                editor.layout();
-              }
+          <div
+            style={{
+              height: 'calc(100vh - 160px)'
             }}>
             <div
               style={{
