@@ -190,7 +190,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             size="small"
             startIcon={<ShareIcon />}
           >
-            Share your code
+            Share
           </Button>
 
           <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={dialogOpen}

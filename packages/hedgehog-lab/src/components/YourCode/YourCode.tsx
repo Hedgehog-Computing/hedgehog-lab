@@ -1,9 +1,9 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Button, Card, CardContent, CardHeader } from '@material-ui/core';
-import MonacoEditor, { EditorDidMount } from 'react-monaco-editor';
+import { ControlledEditor, ControlledEditorOnChange } from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
-import ResizeObserver from 'react-resize-detector';
 import { queryCache } from 'react-query';
+import ResizeObserver from 'react-resize-detector';
 
 const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
@@ -16,10 +16,11 @@ interface YourCodeProps {
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
   const { handleCompileAndRun, loading, setSource, source } = props;
+
   const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
   const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
 
-  const handleUploadSource = (v: string) => {
+  const handleUploadSource: ControlledEditorOnChange = (e, v) => {
     setSource(v as string);
   };
 
@@ -28,9 +29,9 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     scrollBeyondLastLine: false
   };
 
-  const EditorDidMountHandle = (
+  const handleEditorDidMount = (
+    _: () => string,
     editor: monacoEditor.editor.IStandaloneCodeEditor,
-    monaco: typeof monacoEditor
   ) => {
     editor.addAction({
       id: COMPILE_AND_RUN_BUTTON_ID,
@@ -40,9 +41,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         document.getElementById(COMPILE_AND_RUN_BUTTON_ID)?.click();
       }
     });
-
     setEditor(editor);
-    setMonaco(monaco);
   };
 
   return (
@@ -57,8 +56,8 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                   color="secondary"
                   style={{
                     textTransform: 'none',
-                    width: 140
                   }}
+                  size = "small"
                   onClick={() => {
                     // stop the web-worker
                     queryCache.cancelQueries(['compiler']);
@@ -75,33 +74,36 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                   id={COMPILE_AND_RUN_BUTTON_ID}
                   variant="contained"
                   color="primary"
+                  size = "small"
                   onClick={(e) => handleCompileAndRun(e)}
                   style={{
                     textTransform: 'none'
                   }}>
-                  Compile and run
+                  Run
                 </Button>
               )}
             </div>
           }
-          title="Your code:"
         />
 
         <CardContent>
-          <div
-            style={{
-              height: 'calc(100vh - 160px)'
-            }}>
+          <ResizeObserver
+              onResize={(width, height) => {
+                if (editor) {
+                  editor.layout();
+                }
+              }}>
             <div
               style={{
-                height: 'calc(100vh - 174px)'
+                height: 'calc(100vh - 160px)'
               }}>
-              <MonacoEditor
+              <ControlledEditor
                 language="javascript"
                 value={source}
                 onChange={handleUploadSource}
                 options={options}
-                editorDidMount={EditorDidMountHandle}
+                editorDidMount={handleEditorDidMount}
+                
               />
             </div>
           </ResizeObserver>
