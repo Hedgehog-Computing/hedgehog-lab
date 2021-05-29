@@ -609,18 +609,41 @@ export class Mat {
     return ret;
   }
 
-  //
+  //set how many digits kept while display the matirx
   setDigits(x: number) {
     this.digits = x;
     return this;
   }
-  //return the format of matrix as a CSV string
+  
+  /*serialize matrix to JavaScript 2D Array string, for example:
+  [[1,2],
+  [3,4]]
+  (Users should directly copy the string as a JS 2D Array into their code)
+  */
+  
   toString(): string {
+    let rowStringList =  this.val.map(eachRow=> {return eachRow.map(eachValue=>{
+      if (this.digits <= 0) return String(eachValue);
+      else return String(eachValue.toFixed(this.digits))
+    }).reduce((rowAccumulator, currentElementString) => rowAccumulator + "," + currentElementString)})
+
+    let returnString = "";
+    for (let rowIndex = 0; rowIndex < rowStringList.length; rowIndex+=1) {
+      returnString +=  "[" + rowStringList[rowIndex] + "]" + ((rowIndex===rowStringList.length-1)?"":",\n")
+    }
+    return "\n[" + returnString + "]\n"
+  }
+  
+  /*serialize matrix to 2D Array with Tab, for example:
+  1 2
+  3 4
+  */
+  toStringWithTab():string{
     let returnString = '';
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         // if keeps all digits
-        if (this.digits === -1) {
+        if (this.digits <= 0) {
           if (j === 0) {
             returnString += String(this.val[i][j]);
           } else {
@@ -636,16 +659,20 @@ export class Mat {
       }
       if (i !== this.rows - 1) returnString += '\n';
     }
-
     return returnString + '\n';
   }
+
+  //return the format of matrix as a CSV string
   toCsv(): string {
     return mat2csv(this);
   }
+
+  //return the string of current object in JSON format
   toJson(): string {
     return JSON.stringify(this);
   }
 
+  //return the matrix in TeX format
   toTex(): string {
     let returnString = '\\begin{bmatrix} ';
     for (let i = 0; i < this.rows; i++) {

@@ -1,7 +1,7 @@
 const matrixSource = `
 //1. Initialize matrix with a 2D array.
 A = mat([[1,2,3],[4,5,6],[7,8,9]]);
-print("Matrix a is: \\n" + a);
+print("Matrix a is: \\n" + A);
 
 //2. You could also create an N-by-1 matrix with 1D array
 print("Another matrix is: \\n" + mat([1,2,3,4]));
