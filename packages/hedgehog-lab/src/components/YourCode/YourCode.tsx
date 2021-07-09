@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Button, Card, CardContent, CardHeader } from '@material-ui/core';
-import { ControlledEditor, ControlledEditorOnChange } from '@monaco-editor/react';
+import { ControlledEditor, ControlledEditorOnChange, monaco } from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import { queryCache } from 'react-query';
 import ResizeObserver from 'react-resize-detector';
@@ -14,11 +14,17 @@ interface YourCodeProps {
   setSource: Dispatch<SetStateAction<string>>;
 }
 
+monaco.init().then(monaco=>
+  monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+  noSyntaxValidation: true,
+  noSemanticValidation:true
+})).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
+
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
   const { handleCompileAndRun, loading, setSource, source } = props;
 
-  const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
-  const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
+  const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
+
 
   const handleUploadSource: ControlledEditorOnChange = (e, v) => {
     setSource(v as string);
@@ -26,12 +32,14 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
   const options = {
     wordWrap: 'on' as const,
-    scrollBeyondLastLine: false
+    scrollBeyondLastLine: false,
   };
+
 
   const handleEditorDidMount = (
     _: () => string,
     editor: monacoEditor.editor.IStandaloneCodeEditor,
+
   ) => {
     editor.addAction({
       id: COMPILE_AND_RUN_BUTTON_ID,
@@ -86,11 +94,12 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
           }
         />
 
+
         <CardContent>
           <ResizeObserver
               onResize={(width, height) => {
                 if (editor) {
-                  editor.layout();
+                  editor.layout();source
                 }
               }}>
             <div
@@ -98,14 +107,15 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                 height: 'calc(100vh - 160px)'
                 
               }}>
+
               <ControlledEditor
                 language="javascript"
                 value={source}
                 onChange={handleUploadSource}
                 options={options}
                 editorDidMount={handleEditorDidMount}
-                
               />
+
             </div>
           </ResizeObserver>
         </CardContent>

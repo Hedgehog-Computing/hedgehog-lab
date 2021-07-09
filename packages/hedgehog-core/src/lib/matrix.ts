@@ -602,7 +602,7 @@ export class Mat {
     let ret = 0;
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        let val = this.val[i][j];
+        const val = this.val[i][j];
         ret += val * val;
       }
     }

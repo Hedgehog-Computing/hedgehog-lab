@@ -18,6 +18,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Box from '@material-ui/core/Box';
 import InsertDriveFileRoundedIcon from '@material-ui/icons/InsertDriveFileRounded';
+import {HEDGEHOG_DOMAIN} from "../../config"
 
 interface HeaderProps {
   siderBarOpen: boolean;
@@ -100,7 +101,7 @@ const DialogActions = withStyles((theme: Theme) => ({
 }))(MuiDialogActions);
 
 const encodingShareableUrlWithSourceCode = (rawSourceString:string, autoRun:boolean):string=>{
-  const hedgehogLabDomain = "https://hedgehog-lab.github.io/"
+  const hedgehogLabDomain = HEDGEHOG_DOMAIN;
   const encodedSourceCode = encodeURIComponent(rawSourceString);
   const combinedFullshareableUrl = hedgehogLabDomain + "?code=" + encodedSourceCode 
       + (autoRun? "&auto_run=true":"");
@@ -108,7 +109,7 @@ const encodingShareableUrlWithSourceCode = (rawSourceString:string, autoRun:bool
 }
 
 const encodingShareableUrlWithURL = (yourUrl:string, autoRun:boolean):string=>{
-  const hedgehogLabDomain = "https://hedgehog-lab.github.io/"
+  const hedgehogLabDomain = HEDGEHOG_DOMAIN;
   const encodedURL = encodeURIComponent(yourUrl);
   const combinedFullshareableUrl = hedgehogLabDomain + "?your_url=" + encodedURL 
       + (autoRun? "&auto_run=true":"");

@@ -45,10 +45,8 @@ export default function ({ types: t }: { types: typeof types }) {
           RIGHT_ARG: path.scope.generateUidIdentifier('right'),
         }).expression;
 
-        path.replaceWith(
-          t.callExpression(func, [path.node.left, path.node.right])
-        );
-      },
-    },
+        path.replaceWith(t.callExpression(func, [path.node.left, path.node.right]));
+      }
+    }
   };
 }

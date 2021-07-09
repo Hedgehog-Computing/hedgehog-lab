@@ -2,7 +2,10 @@
 import nerdamer from 'nerdamer/all';
 
 import { Mat, Scalar } from '../lib/matrix';
+import * as _Tensor from '../lib/tensor';
 import * as _Mat from '../lib/matrix';
+import { Tensor } from '../lib/tensor';
+import { Table } from '../lib/table';
 import _MathLib from '../lib/mathlib';
 import { Sym } from '../lib/symbolic';
 import { Chol, QR, LU } from '../lib/algebra';
@@ -37,14 +40,20 @@ import * as tf from '@tensorflow/tfjs';
 
 //tvm.js
 
-
-export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, Chol, React, d3 };
+export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, Chol, React, d3, Tensor, Table };
 
 /**
  * wrapper of constructing a Mat object
  */
 export function mat(input?: number[][] | number[] | number): Mat {
   return new Mat(input);
+}
+
+/**
+ * wrapper of constructing a Tensor object
+ */
+ export function tensor(input?: any): Tensor {
+  return new Tensor(input);
 }
 
 /**
@@ -102,6 +111,14 @@ export function json2mat(json_str: string): Mat {
 export function mat2json(A: Mat): string {
   return _Mat.mat2json(A);
 }
+
+export function tensor2json(A: Tensor): string {
+  return _Tensor.tensor2json(A);
+}
+
+export function json2tensor(A: string): Tensor {
+  return _Tensor.json2tensor(A);
+} 
 
 //Math Lib functions
 export function sin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
@@ -386,6 +403,14 @@ export function plot3DMesh(x_: any, y_: any, z_: any) {
     ],
     {}
   );
+}
+
+/** 
+ * Render a table (2-D array of string with/without headers) in React
+*/
+export function showTable(currentTable: Table){
+  const table: Table = currentTable;
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'TABLE', table: table });
 }
 
 // show Tex in MathJax

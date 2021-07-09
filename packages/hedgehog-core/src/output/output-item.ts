@@ -4,6 +4,8 @@
 // or a tuple of data and layout (into a figure of plotlyjs)
 // and type is a string of "TEXT" or "DRAWING" or "TEX" or "FORMULA"
 
+import { Table } from '../lib/table';
+
 export type TextItem = {
   itemType: 'TEXT';
   text: string;
@@ -17,6 +19,15 @@ export type DrawingItem = {
   itemType: 'DRAWING';
   data: any;
   layout: any;
+};
+
+export type TableItem = {
+  itemType: 'TABLE';
+  table: Table;
+};
+
+export const isTableItem = (item: OutputItem) : item is TableItem => {
+  return item.itemType === 'TABLE';
 };
 
 export const isDrawingItem = (item: OutputItem): item is DrawingItem => {
@@ -50,4 +61,6 @@ export const isMarkdownItem = (item: OutputItem): item is MarkdownItem => {
   return item.itemType === 'MARKDOWN';
 };
 
-export type OutputItem = TextItem | DrawingItem | TeXItem | FormulaItem | MarkdownItem;
+export type OutputItem = TextItem | DrawingItem | TeXItem | FormulaItem | MarkdownItem | TableItem;
+
+

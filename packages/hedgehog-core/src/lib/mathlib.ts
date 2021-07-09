@@ -1,6 +1,6 @@
 import { Mat } from './matrix';
 
-function to_matrix(A: Mat | number[][] | number[] | number): Mat {
+function to_matrix(A: Mat | number[][] | number[] | number): Mat  {
   if (A instanceof Mat) {
     return A.clone();
   }
