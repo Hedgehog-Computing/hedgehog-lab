@@ -8,9 +8,11 @@
   ],
   "devDependencies": {
     "lerna": "^3.22.1",
+    "patch-package": "^6.4.7",
     "typescript": "^3.9.7"
   },
   "scripts": {
+    "postinstall": "patch-package",
     "watch": "lerna run --parallel watch",
     "build": "lerna run build --stream"
   },
