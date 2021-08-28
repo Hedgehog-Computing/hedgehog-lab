@@ -29,7 +29,7 @@ async function transpilerCore(source: string) {
       plugins: ['overload'],
       presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
       filename: 'source.tsx',
-      sourceType: 'script',
+      sourceType: 'script'
     }
   );
 

@@ -42,6 +42,17 @@ import * as tf from '@tensorflow/tfjs';
 
 export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, Chol, React, d3, Tensor, Table };
 
+/* 
+   import all mljs library and export 
+   (https://github.com/mljs/ml)
+*/
+
+import * as mlPCA from 'ml-pca';
+import * as mlMatrix from 'ml-matrix';
+import * as mlHclust from 'ml-hclust';
+import * as mlSimpleLinearRegression from 'ml-regression-simple-linear';
+export { mlPCA, mlMatrix, mlHclust, mlSimpleLinearRegression };
+
 /**
  * wrapper of constructing a Mat object
  */
@@ -52,7 +63,7 @@ export function mat(input?: number[][] | number[] | number): Mat {
 /**
  * wrapper of constructing a Tensor object
  */
- export function tensor(input?: any): Tensor {
+export function tensor(input?: any): Tensor {
   return new Tensor(input);
 }
 
@@ -118,7 +129,7 @@ export function tensor2json(A: Tensor): string {
 
 export function json2tensor(A: string): Tensor {
   return _Tensor.json2tensor(A);
-} 
+}
 
 //Math Lib functions
 export function sin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
@@ -267,7 +278,7 @@ export function toc() {
 
 //below is the execution part
 
-let _OUTPUT_ITEMS_LIST_: OutputItem[] = [];
+const _OUTPUT_ITEMS_LIST_: OutputItem[] = [];
 
 export { _OUTPUT_ITEMS_LIST_ };
 
@@ -293,8 +304,8 @@ export function plot2D(x_: any, y_: any) {
         y: y_.toArray(),
         type: 'scatter',
         mode: 'markers',
-        marker: { color: 'blue', size: '2' },
-      },
+        marker: { color: 'blue', size: '2' }
+      }
     ]);
     return;
   }
@@ -304,8 +315,8 @@ export function plot2D(x_: any, y_: any) {
       y: y_,
       type: 'scatter',
       mode: 'markers',
-      marker: { color: 'blue', size: '2' },
-    },
+      marker: { color: 'blue', size: '2' }
+    }
   ]);
 }
 
@@ -318,8 +329,8 @@ export function plot2DLine(x_: any, y_: any) {
         y: y_.toArray(),
         type: 'scatter',
         mode: 'lines+markers',
-        marker: { color: 'blue', size: '4' },
-      },
+        marker: { color: 'blue', size: '4' }
+      }
     ]);
     return;
   }
@@ -329,15 +340,15 @@ export function plot2DLine(x_: any, y_: any) {
       y: y_,
       type: 'scatter',
       mode: 'lines+markers',
-      marker: { color: 'blue', size: '4' },
-    },
+      marker: { color: 'blue', size: '4' }
+    }
   ]);
 }
 
 // plot3D is a wrapper for draw() function for scatter plot on 3D only
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function plot3D(x_: any, y_: any, z_: any) {
-  if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat){
+  if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat) {
     draw(
       [
         {
@@ -347,8 +358,8 @@ export function plot3D(x_: any, y_: any, z_: any) {
           mode: 'markers',
           marker: { color: 'blue', size: 2 },
           opacity: 0.5,
-          type: 'scatter3d',
-        },
+          type: 'scatter3d'
+        }
       ],
       {}
     );
@@ -363,8 +374,8 @@ export function plot3D(x_: any, y_: any, z_: any) {
         mode: 'markers',
         marker: { color: 'blue', size: 2 },
         opacity: 0.5,
-        type: 'scatter3d',
-      },
+        type: 'scatter3d'
+      }
     ],
     {}
   );
@@ -372,7 +383,7 @@ export function plot3D(x_: any, y_: any, z_: any) {
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function plot3DMesh(x_: any, y_: any, z_: any) {
-  if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat){
+  if (x_ instanceof Mat && y_ instanceof Mat && z_ instanceof Mat) {
     draw(
       [
         {
@@ -382,8 +393,8 @@ export function plot3DMesh(x_: any, y_: any, z_: any) {
           mode: 'markers',
           marker: { color: 'blue', size: 2 },
           opacity: 0.5,
-          type: 'mesh3d',
-        },
+          type: 'mesh3d'
+        }
       ],
       {}
     );
@@ -398,17 +409,17 @@ export function plot3DMesh(x_: any, y_: any, z_: any) {
         mode: 'markers',
         marker: { color: 'blue', size: 2 },
         opacity: 0.5,
-        type: 'mesh3d',
-      },
+        type: 'mesh3d'
+      }
     ],
     {}
   );
 }
 
-/** 
+/**
  * Render a table (2-D array of string with/without headers) in React
-*/
-export function showTable(currentTable: Table){
+ */
+export function showTable(currentTable: Table) {
   const table: Table = currentTable;
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'TABLE', table: table });
 }

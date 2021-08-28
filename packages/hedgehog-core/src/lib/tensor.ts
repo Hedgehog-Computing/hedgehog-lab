@@ -25,8 +25,8 @@ export class Tensor {
       1. The length of each dimension;
       2. Initialize the shape[] array of current tensor
   */
-  initializeDimensions(){
-    let result:number[] = [];
+  initializeDimensions() {
+    const result: number[] = [];
     let currentDimensionPt = 0;
     let pt = this.val;
     while (pt instanceof Array) {
@@ -72,13 +72,13 @@ export class Tensor {
       Deep clone current tensor into another Tensor object 
       Todo: implement a more efficient way to clone
   */
-  clone() : Tensor {
-    return JSON.parse(JSON.stringify(this))
+  clone(): Tensor {
+    return JSON.parse(JSON.stringify(this));
   }
 
   // Deep copy tensor A into this object
-  copy(A:Tensor) : Tensor {
-    const result = A.clone()
+  copy(A: Tensor): Tensor {
+    const result = A.clone();
     this.val = result.val;
     this.ndim = result.ndim;
     this.shape = result.shape;
@@ -86,9 +86,9 @@ export class Tensor {
   }
 
   // TODO: Initialize a zero tensor in "shape"
-  zerosAsShape(shape: number[]) : Tensor {
-    let returnTensor = new Tensor();
-    let currentSubTensor = [];
+  zerosAsShape(shape: number[]): Tensor {
+    const returnTensor = new Tensor();
+    const currentSubTensor = [];
     return returnTensor;
   }
 
@@ -96,10 +96,27 @@ export class Tensor {
   Todo: zeros function
   */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  zeros(a0?:number,a1?:number,a2?:number,a3?:number,a4?:number,a5?:number,a6?:number,a7?:number,a8?:number,a9?:number,a10?:number,a11?:number,a12?:number,a13?:number,a14?:number,a15?:number) : Tensor {
-    let returnTensor = new Tensor();
-    let shape:number[] = [];
-    for (let i=0;i<16;i++){
+  zeros(
+    a0?: number,
+    a1?: number,
+    a2?: number,
+    a3?: number,
+    a4?: number,
+    a5?: number,
+    a6?: number,
+    a7?: number,
+    a8?: number,
+    a9?: number,
+    a10?: number,
+    a11?: number,
+    a12?: number,
+    a13?: number,
+    a14?: number,
+    a15?: number
+  ): Tensor {
+    const returnTensor = new Tensor();
+    const shape: number[] = [];
+    for (let i = 0; i < 16; i++) {
       // eslint-disable-next-line prefer-rest-params
       if (arguments[i] !== undefined) {
         if (arguments[i] === 0) {
@@ -118,7 +135,6 @@ export class Tensor {
   2. Operators for tensors
   3. GPU operators for tensors
   */
-   
 }
 
 export function tensor2json(A: Tensor): string {

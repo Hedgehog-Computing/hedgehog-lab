@@ -28,7 +28,7 @@ Output: The root location of the package. For example, "https://raw.githubuserco
 
 function getPackageLocation(packageName: string, theFullListInJson: string): string {
   console.log('Package name: ' + packageName + ' , full list in json: ' + theFullListInJson);
-  const jsonObj = JSON.parse(theFullListInJson); 
+  const jsonObj = JSON.parse(theFullListInJson);
   for (const element of jsonObj) {
     if (element['name'] === packageName || element['alias'] === packageName) {
       return element['location'];
@@ -58,7 +58,7 @@ async function parseRegisterdPackage(
   if (splittedResult.length != 2) throw 'Invalid importing library: ' + secondPart;
 
   //get the right package name and HHS list string
-  const packageName = splittedResult[0]
+  const packageName = splittedResult[0];
   const importedHHSListString = splittedResult[1];
 
   //get package location
@@ -108,7 +108,8 @@ async function parseRegisterdPackage(
 
 // A helper function to check if a string contains URL or not. Reference: https://regexr.com/3e6m0
 function containsURL(code: string): boolean {
-  const expression = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+  const expression =
+    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
   const regex = new RegExp(expression);
   if (code.match(regex)) return true;
   return false;
@@ -128,9 +129,9 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
       returnCode += '\n';
       //3.1 if current line of code doesn't contain "*import ", just append it to returnCode
       if (!vecSplittedString[i].includes('*import ')) {
-        returnCode +=  vecSplittedString[i];
+        returnCode += vecSplittedString[i];
       }
-      //3.2 otherwise, split the string by "*import ", keep the first part (if it exists), then download 
+      //3.2 otherwise, split the string by "*import ", keep the first part (if it exists), then download
       //    and fetch the second part recursively (which should be and must be a valid URL or a registered package)
       else {
         const currentString = vecSplittedString[i];
@@ -148,7 +149,7 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
         //3.2.1 add the first part
         returnCode += splittedResult[0];
         //3.2.2 Is it imported from URL or from a registered package?
-        if (containsURL(splittedResult[1])){
+        if (containsURL(splittedResult[1])) {
           //3.2.2.1 download the library from URL
           const libraryFromUrl = await fetch(splittedResult[1], { method: 'get' }).then((body) => {
             const real_library = body.text();
@@ -171,7 +172,7 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
           let combined_result = '';
           result.forEach((element) => {
             combined_result += element + '\n';
-            returnCode+= combined_result + '\n';
+            returnCode += combined_result + '\n';
           });
         }
       }
@@ -191,6 +192,5 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
 
 export default preprocessor;
 function body(body: any): string | undefined {
-  throw new Error("Function not implemented.");
+  throw new Error('Function not implemented.');
 }
-

@@ -16,10 +16,7 @@
  *    template call site object(i.e. contains a `.raw` property),
  *    otherwise returns the first argument as is.
  */
-export function processRawInputs(
-  tmpl?: TemplateStringsArray | any,
-  ...vals: any[]
-): string | any {
+export function processRawInputs(tmpl?: TemplateStringsArray | any, ...vals: any[]): string | any {
   return tmpl?.raw ? String.raw(tmpl, ...vals) : tmpl;
 }
 
@@ -44,17 +41,14 @@ export function processRawInputs(
  *       (i.e. contains a `.raw` property);
  *    3. otherwise returns the first argument as is.
  */
-export function rawInputsToTex(
-  tmpl?: TemplateStringsArray | any,
-  ...vals: any[]
-): string | any {
+export function rawInputsToTex(tmpl?: TemplateStringsArray | any, ...vals: any[]): string | any {
   // returns the TeX string of `tmpl` if it contains `.toTex()` method
   if (tmpl?.toTex) {
     return tmpl.toTex();
   }
 
   // automatically converts substituion values into TeX if possible
-  vals = vals.map(v => v?.toTex?.() ?? v);
+  vals = vals.map((v) => v?.toTex?.() ?? v);
 
   return processRawInputs(tmpl, ...vals);
 }

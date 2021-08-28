@@ -26,7 +26,7 @@ export type TableItem = {
   table: Table;
 };
 
-export const isTableItem = (item: OutputItem) : item is TableItem => {
+export const isTableItem = (item: OutputItem): item is TableItem => {
   return item.itemType === 'TABLE';
 };
 
@@ -62,5 +62,3 @@ export const isMarkdownItem = (item: OutputItem): item is MarkdownItem => {
 };
 
 export type OutputItem = TextItem | DrawingItem | TeXItem | FormulaItem | MarkdownItem | TableItem;
-
-
