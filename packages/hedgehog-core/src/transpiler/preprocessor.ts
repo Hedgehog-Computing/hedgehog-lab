@@ -82,9 +82,9 @@ async function parseRegisterdPackage(
       const eachItemWithoutSpace = eachItem.replace(/\s/g, '');
       if (setHHSCompleteList.has(eachItemWithoutSpace)) {
         const currentHHSLocation = packageLocation + eachItemWithoutSpace + '.hhs';
-        const currentItemSourceCode = await fetch(currentHHSLocation, { method: 'get' }).then(
-          (body) => body.text()
-        );
+        const currentItemSourceCode = await fetch(currentHHSLocation, {
+          method: 'get'
+        }).then((body) => body.text());
 
         // After get the whole hhs source file, preprocess the string via DFS preprocessor
         // to handle the dependencies of current source file string
@@ -106,10 +106,57 @@ async function parseRegisterdPackage(
   return returnListOfFunctions;
 }
 
+/*
+
+Parse the registered package without package json file setup
+All packages can be parsed in this way:
+
+*import Package: Function1, Function2, Function3
+
+*/
+async function parseRegisterdPackageWithoutPackageJsonFile(
+  secondPart: string,
+  strCurrentCallStack: string
+): Promise<Array<string>> {
+  const returnListOfFunctions: string[] = [];
+  const theFullListInJson = await fetch(
+    'https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json',
+    { method: 'get' }
+  ).then((body) => body.text());
+  const splittedResult = secondPart.split(':');
+  if (splittedResult.length != 2) throw 'Invalid importing library: ' + secondPart;
+
+  //get the right package name and HHS list string
+  const packageName = splittedResult[0];
+  const importedHHSListString = splittedResult[1];
+
+  //get package location
+  const packageLocation = getPackageLocation(packageName.replace(/\s/g, ''), theFullListInJson);
+
+  const importedItemList = importedHHSListString.split(',');
+  for (const eachItem of importedItemList) {
+    const eachItemWithoutSpace = eachItem.replace(/\s/g, '');
+
+    const currentHHSLocation = packageLocation + eachItemWithoutSpace + '.hhs';
+    const currentItemSourceCode = await fetch(currentHHSLocation, { method: 'get' }).then((body) =>
+      body.text()
+    );
+
+    // After get the whole hhs source file, preprocess the string via DFS preprocessor
+    // to handle the dependencies of current source file string
+    const preprocessedCurrentItemSourceCode = await preprocessDFS(
+      currentItemSourceCode,
+      strCurrentCallStack + ' -> ' + strCurrentCallStack + ':' + eachItemWithoutSpace
+    );
+    returnListOfFunctions.push(preprocessedCurrentItemSourceCode);
+  }
+
+  return returnListOfFunctions;
+}
+
 // A helper function to check if a string contains URL or not. Reference: https://regexr.com/3e6m0
 function containsURL(code: string): boolean {
-  const expression =
-    /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+  const expression = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
   const regex = new RegExp(expression);
   if (code.match(regex)) return true;
   return false;
@@ -168,7 +215,10 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
           returnCode += currentResult + '\n';
         } else {
           // otherwise, try to split with colon and comma and fetch the registered packages
-          const result = await parseRegisterdPackage(splittedResult[1], strCurrentCallStack);
+          const result = await parseRegisterdPackageWithoutPackageJsonFile(
+            splittedResult[1],
+            strCurrentCallStack
+          );
           let combined_result = '';
           result.forEach((element) => {
             combined_result += element + '\n';
