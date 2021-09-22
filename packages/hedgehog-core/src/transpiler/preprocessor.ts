@@ -27,7 +27,7 @@ Output: The root location of the package. For example, "https://raw.githubuserco
 */
 
 function getPackageLocation(packageName: string, theFullListInJson: string): string {
-  console.log('Package name: ' + packageName + ' , full list in json: ' + theFullListInJson);
+  //console.log('Package name: ' + packageName + ' , full list in json: ' + theFullListInJson);
   const jsonObj = JSON.parse(theFullListInJson);
   for (const element of jsonObj) {
     if (element['name'] === packageName || element['alias'] === packageName) {
@@ -44,7 +44,7 @@ Input: secondPart: the second part of current line splitted by "*import". For ex
        be "std:magic, cholesky"
        strCurrentCallStack: current call stack
 Output: A list of string, each string represents the corresponding hhs source file
-*/
+
 async function parseRegisterdPackage(
   secondPart: string,
   strCurrentCallStack: string
@@ -105,6 +105,7 @@ async function parseRegisterdPackage(
   }
   return returnListOfFunctions;
 }
+*/
 
 /*
 
@@ -138,8 +139,21 @@ async function parseRegisterdPackageWithoutPackageJsonFile(
     const eachItemWithoutSpace = eachItem.replace(/\s/g, '');
 
     const currentHHSLocation = packageLocation + eachItemWithoutSpace + '.hhs';
-    const currentItemSourceCode = await fetch(currentHHSLocation, { method: 'get' }).then((body) =>
-      body.text()
+    const currentItemSourceCode = await fetch(currentHHSLocation, { method: 'get' }).then(
+      (response) => {
+        if (!response.ok) {
+          throw (
+            'Failed to fetch the dependency. \nPackage:' +
+            secondPart +
+            '\nMissing file location: ' +
+            currentHHSLocation +
+            '\nDependency stack: ' +
+            strCurrentCallStack
+          );
+        } else {
+          return response.text();
+        }
+      }
     );
 
     // After get the whole hhs source file, preprocess the string via DFS preprocessor
