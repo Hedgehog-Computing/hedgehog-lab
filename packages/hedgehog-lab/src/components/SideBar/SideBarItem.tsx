@@ -1,6 +1,6 @@
 import React, { HTMLAttributes } from 'react';
-import { Collapse, List, ListItem, ListItemText } from '@material-ui/core';
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import { Collapse, List, ListItem, ListItemText } from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 interface SideBarItemProps {
   handleSideBarItemClick: (open: string) => void;

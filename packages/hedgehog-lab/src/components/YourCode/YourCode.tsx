@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
-import {Button, Card, CardContent, CardHeader} from '@material-ui/core';
+import {Button, Card, CardContent, CardHeader} from '@mui/material';
 import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import {queryCache} from 'react-query';

@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import {IconButton, Snackbar, Tooltip} from "@material-ui/core";
-import {Close, Save} from "@material-ui/icons";
-import {Alert} from "@material-ui/lab";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import {IconButton, Snackbar, Tooltip} from "@mui/material";
+import {Close, Save} from "@mui/icons-material";
+import { Alert } from '@mui/material';
 
 interface SaveButtonProps {
     getLocalCodeList: () => void;
@@ -58,8 +58,7 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
         <React.Fragment>
             <Tooltip title={'Save'}>
                 <label>
-                    <IconButton
-                        onClick={handleClickOpen}>
+                    <IconButton onClick={handleClickOpen} size="large">
                         <Save/>
                     </IconButton>
                 </label>

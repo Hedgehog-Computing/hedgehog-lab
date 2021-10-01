@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Qs from 'qs';
-import {CssBaseline, Grid, Toolbar} from '@material-ui/core';
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {CssBaseline, Grid, Toolbar} from '@mui/material';
+import { Theme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import DownloadSnackbar from './components/DownloadSnackbar/DownloadSnackbar';
 import Header from './components/Header/Header';
@@ -161,7 +164,7 @@ const HedgehogLab: React.FC = () => {
     useEffect(() => {
         if (!!code) {
             setSource(code);
-            if (autoRun === true) {
+            if (autoRun) {
                 setResult({
                     outputItem: [],
                     outputString: ''
@@ -243,7 +246,7 @@ const HedgehogLab: React.FC = () => {
                     setSource={setSource}
                     setInput={setInput}
                     yourUrl={yourUrl}
-                    autoRun={!!autoRun}
+                    autoRun={autoRun}
                 />
             )}
         </div>

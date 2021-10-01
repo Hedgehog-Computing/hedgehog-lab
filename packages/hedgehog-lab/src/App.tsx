@@ -1,19 +1,28 @@
 import React from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider, Theme, StyledEngineProvider, adaptV4Theme } from '@mui/material/styles';
 import './App.css';
 import HedgehogLab from './HedgehogLab';
 
-const theme = createMuiTheme({
-  palette: {
-    type: 'light'
-  }
-});
 
-const App = () => (
+declare module '@mui/styles/defaultTheme' {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface DefaultTheme extends Theme {}
+}
+
+
+const theme = createTheme(adaptV4Theme({
+  palette: {
+    mode: 'light'
+  }
+}));
+
+const App = (): React.ReactElement => (
   <div className="App">
-    <ThemeProvider theme={theme}>
-      <HedgehogLab />
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <HedgehogLab />
+      </ThemeProvider>
+    </StyledEngineProvider>
   </div>
 );
 
