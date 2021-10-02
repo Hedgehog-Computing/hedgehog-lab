@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react';
-import {IconButton, Tooltip} from "@material-ui/core";
-import {CloudUpload} from "@material-ui/icons";
+import {IconButton, Tooltip} from "@mui/material";
+import {CloudUpload} from "@mui/icons-material";
 
 interface UploadButtonProps {
     handleLoadFile: (str: string) => void;
@@ -40,7 +40,7 @@ const UploadButton: React.FC<UploadButtonProps> = (props: UploadButtonProps) => 
             />
             <Tooltip title={'Upload'}>
                 <label htmlFor="contained-button-file">
-                    <IconButton component="span">
+                    <IconButton component="span" size="large">
                         <CloudUpload fontSize={"small"}/>
                     </IconButton>
                 </label>

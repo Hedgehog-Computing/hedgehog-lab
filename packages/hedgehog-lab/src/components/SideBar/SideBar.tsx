@@ -1,9 +1,11 @@
 import React, {useState} from 'react';
-import {createStyles, Drawer, List, ListItem, ListItemText, makeStyles, Toolbar, Tooltip} from '@material-ui/core';
+import { Drawer, List, ListItem, ListItemText, Toolbar, Tooltip } from '@mui/material';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import SideBarItem from './SideBarItem';
 import DelButton from './DelButton';
 import {tutorials} from '../../tutorials';
-import {Theme} from '@material-ui/core/styles';
+import {Theme} from '@mui/material/styles';
 import clsx from 'clsx';
 
 interface SideBarProps {

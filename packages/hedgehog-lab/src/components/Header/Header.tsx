@@ -1,23 +1,26 @@
 import React from 'react';
-import { AppBar, Button, Toolbar, Typography, IconButton } from '@material-ui/core';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
-import MenuIcon from '@material-ui/icons/Menu';
-import { withStyles, WithStyles } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import CloseIcon from '@material-ui/icons/Close';
-import TextField from '@material-ui/core/TextField';
-import ShareIcon from '@material-ui/icons/Share';
+import { AppBar, Button, Toolbar, Typography, IconButton } from '@mui/material';
+import { Theme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import createStyles from '@mui/styles/createStyles';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import MenuIcon from '@mui/icons-material/Menu';
+import { WithStyles } from '@mui/styles';
+import withStyles from '@mui/styles/withStyles';
+import Dialog from '@mui/material/Dialog';
+import MuiDialogTitle from '@mui/material/DialogTitle';
+import MuiDialogContent from '@mui/material/DialogContent';
+import MuiDialogActions from '@mui/material/DialogActions';
+import CloseIcon from '@mui/icons-material/Close';
+import TextField from '@mui/material/TextField';
+import ShareIcon from '@mui/icons-material/Share';
 import { useEffect } from 'react';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Box from '@material-ui/core/Box';
-import InsertDriveFileRoundedIcon from '@material-ui/icons/InsertDriveFileRounded';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Box from '@mui/material/Box';
+import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded';
 import {HEDGEHOG_DOMAIN} from "../../config"
 
 interface HeaderProps {
@@ -76,10 +79,14 @@ interface DialogTitleProps extends WithStyles<typeof dialogStyles> {
 const DialogTitle = withStyles(dialogStyles)((props: DialogTitleProps) => {
   const { children, classes, onClose, ...other } = props;
   return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+    <MuiDialogTitle className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}
+          size="large">
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -162,7 +169,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             color="inherit"
             aria-label="menu"
             style={{ display: 'inline' }}
-            onClick={handleSideBarOpen}>
+            onClick={handleSideBarOpen}
+            size="large">
             {siderBarOpen ? (
               <ArrowBackOutlinedIcon style={{ fontSize: '1.25rem' }} />
             ) : (
@@ -185,12 +193,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             Hedgehog Lab
           </Typography>
 
-          <Button
-            onClick={handleClickOpen}
-            color="default"
-            size="small"
-            startIcon={<ShareIcon />}
-          >
+          <Button onClick={handleClickOpen} size="small" startIcon={<ShareIcon />}>
             Share
           </Button>
 
@@ -251,10 +254,8 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
             onClick={() => {
               window.open('https://hedgehog-book.github.io');
             }}
-            color="default"
             size="small"
-            startIcon={<InsertDriveFileRoundedIcon />}
-          >
+            startIcon={<InsertDriveFileRoundedIcon />}>
             Docs
           </Button>
 
