@@ -23,6 +23,16 @@ const theme = createTheme({
                     textTransform: 'capitalize'
                 }
             }
+        },
+        MuiDialog: {
+            styleOverrides: {
+                root: {
+                    backgroundColor: 'rgba(32, 38, 45, 0.2)',
+                    backdropFilter: 'blur(2px)',
+                    transition: 'opacity 120ms ease 0s',
+                    opacity: 1
+                }
+            }
         }
     }
 });
