@@ -30,6 +30,7 @@
     "react-query": "^2.5.6",
     "react-resize-detector": "^6.7.2",
     "react-table": "^7.7.0",
+    "react-use": "^17.3.1",
     "styled-components": "^5.3.0",
     "worker-loader": "^2.0.0"
   },

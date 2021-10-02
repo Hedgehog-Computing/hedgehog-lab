@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {AppBar, Button, IconButton, Toolbar, Typography} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {AppBar, Button, IconButton, InputAdornment, OutlinedInput, Snackbar, Toolbar, Typography} from '@mui/material';
 import {Theme} from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import createStyles from '@mui/styles/createStyles';
@@ -19,7 +19,8 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import {HEDGEHOG_DOMAIN} from "../../config"
-import {InsertDriveFileOutlined, ShareOutlined} from "@mui/icons-material";
+import {CopyAllOutlined, InsertDriveFileOutlined, ShareOutlined} from "@mui/icons-material";
+import {useCopyToClipboard} from "react-use";
 
 interface HeaderProps {
     siderBarOpen: boolean;
@@ -78,7 +79,7 @@ const DialogTitle = withStyles(dialogStyles)((props: DialogTitleProps) => {
     const {children, classes, onClose, ...other} = props;
     return (
         <MuiDialogTitle className={classes.root} {...other}>
-            <Typography variant="h6">{children}</Typography>
+            <Typography>{children}</Typography>
             {onClose ? (
                 <IconButton
                     aria-label="close"
@@ -122,6 +123,11 @@ const encodingShareableUrlWithURL = (yourUrl: string, autoRun: boolean): string 
 }
 
 
+interface ICopySnack {
+    open?: boolean,
+    message?: string
+}
+
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     const {siderBarOpen, setOpen, lgBreakpointMatches, source} = props;
 
@@ -131,7 +137,30 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     const [yourUrl, setYourUrl] = React.useState("");
     const [encodedYourUrl, setEncodedYourUrl] = React.useState("");
 
+    const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
+
+    const [copySnack, setCopySnack] = useState<ICopySnack>({
+        open: false,
+        message: ''
+    })
+
     const classes = useStyles();
+
+    const handleCopy = () => {
+        copyToClipboard(encodedUrlWithSourceCode);
+        const state = copyToClipboardState.error
+
+        if (state !== undefined) {
+            setCopySnack({open: true, message: state.message})
+        }
+
+        setCopySnack({open: true, message: 'Copied'})
+
+    }
+
+    const handleCopySnackBarClose = () => {
+        setCopySnack({open: false})
+    }
 
     const handleSideBarOpen = () => {
         setOpen(!siderBarOpen);
@@ -203,7 +232,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                         Share
                     </Button>
 
-                    <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={dialogOpen}
+                    <Dialog onClose={handleClose} aria-labelledby="Share your code via URL" open={dialogOpen}
                             fullWidth={true} maxWidth={"lg"}>
                         <DialogTitle id="customized-dialog-title" onClose={handleClose}>
                             Share your code via URL
@@ -215,11 +244,25 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                                         <Typography gutterBottom>
                                             Share your current script with the link below:
                                         </Typography>
-                                        <TextField id="outlined-basic" size="small" variant="outlined" fullWidth
-                                                   multiline
-                                                   value={encodedUrlWithSourceCode}
-                                                   onFocus={handleFocus}
+
+                                        <OutlinedInput id="outlined-basic" size="small" fullWidth
+                                                       multiline
+                                                       value={encodedUrlWithSourceCode}
+                                                       onFocus={handleFocus}
+                                                       endAdornment={
+                                                           <InputAdornment position={'end'}>
+                                                               <IconButton onClick={() => {
+                                                                   handleCopy()
+                                                               }}>
+                                                                   <CopyAllOutlined/>
+                                                               </IconButton>
+                                                           </InputAdornment>
+                                                       }
                                         />
+
+                                        <Snackbar autoHideDuration={2000} open={copySnack.open}
+                                                  onClose={handleCopySnackBarClose}
+                                                  message={copySnack.message}/>
                                     </CardContent>
                                 </Card>
                             </Box>
