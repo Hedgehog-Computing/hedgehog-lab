@@ -6,9 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {IconButton, Snackbar, Tooltip} from "@mui/material";
-import {Close, Save} from "@mui/icons-material";
-import { Alert } from '@mui/material';
+import {Alert, IconButton, Snackbar, Tooltip} from "@mui/material";
+import {Close, SaveOutlined} from "@mui/icons-material";
 
 interface SaveButtonProps {
     getLocalCodeList: () => void;
@@ -58,8 +57,8 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
         <React.Fragment>
             <Tooltip title={'Save'}>
                 <label>
-                    <IconButton onClick={handleClickOpen} size="large">
-                        <Save/>
+                    <IconButton onClick={handleClickOpen}>
+                        <SaveOutlined/>
                     </IconButton>
                 </label>
             </Tooltip>

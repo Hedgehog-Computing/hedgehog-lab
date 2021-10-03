@@ -6,6 +6,7 @@ import {queryCache} from 'react-query';
 import ResizeObserver from 'react-resize-detector';
 import SaveButton from "./SaveButton";
 import UploadButton from "./UploadButton";
+import {PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 
 const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
@@ -66,12 +67,15 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                             <SaveButton getLocalCodeList={getLocalCodeList} source={source}/>
                             {loading ? (
                                 <Button
+                                    endIcon={<StopCircleOutlined/>}
                                     variant="contained"
-                                    color="secondary"
+                                    color="error"
+                                    size="small"
                                     style={{
                                         textTransform: 'none',
                                     }}
-                                    size="small"
+
+
                                     onClick={() => {
                                         // stop the web-worker
                                         queryCache.cancelQueries(['compiler']);
@@ -85,6 +89,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                                 </Button>
                             ) : (
                                 <Button
+                                    endIcon={<PlayCircleOutline/>}
                                     id={COMPILE_AND_RUN_BUTTON_ID}
                                     variant="contained"
                                     color="primary"

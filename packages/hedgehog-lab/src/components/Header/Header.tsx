@@ -155,7 +155,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         }
 
         setCopySnack({open: true, message: 'Copied'})
-
     }
 
     const handleCopySnackBarClose = () => {
