@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Qs from 'qs';
 import {CssBaseline, Grid, Toolbar} from '@mui/material';
-import { Theme } from '@mui/material/styles';
+import {Theme} from '@mui/material/styles';
 
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
@@ -28,7 +28,7 @@ const HedgehogLab: React.FC = () => {
     const lgBreakpoint = window.matchMedia('(min-width: 1910px)');
     const lgBreakpointMatches = lgBreakpoint.matches;
     // SideBar open prop
-    const [siderBarOpen, setOpen] = useState(false);  //lgBreakpointMatches);
+    const [sideBarOpen, setOpen] = useState(lgBreakpointMatches);  //lgBreakpointMatches);
 
     const [result, setResult] = useState<OutputResult>({
         outputItem: [],
@@ -182,15 +182,16 @@ const HedgehogLab: React.FC = () => {
                 <CssBaseline/>
 
                 <Header
-                    siderBarOpen={siderBarOpen}
+                    siderBarOpen={sideBarOpen}
                     setOpen={setOpen}
                     lgBreakpointMatches={lgBreakpointMatches}
                     source={source}
                 />
 
                 <SideBar
+                    setSideBarOpen={setOpen}
                     handleLoadTutorial={handleLoadTutorial}
-                    siderBarOpen={siderBarOpen}
+                    siderBarOpen={sideBarOpen}
                     handleLoadFile={handleLoadFile}
                     source={source}
                     getLocalCodeList={getLocalCodeList}

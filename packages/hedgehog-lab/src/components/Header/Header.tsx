@@ -14,8 +14,6 @@ import {
 import {Theme} from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import createStyles from '@mui/styles/createStyles';
-import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
-import MenuIcon from '@mui/icons-material/Menu';
 import withStyles from '@mui/styles/withStyles';
 import Dialog from '@mui/material/Dialog';
 import MuiDialogTitle from '@mui/material/DialogTitle';
@@ -26,7 +24,7 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
 import {HEDGEHOG_DOMAIN} from "../../config"
-import {CopyAllOutlined, InsertDriveFileOutlined, ShareOutlined} from "@mui/icons-material";
+import {CopyAllOutlined, InsertDriveFileOutlined, MenuOutlined, ShareOutlined} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
 
 interface HeaderProps {
@@ -141,139 +139,141 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     return (
         <div>
-            <AppBar position="fixed" elevation={0} color="transparent" className={classes.appBar}>
+            <AppBar position="fixed" elevation={0} color="transparent" className={classes.appBar}
+                    sx={{width: siderBarOpen ? 'calc(100vw - 230px)' : '100%'}}>
                 <Toolbar variant="dense">
-                    <IconButton
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        style={{display: 'inline'}}
-                        onClick={handleSideBarOpen}
-                        size="large">
-                        {siderBarOpen ? (
-                            <ArrowBackOutlinedIcon style={{fontSize: '1.25rem'}}/>
-                        ) : (
-                            // <img
-                            //   src={process.env.PUBLIC_URL + '/cat.png'}
-                            //   style={{ height: '1.25rem' }}
-                            //   alt="Hedgehog Lab Logo"
-                            // />
-                            <MenuIcon style={{fontSize: '1.25rem'}}/>
-                        )}
-                    </IconButton>
+                    {!siderBarOpen &&
+                    <>
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            style={{display: 'inline'}}
+                            onClick={handleSideBarOpen}
+                            size="large">
+                            <MenuOutlined style={{fontSize: '1.25rem'}}/>
+                        </IconButton>
 
-                    <Typography
-                        variant={lgBreakpointMatches ? 'h6' : 'body1'}
-                        style={{
-                            flexGrow: 1,
-                            display: 'flex',
-                            alignItems: 'center'
-                        }}>
-                        Hedgehog Lab
-                    </Typography>
+                        {lgBreakpointMatches &&
+                        <Typography
+                            variant={'h6'}
+                            sx={{
+                                fontWeight: 600,
+                                letterSpacing: 0,
+                                width: '100%'
+                            }}
+                        >
+                            Hedgehog Lab
+                        </Typography>}
+                    </>
+                    }
 
-                    <Button onClick={handleClickOpen} variant={'outlined'} size="small" startIcon={<ShareOutlined/>}>
-                        Share
-                    </Button>
+                    <Box display={'flex'} justifyContent={'end'} width={'100%'}>
+                        <Button onClick={handleClickOpen} variant={'outlined'} size="small"
+                                startIcon={<ShareOutlined/>}>
+                            Share
+                        </Button>
 
-                    <Dialog onClose={handleClose} aria-labelledby="Share your code via URL" open={dialogOpen}
-                            fullWidth={true} maxWidth={"lg"}>
-                        <MuiDialogTitle id="share-your-code">
-                            Share your code via URL
-                        </MuiDialogTitle>
-                        <MuiDialogContent>
-                            <Box>
-                                <OutlinedInput id="outlined-basic" size="small" fullWidth
-                                               multiline
-                                               value={encodedUrlWithSourceCode}
-                                               onFocus={handleFocus}
-                                               endAdornment={
-                                                   <InputAdornment position={'end'}>
-                                                       <IconButton onClick={() => {
-                                                           handleCopy(encodedUrlWithSourceCode)
-                                                       }}>
-                                                           <CopyAllOutlined/>
-                                                       </IconButton>
-                                                   </InputAdornment>
-                                               }
-                                />
-
-                                <Snackbar autoHideDuration={2000} open={copySnack.open}
-                                          onClose={handleCopySnackBarClose}
-                                          message={copySnack.message}/>
-
-                            </Box>
-
-
-                            <Divider sx={{py: 2}}/>
-                            <Box sx={{py: 2}}>
-
-
-                                <DialogContentText>
-                                    You can also generate a shareable URL with a Github or Github Gist script
-                                    file (raw URL):
-                                </DialogContentText>
-
-                                <Box pt={1}>
-                                    <TextField size={'small'} variant="outlined" fullWidth
-                                               multiline label="Your Github or Github Gist raw URL"
-                                               value={yourUrl}
-                                               onChange={handleYourUrlTextAreaChange}
-                                               sx={{mb: 2, mt: 1}}
-                                    />
-
-                                    <OutlinedInput size={'small'} fullWidth
-                                                   multiline label="The generated shareable URL"
-                                                   value={encodedYourUrl}
+                        <Dialog onClose={handleClose} aria-labelledby="Share your code via URL" open={dialogOpen}
+                                fullWidth={true} maxWidth={"lg"}>
+                            <MuiDialogTitle id="share-your-code">
+                                Share your code via URL
+                            </MuiDialogTitle>
+                            <MuiDialogContent>
+                                <Box>
+                                    <OutlinedInput id="outlined-basic" size="small" fullWidth
+                                                   multiline
+                                                   value={encodedUrlWithSourceCode}
                                                    onFocus={handleFocus}
                                                    endAdornment={
                                                        <InputAdornment position={'end'}>
                                                            <IconButton onClick={() => {
-                                                               handleCopy(encodedYourUrl)
+                                                               handleCopy(encodedUrlWithSourceCode)
                                                            }}>
                                                                <CopyAllOutlined/>
                                                            </IconButton>
                                                        </InputAdornment>
                                                    }
                                     />
+
+                                    <Snackbar autoHideDuration={2000} open={copySnack.open}
+                                              onClose={handleCopySnackBarClose}
+                                              message={copySnack.message}/>
+
                                 </Box>
-                            </Box>
 
-                            <FormControlLabel
-                                control={<Checkbox checked={autoExecuteCheckboxStatus} onChange={handleCheckboxChange}
-                                                   name="checkedA"/>}
-                                label="Automatically execute the script after loading"
+
+                                <Divider sx={{py: 2}}/>
+                                <Box sx={{py: 2}}>
+
+
+                                    <DialogContentText>
+                                        You can also generate a shareable URL with a Github or Github Gist script
+                                        file (raw URL):
+                                    </DialogContentText>
+
+                                    <Box pt={1}>
+                                        <TextField size={'small'} variant="outlined" fullWidth
+                                                   multiline label="Your Github or Github Gist raw URL"
+                                                   value={yourUrl}
+                                                   onChange={handleYourUrlTextAreaChange}
+                                                   sx={{mb: 2, mt: 1}}
+                                        />
+
+                                        <OutlinedInput size={'small'} fullWidth
+                                                       multiline label="The generated shareable URL"
+                                                       value={encodedYourUrl}
+                                                       onFocus={handleFocus}
+                                                       endAdornment={
+                                                           <InputAdornment position={'end'}>
+                                                               <IconButton onClick={() => {
+                                                                   handleCopy(encodedYourUrl)
+                                                               }}>
+                                                                   <CopyAllOutlined/>
+                                                               </IconButton>
+                                                           </InputAdornment>
+                                                       }
+                                        />
+                                    </Box>
+                                </Box>
+
+                                <FormControlLabel
+                                    control={<Checkbox checked={autoExecuteCheckboxStatus}
+                                                       onChange={handleCheckboxChange}
+                                                       name="checkedA"/>}
+                                    label="Automatically execute the script after loading"
+                                />
+                            </MuiDialogContent>
+                            <DialogActions>
+                                <Button autoFocus onClick={handleClose} color="primary">
+                                    Done
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+
+                        <Button
+                            sx={{mx: '10px'}}
+                            onClick={() => {
+                                window.open('https://hedgehog-book.github.io');
+                            }}
+                            size="small"
+                            variant={'outlined'}
+                            startIcon={<InsertDriveFileOutlined/>}>
+                            Docs
+                        </Button>
+
+                        <Button
+                            color="inherit"
+                            style={{textTransform: 'none', height: 36}}
+                            onClick={() => {
+                                window.open('https://github.com/hedgehog-computing/hedgehog-lab');
+                            }}>
+                            <img
+                                alt="GitHub stars"
+                                src="https://img.shields.io/github/stars/hedgehog-computing/hedgehog-lab?style=social"
                             />
-                        </MuiDialogContent>
-                        <DialogActions>
-                            <Button autoFocus onClick={handleClose} color="primary">
-                                Done
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-
-                    <Button
-                        sx={{mx: '10px'}}
-                        onClick={() => {
-                            window.open('https://hedgehog-book.github.io');
-                        }}
-                        size="small"
-                        variant={'outlined'}
-                        startIcon={<InsertDriveFileOutlined/>}>
-                        Docs
-                    </Button>
-
-                    <Button
-                        color="inherit"
-                        style={{textTransform: 'none', height: 36}}
-                        onClick={() => {
-                            window.open('https://github.com/hedgehog-computing/hedgehog-lab');
-                        }}>
-                        <img
-                            alt="GitHub stars"
-                            src="https://img.shields.io/github/stars/hedgehog-computing/hedgehog-lab?style=social"
-                        />
-                    </Button>
+                        </Button>
+                    </Box>
                 </Toolbar>
             </AppBar>
         </div>

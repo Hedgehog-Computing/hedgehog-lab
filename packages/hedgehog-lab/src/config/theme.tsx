@@ -18,8 +18,7 @@ const theme = createTheme({
             styleOverrides: {
                 paper: {
                     borderRight: "none",
-                    boxShadow: defaultShadow,
-                    marginTop: 57
+                    boxShadow: defaultShadow
                 }
             }
         },
@@ -40,7 +39,8 @@ const theme = createTheme({
                     opacity: 1
                 },
                 paper: {
-                    boxShadow: defaultShadow
+                    boxShadow: defaultShadow,
+                    borderRadius: '10px'
                 },
             }
         },

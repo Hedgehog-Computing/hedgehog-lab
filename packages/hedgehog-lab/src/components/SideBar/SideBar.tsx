@@ -1,5 +1,16 @@
 import React, {useState} from 'react';
-import {Box, Drawer, List, ListItem, ListItemButton, ListItemText, Tooltip} from '@mui/material';
+import {
+    Box,
+    Divider,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+    Tooltip,
+    Typography
+} from '@mui/material';
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import SideBarItem from './SideBarItem';
@@ -7,7 +18,7 @@ import {tutorials} from '../../tutorials';
 import {Theme} from '@mui/material/styles';
 import clsx from 'clsx';
 import DelButton from "./DelButton";
-import {BookOutlined, CodeOutlined} from "@mui/icons-material";
+import {ArrowBackOutlined, BookOutlined, CodeOutlined, MenuOutlined} from "@mui/icons-material";
 
 interface SideBarProps {
     handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
@@ -16,6 +27,7 @@ interface SideBarProps {
     localList: { description: string; source: string }[];
     source: string;
     siderBarOpen: boolean;
+    setSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const drawerWidth = 230;
@@ -94,7 +106,8 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
         siderBarOpen,
         handleLoadFile,
         getLocalCodeList,
-        localList
+        localList,
+        setSideBarOpen
     } = props;
 
     const [open, setOpen] = useState('Tutorials');
@@ -109,7 +122,9 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
         }
     };
 
-    //console.log(localList);
+    const handleSideBarOpen = () => {
+        setSideBarOpen(!siderBarOpen);
+    };
 
     return (
         <Drawer
@@ -127,6 +142,40 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
 
             <Box sx={{borderRight: '1px solid rgba(0, 0, 0, 0.12)', height: '100%'}}>
                 <List dense>
+                    <ListItem disablePadding>
+                        <ListItemText sx={{pl: '10px'}}>
+                            <Typography
+                                variant={'h6'}
+                                sx={{
+                                    fontWeight: 600,
+                                    letterSpacing: 0
+                                }}
+                            >
+                                Hedgehog Lab
+                            </Typography>
+                        </ListItemText>
+
+                        <IconButton
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            onClick={handleSideBarOpen}
+                            size="large">
+                            {siderBarOpen ? (
+                                <ArrowBackOutlined style={{fontSize: '1.25rem'}}/>
+                            ) : (
+                                // <img
+                                //   src={process.env.PUBLIC_URL + '/cat.png'}
+                                //   style={{ height: '1.25rem' }}
+                                //   alt="Hedgehog Lab Logo"
+                                // />
+                                <MenuOutlined style={{fontSize: '1.25rem'}}/>
+                            )}
+                        </IconButton>
+                    </ListItem>
+
+                    <Divider/>
+
                     <SideBarItem
                         icon={<BookOutlined/>}
                         handleSideBarItemClick={handleSideBarItemClick}
