@@ -8,7 +8,7 @@ import { Tensor } from '../lib/tensor';
 import { Table } from '../lib/table';
 import _MathLib from '../lib/mathlib';
 import { Sym } from '../lib/symbolic';
-import { Chol, QR, LU } from '../lib/algebra';
+import { Chol, QR, LU, Eigensystem } from '../lib/algebra';
 import { OutputItem } from '../output/output-item';
 import { rawInputsToTex } from '../utilites/process-raw-inputs';
 
@@ -263,6 +263,10 @@ export function qr(A: Mat): QR {
 
 export function lu(A: Mat): LU {
   return new LU(A);
+}
+
+export function eig(A: Mat): Eigensystem {
+  return new Eigensystem(A);
 }
 
 //tic and toc

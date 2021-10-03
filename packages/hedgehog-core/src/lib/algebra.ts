@@ -1,5 +1,5 @@
 import { Mat } from './matrix';
-import { lup, qr } from 'mathjs';
+import { lup, qr, eigs } from 'mathjs';
 
 // Cholesky
 export class Chol {
@@ -56,5 +56,18 @@ export class QR {
     const result = qr(A.val);
     this.Q = new Mat(result.Q as any);
     this.R = new Mat(result.R as any);
+  }
+}
+
+// Eigensystem: A*V = V*D or A = V*D*V.transpose()
+export class Eigensystem {
+  // V: the columns of V are eigenvectors
+  V: Mat;
+  // D: diagonal matrix of eigenvalues
+  D: Mat;
+  constructor(A: Mat) {
+    const result = eigs(A.val);
+    this.V = new Mat(result.vectors as any);
+    this.D = new Mat().diag(result.values as any);
   }
 }

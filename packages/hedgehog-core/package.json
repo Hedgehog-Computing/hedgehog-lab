@@ -31,7 +31,7 @@
         "csv": "^5.5.0",
         "esbuild-loader": "^2.9.1",
         "gpu.js": "^2.9.5",
-        "mathjs": "^7.1.0",
+        "mathjs": "^9.3.0",
         "ml-hclust": "^3.0.0",
         "ml-matrix": "^6.8.0",
         "ml-pca": "^4.0.2",
@@ -43,7 +43,7 @@
     },
     "devDependencies": {
         "@babel/types": "^7.10.5",
-        "@types/mathjs": "^6.0.5",
+        "@types/mathjs": "^9.3.0",
         "@typescript-eslint/eslint-plugin": "^3.7.0",
         "@typescript-eslint/parser": "^3.7.0",
         "eslint": "^7.5.0",
