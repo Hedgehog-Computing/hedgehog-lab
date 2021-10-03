@@ -1,5 +1,5 @@
 import React, {HTMLAttributes} from 'react';
-import {Collapse, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText} from '@mui/material';
+import {Collapse, Divider, IconButton, List, ListItem, ListItemIcon, ListItemText, Typography} from '@mui/material';
 import {KeyboardArrowDown, KeyboardArrowRight} from '@mui/icons-material';
 
 interface SideBarItemProps {
@@ -23,7 +23,11 @@ const SideBarItem: React.FC<SideBarItemProps & HTMLAttributes<HTMLElement>> = (
                     </IconButton>
                 </ListItemIcon>
 
-                <ListItemText primary={name}/>
+                <ListItemText>
+                    <Typography variant={'body2'} sx={{fontWeight: 550}}>
+                        {name}
+                    </Typography>
+                </ListItemText>
 
                 <IconButton size={"small"} color={'primary'}>
                     {open === name ? <KeyboardArrowDown/> : <KeyboardArrowRight/>}
