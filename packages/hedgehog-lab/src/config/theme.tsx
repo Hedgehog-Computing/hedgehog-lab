@@ -41,7 +41,14 @@ const theme = createTheme({
                 },
                 paper: {
                     boxShadow: defaultShadow
-                }
+                },
+            }
+        },
+        MuiDialogTitle: {
+            styleOverrides: {
+                root: {
+                    fontWeight: 600
+                },
             }
         },
         MuiListItemIcon: {

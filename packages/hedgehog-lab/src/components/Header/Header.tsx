@@ -1,22 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {AppBar, Button, IconButton, InputAdornment, OutlinedInput, Snackbar, Toolbar, Typography} from '@mui/material';
+import {
+    AppBar,
+    Button,
+    DialogContentText,
+    Divider,
+    IconButton,
+    InputAdornment,
+    OutlinedInput,
+    Snackbar,
+    Toolbar,
+    Typography
+} from '@mui/material';
 import {Theme} from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import createStyles from '@mui/styles/createStyles';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import MenuIcon from '@mui/icons-material/Menu';
-import {WithStyles} from '@mui/styles';
 import withStyles from '@mui/styles/withStyles';
 import Dialog from '@mui/material/Dialog';
 import MuiDialogTitle from '@mui/material/DialogTitle';
 import MuiDialogContent from '@mui/material/DialogContent';
 import MuiDialogActions from '@mui/material/DialogActions';
-import CloseIcon from '@mui/icons-material/Close';
 import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Box from '@mui/material/Box';
 import {HEDGEHOG_DOMAIN} from "../../config"
 import {CopyAllOutlined, InsertDriveFileOutlined, ShareOutlined} from "@mui/icons-material";
@@ -37,67 +44,6 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     })
 );
-
-const dialogStyles = (theme: Theme) =>
-    createStyles({
-        root: {
-            margin: 0,
-            padding: theme.spacing(2),
-        },
-        closeButton: {
-            position: 'absolute',
-            right: theme.spacing(1),
-            top: theme.spacing(1),
-            color: theme.palette.grey[500],
-        },
-    });
-
-const cardStyles = makeStyles({
-    root: {
-        minWidth: 275,
-    },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-    },
-});
-
-interface DialogTitleProps extends WithStyles<typeof dialogStyles> {
-    id: string;
-    children: React.ReactNode;
-    onClose: () => void;
-}
-
-const DialogTitle = withStyles(dialogStyles)((props: DialogTitleProps) => {
-    const {children, classes, onClose, ...other} = props;
-    return (
-        <MuiDialogTitle className={classes.root} {...other}>
-            <Typography>{children}</Typography>
-            {onClose ? (
-                <IconButton
-                    aria-label="close"
-                    className={classes.closeButton}
-                    onClick={onClose}
-                    size="large">
-                    <CloseIcon/>
-                </IconButton>
-            ) : null}
-        </MuiDialogTitle>
-    );
-});
-
-const DialogContent = withStyles((theme: Theme) => ({
-    root: {
-        padding: theme.spacing(2),
-    },
-}))(MuiDialogContent);
 
 const DialogActions = withStyles((theme: Theme) => ({
     root: {
@@ -146,15 +92,15 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     const classes = useStyles();
 
-    const handleCopy = () => {
-        copyToClipboard(encodedUrlWithSourceCode);
+    const handleCopy = (url: string) => {
+        copyToClipboard(url);
         const state = copyToClipboardState.error
 
         if (state !== undefined) {
             setCopySnack({open: true, message: state.message})
         }
 
-        setCopySnack({open: true, message: 'Copied'})
+        setCopySnack({open: true, message: 'Copied!'})
     }
 
     const handleCopySnackBarClose = () => {
@@ -183,7 +129,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         setYourUrl(event.target.value);
     }
 
-    const cardClasses = cardStyles();
 
     useEffect(() => {
         if (source.length > 0) {
@@ -219,11 +164,10 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
                     <Typography
                         variant={lgBreakpointMatches ? 'h6' : 'body1'}
-                        sx={{
+                        style={{
                             flexGrow: 1,
                             display: 'flex',
-                            alignItems: 'center',
-                            fontWeight: 600
+                            alignItems: 'center'
                         }}>
                         Hedgehog Lab
                     </Typography>
@@ -234,69 +178,73 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
                     <Dialog onClose={handleClose} aria-labelledby="Share your code via URL" open={dialogOpen}
                             fullWidth={true} maxWidth={"lg"}>
-                        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                        <MuiDialogTitle id="share-your-code">
                             Share your code via URL
-                        </DialogTitle>
-                        <DialogContent dividers>
-                            <Box p={1}>
-                                <Card className={cardClasses.root}>
-                                    <CardContent>
-                                        <Typography gutterBottom>
-                                            Share your current script with the link below:
-                                        </Typography>
+                        </MuiDialogTitle>
+                        <MuiDialogContent>
+                            <Box>
+                                <OutlinedInput id="outlined-basic" size="small" fullWidth
+                                               multiline
+                                               value={encodedUrlWithSourceCode}
+                                               onFocus={handleFocus}
+                                               endAdornment={
+                                                   <InputAdornment position={'end'}>
+                                                       <IconButton onClick={() => {
+                                                           handleCopy(encodedUrlWithSourceCode)
+                                                       }}>
+                                                           <CopyAllOutlined/>
+                                                       </IconButton>
+                                                   </InputAdornment>
+                                               }
+                                />
 
-                                        <OutlinedInput id="outlined-basic" size="small" fullWidth
-                                                       multiline
-                                                       value={encodedUrlWithSourceCode}
-                                                       onFocus={handleFocus}
-                                                       endAdornment={
-                                                           <InputAdornment position={'end'}>
-                                                               <IconButton onClick={() => {
-                                                                   handleCopy()
-                                                               }}>
-                                                                   <CopyAllOutlined/>
-                                                               </IconButton>
-                                                           </InputAdornment>
-                                                       }
-                                        />
+                                <Snackbar autoHideDuration={2000} open={copySnack.open}
+                                          onClose={handleCopySnackBarClose}
+                                          message={copySnack.message}/>
 
-                                        <Snackbar autoHideDuration={2000} open={copySnack.open}
-                                                  onClose={handleCopySnackBarClose}
-                                                  message={copySnack.message}/>
-                                    </CardContent>
-                                </Card>
                             </Box>
-                            <Box p={1}>
-                                <Card className={cardClasses.root}>
-                                    <CardContent>
-                                        <Typography gutterBottom>
-                                            You can also generate a shareable URL with a Github or Github Gist script
-                                            file (raw URL):
-                                        </Typography>
-                                        <Box p={1}>
-                                            <TextField id="outlined-basic-2" size="small" variant="outlined" fullWidth
-                                                       multiline label="Your Github or Github Gist raw URL"
-                                                       value={yourUrl}
-                                                       onChange={handleYourUrlTextAreaChange}
-                                                //onFocus = {handleFocus}
-                                            />
-                                        </Box>
-                                        <Box p={1}>
-                                            <TextField id="outlined-basic-2" size="small" variant="outlined" fullWidth
-                                                       multiline label="The generated shareable URL"
-                                                       value={encodedYourUrl}
-                                                       onFocus={handleFocus}
-                                            />
-                                        </Box>
-                                    </CardContent>
-                                </Card>
+
+
+                            <Divider sx={{py: 2}}/>
+                            <Box sx={{py: 2}}>
+
+
+                                <DialogContentText>
+                                    You can also generate a shareable URL with a Github or Github Gist script
+                                    file (raw URL):
+                                </DialogContentText>
+
+                                <Box pt={1}>
+                                    <TextField size={'small'} variant="outlined" fullWidth
+                                               multiline label="Your Github or Github Gist raw URL"
+                                               value={yourUrl}
+                                               onChange={handleYourUrlTextAreaChange}
+                                               sx={{mb: 2, mt: 1}}
+                                    />
+
+                                    <OutlinedInput size={'small'} fullWidth
+                                                   multiline label="The generated shareable URL"
+                                                   value={encodedYourUrl}
+                                                   onFocus={handleFocus}
+                                                   endAdornment={
+                                                       <InputAdornment position={'end'}>
+                                                           <IconButton onClick={() => {
+                                                               handleCopy(encodedYourUrl)
+                                                           }}>
+                                                               <CopyAllOutlined/>
+                                                           </IconButton>
+                                                       </InputAdornment>
+                                                   }
+                                    />
+                                </Box>
                             </Box>
+
                             <FormControlLabel
                                 control={<Checkbox checked={autoExecuteCheckboxStatus} onChange={handleCheckboxChange}
                                                    name="checkedA"/>}
                                 label="Automatically execute the script after loading"
                             />
-                        </DialogContent>
+                        </MuiDialogContent>
                         <DialogActions>
                             <Button autoFocus onClick={handleClose} color="primary">
                                 Done
