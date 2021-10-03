@@ -43,6 +43,14 @@ const theme = createTheme({
                     boxShadow: defaultShadow
                 }
             }
+        },
+        MuiListItemIcon: {
+            styleOverrides: {
+                root: {
+                    minWidth: '22px',
+                    marginRight: '12px'
+                }
+            }
         }
     }
 });

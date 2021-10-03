@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Tooltip} from '@mui/material';
+import {Box, Drawer, List, ListItem, ListItemButton, ListItemText, Tooltip} from '@mui/material';
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import SideBarItem from './SideBarItem';
@@ -7,6 +7,7 @@ import {tutorials} from '../../tutorials';
 import {Theme} from '@mui/material/styles';
 import clsx from 'clsx';
 import DelButton from "./DelButton";
+import {BookOutlined, CodeOutlined} from "@mui/icons-material";
 
 interface SideBarProps {
     handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
@@ -17,7 +18,7 @@ interface SideBarProps {
     siderBarOpen: boolean;
 }
 
-const drawerWidth = 240;
+const drawerWidth = 230;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -127,69 +128,63 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
             <Box sx={{borderRight: '1px solid rgba(0, 0, 0, 0.12)', height: '100%'}}>
                 <List dense>
                     <SideBarItem
+                        icon={<BookOutlined/>}
                         handleSideBarItemClick={handleSideBarItemClick}
                         name={'Tutorials'}
                         open={open}>
-                        <Collapse in={true} timeout="auto" unmountOnExit>
-                            <List>
-                                {tutorials.map((tutorial: { description: React.ReactNode }, i: number) => {
-                                    return (
-                                        <Tooltip
-                                            key={`${i}-${Date.now()}`}
-                                            placement="top"
-                                            title={tutorial.description as string}
-                                            arrow>
-                                            <ListItemButton dense>
-                                                <ListItem
-                                                    dense
-                                                    onClick={(e) => handleLoadTutorial(e, i)}>
-                                                    <ListItemText>
-                                                      <span className={classes.listItem}>
+                        {tutorials.map((tutorial: { description: React.ReactNode }, i: number) => {
+                            return (
+                                <Tooltip
+                                    key={`${i}-${Date.now()}`}
+                                    placement="top"
+                                    title={tutorial.description as string}
+                                    arrow>
+                                    <ListItemButton dense>
+                                        <ListItem
+                                            dense
+                                            onClick={(e) => handleLoadTutorial(e, i)}>
+                                            <ListItemText>
+                                                      <span>
                                                         {i + 1}. {tutorial.description}
                                                       </span>
-                                                    </ListItemText>
-                                                </ListItem>
-                                            </ListItemButton>
-                                        </Tooltip>
-                                    );
-                                })}
-                            </List>
-                        </Collapse>
+                                            </ListItemText>
+                                        </ListItem>
+                                    </ListItemButton>
+                                </Tooltip>
+                            );
+                        })}
                     </SideBarItem>
 
                     <SideBarItem
+                        icon={<CodeOutlined/>}
                         handleSideBarItemClick={handleSideBarItemClick}
                         name={'Local Code'}
                         open={open}>
-                        <Collapse in={true} timeout="auto" unmountOnExit>
-                            <List>
-                                {localList.length > 0 &&
-                                localList.map((item: { description: string; source: string }, i: number) => {
-                                    return (
-                                        <Tooltip
-                                            key={`${i}-${Date.now()}`}
-                                            placement="top"
-                                            title={item.description}
-                                            arrow>
-                                            <ListItemButton dense>
-                                                <ListItem
-                                                    secondaryAction={
-                                                        <DelButton name={item.description}
-                                                                   getLocalCodeList={getLocalCodeList}/>
-                                                    }
-                                                    dense
-                                                    onClick={() => handleLoadFile(item.source)}>
-                                                    <ListItemText>
-                                                        <span>{item.description}</span>
-                                                    </ListItemText>
+                        {localList.length > 0 &&
+                        localList.map((item: { description: string; source: string }, i: number) => {
+                            return (
+                                <Tooltip
+                                    key={`${i}-${Date.now()}`}
+                                    placement="top"
+                                    title={item.description}
+                                    arrow>
+                                    <ListItemButton dense>
+                                        <ListItem
+                                            secondaryAction={
+                                                <DelButton name={item.description}
+                                                           getLocalCodeList={getLocalCodeList}/>
+                                            }
+                                            dense
+                                            onClick={() => handleLoadFile(item.source)}>
+                                            <ListItemText>
+                                                <span>{item.description}</span>
+                                            </ListItemText>
 
-                                                </ListItem>
-                                            </ListItemButton>
-                                        </Tooltip>
-                                    );
-                                })}
-                            </List>
-                        </Collapse>
+                                        </ListItem>
+                                    </ListItemButton>
+                                </Tooltip>
+                            );
+                        })}
                     </SideBarItem>
                 </List>
             </Box>

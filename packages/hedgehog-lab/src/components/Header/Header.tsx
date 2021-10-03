@@ -219,10 +219,11 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
                     <Typography
                         variant={lgBreakpointMatches ? 'h6' : 'body1'}
-                        style={{
+                        sx={{
                             flexGrow: 1,
                             display: 'flex',
-                            alignItems: 'center'
+                            alignItems: 'center',
+                            fontWeight: 600
                         }}>
                         Hedgehog Lab
                     </Typography>
