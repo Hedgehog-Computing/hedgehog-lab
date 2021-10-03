@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar, Tooltip} from '@mui/material';
+import {Box, Collapse, Drawer, List, ListItem, ListItemButton, ListItemText, Tooltip} from '@mui/material';
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import SideBarItem from './SideBarItem';
@@ -123,9 +123,8 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
                     [classes.drawerClose]: !siderBarOpen
                 })
             }}>
-            <Toolbar/>
 
-            <div className={classes.drawerContainer}>
+            <Box sx={{borderRight: '1px solid rgba(0, 0, 0, 0.12)', height: '100%'}}>
                 <List dense>
                     <SideBarItem
                         handleSideBarItemClick={handleSideBarItemClick}
@@ -193,7 +192,7 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
                         </Collapse>
                     </SideBarItem>
                 </List>
-            </div>
+            </Box>
         </Drawer>
     );
 };
