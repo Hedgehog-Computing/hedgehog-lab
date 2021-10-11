@@ -6,8 +6,9 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {Alert, IconButton, Snackbar, Tooltip} from "@mui/material";
-import {Close, SaveOutlined} from "@mui/icons-material";
+import {IconButton, Tooltip} from "@mui/material";
+import {SaveOutlined} from "@mui/icons-material";
+import {useSnackbar} from "notistack";
 
 interface SaveButtonProps {
     getLocalCodeList: () => void;
@@ -20,7 +21,7 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
     const [open, setOpen] = useState(false);
     const [name, setName] = useState('');
     const [error, setError] = useState(false);
-    const [success, setSuccess] = useState(false);
+    const {enqueueSnackbar} = useSnackbar()
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -50,7 +51,8 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
         getLocalCodeList();
         setOpen(false);
         setName('');
-        setSuccess(true)
+
+        enqueueSnackbar(`Saved ${name}`, {variant: 'success'})
     };
 
     return (
@@ -90,28 +92,6 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
                     </Button>
                 </DialogActions>
             </Dialog>
-
-            <Snackbar
-                open={success}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-                autoHideDuration={6000}
-                onClose={() => {
-                    setSuccess(false)
-                }}
-            >
-                <Alert severity={'success'} action={
-                    <IconButton size={"small"} onClick={() => {
-                        setSuccess(false)
-                    }}>
-                        <Close fontSize={"small"}/>
-                    </IconButton>
-                }>
-                    Saved!
-                </Alert>
-            </Snackbar>
         </React.Fragment>
     );
 };
