@@ -18,6 +18,7 @@
     "esbuild-loader": "^2.9.1",
     "ky": "^0.23.0",
     "monaco-editor": "^0.23.0",
+    "notistack": "^2.0.2",
     "plotly.js": "^1.54.6",
     "qs": "^6.9.4",
     "react": "^16.13.1",
@@ -32,6 +33,7 @@
     "react-table": "^7.7.0",
     "react-use": "^17.3.1",
     "styled-components": "^5.3.0",
+    "typescript": "^3.9.7",
     "worker-loader": "^2.0.0"
   },
   "devDependencies": {

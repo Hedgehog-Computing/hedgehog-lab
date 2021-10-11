@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
     AppBar,
     Button,
@@ -7,7 +7,6 @@ import {
     IconButton,
     InputAdornment,
     OutlinedInput,
-    Snackbar,
     Toolbar,
     Typography
 } from '@mui/material';
@@ -26,6 +25,7 @@ import Box from '@mui/material/Box';
 import {HEDGEHOG_DOMAIN} from "../../config"
 import {CopyAllOutlined, InsertDriveFileOutlined, MenuOutlined, ShareOutlined} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
+import {useSnackbar} from "notistack";
 
 interface HeaderProps {
     siderBarOpen: boolean;
@@ -83,10 +83,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
 
-    const [copySnack, setCopySnack] = useState<ICopySnack>({
-        open: false,
-        message: ''
-    })
+    const {enqueueSnackbar} = useSnackbar()
 
     const classes = useStyles();
 
@@ -95,14 +92,16 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         const state = copyToClipboardState.error
 
         if (state !== undefined) {
-            setCopySnack({open: true, message: state.message})
+            enqueueSnackbar(state.message, {
+                variant: 'error'
+            })
+        } else {
+            const snackBarMessage = url.length > 40 ? url.slice(0, 40) : url
+
+            enqueueSnackbar(`Copied ${snackBarMessage}...`, {
+                variant: 'success'
+            })
         }
-
-        setCopySnack({open: true, message: 'Copied!'})
-    }
-
-    const handleCopySnackBarClose = () => {
-        setCopySnack({open: false})
     }
 
     const handleSideBarOpen = () => {
@@ -195,11 +194,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                                                        </InputAdornment>
                                                    }
                                     />
-
-                                    <Snackbar autoHideDuration={2000} open={copySnack.open}
-                                              onClose={handleCopySnackBarClose}
-                                              message={copySnack.message}/>
-
                                 </Box>
 
 
@@ -221,12 +215,12 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                                         />
 
                                         <OutlinedInput size={'small'} fullWidth
-                                                       multiline label="The generated shareable URL"
-                                                       value={encodedYourUrl}
+                                                       multiline
+                                                       value={yourUrl && encodedYourUrl}
                                                        onFocus={handleFocus}
                                                        endAdornment={
                                                            <InputAdornment position={'end'}>
-                                                               <IconButton onClick={() => {
+                                                               <IconButton disabled={!yourUrl} onClick={() => {
                                                                    handleCopy(encodedYourUrl)
                                                                }}>
                                                                    <CopyAllOutlined/>
