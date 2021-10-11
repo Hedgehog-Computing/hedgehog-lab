@@ -67,11 +67,6 @@ const encodingShareableUrlWithURL = (yourUrl: string, autoRun: boolean): string 
 }
 
 
-interface ICopySnack {
-    open?: boolean,
-    message?: string
-}
-
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     const {siderBarOpen, setOpen, lgBreakpointMatches, source} = props;
 
