@@ -17,13 +17,15 @@ const SideBarItem: React.FC<SideBarItemProps & HTMLAttributes<HTMLElement>> = (
     return (
         <React.Fragment>
             <ListItem disableGutters dense button onClick={() => handleSideBarItemClick(name)}>
-                <ListItemIcon>
-                    <IconButton size={"small"} color={'primary'}>
+                <ListItemIcon sx={{minWidth: 'auto'}}>
+                    <IconButton size={"small"} color={'primary'} sx={{
+                        'svg': {fontSize: '20px'}
+                    }}>
                         {icon}
                     </IconButton>
                 </ListItemIcon>
 
-                <ListItemText>
+                <ListItemText sx={{px: '4px'}}>
                     <Typography variant={'body2'} sx={{fontWeight: 550}}>
                         {name}
                     </Typography>
