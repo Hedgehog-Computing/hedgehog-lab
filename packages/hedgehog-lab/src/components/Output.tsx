@@ -3,13 +3,14 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 import MathJax from 'react-mathjax';
 import Markdown from 'react-markdown';
-
+import TableComponent from './OutputItemCompoments/TableComponent';
 import {
   OutputItem,
   isDrawingItem,
   isTeXItem,
   isFormulaItem,
-  isMarkdownItem
+  isMarkdownItem,
+  isTableItem
 } from '@hedgehog/core';
 
 const Output = ({ outputItemList }: { outputItemList: OutputItem[] }) => {
@@ -34,6 +35,8 @@ const Output = ({ outputItemList }: { outputItemList: OutputItem[] }) => {
       );
     } else if (isMarkdownItem(item)) {
       return <Markdown source={item.text} />;
+    } else if (isTableItem(item)){
+      return <TableComponent tableItem = {item} />;
     } else {
       return <React.Fragment />;
     }

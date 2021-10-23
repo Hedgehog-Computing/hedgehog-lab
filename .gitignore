@@ -131,6 +131,9 @@ dist
 # Vscode setting file
 .vscode
 
+# IDEA setting file
+.idea
+
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 

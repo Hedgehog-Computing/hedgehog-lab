@@ -13,7 +13,7 @@ export class Chol {
     const n = A.rows;
 
     //matrix L
-    let L = new Mat().zeros(n, n);
+    const L = new Mat().zeros(n, n);
 
     //iteration
     for (let i = 0; i < n; i++) {
@@ -41,7 +41,7 @@ export class LU {
   U: Mat;
   P: Mat;
   constructor(A: Mat) {
-    let result = lup(A.val);
+    const result = lup(A.val);
     this.L = new Mat(result.L as any);
     this.U = new Mat(result.U as any);
     this.P = new Mat(result.P);
@@ -53,7 +53,7 @@ export class QR {
   Q: Mat;
   R: Mat;
   constructor(A: Mat) {
-    let result = qr(A.val);
+    const result = qr(A.val);
     this.Q = new Mat(result.Q as any);
     this.R = new Mat(result.R as any);
   }

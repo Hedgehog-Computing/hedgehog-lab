@@ -1,20 +1,20 @@
 import React from 'react';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles';
 import './App.css';
 import HedgehogLab from './HedgehogLab';
+import {SnackbarProvider} from "notistack";
+import {labTheme} from "./config/labTheme";
 
-const theme = createMuiTheme({
-  palette: {
-    type: 'light'
-  }
-});
-
-const App = () => (
-  <div className="App">
-    <ThemeProvider theme={theme}>
-      <HedgehogLab />
-    </ThemeProvider>
-  </div>
+const App = (): React.ReactElement => (
+    <div className="App">
+        <SnackbarProvider maxSnack={3}>
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={labTheme}>
+                    <HedgehogLab/>
+                </ThemeProvider>
+            </StyledEngineProvider>
+        </SnackbarProvider>
+    </div>
 );
 
 export default App;

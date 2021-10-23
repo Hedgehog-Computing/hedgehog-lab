@@ -4,9 +4,9 @@ import {
   TextareaAutosize,
   Card,
   CardContent,
-} from '@material-ui/core';
-import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
-import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
+} from '@mui/material';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import Output from '../Output';
 import { OutputItem } from '@hedgehog/core';
 

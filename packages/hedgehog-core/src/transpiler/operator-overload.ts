@@ -42,13 +42,11 @@ export default function ({ types: t }: { types: typeof types }) {
 
         const func = invokedTemplate(path.node.operator)({
           LEFT_ARG: path.scope.generateUidIdentifier('left'),
-          RIGHT_ARG: path.scope.generateUidIdentifier('right'),
+          RIGHT_ARG: path.scope.generateUidIdentifier('right')
         }).expression;
 
-        path.replaceWith(
-          t.callExpression(func, [path.node.left, path.node.right])
-        );
-      },
-    },
+        path.replaceWith(t.callExpression(func, [path.node.left, path.node.right]));
+      }
+    }
   };
 }
