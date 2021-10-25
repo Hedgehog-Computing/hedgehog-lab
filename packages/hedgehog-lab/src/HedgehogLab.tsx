@@ -21,6 +21,8 @@ const DEFAULT_SOURCE = `//write your code here
 print("hello world")
 `;
 
+const lastRunningCode = localStorage.getItem('lastRunningCode')
+
 const HedgehogLab: React.FC = () => {
     const [source, setSource] = useState<string>(DEFAULT_SOURCE);
     const [input, setInput] = useState<string>('');
@@ -75,16 +77,15 @@ const HedgehogLab: React.FC = () => {
     let code = "print('hello world');";
 
 
+    if (lastRunningCode) {
+        code = lastRunningCode as string
+    }
+
     if (params) {
         const obj = Qs.parse(params, {ignoreQueryPrefix: true});
         yourUrl = obj.your_url ? (obj.your_url as string) : null;
         autoRun = obj.auto_run === 'true';
         code = obj.code ? (obj.code as string) : "";
-    } else {
-        const lastRunningCode = localStorage.getItem('lastRunningCode')
-        if (lastRunningCode) {
-            code = lastRunningCode
-        }
     }
 
 
