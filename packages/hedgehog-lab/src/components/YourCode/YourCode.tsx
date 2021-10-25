@@ -34,6 +34,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
     const handleUploadSource: ControlledEditorOnChange = (e, v) => {
         setSource(v as string);
+        localStorage.setItem('lastRunningCode', v as string)
     };
 
     const options = {

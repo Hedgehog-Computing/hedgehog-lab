@@ -80,7 +80,11 @@ const HedgehogLab: React.FC = () => {
         yourUrl = obj.your_url ? (obj.your_url as string) : null;
         autoRun = obj.auto_run === 'true';
         code = obj.code ? (obj.code as string) : "";
-        console.log(code);
+    } else {
+        const lastRunningCode = localStorage.getItem('lastRunningCode')
+        if (lastRunningCode) {
+            code = lastRunningCode
+        }
     }
 
 
