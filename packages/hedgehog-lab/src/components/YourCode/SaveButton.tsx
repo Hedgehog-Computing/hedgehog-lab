@@ -57,7 +57,7 @@ const SaveButton: React.FC<SaveButtonProps> = (props: SaveButtonProps) => {
 
     return (
         <React.Fragment>
-            <Tooltip title={'Save'}>
+            <Tooltip arrow title={'Save'}>
                 <label>
                     <IconButton onClick={handleClickOpen}>
                         <SaveOutlined/>

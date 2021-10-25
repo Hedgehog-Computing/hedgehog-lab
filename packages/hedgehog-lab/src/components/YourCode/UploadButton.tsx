@@ -38,7 +38,7 @@ const UploadButton: React.FC<UploadButtonProps> = (props: UploadButtonProps) => 
                 onChange={handleFileChange}
                 style={{display: "none"}}
             />
-            <Tooltip title={'Upload'}>
+            <Tooltip arrow title={'Upload'}>
                 <label htmlFor="contained-button-file">
                     <IconButton component="span">
                         <CloudUploadOutlined/>
