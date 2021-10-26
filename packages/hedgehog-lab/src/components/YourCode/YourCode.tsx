@@ -1,12 +1,12 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
-import {Button, Card, CardContent, CardHeader} from '@mui/material';
+import {Button, Card, CardContent} from '@mui/material';
 import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import {queryCache} from 'react-query';
 import ResizeObserver from 'react-resize-detector';
 import SaveButton from "./SaveButton";
 import UploadButton from "./UploadButton";
-import {PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
+import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 
 const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
@@ -31,9 +31,19 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
     const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
 
+    const [codeSavingFlag, setCodeSavingFlag] = useState(false)
+
+    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
     const handleUploadSource: ControlledEditorOnChange = (e, v) => {
         setSource(v as string);
+
+        setCodeSavingFlag(true)
+        // save code to local storage
+        sleep(1000).then(() => {
+            localStorage.setItem('lastRunningCode', v as string)
+            setCodeSavingFlag(false)
+        })
     };
 
     const options = {
@@ -59,51 +69,55 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
     return (
         <div style={{height: '100%'}}>
-            <Card className={'your-code-card'} style={{height: '100%'}}>
-                <CardHeader
-                    action={
-                        <div className="run-button">
-                            <UploadButton handleLoadFile={handleLoadFile}/>
-                            <SaveButton getLocalCodeList={getLocalCodeList} source={source}/>
-                            {loading ? (
-                                <Button
-                                    endIcon={<StopCircleOutlined/>}
-                                    variant="contained"
-                                    color="error"
-                                    size="small"
-                                    style={{
-                                        textTransform: 'none',
-                                    }}
+            <Card sx={{height: '100%', borderRadius: 0}}>
+                <CardContent sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
+                    <Button size={'small'} variant={'outlined'} endIcon={
+                        codeSavingFlag && (<FiberManualRecord/>)
+                    }>
+                        Your Code
+                    </Button>
+
+                    <div>
+                        <UploadButton handleLoadFile={handleLoadFile}/>
+                        <SaveButton getLocalCodeList={getLocalCodeList} source={source}/>
+                        {loading ? (
+                            <Button
+                                endIcon={<StopCircleOutlined/>}
+                                variant="contained"
+                                color="error"
+                                size="small"
+                                style={{
+                                    textTransform: 'none',
+                                }}
 
 
-                                    onClick={() => {
-                                        // stop the web-worker
-                                        queryCache.cancelQueries(['compiler']);
-                                        // set result to initial state
-                                        queryCache.setQueryData(['compiler', source], (data) => ({
-                                            outputItem: [],
-                                            outputString: ''
-                                        }));
-                                    }}>
-                                    Stop
-                                </Button>
-                            ) : (
-                                <Button
-                                    endIcon={<PlayCircleOutline/>}
-                                    id={COMPILE_AND_RUN_BUTTON_ID}
-                                    variant="contained"
-                                    color="primary"
-                                    size="small"
-                                    onClick={(e) => handleCompileAndRun(e)}
-                                    style={{
-                                        textTransform: 'none'
-                                    }}>
-                                    Run
-                                </Button>
-                            )}
-                        </div>
-                    }
-                />
+                                onClick={() => {
+                                    // stop the web-worker
+                                    queryCache.cancelQueries(['compiler']);
+                                    // set result to initial state
+                                    queryCache.setQueryData(['compiler', source], (data) => ({
+                                        outputItem: [],
+                                        outputString: ''
+                                    }));
+                                }}>
+                                Stop
+                            </Button>
+                        ) : (
+                            <Button
+                                endIcon={<PlayCircleOutline/>}
+                                id={COMPILE_AND_RUN_BUTTON_ID}
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                onClick={(e) => handleCompileAndRun(e)}
+                                style={{
+                                    textTransform: 'none'
+                                }}>
+                                Run
+                            </Button>
+                        )}
+                    </div>
+                </CardContent>
 
 
                 <CardContent>
@@ -127,7 +141,6 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                                 options={options}
                                 editorDidMount={handleEditorDidMount}
                             />
-
                         </div>
                     </ResizeObserver>
                 </CardContent>
