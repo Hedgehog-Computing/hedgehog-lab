@@ -1,15 +1,160 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
-import {Button, Card, CardContent, ClickAwayListener} from '@mui/material';
-import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Button, Card, CardContent, ClickAwayListener, Paper, useTheme } from '@mui/material';
+import { ControlledEditor, ControlledEditorOnChange, monaco } from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
-import {queryCache} from 'react-query';
+import { queryCache } from 'react-query';
 import ResizeObserver from 'react-resize-detector';
 import SaveButton from "./SaveButton";
 import UploadButton from "./UploadButton";
-import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
-import {usePageLeave} from "react-use";
+import { FiberManualRecord, PlayCircleOutline, StopCircleOutlined } from "@mui/icons-material";
+import { usePageLeave } from "react-use";
 
 const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
+
+const monacoTheme: any = {
+    "base": "vs-dark",
+    "inherit": true,
+    "rules": [
+        {
+            "background": "0C1021",
+            "token": ""
+        },
+        {
+            "foreground": "aeaeae",
+            "token": "comment"
+        },
+        {
+            "foreground": "d8fa3c",
+            "token": "constant"
+        },
+        {
+            "foreground": "ff6400",
+            "token": "entity"
+        },
+        {
+            "foreground": "fbde2d",
+            "token": "keyword"
+        },
+        {
+            "foreground": "fbde2d",
+            "token": "storage"
+        },
+        {
+            "foreground": "61ce3c",
+            "token": "string"
+        },
+        {
+            "foreground": "61ce3c",
+            "token": "meta.verbatim"
+        },
+        {
+            "foreground": "8da6ce",
+            "token": "support"
+        },
+        {
+            "foreground": "ab2a1d",
+            "fontStyle": "italic",
+            "token": "invalid.deprecated"
+        },
+        {
+            "foreground": "f8f8f8",
+            "background": "9d1e15",
+            "token": "invalid.illegal"
+        },
+        {
+            "foreground": "ff6400",
+            "fontStyle": "italic",
+            "token": "entity.other.inherited-class"
+        },
+        {
+            "foreground": "ff6400",
+            "token": "string constant.other.placeholder"
+        },
+        {
+            "foreground": "becde6",
+            "token": "meta.function-call.py"
+        },
+        {
+            "foreground": "7f90aa",
+            "token": "meta.tag"
+        },
+        {
+            "foreground": "7f90aa",
+            "token": "meta.tag entity"
+        },
+        {
+            "foreground": "ffffff",
+            "token": "entity.name.section"
+        },
+        {
+            "foreground": "d5e0f3",
+            "token": "keyword.type.variant"
+        },
+        {
+            "foreground": "f8f8f8",
+            "token": "source.ocaml keyword.operator.symbol"
+        },
+        {
+            "foreground": "8da6ce",
+            "token": "source.ocaml keyword.operator.symbol.infix"
+        },
+        {
+            "foreground": "8da6ce",
+            "token": "source.ocaml keyword.operator.symbol.prefix"
+        },
+        {
+            "fontStyle": "underline",
+            "token": "source.ocaml keyword.operator.symbol.infix.floating-point"
+        },
+        {
+            "fontStyle": "underline",
+            "token": "source.ocaml keyword.operator.symbol.prefix.floating-point"
+        },
+        {
+            "fontStyle": "underline",
+            "token": "source.ocaml constant.numeric.floating-point"
+        },
+        {
+            "background": "ffffff08",
+            "token": "text.tex.latex meta.function.environment"
+        },
+        {
+            "background": "7a96fa08",
+            "token": "text.tex.latex meta.function.environment meta.function.environment"
+        },
+        {
+            "foreground": "fbde2d",
+            "token": "text.tex.latex support.function"
+        },
+        {
+            "foreground": "ffffff",
+            "token": "source.plist string.unquoted"
+        },
+        {
+            "foreground": "ffffff",
+            "token": "source.plist keyword.operator"
+        }
+    ],
+    "colors": {
+        "editor.foreground": "#F8F8F8",
+        "editor.background": "#0C1021",
+        "editor.selectionBackground": "#253B76",
+        "editor.lineHighlightBackground": "#FFFFFF0F",
+        "editorCursor.foreground": "#FFFFFFA6",
+        "editorWhitespace.foreground": "#FFFFFF40"
+    }
+}
+
+monaco.init().then(monaco => {
+    monaco.editor.defineTheme('monacoDarkTheme', monacoTheme)
+
+    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+        noSyntaxValidation: true,
+        noSemanticValidation: true
+    })
+}
+).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
+
 
 interface YourCodeProps {
     handleCompileAndRun: (event: React.MouseEvent) => void;
@@ -20,17 +165,16 @@ interface YourCodeProps {
     handleLoadFile: (str: string) => void;
 }
 
-monaco.init().then(monaco =>
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-        noSyntaxValidation: true,
-        noSemanticValidation: true
-    })).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
-    const {handleCompileAndRun, loading, setSource, source, getLocalCodeList, handleLoadFile} = props;
+    const theme = useTheme()
+
+    const { handleCompileAndRun, loading, setSource, source, getLocalCodeList, handleLoadFile } = props;
 
     const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
     const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
+
+    const [editorTheme, setEditorTheme] = useState<'monacoDarkTheme' | 'vs'>('vs')
 
     const [codeSavingFlag, setCodeSavingFlag] = useState(false)
 
@@ -71,22 +215,26 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         setEditor(editor);
     };
 
+    useEffect(() => {
+        theme.palette.mode === 'dark' ? setEditorTheme('monacoDarkTheme') : setEditorTheme('vs')
+    })
+
     return (
-        <div style={{height: '100%'}}>
-            <Card sx={{height: '100%', borderRadius: 0}}>
-                <CardContent sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
+        <div style={{ height: '100%' }}>
+            <Paper sx={{ height: '100%', borderRadius: 0 }}>
+                <CardContent sx={{ display: 'flex', alignContent: 'center', justifyContent: 'space-between' }}>
                     <Button size={'small'} variant={'outlined'} endIcon={
-                        codeSavingFlag && (<FiberManualRecord/>)
+                        codeSavingFlag && (<FiberManualRecord />)
                     }>
                         Your Code
                     </Button>
 
                     <div>
-                        <UploadButton handleLoadFile={handleLoadFile}/>
-                        <SaveButton getLocalCodeList={getLocalCodeList} source={source}/>
+                        <UploadButton handleLoadFile={handleLoadFile} />
+                        <SaveButton getLocalCodeList={getLocalCodeList} source={source} />
                         {loading ? (
                             <Button
-                                endIcon={<StopCircleOutlined/>}
+                                endIcon={<StopCircleOutlined />}
                                 variant="contained"
                                 color="error"
                                 size="small"
@@ -108,7 +256,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                             </Button>
                         ) : (
                             <Button
-                                endIcon={<PlayCircleOutline/>}
+                                endIcon={<PlayCircleOutline />}
                                 id={COMPILE_AND_RUN_BUTTON_ID}
                                 variant="contained"
                                 color="primary"
@@ -145,13 +293,14 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                                     onChange={handleUploadSource}
                                     options={options}
                                     editorDidMount={handleEditorDidMount}
+                                    theme={editorTheme}
                                 />
                             </div>
                         </ResizeObserver>
                     </ClickAwayListener>
 
                 </CardContent>
-            </Card>
+            </Paper>
         </div>
     );
 };
