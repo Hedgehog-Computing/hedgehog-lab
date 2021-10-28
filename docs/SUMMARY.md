@@ -21,4 +21,5 @@
   * [Module Management](tutorials/module-management.md)
   * [GPU Acceleration](tutorials/gpu-acceleration.md)
   * [Share code via URL](tutorials/share-code-via-url.md)
+* [Contribute to this book](contribute.md)
 
