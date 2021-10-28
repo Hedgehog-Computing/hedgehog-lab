@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import './App.css';
 import HedgehogLab from './HedgehogLab';
@@ -9,6 +9,7 @@ export const ColorModeContext = React.createContext({ toggleColorMode: () => { }
 
 const App = (): React.ReactElement => {
     const [mode, setMode] = React.useState<'light' | 'dark'>('light');
+
     const colorMode = React.useMemo(
         () => ({
             toggleColorMode: () => {
@@ -17,6 +18,7 @@ const App = (): React.ReactElement => {
         }),
         [],
     );
+
     return (
         <div className="App">
             <SnackbarProvider maxSnack={3}>

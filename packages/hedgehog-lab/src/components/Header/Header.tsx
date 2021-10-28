@@ -115,12 +115,11 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     const theme = useTheme()
 
-    const handleThemeSwitch = () => {
-        console.log(123)
-    }
-
     const colorMode = React.useContext(ColorModeContext);
 
+    const handleThemeSwitch = () => {
+        colorMode.toggleColorMode()
+    }
 
     useEffect(() => {
         if (source.length > 0) {
@@ -263,7 +262,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                             />
                         </Button>
 
-                        <IconButton onClick={colorMode.toggleColorMode}>
+                        <IconButton onClick={handleThemeSwitch}>
                             {theme.palette.mode === 'light' ? (<NightsStayOutlined />) : (<WbSunnyOutlined />)}
                         </IconButton>
                     </Box>
