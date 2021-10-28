@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import {
     AppBar,
     Button,
@@ -8,9 +8,10 @@ import {
     InputAdornment,
     OutlinedInput,
     Toolbar,
-    Typography
+    Typography,
+    useTheme
 } from '@mui/material';
-import {Theme} from '@mui/material/styles';
+import { Theme } from '@mui/material/styles';
 import makeStyles from '@mui/styles/makeStyles';
 import createStyles from '@mui/styles/createStyles';
 import withStyles from '@mui/styles/withStyles';
@@ -22,10 +23,11 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
-import {HEDGEHOG_DOMAIN} from "../../config"
-import {CopyAllOutlined, InsertDriveFileOutlined, MenuOutlined, ShareOutlined} from "@mui/icons-material";
-import {useCopyToClipboard} from "react-use";
-import {useSnackbar} from "notistack";
+import { HEDGEHOG_DOMAIN } from "../../config"
+import { CopyAllOutlined, InsertDriveFileOutlined, MenuOutlined, NightsStayOutlined, ShareOutlined, WbSunnyOutlined } from "@mui/icons-material";
+import { useCopyToClipboard } from "react-use";
+import { useSnackbar } from "notistack";
+import { ColorModeContext } from '../../App';
 
 interface HeaderProps {
     siderBarOpen: boolean;
@@ -34,14 +36,6 @@ interface HeaderProps {
     source: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        appBar: {
-            zIndex: theme.zIndex.drawer + 1,
-            borderBottom: '1px solid #E0E0E0'
-        }
-    })
-);
 
 const DialogActions = withStyles((theme: Theme) => ({
     root: {
@@ -68,7 +62,7 @@ const encodingShareableUrlWithURL = (yourUrl: string, autoRun: boolean): string 
 
 
 const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
-    const {siderBarOpen, setOpen, lgBreakpointMatches, source} = props;
+    const { siderBarOpen, setOpen, lgBreakpointMatches, source } = props;
 
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const [encodedUrlWithSourceCode, setEncodedUrlWithSoourceCode] = React.useState("");
@@ -78,9 +72,7 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
 
-    const {enqueueSnackbar} = useSnackbar()
-
-    const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar()
 
     const handleCopy = (url: string) => {
         copyToClipboard(url);
@@ -121,6 +113,14 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         setYourUrl(event.target.value);
     }
 
+    const theme = useTheme()
+
+    const handleThemeSwitch = () => {
+        console.log(123)
+    }
+
+    const colorMode = React.useContext(ColorModeContext);
+
 
     useEffect(() => {
         if (source.length > 0) {
@@ -133,67 +133,67 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     return (
         <div>
-            <AppBar position="fixed" elevation={0} color="transparent" className={classes.appBar}
-                    sx={{width: siderBarOpen ? 'calc(100vw - 230px)' : '100%'}}>
-                <Toolbar variant="dense">
+            <AppBar position="fixed" elevation={0} color="inherit"
+                sx={{ width: siderBarOpen ? 'calc(100vw - 230px)' : '100%' }}>
+                <Toolbar >
                     {!siderBarOpen &&
-                    <>
-                        <IconButton
-                            edge="start"
-                            color="inherit"
-                            aria-label="menu"
-                            style={{display: 'inline'}}
-                            onClick={handleSideBarOpen}
-                            size="large">
-                            <MenuOutlined style={{fontSize: '1.25rem'}}/>
-                        </IconButton>
+                        <>
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                aria-label="menu"
+                                style={{ display: 'inline' }}
+                                onClick={handleSideBarOpen}
+                                size="large">
+                                <MenuOutlined style={{ fontSize: '1.25rem' }} />
+                            </IconButton>
 
-                        {lgBreakpointMatches &&
-                        <Typography
-                            variant={'h6'}
-                            sx={{
-                                fontWeight: 600,
-                                letterSpacing: 0,
-                                width: '100%'
-                            }}
-                        >
-                            Hedgehog Lab
-                        </Typography>}
-                    </>
+                            {lgBreakpointMatches &&
+                                <Typography
+                                    variant={'h6'}
+                                    sx={{
+                                        fontWeight: 600,
+                                        letterSpacing: 0,
+                                        width: '100%'
+                                    }}
+                                >
+                                    Hedgehog Lab
+                                </Typography>}
+                        </>
                     }
 
                     <Box display={'flex'} justifyContent={'end'} width={'100%'}>
                         <Button onClick={handleClickOpen} variant={'outlined'} size="small"
-                                startIcon={<ShareOutlined/>}>
+                            startIcon={<ShareOutlined />}>
                             Share
                         </Button>
 
                         <Dialog onClose={handleClose} aria-labelledby="Share your code via URL" open={dialogOpen}
-                                fullWidth={true} maxWidth={"lg"}>
+                            fullWidth={true} maxWidth={"lg"}>
                             <MuiDialogTitle id="share-your-code">
                                 Share your code via URL
                             </MuiDialogTitle>
                             <MuiDialogContent>
                                 <Box>
                                     <OutlinedInput id="outlined-basic" size="small" fullWidth
-                                                   multiline
-                                                   value={encodedUrlWithSourceCode}
-                                                   onFocus={handleFocus}
-                                                   endAdornment={
-                                                       <InputAdornment position={'end'}>
-                                                           <IconButton onClick={() => {
-                                                               handleCopy(encodedUrlWithSourceCode)
-                                                           }}>
-                                                               <CopyAllOutlined/>
-                                                           </IconButton>
-                                                       </InputAdornment>
-                                                   }
+                                        multiline
+                                        value={encodedUrlWithSourceCode}
+                                        onFocus={handleFocus}
+                                        endAdornment={
+                                            <InputAdornment position={'end'}>
+                                                <IconButton onClick={() => {
+                                                    handleCopy(encodedUrlWithSourceCode)
+                                                }}>
+                                                    <CopyAllOutlined />
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
                                     />
                                 </Box>
 
 
-                                <Divider sx={{py: 2}}/>
-                                <Box sx={{py: 2}}>
+                                <Divider sx={{ py: 2 }} />
+                                <Box sx={{ py: 2 }}>
 
 
                                     <DialogContentText>
@@ -203,33 +203,33 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
                                     <Box pt={1}>
                                         <TextField size={'small'} variant="outlined" fullWidth
-                                                   multiline label="Your Github or Github Gist raw URL"
-                                                   value={yourUrl}
-                                                   onChange={handleYourUrlTextAreaChange}
-                                                   sx={{mb: 2, mt: 1}}
+                                            multiline label="Your Github or Github Gist raw URL"
+                                            value={yourUrl}
+                                            onChange={handleYourUrlTextAreaChange}
+                                            sx={{ mb: 2, mt: 1 }}
                                         />
 
                                         <OutlinedInput size={'small'} fullWidth
-                                                       multiline
-                                                       value={yourUrl && encodedYourUrl}
-                                                       onFocus={handleFocus}
-                                                       endAdornment={
-                                                           <InputAdornment position={'end'}>
-                                                               <IconButton disabled={!yourUrl} onClick={() => {
-                                                                   handleCopy(encodedYourUrl)
-                                                               }}>
-                                                                   <CopyAllOutlined/>
-                                                               </IconButton>
-                                                           </InputAdornment>
-                                                       }
+                                            multiline
+                                            value={yourUrl && encodedYourUrl}
+                                            onFocus={handleFocus}
+                                            endAdornment={
+                                                <InputAdornment position={'end'}>
+                                                    <IconButton disabled={!yourUrl} onClick={() => {
+                                                        handleCopy(encodedYourUrl)
+                                                    }}>
+                                                        <CopyAllOutlined />
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
                                         />
                                     </Box>
                                 </Box>
 
                                 <FormControlLabel
                                     control={<Checkbox checked={autoExecuteCheckboxStatus}
-                                                       onChange={handleCheckboxChange}
-                                                       name="checkedA"/>}
+                                        onChange={handleCheckboxChange}
+                                        name="checkedA" />}
                                     label="Automatically execute the script after loading"
                                 />
                             </MuiDialogContent>
@@ -241,19 +241,19 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                         </Dialog>
 
                         <Button
-                            sx={{mx: '10px'}}
+                            sx={{ mx: '10px' }}
                             onClick={() => {
                                 window.open('https://hedgehog-book.github.io');
                             }}
                             size="small"
                             variant={'outlined'}
-                            startIcon={<InsertDriveFileOutlined/>}>
+                            startIcon={<InsertDriveFileOutlined />}>
                             Docs
                         </Button>
 
                         <Button
                             color="inherit"
-                            style={{textTransform: 'none', height: 36}}
+                            style={{ textTransform: 'none', height: 36 }}
                             onClick={() => {
                                 window.open('https://github.com/hedgehog-computing/hedgehog-lab');
                             }}>
@@ -262,8 +262,13 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                                 src="https://img.shields.io/github/stars/hedgehog-computing/hedgehog-lab?style=social"
                             />
                         </Button>
+
+                        <IconButton onClick={colorMode.toggleColorMode}>
+                            {theme.palette.mode === 'light' ? (<NightsStayOutlined />) : (<WbSunnyOutlined />)}
+                        </IconButton>
                     </Box>
                 </Toolbar>
+                <Divider />
             </AppBar>
         </div>
     );

@@ -23,7 +23,6 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
     <div style={{ height: '100%' }}>
       <Card
         style={{
-          backgroundColor: 'transparent',
           height: '100%',
           overflowY: 'auto',
           overflowX: 'auto'
@@ -41,9 +40,8 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
               <p>
                 {loading
                   ? 'Loading...'
-                  : `Please write your code on the ${
-                      document.body.clientWidth < 960 ? 'top' : 'left'
-                    } and click the 'Compile and run' button`}
+                  : `Please write your code on the ${document.body.clientWidth < 960 ? 'top' : 'left'
+                  } and click the 'Compile and run' button`}
               </p>
             </div>
           </div>
