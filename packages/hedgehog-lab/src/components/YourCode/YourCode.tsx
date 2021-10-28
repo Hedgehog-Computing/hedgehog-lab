@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useState} from 'react';
-import {Button, Card, CardContent} from '@mui/material';
+import {Button, Card, CardContent, ClickAwayListener} from '@mui/material';
 import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import {queryCache} from 'react-query';
@@ -7,6 +7,7 @@ import ResizeObserver from 'react-resize-detector';
 import SaveButton from "./SaveButton";
 import UploadButton from "./UploadButton";
 import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
+import {usePageLeave} from "react-use";
 
 const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
@@ -35,15 +36,18 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
     const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-    const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-        setSource(v as string);
-
-        setCodeSavingFlag(true)
-        // save code to local storage
-        sleep(1000).then(() => {
-            localStorage.setItem('lastRunningCode', v as string)
+    // save code to local storage
+    usePageLeave(() => autoSaveCode());
+    const autoSaveCode = () => {
+        sleep(100).then(() => {
+            localStorage.setItem('lastRunningCode', source as string)
             setCodeSavingFlag(false)
         })
+    }
+
+    const handleUploadSource: ControlledEditorOnChange = (e, v) => {
+        setSource(v as string);
+        setCodeSavingFlag(true)
     };
 
     const options = {
@@ -121,28 +125,31 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
 
                 <CardContent>
-                    <ResizeObserver
-                        onResize={(width, height) => {
-                            if (editor) {
-                                editor.layout();
-                                source
-                            }
-                        }}>
-                        <div
-                            style={{
-                                height: 'calc(100vh - 160px)'
-
+                    <ClickAwayListener onClickAway={autoSaveCode}>
+                        <ResizeObserver
+                            onResize={(width, height) => {
+                                if (editor) {
+                                    editor.layout();
+                                    source
+                                }
                             }}>
+                            <div
+                                style={{
+                                    height: 'calc(100vh - 160px)'
 
-                            <ControlledEditor
-                                language="javascript"
-                                value={source}
-                                onChange={handleUploadSource}
-                                options={options}
-                                editorDidMount={handleEditorDidMount}
-                            />
-                        </div>
-                    </ResizeObserver>
+                                }}>
+
+                                <ControlledEditor
+                                    language="javascript"
+                                    value={source}
+                                    onChange={handleUploadSource}
+                                    options={options}
+                                    editorDidMount={handleEditorDidMount}
+                                />
+                            </div>
+                        </ResizeObserver>
+                    </ClickAwayListener>
+
                 </CardContent>
             </Card>
         </div>
