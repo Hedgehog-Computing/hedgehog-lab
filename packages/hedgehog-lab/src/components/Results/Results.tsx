@@ -4,6 +4,7 @@ import {
   TextareaAutosize,
   Card,
   CardContent,
+  Paper,
 } from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
@@ -25,7 +26,8 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
         style={{
           height: '100%',
           overflowY: 'auto',
-          overflowX: 'auto'
+          overflowX: 'auto',
+          borderRadius: 0
         }}>
         {executionOutputList.length === 0 && executionOutputString === '' ? (
           <div className={'no-code'}>
@@ -47,23 +49,18 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
           </div>
         ) : (
           <React.Fragment>
-            <CardContent>
+            <Paper variant={'outlined'} sx={{ p: 2, minHeight: '100%', borderRadius: 0 }}>
               {executionOutputList.length > 0 && (
                 <div>
                   <Output outputItemList={executionOutputList} />
                 </div>
               )}
               {executionOutputString && (
-                <TextareaAutosize
-                  value={executionOutputString}
-                  style={{
-                    //fontSize: 16,
-                    fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace"
-                  }}
-                  disabled
-                />
+                <pre style={{ fontFamily: 'monospace', fontWeight: 400, fontSize: '1rem', lineHeight: '1.5' }}>
+                  {executionOutputString}
+                </pre>
               )}
-            </CardContent>
+            </Paper>
           </React.Fragment>
         )}
       </Card>
