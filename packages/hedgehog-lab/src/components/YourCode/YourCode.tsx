@@ -13,9 +13,10 @@ interface YourCodeProps {
     handleCompileAndRun: (event: React.MouseEvent) => void;
     source: string;
     loading: boolean;
-    setSource: Dispatch<SetStateAction<string>>;
+    //setSource: Dispatch<SetStateAction<string>>;
     getLocalCodeList: () => void;
     handleLoadFile: (str: string) => void;
+    setSourceAndUpdateTempCode: (str: string) => void;
 }
 
 monaco.init().then(monaco =>
@@ -25,14 +26,14 @@ monaco.init().then(monaco =>
     })).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
-    const {handleCompileAndRun, loading, setSource, source, getLocalCodeList, handleLoadFile} = props;
+    const {handleCompileAndRun, loading, /*setSource,*/ source, getLocalCodeList, handleLoadFile, setSourceAndUpdateTempCode} = props;
 
     const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
     const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
 
 
     const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-        setSource(v as string);
+        setSourceAndUpdateTempCode(v as string);
     };
 
     const options = {

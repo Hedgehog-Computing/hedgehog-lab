@@ -73,7 +73,7 @@ export class Table {
   /**
    * Insert a new row (array of string) at the end of table.
    */
-  insert(newTuple: string[]) {
+  insert(newTuple: string[]): void {
     if (newTuple.length === this.cols) {
       this.cells.push(newTuple);
     } else {

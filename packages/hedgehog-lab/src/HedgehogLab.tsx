@@ -14,9 +14,19 @@ import {queryCache, useQuery} from 'react-query';
 import type {OutputResult} from './compiler';
 import {compiler} from './compiler';
 
-const DEFAULT_SOURCE = `//write your code here
-print("hello world")
-`;
+const localStorageTempCodeOrEmptyString = (): string => {
+    const tempCode = localStorage.getItem('tempCode');
+    if (tempCode!==null) {
+        return tempCode;
+    }
+    else {
+        return `//write your code here
+        print("hello world")
+        `;
+    }
+}
+
+const DEFAULT_SOURCE = localStorageTempCodeOrEmptyString();
 
 const HedgehogLab: React.FC = () => {
     const [source, setSource] = useState<string>(DEFAULT_SOURCE);
@@ -26,6 +36,12 @@ const HedgehogLab: React.FC = () => {
     const lgBreakpointMatches = lgBreakpoint.matches;
     // SideBar open prop
     const [siderBarOpen, setOpen] = useState(false);  //lgBreakpointMatches);
+
+    const setSourceAndUpdateTempCode = (newSource: string) => {
+        setSource(newSource);
+        localStorage.setItem('tempCode', newSource);
+        console.log()
+    }
 
     const [result, setResult] = useState<OutputResult>({
         outputItem: [],
@@ -69,15 +85,15 @@ const HedgehogLab: React.FC = () => {
     let autoRun = false;
 
     // Code is an encoded string of script. If code string is not empty, hedgehog lab will decode the parameter string and load to code editor
-    let code = "print('hello world');";
+    let loadedCodeFromUrl = "";
 
 
     if (params) {
         const obj = Qs.parse(params, {ignoreQueryPrefix: true});
         yourUrl = obj.your_url ? (obj.your_url as string) : null;
         autoRun = obj.auto_run === 'true';
-        code = obj.code ? (obj.code as string) : "";
-        console.log(code);
+        loadedCodeFromUrl = obj.code ? (obj.code as string) : "";
+        console.log(loadedCodeFromUrl);
     }
 
 
@@ -159,19 +175,19 @@ const HedgehogLab: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        if (!!code) {
-            setSource(code);
+        if (!!loadedCodeFromUrl) {
+            setSource(loadedCodeFromUrl);
             if (autoRun === true) {
                 setResult({
                     outputItem: [],
                     outputString: ''
                 });
-                setInput(code)
+                setInput(loadedCodeFromUrl);
             }
         }
 
 
-    }, [autoRun, code])
+    }, [autoRun, loadedCodeFromUrl])
 
     return (
         <div>
@@ -207,7 +223,8 @@ const HedgehogLab: React.FC = () => {
                                 <Grid item xs={12} md={6}>
                                     <YourCode
                                         handleCompileAndRun={handleCompileAndRun}
-                                        setSource={setSource}
+                                        //setSource={setSource}
+                                        setSourceAndUpdateTempCode = {setSourceAndUpdateTempCode}
                                         source={source}
                                         loading={isLoading}
                                         getLocalCodeList={getLocalCodeList}
