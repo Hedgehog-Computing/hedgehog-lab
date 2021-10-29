@@ -1,0 +1,10 @@
+{ "title": "Hedgehog Book",
+  "plugins": ["responsive-iframes", "wide-page", "katex"] ,
+  "pluginsConfig": {
+    "fontsettings": {
+        "theme": "white",
+        "family": "sans", 
+        "size": 2   
+    }
+}
+}
