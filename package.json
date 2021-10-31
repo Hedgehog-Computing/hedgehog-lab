@@ -12,7 +12,9 @@
   },
   "scripts": {
     "watch": "lerna run --parallel watch",
-    "build": "lerna run build --stream"
+    "build": "lerna run build --stream",
+    "dev:lab": "lerna exec --scope hedgehog-lab yarn dev",
+    "build:lab": "lerna exec --scope hedgehog-lab yarn build"
   },
   "dependencies": {}
 }

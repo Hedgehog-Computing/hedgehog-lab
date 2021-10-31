@@ -31,6 +31,10 @@ yarn install
 yarn watch
 ```
 
+## User Manual
+
+Hedgehog Book: [https://hedgehog-book.github.io/](https://hedgehog-book.github.io/)
+
 ## Video Tutorial
 
 ### Youtube
