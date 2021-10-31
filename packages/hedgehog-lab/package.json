@@ -1,91 +1,23 @@
 {
-  "name": "@hedgehog/lab",
-  "version": "0.7.0",
-  "license": "Apache-2.0",
+  "name": "hedgehog-lab",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview",
+    "rsw:build": "rsw && npm run build"
+  },
   "dependencies": {
-    "@emotion/react": "^11.4.1",
-    "@emotion/styled": "^11.3.0",
-    "@hedgehog/core": "0.7.0",
-    "@monaco-editor/react": "^3.4.2",
-    "@mui/icons-material": "^5.0.4",
-    "@mui/lab": "^5.0.0-alpha.51",
-    "@mui/material": "^5.0.4",
-    "@mui/styles": "^5.0.1",
-    "@tensorflow/tfjs": "^2.7.0",
-    "clsx": "^1.1.1",
-    "codemirror": "^5.61.1",
-    "comlink": "^4.3.0",
-    "esbuild-loader": "^2.9.1",
-    "ky": "^0.23.0",
-    "monaco-editor": "^0.23.0",
-    "notistack": "^2.0.2",
-    "plotly.js": "^1.54.6",
-    "qs": "^6.9.4",
-    "react": "^16.13.1",
-    "react-codemirror2": "^7.2.1",
-    "react-dom": "^16.13.1",
-    "react-markdown": "^4.3.1",
-    "react-mathjax": "^1.0.1",
-    "react-monaco-editor": "^0.43.0",
-    "react-plotly.js": "^2.4.0",
-    "react-query": "^2.5.6",
-    "react-resize-detector": "^6.7.2",
-    "react-table": "^7.7.0",
-    "react-use": "^17.3.1",
-    "styled-components": "^5.3.0",
-    "typescript": "^3.9.7",
-    "worker-loader": "^2.0.0"
+    "comlink": "^4.3.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0"
   },
   "devDependencies": {
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.3.3",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/qs": "^6.9.4",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-mathjax": "^1.0.0",
-    "@types/react-plotly.js": "^2.2.4",
-    "@typescript-eslint/eslint-plugin": "^3.7.0",
-    "@typescript-eslint/parser": "^3.7.0",
-    "cross-env": "^7.0.2",
-    "customize-cra": "^1.0.0",
-    "eslint": "^7.5.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.3",
-    "husky": "^4.2.5",
-    "pre-commit": "^1.2.2",
-    "prettier": "^2.0.5",
-    "react-app-rewired": "^2.1.6",
-    "react-refresh": "^0.8.3",
-    "react-scripts": "3.4.1"
-  },
-  "scripts": {
-    "start": "cross-env CI=true react-app-rewired --max_old_space_size=8192 start",
-    "watch": "cross-env CI=true react-app-rewired --max_old_space_size=8192 start",
-    "build": "cross-env CI=true GENERATE_SOURCEMAP=false react-app-rewired --max_old_space_size=8192 build",
-    "test": "cross-env CI=true react-app-rewired test",
-    "eject": "react-scripts eject",
-    "prettier": "prettier --single-quote --write '**/*.{js,jsx,ts,tsx}'",
-    "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx "
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn lint"
-    }
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react-refresh": "^1.3.5",
+    "typescript": "^4.3.2",
+    "vite": "^2.5.0",
+    "vite-plugin-rsw": "^1.9.0"
   }
 }
