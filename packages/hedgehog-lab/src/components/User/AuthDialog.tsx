@@ -22,7 +22,7 @@ interface DialogProps {
     handleClickOpen?: () => void
 }
 
-const LoginButton = (props: DialogProps) => {
+const LoginButton: React.FC<DialogProps> = (props) => {
     const {handleClickOpen} = props
 
     return (
@@ -32,7 +32,7 @@ const LoginButton = (props: DialogProps) => {
     )
 }
 
-const DialogHeader = (props: DialogProps) => {
+const DialogHeader: React.FC<DialogProps> = (props) => {
     const {handleClose} = props
     return (
         <DialogTitle>
