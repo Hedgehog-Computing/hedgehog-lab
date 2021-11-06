@@ -2,15 +2,11 @@ import * as React from "react";
 import {IconButton, InputAdornment, Link, OutlinedInput, Typography} from "@mui/material";
 import {EmailOutlined, PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/icons-material";
 import Button from "@mui/material/Button";
+import IAuthFormState from "./IAuthFormState";
 
-interface ILoginFormState {
-    email: string;
-    password: string;
-    showPassword: boolean;
-}
 
 const LoginForm = () => {
-    const [loginValues, setLoginValues] = React.useState<ILoginFormState>({
+    const [loginValues, setLoginValues] = React.useState<IAuthFormState>({
         email: '',
         password: '',
         showPassword: false,
