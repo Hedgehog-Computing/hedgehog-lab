@@ -2,8 +2,8 @@ import * as React from "react";
 import {Box, Button, Link, Typography} from "@mui/material";
 import {IAuthFormProps} from "./IAuthFormProps";
 import {SubmitHandler, useForm} from "react-hook-form";
-import EmailInput from "../../Form/EmailInput";
-import PasswordInput from "../../Form/PasswordInput";
+import EmailInput from "../../Form/Email/EmailInput";
+import PasswordInput from "../../Form/Password/PasswordInput";
 
 const LoginAction = () =>
     (
