@@ -3,20 +3,16 @@ import {PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/
 import {Controller} from "react-hook-form";
 import * as React from "react";
 import {useState} from "react";
-import {IFormProps} from "./IFormProps";
-import {IAuthFormProps} from "../User/Auth/IAuthFormProps";
-import HOutlinedInput from "../Base/Input/HOutlinedInput";
-
-interface IPasswordInputProps extends IAuthFormProps {
-    handleClickShowPassword?: () => void,
-}
+import {IFormProps} from "../IFormProps";
+import HOutlinedInput from "../../Base/Input/HOutlinedInput";
+import {IPasswordProps} from "./IPasswordProps";
 
 const StartAdornment = () =>
     (
         <PasswordOutlined/>
     )
 
-const EndAdornment: React.FC<IPasswordInputProps> = (props) => {
+const EndAdornment: React.FC<IPasswordProps> = (props) => {
     const {handleClickShowPassword, showPassword} = props
 
     return (
