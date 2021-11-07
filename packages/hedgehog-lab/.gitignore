@@ -1,0 +1,14 @@
+.DS_Store
+
+node_modules
+dist
+*.local
+*.lock
+src/@hedgehog-core-wasm/
+
+# rust
+target/
+Cargo.lock
+pkg/
+/.rsw
+yarn-error.log*

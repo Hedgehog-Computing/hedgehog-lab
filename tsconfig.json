@@ -1,0 +1,19 @@
+{
+  "include": ["packages/*/src"],
+  "compilerOptions": {
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "strict": true,
+	"skipLibCheck": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "@hedgehog/*": ["packages/*/src"]
+    }
+  }
+}

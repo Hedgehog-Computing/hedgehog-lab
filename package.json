@@ -1,0 +1,21 @@
+{
+  "name": "@hedgehog/root",
+  "private": true,
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.22.1",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "watch": "lerna run --parallel watch",
+    "build": "lerna run build --stream",
+    "dev:lab": "lerna exec --scope hedgehog-lab yarn dev",
+    "build:lab": "lerna exec --scope hedgehog-lab yarn build",
+    "build:core-js": "lerna exec --scope hedgehog-core-js yarn build"
+  },
+  "dependencies": {}
+}
