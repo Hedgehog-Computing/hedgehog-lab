@@ -1,2 +1,5 @@
 node_modules
 lerna-debug.log
+packages/hedgehog-core-wasm/target/
+packages/hedgehog-core/dist
+.idea
