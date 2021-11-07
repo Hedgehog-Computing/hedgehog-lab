@@ -27,7 +27,7 @@ const EndAdornment: React.FC<IPasswordProps> = (props) => {
 }
 
 const PasswordInput: React.FC<IFormProps> = (props) => {
-    const {control} = props
+    const {control, error} = props
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -45,6 +45,8 @@ const PasswordInput: React.FC<IFormProps> = (props) => {
             render={({field}) =>
                 <HOutlinedInput
                     field={field}
+                    error={!!error?.password?.message}
+                    helperText={error?.password?.message}
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                         <EndAdornment handleClickShowPassword={handleClickShowPassword} showPassword={showPassword}/>

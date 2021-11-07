@@ -6,6 +6,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@hedgehog/core": "0.7.0",
+    "@hookform/error-message": "^2.0.0",
     "@monaco-editor/react": "^3.4.2",
     "@mui/icons-material": "^5.0.4",
     "@mui/lab": "^5.0.0-alpha.51",
