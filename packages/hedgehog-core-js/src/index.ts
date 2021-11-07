@@ -1,3 +1,7 @@
-export const fib = (i: number): number => {
-  return i === 0 || i === 1 ? i : fib(i - 1) + fib(i - 2);
-};
+import { executeOutput } from "./runtime";
+import transpile from "./transpiler/transpiler-core";
+
+export * from "./output/output-item";
+// // export * from "./lib/table";
+
+export { executeOutput, transpile };

@@ -4,4 +4,3 @@ Cargo.lock
 bin/
 pkg/
 wasm-pack.log
-.DS_Store

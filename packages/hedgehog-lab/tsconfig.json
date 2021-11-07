@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ESNext", 
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": false,
@@ -15,7 +15,6 @@
     "noEmit": true,
     "jsx": "react",
     "paths": {
-      "@hedgehog-core-js": ["../hedgehog-core-js/"],
       "@hedgehog-core-wasm": ["../hedgehog-core-wasm/pkg/"],
     }
   },

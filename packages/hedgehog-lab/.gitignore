@@ -11,3 +11,4 @@ target/
 Cargo.lock
 pkg/
 /.rsw
+yarn-error.log*
