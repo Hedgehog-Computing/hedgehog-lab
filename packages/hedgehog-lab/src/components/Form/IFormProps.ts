@@ -1,7 +1,12 @@
 import {ControllerRenderProps} from "react-hook-form/dist/types/controller";
-import {InputBaseProps} from "@mui/material";
+import {BaseTextFieldProps} from "@mui/material";
+import React from "react";
 
-export interface IFormProps extends InputBaseProps {
+export interface IFormProps extends BaseTextFieldProps {
     field?: ControllerRenderProps,
-    control?: any
+    control?: any,
+    error?: any,
+    startAdornment?: React.ReactNode,
+    endAdornment?: React.ReactNode,
 }
+

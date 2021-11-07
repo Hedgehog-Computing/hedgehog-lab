@@ -5,6 +5,7 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import EmailInput from "../../Form/Email/EmailInput";
 import PasswordInput from "../../Form/Password/PasswordInput";
 
+
 const LoginAction = () =>
     (
         <>
@@ -28,7 +29,7 @@ const LoginAction = () =>
     )
 
 const LoginForm = () => {
-    const {control, handleSubmit} = useForm<IAuthFormProps>();
+    const {control, handleSubmit, register, formState: {errors}} = useForm<IAuthFormProps>();
 
     const onSubmit: SubmitHandler<IAuthFormProps> = data => {
         console.log(data)
@@ -37,10 +38,18 @@ const LoginForm = () => {
     return (
         <Box sx={{mt: '10px'}}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <EmailInput control={control}/>
+                <EmailInput
+                    {...register("email", {required: "This is required."})}
+                    control={control}
+                    error={errors}
+                />
 
                 <Box sx={{mt: '20px', mb: '10px'}}>
-                    <PasswordInput control={control}/>
+                    <PasswordInput
+                        {...register("password", {required: "This is required."})}
+                        control={control}
+                        error={errors}
+                    />
                 </Box>
 
                 <LoginAction/>
