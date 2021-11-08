@@ -9,17 +9,19 @@ const StartAdornment = () =>
         <EmailOutlined/>
     )
 
+const name = 'email'
 
 const EmailInput: React.FC<IFormProps> = (props): React.ReactElement => {
-    const {error} = props
+    const {control, error} = props
     return (
         <Controller
             // name ref IAuthFormProps
-            name={'email'}
-            {...props}
+            name={name}
+            control={control}
             defaultValue={''}
             render={({field}) =>
-                <HOutlinedInput error={!!error?.email?.message} helperText={error?.email?.message} placeholder={'Email'}
+                <HOutlinedInput error={error} placeholder={'Email'}
+                                name={name}
                                 field={field} startAdornment={<StartAdornment/>}/>
             }
         />

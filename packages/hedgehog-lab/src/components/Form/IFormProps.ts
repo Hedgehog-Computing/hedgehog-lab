@@ -3,6 +3,7 @@ import {BaseTextFieldProps} from "@mui/material";
 import React from "react";
 
 export interface IFormProps extends BaseTextFieldProps {
+    name: string,
     field?: ControllerRenderProps,
     control?: any,
     error?: any,

@@ -35,18 +35,19 @@ const PasswordInput: React.FC<IFormProps> = (props) => {
         setShowPassword(!showPassword)
     };
 
+    const name = 'password'
 
     return (
         <Controller
             // name ref IAuthFormProps
-            name={'password'}
+            name={name}
             control={control}
             defaultValue={''}
             render={({field}) =>
                 <HOutlinedInput
+                    name={name}
                     field={field}
-                    error={!!error?.password?.message}
-                    helperText={error?.password?.message}
+                    error={error}
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                         <EndAdornment handleClickShowPassword={handleClickShowPassword} showPassword={showPassword}/>
