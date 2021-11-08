@@ -3,8 +3,8 @@ import {PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/
 import {Controller} from "react-hook-form";
 import * as React from "react";
 import {useState} from "react";
-import {IFormProps} from "../IFormProps";
-import HOutlinedInput from "../../Base/Input/HOutlinedInput";
+import {IFormProps} from "../../../Form/IFormProps";
+import HOutlinedInput from "../HOutlinedInput";
 import {IPasswordProps} from "./IPasswordProps";
 
 const StartAdornment = () =>

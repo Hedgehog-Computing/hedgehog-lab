@@ -2,6 +2,7 @@ import * as React from "react";
 import BaseForm from "../../../Form/Base/BaseForm";
 import BaseAction from "../../../Form/Base/BaseAction";
 import BaseAuthForm from "../../../Form/Base/BaseAuthForm";
+import {Box} from "@mui/material";
 
 const LoginAction = () =>
     (
@@ -23,9 +24,11 @@ const LoginForm = () => {
 
 const AuthLogin = (): React.ReactElement => {
     return (
-        <BaseForm>
-            <LoginForm/>
-        </BaseForm>
+        <Box sx={{mt: '10px'}}>
+            <BaseForm>
+                <LoginForm/>
+            </BaseForm>
+        </Box>
     )
 }
 

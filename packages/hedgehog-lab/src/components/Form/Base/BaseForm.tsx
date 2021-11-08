@@ -4,7 +4,6 @@ import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IAuthFormProps} from "../../User/Auth/IAuthFormProps";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {AuthYupSchema} from "../../User/Auth/AuthYupSchema";
-import {Box} from "@mui/material";
 
 const BaseForm: React.FC = (props): React.ReactElement => {
     const {children} = props
@@ -18,13 +17,11 @@ const BaseForm: React.FC = (props): React.ReactElement => {
     }, [])
 
     return (
-        <Box sx={{mt: '10px'}}>
-            <FormProvider {...useFormMethods} >
-                <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-                    {children}
-                </form>
-            </FormProvider>
-        </Box>
+        <FormProvider {...useFormMethods} >
+            <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+                {children}
+            </form>
+        </FormProvider>
     )
 }
 
