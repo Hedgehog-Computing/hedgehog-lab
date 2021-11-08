@@ -2,7 +2,7 @@ import {IconButton} from "@mui/material";
 import {PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/icons-material";
 import {Controller} from "react-hook-form";
 import * as React from "react";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {IFormProps} from "../../../Form/IFormProps";
 import HOutlinedInput from "../HOutlinedInput";
 import {IPasswordProps} from "./IPasswordProps";
@@ -31,9 +31,9 @@ const PasswordInput: React.FC<IFormProps> = (props) => {
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
-    const handleClickShowPassword = () => {
+    const handleClickShowPassword = useCallback(() => {
         setShowPassword(!showPassword)
-    };
+    }, [showPassword])
 
     const name = 'password'
 
