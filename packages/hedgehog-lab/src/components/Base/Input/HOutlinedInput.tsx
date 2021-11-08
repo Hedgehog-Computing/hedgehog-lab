@@ -3,7 +3,7 @@ import * as React from "react";
 import {IFormProps} from "../../Form/IFormProps";
 
 const HOutlinedInput: React.FC<IFormProps> = (props) => {
-    const {field, startAdornment, type, placeholder, endAdornment, error, helperText} = props
+    const {name, field, startAdornment, type, placeholder, endAdornment, error} = props
 
     return (
         <TextField
@@ -12,8 +12,8 @@ const HOutlinedInput: React.FC<IFormProps> = (props) => {
             {...field}
             type={type}
             placeholder={placeholder}
-            error={error}
-            helperText={helperText}
+            error={!!error?.[name]?.message}
+            helperText={error?.[name]?.message}
             inputProps={{
                 startAdornment: (
                     <InputAdornment position={"start"}>
