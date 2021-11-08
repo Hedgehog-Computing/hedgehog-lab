@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import {Box, Dialog, DialogContent, DialogTitle, IconButton, Typography} from "@mui/material";
 import {AccountCircleOutlined, CloseOutlined} from "@mui/icons-material";
-import AuthLogin from "./AuthLogin";
+import AuthLogin from "./AuthLogin/AuthLogin";
 
 
 interface DialogProps {
