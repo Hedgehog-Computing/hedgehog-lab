@@ -19,12 +19,14 @@ const SignForm = () => {
     return (
         <>
             <BaseAuthForm>
-                <UserNameInput
-                    sx={{mb: '20px'}}
-                    {...useFormMethods.register("username")}
-                    control={useFormMethods.control}
-                    error={useFormMethods.formState.errors}
-                />
+                <Box sx={{mb: '20px'}}>
+                    <UserNameInput
+
+                        {...useFormMethods.register("username")}
+                        control={useFormMethods.control}
+                        error={useFormMethods.formState.errors}
+                    />
+                </Box>
             </BaseAuthForm>
             <SignAction/>
         </>
