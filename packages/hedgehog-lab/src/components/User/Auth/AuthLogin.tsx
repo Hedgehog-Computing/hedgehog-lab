@@ -1,9 +1,12 @@
 import * as React from "react";
+import {useCallback} from "react";
 import {Box, Button, Link, Typography} from "@mui/material";
 import {IAuthFormProps} from "./IAuthFormProps";
 import {SubmitHandler, useForm} from "react-hook-form";
 import EmailInput from "../../Form/Email/EmailInput";
 import PasswordInput from "../../Form/Password/PasswordInput";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 
 const LoginAction = () =>
@@ -28,25 +31,32 @@ const LoginAction = () =>
         </>
     )
 
-const LoginForm = () => {
-    const {control, handleSubmit, register, formState: {errors}} = useForm<IAuthFormProps>();
+const schema = yup.object({
+    email: yup.string().email().required(),
+    password: yup.string().min(6).required()
+}).required();
 
-    const onSubmit: SubmitHandler<IAuthFormProps> = data => {
+const LoginForm = () => {
+    const {control, handleSubmit, register, formState: {errors}} = useForm<IAuthFormProps>({
+        resolver: yupResolver(schema)
+    });
+
+    const onSubmit: SubmitHandler<IAuthFormProps> = useCallback((data) => {
         console.log(data)
-    };
+    }, [])
 
     return (
         <Box sx={{mt: '10px'}}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <EmailInput
-                    {...register("email", {required: "This is required."})}
+                    {...register("email")}
                     control={control}
                     error={errors}
                 />
 
                 <Box sx={{mt: '20px', mb: '10px'}}>
                     <PasswordInput
-                        {...register("password", {required: "This is required."})}
+                        {...register("password")}
                         control={control}
                         error={errors}
                     />
