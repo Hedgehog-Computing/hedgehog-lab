@@ -4,7 +4,7 @@ import BaseAction from "../../../Form/Base/BaseAction";
 import BaseAuthForm from "../../../Form/Base/BaseAuthForm";
 import {Box} from "@mui/material";
 import {useFormContext} from "react-hook-form";
-import EmailInput from "../../../Base/Input/Email/EmailInput";
+import UserNameInput from "../../../Base/Input/UserName/UserNameInput";
 
 const SignAction = () =>
     (
@@ -19,7 +19,8 @@ const SignForm = () => {
     return (
         <>
             <BaseAuthForm>
-                <EmailInput
+                <UserNameInput
+                    sx={{mb: '20px'}}
                     {...useFormMethods.register("username")}
                     control={useFormMethods.control}
                     error={useFormMethods.formState.errors}
