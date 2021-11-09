@@ -1,8 +1,10 @@
 import * as React from 'react';
+import {useCallback} from 'react';
 import Button from '@mui/material/Button';
 import {Box, Dialog, DialogContent, DialogTitle, IconButton, Typography} from "@mui/material";
 import {AccountCircleOutlined, CloseOutlined} from "@mui/icons-material";
 import AuthLogin from "./AuthLogin/AuthLogin";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 
 
 interface DialogProps {
@@ -11,10 +13,13 @@ interface DialogProps {
 }
 
 const AuthButton: React.FC<DialogProps> = (props) => {
+    const location = useLocation()
+
     const {handleClickOpen} = props
 
     return (
-        <Button startIcon={<AccountCircleOutlined/>} variant="outlined" onClick={handleClickOpen}>
+        <Button component={Link} startIcon={<AccountCircleOutlined/>} variant="outlined"
+                to={'/login'} state={{backgroundLocation: location}} onClick={handleClickOpen}>
             Login
         </Button>
     )
@@ -49,16 +54,24 @@ const Title = () => (
 )
 
 export default function AuthDialog(): React.ReactElement {
-    const [open, setOpen] = React.useState(false);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const state = location.state as { backgroundLocation?: Location };
 
-    const handleClickOpen = () => {
+    const onDismiss = useCallback(() => {
+        navigate(-1);
+    }, [])
+
+    const [open, setOpen] = React.useState(state?.backgroundLocation !== undefined);
+
+    const handleClickOpen = useCallback(() => {
         setOpen(true);
-    };
+    }, [open])
 
-    const handleClose = () => {
+    const handleClose = useCallback(() => {
         setOpen(false);
-    };
-
+        onDismiss()
+    }, [open])
 
     return (
         <>
@@ -67,7 +80,7 @@ export default function AuthDialog(): React.ReactElement {
             <Dialog open={open}
                     onClose={(event, reason) => {
                         if (reason !== 'backdropClick') {
-                            handleClose()
+                            handleClose();
                         }
                     }}
                     fullWidth
