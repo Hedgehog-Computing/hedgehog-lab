@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Qs from 'qs';
-import { CssBaseline, Grid, Toolbar } from '@mui/material';
-import { Theme } from '@mui/material/styles';
-
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import {CssBaseline, Grid, Toolbar} from '@mui/material';
 
 import DownloadSnackbar from './components/DownloadSnackbar/DownloadSnackbar';
 import Header from './components/Header/Header';
@@ -12,10 +8,10 @@ import YourCode from './components/YourCode/YourCode';
 import Results from './components/Results/Results';
 import Footer from './components/Footer/Footer';
 import SideBar from './components/SideBar/SideBar';
-import { tutorials } from './tutorials';
-import { queryCache, useQuery } from 'react-query';
-import type { OutputResult } from './compiler';
-import { compiler } from './compiler';
+import {tutorials} from './tutorials';
+import {queryCache, useQuery} from 'react-query';
+import type {OutputResult} from './compiler';
+import {compiler} from './compiler';
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -24,6 +20,7 @@ print("hello world")
 const lastRunningCode = localStorage.getItem('lastRunningCode')
 
 const HedgehogLab: React.FC = () => {
+
     const [source, setSource] = useState<string>(DEFAULT_SOURCE);
     const [input, setInput] = useState<string>('');
     const [localList, setLocalList] = useState<{ description: string; source: string }[]>([]);
@@ -82,17 +79,17 @@ const HedgehogLab: React.FC = () => {
     }
 
     if (params) {
-        const obj = Qs.parse(params, { ignoreQueryPrefix: true });
+        const obj = Qs.parse(params, {ignoreQueryPrefix: true});
         yourUrl = obj.your_url ? (obj.your_url as string) : null;
         autoRun = obj.auto_run === 'true';
         code = obj.code ? (obj.code as string) : "";
     }
 
 
-    const { isFetching: isLoading, refetch } = useQuery<OutputResult,
+    const {isFetching: isLoading, refetch} = useQuery<OutputResult,
         readonly [string, string]
-    //Error
-    >(['compiler', input], compiler, {
+        //Error
+        >(['compiler', input], compiler, {
         retry: false,
         refetchInterval: false,
         refetchOnWindowFocus: false,
@@ -138,27 +135,14 @@ const HedgehogLab: React.FC = () => {
             outputString: ''
         });
         if (source === input) {
-            refetch({ force: true } as any);
+            refetch({force: true} as any);
         } else {
             setInput(source);
         }
     };
 
-    const useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            root: {
-                display: 'flex'
-            },
-            content: {
-                flexGrow: 1
-            }
-        })
-    );
-
-    const classes = useStyles();
-
     useEffect(() => {
-        if (!!input) refetch({ force: true } as any);
+        if (!!input) refetch({force: true} as any);
     }, [input, refetch]);
 
     useEffect(() => {
@@ -183,8 +167,8 @@ const HedgehogLab: React.FC = () => {
 
     return (
         <div>
-            <div className={classes.root}>
-                <CssBaseline />
+            <div>
+                <CssBaseline/>
 
                 <Header
                     siderBarOpen={sideBarOpen}
@@ -203,8 +187,8 @@ const HedgehogLab: React.FC = () => {
                     localList={localList}
                 />
 
-                <main className={classes.content}>
-                    <Toolbar />
+                <main>
+                    <Toolbar/>
 
                     <Grid container>
                         <Grid item xs={12}>
@@ -242,7 +226,7 @@ const HedgehogLab: React.FC = () => {
                         </Grid>
                     </Grid>
 
-                    <Footer />
+                    <Footer/>
                 </main>
             </div>
 

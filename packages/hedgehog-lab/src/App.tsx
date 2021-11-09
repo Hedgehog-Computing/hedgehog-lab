@@ -1,13 +1,18 @@
-import React, { useEffect } from 'react';
-import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
+import React from 'react';
+import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles';
 import './App.css';
-import HedgehogLab from './HedgehogLab';
-import { SnackbarProvider } from "notistack";
-import { labTheme } from "./config/labTheme";
+import {SnackbarProvider} from "notistack";
+import {labTheme} from "./config/labTheme";
+import {BrowserRouter} from "react-router-dom";
+import {RoutePage} from "./config/route/route";
 
-export const ColorModeContext = React.createContext({ toggleColorMode: () => { } });
+export const ColorModeContext = React.createContext({
+    toggleColorMode: () => {
+    }
+});
 
 const App = (): React.ReactElement => {
+    // theme
     const [mode, setMode] = React.useState<'light' | 'dark'>('light');
 
     const colorMode = React.useMemo(
@@ -21,15 +26,17 @@ const App = (): React.ReactElement => {
 
     return (
         <div className="App">
-            <SnackbarProvider maxSnack={3}>
-                <StyledEngineProvider injectFirst>
-                    <ColorModeContext.Provider value={colorMode}>
-                        <ThemeProvider theme={labTheme(mode)}>
-                            <HedgehogLab />
-                        </ThemeProvider>
-                    </ColorModeContext.Provider>
-                </StyledEngineProvider>
-            </SnackbarProvider>
+            <BrowserRouter>
+                <SnackbarProvider maxSnack={3}>
+                    <StyledEngineProvider injectFirst>
+                        <ColorModeContext.Provider value={colorMode}>
+                            <ThemeProvider theme={labTheme(mode)}>
+                                <RoutePage/>
+                            </ThemeProvider>
+                        </ColorModeContext.Provider>
+                    </StyledEngineProvider>
+                </SnackbarProvider>
+            </BrowserRouter>
         </div>
     );
 }
