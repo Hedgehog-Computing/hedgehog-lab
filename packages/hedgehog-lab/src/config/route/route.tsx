@@ -30,12 +30,6 @@ export const RoutePage = (): React.ReactElement => {
                     )
                 }
             </Routes>
-
-            {state?.backgroundLocation === undefined && (
-                <Routes>
-                    <Route path={'/auth'} element={<AuthLogin/>}/>
-                </Routes>
-            )}
         </>
     )
 }
