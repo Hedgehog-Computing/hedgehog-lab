@@ -8,6 +8,7 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
 import AuthSign from "./AuthSign/AuthSign";
 import {authActionState, authDialogState} from "./RAuthStates";
+import AuthForget from "./AuthForget/AuthForget";
 
 
 interface DialogProps {
@@ -66,7 +67,7 @@ export default function AuthDialog(): React.ReactElement {
     const [open, setOpen] = useRecoilState(authDialogState);
 
     const onDismiss = useCallback(() => {
-        navigate(-1);
+        navigate('/');
     }, [])
 
 
@@ -103,6 +104,7 @@ export default function AuthDialog(): React.ReactElement {
                     <DialogContent sx={{mt: '10px'}}>
                         {authAction === 'login' && (<AuthLogin/>)}
                         {authAction === 'sign' && (<AuthSign/>)}
+                        {authAction === 'forget' && (<AuthForget/>)}
                     </DialogContent>
                 </Box>
             </Dialog>
