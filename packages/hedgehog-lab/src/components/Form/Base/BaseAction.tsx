@@ -1,5 +1,6 @@
 import {Button, Link, Typography} from "@mui/material";
 import * as React from "react";
+import {useCallback} from "react";
 import {useRecoilState} from "recoil";
 import {authActionState} from "../../User/Auth/RAuthStates";
 
@@ -18,14 +19,19 @@ interface IBaseActionProps {
     }
 }
 
+
 const BaseAction: React.FC<IBaseActionProps> = (prop) => {
     const [authAction, setAuthAction] = useRecoilState(authActionState)
+
+    const handleSetAuthAction = useCallback(() => {
+        setAuthAction(prop.signOrLogin.action)
+    }, [authAction])
 
     return (
         <>
             {prop.forget && (
                 <Typography variant={"body2"} sx={{textAlign: 'right'}}>
-                    <Link sx={{fontWeight: 'medium'}}>
+                    <Link sx={{fontWeight: 'medium', cursor: "pointer"}}>
                         {prop.forget?.text}
                     </Link>
                 </Typography>
@@ -33,7 +39,7 @@ const BaseAction: React.FC<IBaseActionProps> = (prop) => {
 
             <Typography sx={{mt: '40px', fontWeight: 'medium'}} variant={"body1"}>
                 {prop.signOrLogin?.text}
-                <Link sx={{ml: '2px', fontWeight: 'medium'}} onClick={() => setAuthAction(prop.signOrLogin.action)}>
+                <Link sx={{ml: '2px', fontWeight: 'medium', cursor: "pointer"}} onClick={handleSetAuthAction}>
                     {prop.signOrLogin.actionText}
                 </Link>
             </Typography>
