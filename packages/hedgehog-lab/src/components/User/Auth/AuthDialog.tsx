@@ -1,16 +1,20 @@
 import * as React from 'react';
-import {useCallback} from 'react';
+import {useCallback, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import {Box, Dialog, DialogContent, DialogTitle, IconButton, Typography} from "@mui/material";
 import {AccountCircleOutlined, CloseOutlined} from "@mui/icons-material";
 import AuthLogin from "./AuthLogin/AuthLogin";
 import {Link, useLocation, useNavigate} from "react-router-dom";
+import {useRecoilState} from "recoil";
+import AuthSign from "./AuthSign/AuthSign";
+import {authActionState, authDialogState} from "./RAuthStates";
 
 
 interface DialogProps {
     handleClose?: () => void
     handleClickOpen?: () => void
 }
+
 
 const AuthButton: React.FC<DialogProps> = (props) => {
     const location = useLocation()
@@ -19,7 +23,7 @@ const AuthButton: React.FC<DialogProps> = (props) => {
 
     return (
         <Button component={Link} startIcon={<AccountCircleOutlined/>} variant="outlined"
-                to={'/login'} state={{backgroundLocation: location}} onClick={handleClickOpen}>
+                to={'/auth'} state={{backgroundLocation: location}} onClick={handleClickOpen}>
             Login
         </Button>
     )
@@ -58,11 +62,19 @@ export default function AuthDialog(): React.ReactElement {
     const location = useLocation();
     const state = location.state as { backgroundLocation?: Location };
 
+    const [authAction, setAuthAction] = useRecoilState(authActionState)
+    const [open, setOpen] = useRecoilState(authDialogState);
+
     const onDismiss = useCallback(() => {
         navigate(-1);
     }, [])
 
-    const [open, setOpen] = React.useState(state?.backgroundLocation !== undefined);
+
+    useEffect(() => {
+        if (state?.backgroundLocation !== undefined) {
+            setOpen(true)
+        }
+    })
 
     const handleClickOpen = useCallback(() => {
         setOpen(true);
@@ -89,7 +101,8 @@ export default function AuthDialog(): React.ReactElement {
                     <DialogHeader handleClose={handleClose}/>
 
                     <DialogContent sx={{mt: '10px'}}>
-                        <AuthLogin/>
+                        {authAction === 'login' && (<AuthLogin/>)}
+                        {authAction === 'sign' && (<AuthSign/>)}
                     </DialogContent>
                 </Box>
             </Dialog>

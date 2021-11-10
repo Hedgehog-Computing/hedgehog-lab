@@ -10,7 +10,7 @@ const SignAction = () =>
     (
         <BaseAction
             action={{text: 'Sign In'}}
-            signOrLogin={{text: 'Already a member?', linkText: 'Log in'}}
+            signOrLogin={{text: 'Already a member?', actionText: 'Log in', action: 'login'}}
         />
     )
 

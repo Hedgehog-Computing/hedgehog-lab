@@ -8,7 +8,7 @@ const LoginAction = () =>
     (
         <BaseAction
             action={{text: 'Log in'}}
-            signOrLogin={{text: 'Not on HHLAB yet?', linkText: 'Sign up'}}
+            signOrLogin={{text: 'Not on HHLAB yet?', actionText: 'Sign up', action: 'sign'}}
             forget={{text: 'Forget password?'}}
         />
     )

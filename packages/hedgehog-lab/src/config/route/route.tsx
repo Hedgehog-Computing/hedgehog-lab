@@ -6,13 +6,11 @@ import AuthLogin from "../../components/User/Auth/AuthLogin/AuthLogin";
 
 const routes: Array<IRuteProps> = [
     {
-        title: 'Home',
         path: '/',
         element: <HedgehogLab/>
     },
     {
-        title: 'Login',
-        path: '/login',
+        path: '/auth',
         element: <AuthLogin/>
     },
 ]
