@@ -1,6 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Qs from 'qs';
 import {CssBaseline, Grid, Toolbar} from '@mui/material';
+import {Theme} from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 import DownloadSnackbar from './components/DownloadSnackbar/DownloadSnackbar';
 import Header from './components/Header/Header';
@@ -20,7 +24,6 @@ print("hello world")
 const lastRunningCode = localStorage.getItem('lastRunningCode')
 
 const HedgehogLab: React.FC = () => {
-
     const [source, setSource] = useState<string>(DEFAULT_SOURCE);
     const [input, setInput] = useState<string>('');
     const [localList, setLocalList] = useState<{ description: string; source: string }[]>([]);
@@ -141,6 +144,19 @@ const HedgehogLab: React.FC = () => {
         }
     };
 
+    const useStyles = makeStyles((theme: Theme) =>
+        createStyles({
+            root: {
+                display: 'flex'
+            },
+            content: {
+                flexGrow: 1
+            }
+        })
+    );
+
+    const classes = useStyles();
+
     useEffect(() => {
         if (!!input) refetch({force: true} as any);
     }, [input, refetch]);
@@ -167,7 +183,7 @@ const HedgehogLab: React.FC = () => {
 
     return (
         <div>
-            <div>
+            <div className={classes.root}>
                 <CssBaseline/>
 
                 <Header
@@ -187,7 +203,7 @@ const HedgehogLab: React.FC = () => {
                     localList={localList}
                 />
 
-                <main>
+                <main className={classes.content}>
                     <Toolbar/>
 
                     <Grid container>
