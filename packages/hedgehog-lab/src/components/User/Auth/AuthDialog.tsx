@@ -3,12 +3,10 @@ import {useCallback, useEffect} from 'react';
 import Button from '@mui/material/Button';
 import {Box, Dialog, DialogContent, DialogTitle, IconButton, Typography} from "@mui/material";
 import {AccountCircleOutlined, CloseOutlined} from "@mui/icons-material";
-import AuthLogin from "./AuthLogin/AuthLogin";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
-import AuthSign from "./AuthSign/AuthSign";
-import {authActionState, authDialogState} from "./RAuthStates";
-import AuthForget from "./AuthForget/AuthForget";
+import {authDialogState} from "./RAuthStates";
+import AuthForm from "./AuthForm/AuthForm";
 
 
 interface DialogProps {
@@ -63,7 +61,6 @@ export default function AuthDialog(): React.ReactElement {
     const location = useLocation();
     const state = location.state as { backgroundLocation?: Location };
 
-    const [authAction, setAuthAction] = useRecoilState(authActionState)
     const [open, setOpen] = useRecoilState(authDialogState);
 
     const onDismiss = useCallback(() => {
@@ -102,9 +99,7 @@ export default function AuthDialog(): React.ReactElement {
                     <DialogHeader handleClose={handleClose}/>
 
                     <DialogContent sx={{mt: '10px'}}>
-                        {authAction === 'login' && (<AuthLogin/>)}
-                        {authAction === 'sign' && (<AuthSign/>)}
-                        {authAction === 'forget' && (<AuthForget/>)}
+                        <AuthForm/>
                     </DialogContent>
                 </Box>
             </Dialog>

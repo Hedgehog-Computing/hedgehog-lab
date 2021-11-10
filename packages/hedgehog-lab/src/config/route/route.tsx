@@ -2,7 +2,7 @@ import {Route, Routes, useLocation} from "react-router-dom";
 import * as React from "react";
 import HedgehogLab from "../../HedgehogLab";
 import {IRuteProps} from "./IRuteProps";
-import AuthLogin from "../../components/User/Auth/AuthLogin/AuthLogin";
+import AuthForm from "../../components/User/Auth/AuthForm/AuthForm";
 
 const routes: Array<IRuteProps> = [
     {
@@ -11,7 +11,7 @@ const routes: Array<IRuteProps> = [
     },
     {
         path: '/auth',
-        element: <AuthLogin/>
+        element: <AuthForm/>
     },
 ]
 
