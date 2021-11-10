@@ -1,5 +1,7 @@
 import {Button, Link, Typography} from "@mui/material";
 import * as React from "react";
+import {useRecoilState} from "recoil";
+import {authActionState} from "../../User/Auth/RAuthStates";
 
 interface IBaseActionProps {
     forget?: {
@@ -8,16 +10,18 @@ interface IBaseActionProps {
     },
     signOrLogin: {
         text: string,
-        link?: string,
-        linkText: string
+        action: string,
+        actionText: string
     },
     action: {
         text: string
     }
 }
 
-const BaseAction: React.FC<IBaseActionProps> = (prop) =>
-    (
+const BaseAction: React.FC<IBaseActionProps> = (prop) => {
+    const [authAction, setAuthAction] = useRecoilState(authActionState)
+
+    return (
         <>
             {prop.forget && (
                 <Typography variant={"body2"} sx={{textAlign: 'right'}}>
@@ -29,8 +33,8 @@ const BaseAction: React.FC<IBaseActionProps> = (prop) =>
 
             <Typography sx={{mt: '40px', fontWeight: 'medium'}} variant={"body1"}>
                 {prop.signOrLogin?.text}
-                <Link sx={{ml: '2px', fontWeight: 'medium'}}>
-                    {prop.signOrLogin.linkText}
+                <Link sx={{ml: '2px', fontWeight: 'medium'}} onClick={() => setAuthAction(prop.signOrLogin.action)}>
+                    {prop.signOrLogin.actionText}
                 </Link>
             </Typography>
 
@@ -39,5 +43,6 @@ const BaseAction: React.FC<IBaseActionProps> = (prop) =>
             </Button>
         </>
     )
+}
 
 export default BaseAction

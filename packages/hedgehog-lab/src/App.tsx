@@ -5,8 +5,10 @@ import {SnackbarProvider} from "notistack";
 import {labTheme} from "./config/labTheme";
 import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./config/route/route";
+import {RecoilRoot} from "recoil";
 
 export const ColorModeContext = React.createContext({
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     toggleColorMode: () => {
     }
 });
@@ -26,17 +28,19 @@ const App = (): React.ReactElement => {
 
     return (
         <div className="App">
-            <BrowserRouter>
-                <SnackbarProvider maxSnack={3}>
-                    <StyledEngineProvider injectFirst>
-                        <ColorModeContext.Provider value={colorMode}>
-                            <ThemeProvider theme={labTheme(mode)}>
-                                <RoutePage/>
-                            </ThemeProvider>
-                        </ColorModeContext.Provider>
-                    </StyledEngineProvider>
-                </SnackbarProvider>
-            </BrowserRouter>
+            <RecoilRoot>
+                <BrowserRouter>
+                    <SnackbarProvider maxSnack={3}>
+                        <StyledEngineProvider injectFirst>
+                            <ColorModeContext.Provider value={colorMode}>
+                                <ThemeProvider theme={labTheme(mode)}>
+                                    <RoutePage/>
+                                </ThemeProvider>
+                            </ColorModeContext.Provider>
+                        </StyledEngineProvider>
+                    </SnackbarProvider>
+                </BrowserRouter>
+            </RecoilRoot>
         </div>
     );
 }
