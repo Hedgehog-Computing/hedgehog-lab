@@ -14,3 +14,9 @@ export const AuthSignYupSchema = yup.object({
 export const AuthForgetYupSchema = yup.object({
     email: yup.string().email().required(),
 }).required();
+
+export const AuthFormYupSchema = {
+    'login': AuthLoginYupSchema,
+    'sign': AuthSignYupSchema,
+    'forget': AuthForgetYupSchema,
+}
