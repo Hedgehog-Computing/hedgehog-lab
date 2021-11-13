@@ -1,12 +1,12 @@
 import * as React from "react";
-import BaseForm from "../../../Form/Base/BaseForm";
-import BaseAction from "../../../Form/Base/BaseAction";
-import BaseAuthForm from "../../../Form/Base/BaseAuthForm";
+import BaseForm from "../../../Form/Base/BaseForm/BaseForm";
+import BaseAuthAction from "../../../Form/Base/BaseAuthAction/BaseAuthAction";
+import BaseAuthForm from "../../../Form/Base/BaseAuthForm/BaseAuthForm";
 import {Box} from "@mui/material";
 
 const LoginAction = () =>
     (
-        <BaseAction
+        <BaseAuthAction
             action={{text: 'Log in'}}
             signOrLogin={{text: 'Not on HHLAB yet?', actionText: 'Sign up', action: 'sign'}}
             forget={{text: 'Forget password?'}}

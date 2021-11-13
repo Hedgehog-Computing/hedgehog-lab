@@ -1,8 +1,8 @@
 import {InputAdornment, TextField} from "@mui/material";
 import * as React from "react";
-import {IFormProps} from "../../../Form/IFormProps";
+import {IBaseInputProps} from "../IBaseInputProps";
 
-const HOutlinedInput: React.FC<IFormProps> = (props) => {
+const HOutlinedInput: React.FC<IBaseInputProps> = (props) => {
     const {name, field, startAdornment, type, placeholder, endAdornment, error} = props
 
     return (

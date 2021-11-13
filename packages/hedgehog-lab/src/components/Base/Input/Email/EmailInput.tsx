@@ -2,7 +2,7 @@ import {Controller} from "react-hook-form";
 import * as React from "react";
 import HOutlinedInput from "../HOutlined/HOutlinedInput";
 import {EmailOutlined} from "@mui/icons-material";
-import {IFormProps} from "../../../Form/IFormProps";
+import {IBaseInputProps} from "../IBaseInputProps";
 
 const StartAdornment = () =>
     (
@@ -11,7 +11,7 @@ const StartAdornment = () =>
 
 const name = 'email'
 
-const EmailInput: React.FC<IFormProps> = (props): React.ReactElement => {
+const EmailInput: React.FC<IBaseInputProps> = (props): React.ReactElement => {
     const {control, error} = props
     return (
         <Controller

@@ -3,7 +3,7 @@ import {PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/
 import {Controller} from "react-hook-form";
 import * as React from "react";
 import {useCallback, useState} from "react";
-import {IFormProps} from "../../../Form/IFormProps";
+import {IBaseInputProps} from "../IBaseInputProps";
 import HOutlinedInput from "../HOutlined/HOutlinedInput";
 import {IPasswordProps} from "./IPasswordProps";
 
@@ -26,7 +26,7 @@ const EndAdornment: React.FC<IPasswordProps> = (props) => {
     )
 }
 
-const PasswordInput: React.FC<IFormProps> = (props) => {
+const PasswordInput: React.FC<IBaseInputProps> = (props) => {
     const {control, error} = props
 
     const [showPassword, setShowPassword] = useState<boolean>(false)

@@ -1,13 +1,13 @@
 import * as React from "react";
 import {useCallback} from "react";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
-import {IAuthFormProps} from "../../User/Auth/AuthForm/IAuthFormProps";
+import {IAuthFormProps} from "../../../User/Auth/AuthForm/IAuthFormProps";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {AuthFormYupSchema} from "../../User/Auth/AuthForm/AuthFormYup";
+import {AuthFormYupSchema} from "../../../User/Auth/AuthForm/AuthFormYup";
 import {useRecoilState} from "recoil";
-import {authActionState} from "../../User/Auth/RAuthStates";
-import {IAuthFormMethods} from "../../User/Auth/AuthForm/IAuthFormMethods";
-import {AuthFormSubmit} from "../../User/Auth/AuthForm/AuthFormSubmit";
+import {authActionState} from "../../../User/Auth/RAuthStates";
+import {IAuthFormMethods} from "../../../User/Auth/AuthForm/IAuthFormMethods";
+import {AuthFormSubmit} from "../../../User/Auth/AuthForm/AuthFormSubmit";
 
 
 const BaseForm: React.FC = (props): React.ReactElement => {

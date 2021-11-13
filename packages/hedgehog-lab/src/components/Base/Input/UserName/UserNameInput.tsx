@@ -2,7 +2,7 @@ import {Controller} from "react-hook-form";
 import * as React from "react";
 import HOutlinedInput from "../HOutlined/HOutlinedInput";
 import {PersonOutlined} from "@mui/icons-material";
-import {IFormProps} from "../../../Form/IFormProps";
+import {IBaseInputProps} from "../IBaseInputProps";
 
 const StartAdornment = () =>
     (
@@ -11,7 +11,7 @@ const StartAdornment = () =>
 
 const name = 'username'
 
-const UserNameInput: React.FC<IFormProps> = (props): React.ReactElement => {
+const UserNameInput: React.FC<IBaseInputProps> = (props): React.ReactElement => {
     const {control, error} = props
     return (
         <Controller
