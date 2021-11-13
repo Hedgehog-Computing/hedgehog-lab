@@ -1,6 +1,6 @@
 import {Controller} from "react-hook-form";
 import * as React from "react";
-import HOutlinedInput from "../HOutlinedInput";
+import HOutlinedInput from "../HOutlined/HOutlinedInput";
 import {EmailOutlined} from "@mui/icons-material";
 import {IFormProps} from "../../../Form/IFormProps";
 
