@@ -4,7 +4,7 @@ import {Controller} from "react-hook-form";
 import * as React from "react";
 import {useCallback, useState} from "react";
 import {IFormProps} from "../../../Form/IFormProps";
-import HOutlinedInput from "../HOutlinedInput";
+import HOutlinedInput from "../HOutlined/HOutlinedInput";
 import {IPasswordProps} from "./IPasswordProps";
 
 const StartAdornment = () =>

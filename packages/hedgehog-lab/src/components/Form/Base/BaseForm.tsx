@@ -6,7 +6,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {AuthFormYupSchema} from "../../User/Auth/AuthForm/AuthFormYup";
 import {useRecoilState} from "recoil";
 import {authActionState} from "../../User/Auth/RAuthStates";
-import {IAuthForm} from "../../User/Auth/AuthForm/IAuthForm";
+import {IAuthFormMethods} from "../../User/Auth/AuthForm/IAuthFormMethods";
 import {AuthFormSubmit} from "../../User/Auth/AuthForm/AuthFormSubmit";
 
 
@@ -14,7 +14,7 @@ const BaseForm: React.FC = (props): React.ReactElement => {
     const {children} = props
     const [authAction, setAuthAction] = useRecoilState(authActionState)
 
-    const method: keyof IAuthForm = authAction as any
+    const method: keyof IAuthFormMethods = authAction as any
 
     const authFormYupSchema = AuthFormYupSchema[method]
 
