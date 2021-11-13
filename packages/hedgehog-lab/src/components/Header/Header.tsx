@@ -34,7 +34,7 @@ import {
 import {useCopyToClipboard} from "react-use";
 import {useSnackbar} from "notistack";
 import {ColorModeContext} from '../../App';
-import AuthDialog from "../User/Auth/AuthDialog";
+import AuthDialog from "../User/Auth/AuthDialog/AuthDialog";
 
 interface HeaderProps {
     siderBarOpen: boolean;
