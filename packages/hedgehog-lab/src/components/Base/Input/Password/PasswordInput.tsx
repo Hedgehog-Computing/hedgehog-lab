@@ -1,11 +1,12 @@
 import {IconButton} from "@mui/material";
 import {PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/icons-material";
-import {Controller} from "react-hook-form";
+import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
 import {useCallback, useState} from "react";
-import {IBaseInputProps} from "../IBaseInputProps";
 import HOutlinedInput from "../HOutlined/HOutlinedInput";
 import {IPasswordProps} from "./IPasswordProps";
+
+const name = 'password'
 
 const StartAdornment = () =>
     (
@@ -26,28 +27,25 @@ const EndAdornment: React.FC<IPasswordProps> = (props) => {
     )
 }
 
-const PasswordInput: React.FC<IBaseInputProps> = (props) => {
-    const {control, error} = props
-
+const PasswordInput = (): React.ReactElement => {
+    const useFormMethods = useFormContext()
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
     const handleClickShowPassword = useCallback(() => {
         setShowPassword(!showPassword)
     }, [showPassword])
 
-    const name = 'password'
-
     return (
         <Controller
             // name ref IAuthFormProps
             name={name}
-            control={control}
+            control={useFormMethods.control}
             defaultValue={''}
             render={({field}) =>
                 <HOutlinedInput
-                    name={name}
                     field={field}
-                    error={error}
+                    name={name}
+                    error={useFormMethods.formState.errors}
                     type={showPassword ? 'text' : 'password'}
                     endAdornment={
                         <EndAdornment handleClickShowPassword={handleClickShowPassword} showPassword={showPassword}/>

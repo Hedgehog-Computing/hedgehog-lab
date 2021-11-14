@@ -1,8 +1,7 @@
-import {Controller} from "react-hook-form";
+import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
 import HOutlinedInput from "../HOutlined/HOutlinedInput";
 import {EmailOutlined} from "@mui/icons-material";
-import {IBaseInputProps} from "../IBaseInputProps";
 
 const StartAdornment = () =>
     (
@@ -11,18 +10,22 @@ const StartAdornment = () =>
 
 const name = 'email'
 
-const EmailInput: React.FC<IBaseInputProps> = (props): React.ReactElement => {
-    const {control, error} = props
+const EmailInput = (): React.ReactElement => {
+    const useFormMethods = useFormContext()
     return (
         <Controller
+            {...useFormMethods.register(name)}
             // name ref IAuthFormProps
             name={name}
-            control={control}
+            control={useFormMethods.control}
             defaultValue={''}
             render={({field}) =>
-                <HOutlinedInput error={error} placeholder={'Email'}
-                                name={name}
-                                field={field} startAdornment={<StartAdornment/>}/>
+                <HOutlinedInput
+                    error={useFormMethods.formState.errors}
+                    placeholder={'Email'}
+                    field={field}
+                    name={name}
+                    startAdornment={<StartAdornment/>}/>
             }
         />
     )
