@@ -7,7 +7,7 @@ import ResizeObserver from 'react-resize-detector';
 import SaveButton from "./SaveButton";
 import UploadButton from "./UploadButton";
 import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
-import {monacoTheme} from '../../config/monacoTheme';
+import {monacoTheme} from '../../config/themes/monacoTheme';
 
 const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 

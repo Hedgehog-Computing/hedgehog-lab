@@ -2,7 +2,7 @@ import React from 'react';
 import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles';
 import './App.css';
 import {SnackbarProvider} from "notistack";
-import {labTheme} from "./config/labTheme";
+import {labTheme} from "./config/themes/labTheme";
 import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./config/route/route";
 import {RecoilRoot} from "recoil";
