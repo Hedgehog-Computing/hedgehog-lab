@@ -19,4 +19,5 @@ export const AuthFormYupSchema = {
     'login': AuthLoginYupSchema,
     'sign': AuthSignYupSchema,
     'forget': AuthForgetYupSchema,
+    'settingAccount': AuthSignYupSchema
 }
