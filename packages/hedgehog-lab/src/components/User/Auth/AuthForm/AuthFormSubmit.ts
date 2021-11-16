@@ -14,6 +14,10 @@ export const AuthFormSubmit = (method: string, data: IAuthFormProps): void => {
             console.log('forget')
             console.log(data)
             break
+        case 'settingAccount':
+            console.log('settingAccount')
+            console.log(data)
+            break
         default:
             console.log('default')
             break

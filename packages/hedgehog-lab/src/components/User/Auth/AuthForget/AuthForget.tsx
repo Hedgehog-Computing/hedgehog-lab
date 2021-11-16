@@ -2,7 +2,6 @@ import * as React from "react";
 import BaseForm from "../../../Form/Base/BaseForm/BaseForm";
 import BaseAuthAction from "../../../Form/Base/BaseAuthAction/BaseAuthAction";
 import {Box} from "@mui/material";
-import {useFormContext} from "react-hook-form";
 import EmailInput from "../../../Base/Input/Email/EmailInput";
 
 const ForgetAction = () =>
@@ -15,15 +14,9 @@ const ForgetAction = () =>
     )
 
 const ForgetForm = () => {
-    const useFormMethods = useFormContext()
     return (
         <>
-            <EmailInput
-
-                {...useFormMethods.register("email")}
-                control={useFormMethods.control}
-                error={useFormMethods.formState.errors}
-            />
+            <EmailInput/>
             <ForgetAction/>
         </>
     )
