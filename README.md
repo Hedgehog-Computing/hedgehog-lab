@@ -6,7 +6,8 @@ Try it at [https://hedgehog-lab.github.io/](https://hedgehog-lab.github.io/) or 
 
 ## Installation
 
-[Master channel](https://github.com/lidangzzz/hedgehog-lab/tree/master)
+[Master channel for stable branch](https://github.com/lidangzzz/hedgehog-lab/tree/master)  
+[Dev channel for development branch](https://github.com/lidangzzz/hedgehog-lab/tree/master)
 
 ```bash
 # Clone the repo
@@ -18,11 +19,15 @@ git clone https://github.com/lidangzzz/hedgehog-lab.git
 git clone git@github.com:lidangzzz/hedgehog-lab.git
 ```
 
-Once cloned, switch to the master branch and navigate to the folder by typing `cd hedgehog-lab` and then running the following commands:
+Once cloned, switch to the master branch and navigate to the folder by typing `cd hedgehog-lab` and then running the
+following commands:
 
 ```bash
 # Switch to the master branch
 git checkout master
+
+# If you are the developer, pls switch to the dev branch
+git checkout dev
 
 # Install all project dependencies
 yarn install
