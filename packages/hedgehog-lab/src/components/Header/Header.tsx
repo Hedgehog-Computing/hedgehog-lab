@@ -1,40 +1,16 @@
 import React, {useEffect} from 'react';
-import {
-    AppBar,
-    Button,
-    DialogContentText,
-    Divider,
-    IconButton,
-    InputAdornment,
-    OutlinedInput,
-    Toolbar,
-    Typography,
-    useTheme
-} from '@mui/material';
+import {AppBar, Divider, IconButton, Toolbar, Typography, useTheme} from '@mui/material';
 import {Theme} from '@mui/material/styles';
 import withStyles from '@mui/styles/withStyles';
 import Dialog from '@mui/material/Dialog';
-import MuiDialogTitle from '@mui/material/DialogTitle';
-import MuiDialogContent from '@mui/material/DialogContent';
 import MuiDialogActions from '@mui/material/DialogActions';
-import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
 import {HEDGEHOG_DOMAIN} from "../../config"
-import {
-    CopyAllOutlined,
-    GitHub,
-    InsertDriveFileOutlined,
-    MenuOutlined,
-    NightsStayOutlined,
-    ShareOutlined,
-    WbSunnyOutlined
-} from "@mui/icons-material";
+import {MenuOutlined} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
 import {useSnackbar} from "notistack";
-import {ColorModeContext} from '../../App';
-import AuthDialog from "../User/Auth/AuthDialog/AuthDialog";
 
 interface HeaderProps {
     siderBarOpen: boolean;
@@ -122,11 +98,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     const theme = useTheme()
 
-    const colorMode = React.useContext(ColorModeContext);
-
-    const handleThemeSwitch = () => {
-        colorMode.toggleColorMode()
-    }
 
     useEffect(() => {
         if (source.length > 0) {
@@ -167,97 +138,19 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                         </Typography>}
                     </>
                     }
-
                     <Box display={'flex'} justifyContent={'end'} width={'100%'}>
-                        <IconButton onClick={handleClickOpen}>
-                            <ShareOutlined/>
-                        </IconButton>
 
                         <Dialog onClose={handleClose} aria-labelledby="Share your code via URL" open={dialogOpen}
                                 fullWidth={true} maxWidth={"lg"}>
-                            <MuiDialogTitle id="share-your-code">
-                                Share your code via URL
-                            </MuiDialogTitle>
-                            <MuiDialogContent>
-                                <Box>
-                                    <OutlinedInput id="outlined-basic" size="small" fullWidth
-                                                   multiline
-                                                   value={encodedUrlWithSourceCode}
-                                                   onFocus={handleFocus}
-                                                   endAdornment={
-                                                       <InputAdornment position={'end'}>
-                                                           <IconButton onClick={() => {
-                                                               handleCopy(encodedUrlWithSourceCode)
-                                                           }}>
-                                                               <CopyAllOutlined/>
-                                                           </IconButton>
-                                                       </InputAdornment>
-                                                   }
-                                    />
-                                </Box>
 
+                            <FormControlLabel
+                                control={<Checkbox checked={autoExecuteCheckboxStatus}
+                                                   onChange={handleCheckboxChange}
+                                                   name="checkedA"/>}
+                                label="Automatically execute the script after loading"
+                            />
 
-                                <Divider sx={{py: 2}}/>
-                                <Box sx={{py: 2}}>
-
-
-                                    <DialogContentText>
-                                        You can also generate a shareable URL with a Github or Github Gist script
-                                        file (raw URL):
-                                    </DialogContentText>
-
-                                    <Box pt={1}>
-                                        <TextField size={'small'} variant="outlined" fullWidth
-                                                   multiline label="Your Github or Github Gist raw URL"
-                                                   value={yourUrl}
-                                                   onChange={handleYourUrlTextAreaChange}
-                                                   sx={{mb: 2, mt: 1}}
-                                        />
-
-                                        <OutlinedInput size={'small'} fullWidth
-                                                       multiline
-                                                       value={yourUrl && encodedYourUrl}
-                                                       onFocus={handleFocus}
-                                                       endAdornment={
-                                                           <InputAdornment position={'end'}>
-                                                               <IconButton disabled={!yourUrl} onClick={() => {
-                                                                   handleCopy(encodedYourUrl)
-                                                               }}>
-                                                                   <CopyAllOutlined/>
-                                                               </IconButton>
-                                                           </InputAdornment>
-                                                       }
-                                        />
-                                    </Box>
-                                </Box>
-
-                                <FormControlLabel
-                                    control={<Checkbox checked={autoExecuteCheckboxStatus}
-                                                       onChange={handleCheckboxChange}
-                                                       name="checkedA"/>}
-                                    label="Automatically execute the script after loading"
-                                />
-                            </MuiDialogContent>
-                            <DialogActions>
-                                <Button autoFocus onClick={handleClose} color="primary">
-                                    Done
-                                </Button>
-                            </DialogActions>
                         </Dialog>
-
-                        <IconButton href={'https://hedgehog-book.github.io'} target={'_blank'}>
-                            <InsertDriveFileOutlined/>
-                        </IconButton>
-
-                        <IconButton href={'https://github.com/Hedgehog-Computing/hedgehog-lab'} target={'_blank'}>
-                            <GitHub/>
-                        </IconButton>
-
-                        <IconButton onClick={handleThemeSwitch}>
-                            {theme.palette.mode === 'light' ? (<NightsStayOutlined/>) : (<WbSunnyOutlined/>)}
-                        </IconButton>
-
-                        <AuthDialog/>
                     </Box>
                 </Toolbar>
                 <Divider/>

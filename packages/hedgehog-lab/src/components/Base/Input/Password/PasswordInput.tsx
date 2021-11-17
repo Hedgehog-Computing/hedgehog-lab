@@ -3,7 +3,7 @@ import {PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/
 import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
 import {useCallback, useState} from "react";
-import HOutlinedInput from "../HOutlined/HOutlinedInput";
+import HOutlinedInput from "../HOutlinedInput/HOutlinedInput";
 import {IPasswordProps} from "./IPasswordProps";
 
 const name = 'password'

@@ -91,15 +91,8 @@ const systemFont = [
     '"Segoe UI Symbol"',
 ];
 
-export const getMetaThemeColor = (mode: 'light' | 'dark') => {
-    const themeColor = {
-        light: grey[50],
-        dark: blueDark[800],
-    };
-    return themeColor[mode];
-};
 
-export const getDesignTokens = (mode: 'light' | 'dark') =>
+export const getDesignTokens = (mode: string) =>
     ({
         palette: {
             primary: {
@@ -550,5 +543,5 @@ export function getThemedComponents(theme: Theme) {
     };
 }
 
-const darkTheme = (mode: 'light' | 'dark') => createTheme(getDesignTokens(mode));
-export const labTheme = (mode: 'light' | 'dark') => deepmerge(darkTheme(mode), getThemedComponents(darkTheme(mode)));
+const darkTheme = (mode: string) => createTheme(getDesignTokens(mode));
+export const labTheme = (mode: string) => deepmerge(darkTheme(mode), getThemedComponents(darkTheme(mode)));

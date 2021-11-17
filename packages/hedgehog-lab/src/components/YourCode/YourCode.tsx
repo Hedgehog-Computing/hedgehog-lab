@@ -1,11 +1,9 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {Button, CardContent, ClickAwayListener, Paper, useTheme} from '@mui/material';
+import {Box, Button, CardContent, ClickAwayListener, useTheme} from '@mui/material';
 import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import {queryCache} from 'react-query';
 import ResizeObserver from 'react-resize-detector';
-import SaveButton from "./SaveButton";
-import UploadButton from "./UploadButton";
 import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 import {monacoTheme} from '../../config/themes/monacoTheme';
 
@@ -28,15 +26,13 @@ interface YourCodeProps {
     source: string;
     loading: boolean;
     setSource: Dispatch<SetStateAction<string>>;
-    getLocalCodeList: () => void;
-    handleLoadFile: (str: string) => void;
 }
 
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     const theme = useTheme()
 
-    const {handleCompileAndRun, loading, setSource, source, getLocalCodeList, handleLoadFile} = props;
+    const {handleCompileAndRun, loading, setSource, source} = props;
 
     const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
     const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
@@ -87,7 +83,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
     return (
         <div style={{height: '100%'}}>
-            <Paper sx={{height: '100%', borderRadius: 0}}>
+            <Box sx={{height: '100%', borderRadius: 0}}>
                 <CardContent sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
                     <Button size={'small'} variant={'outlined'} endIcon={
                         codeSavingFlag && (<FiberManualRecord/>)
@@ -96,8 +92,6 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                     </Button>
 
                     <div>
-                        <UploadButton handleLoadFile={handleLoadFile}/>
-                        <SaveButton getLocalCodeList={getLocalCodeList} source={source}/>
                         {loading ? (
                             <Button
                                 endIcon={<StopCircleOutlined/>}
@@ -166,7 +160,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                     </ClickAwayListener>
 
                 </CardContent>
-            </Paper>
+            </Box>
         </div>
     );
 };
