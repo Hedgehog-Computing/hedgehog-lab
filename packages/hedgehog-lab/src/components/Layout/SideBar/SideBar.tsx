@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useCallback} from 'react';
+import {useCallback, useState} from 'react';
 import {tutorials} from "../../../tutorials";
 import {
     Box,
@@ -15,16 +15,23 @@ import {
     useTheme
 } from "@mui/material";
 import {BookOutlined, ExpandLess, ExpandMore, FiberManualRecord} from "@mui/icons-material";
+import {useSetRecoilState} from "recoil";
+import {editorCodeState} from "../../YourCode/RYourCodeStates";
 
 const drawerWidth = 240;
 
 const SideBar = (): React.ReactElement => {
-    const [open, setOpen] = React.useState(true);
+    const [collapseOpen, setCollapseOpen] = useState(true)
+    const setEditorCode = useSetRecoilState(editorCodeState)
     const theme = useTheme()
 
-    const handleClick = useCallback(() => {
-        setOpen(!open);
-    }, [open])
+    const handleCollapseClick = useCallback(() => {
+        setCollapseOpen(!collapseOpen);
+    }, [collapseOpen])
+
+    const handleSetEditorCode = useCallback((editorCode) => {
+        setEditorCode(editorCode)
+    }, [])
 
     return (
         <Drawer
@@ -40,7 +47,7 @@ const SideBar = (): React.ReactElement => {
 
             <Box sx={{overflow: 'auto'}}>
                 <List>
-                    <ListItem button onClick={handleClick}>
+                    <ListItem button onClick={handleCollapseClick}>
                         <ListItemIcon>
                             <BookOutlined color={'primary'}/>
                         </ListItemIcon>
@@ -49,10 +56,10 @@ const SideBar = (): React.ReactElement => {
                                 Tutorials
                             </Box>
                         </ListItemText>
-                        {open ? <ExpandLess color={'primary'}/> : <ExpandMore/>}
+                        {collapseOpen ? <ExpandLess color={'primary'}/> : <ExpandMore/>}
                     </ListItem>
 
-                    <Collapse in={open} timeout="auto" unmountOnExit>
+                    <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding
                               sx={{
                                   borderLeft: 'solid 1px',
@@ -63,7 +70,11 @@ const SideBar = (): React.ReactElement => {
                               }}>
                             {tutorials.map((tutorial, index) => {
                                 return (
-                                    <ListItem button key={index}>
+                                    <ListItem button key={index} onClick={
+                                        () => {
+                                            handleSetEditorCode(tutorial.source)
+                                        }
+                                    }>
                                         <ListItemText>
                                             <FiberManualRecord
                                                 sx={{fontSize: '5px', color: theme.palette.grey[500], ml: '6px'}}/>

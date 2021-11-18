@@ -43,7 +43,9 @@ const YourCodeHeader = (): React.ReactElement => {
     });
 
     useEffect(() => {
-        if (compilerReFetch) refetch({force: true} as any)
+        if (compilerReFetch) {
+            refetch({force: true} as any)
+        }
     }, [compilerReFetch])
 
     const handleRunCode = useCallback(() => {
