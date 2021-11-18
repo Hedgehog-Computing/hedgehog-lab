@@ -5,12 +5,12 @@ import {SnackbarProvider} from "notistack";
 import {labTheme} from "./config/themes/labTheme";
 import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./config/route/route";
-import {RecoilRoot, useRecoilState} from "recoil";
+import {RecoilRoot, useRecoilValue} from "recoil";
 import {themeModState} from "./config/themes/RThemeStates";
 
 
 const ThemePage = () => {
-    const [themeMode, setThemeMode] = useRecoilState(themeModState)
+    const themeMode = useRecoilValue(themeModState)
 
     return (
         <ThemeProvider theme={labTheme(themeMode)}>

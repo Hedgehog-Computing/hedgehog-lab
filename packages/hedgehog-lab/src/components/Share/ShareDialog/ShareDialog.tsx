@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Button, DialogActions, Divider, IconButton, Tooltip} from "@mui/material";
 import {CloseOutlined, ShareOutlined} from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
@@ -8,21 +8,30 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CopyInput from "../../Base/Input/Copy/CopyInput";
 import {HEDGEHOG_DOMAIN} from "../../../config";
+import {useRecoilValue} from "recoil";
+import {editorCodeState} from "../../YourCode/RYourCodeStates";
 
 const ShareDialog = (): React.ReactElement => {
 
     const [shareDialogOpen, setShareDialogOpen] = useState<boolean>(false)
-    const [url, setUrl] = useState<string>(`${HEDGEHOG_DOMAIN}?code=`)
+    const editorCode = useRecoilValue(editorCodeState)
+
+    const domain = HEDGEHOG_DOMAIN
+
+    const [shareUrl, setShareUrl] = useState<string>('')
+    const [autoRun, setAutoRun] = useState(false)
 
     const handleShareDialogOpen = useCallback(() => {
         setShareDialogOpen(!shareDialogOpen)
     }, [shareDialogOpen])
 
+    useEffect(() => {
+        setShareUrl(`${domain}?code=${editorCode}&auto_run=${autoRun}`)
+    })
+
     const handleAutoRunCheckBoxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const isChecked = event.target.checked
-
-        const autoRunFlag = isChecked ? `${url}&auto_run=true` : `${url}`
-        setUrl(autoRunFlag)
+        setAutoRun(isChecked)
     }, [])
 
     return (
@@ -52,7 +61,7 @@ const ShareDialog = (): React.ReactElement => {
                     </IconButton>
                 </MuiDialogTitle>
                 <MuiDialogContent>
-                    <CopyInput url={url}/>
+                    <CopyInput url={shareUrl}/>
 
                     <Divider sx={{pb: '20px'}}/>
 

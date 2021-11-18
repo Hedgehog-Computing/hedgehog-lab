@@ -1,13 +1,14 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {Box, Button, CardContent, ClickAwayListener, useTheme} from '@mui/material';
+import React, {useEffect, useState} from 'react';
+import {Box, CardContent, ClickAwayListener, useTheme} from '@mui/material';
 import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
-import {queryCache} from 'react-query';
 import ResizeObserver from 'react-resize-detector';
-import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 import {monacoTheme} from '../../config/themes/monacoTheme';
+import YourCodeHeader from "./Header/YourCodeHeader";
+import {useRecoilState} from "recoil";
+import {editorCodeState} from "./RYourCodeStates";
 
-const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
+export const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
 
 monaco.init().then(monaco => {
@@ -21,18 +22,10 @@ monaco.init().then(monaco => {
 ).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
 
 
-interface YourCodeProps {
-    handleCompileAndRun: (event: React.MouseEvent) => void;
-    source: string;
-    loading: boolean;
-    setSource: Dispatch<SetStateAction<string>>;
-}
-
-
-const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
+const YourCode = (): React.ReactElement => {
     const theme = useTheme()
 
-    const {handleCompileAndRun, loading, setSource, source} = props;
+    const [editorCode, setEditorCode] = useRecoilState<string>(editorCodeState)
 
     const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
     const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
@@ -43,7 +36,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
     // save code to local storage
     const autoSaveCode = () => {
-        localStorage.setItem('lastRunningCode', source as string)
+        localStorage.setItem('lastRunningCode', editorCode as string)
         setCodeSavingFlag(false)
     }
 
@@ -52,7 +45,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
     });
 
     const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-        setSource(v as string);
+        setEditorCode(v as string);
         setCodeSavingFlag(true)
     };
 
@@ -74,61 +67,18 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                 document.getElementById(COMPILE_AND_RUN_BUTTON_ID)?.click();
             }
         });
-        setEditor(editor);
+        setEditor(editor)
     };
 
     useEffect(() => {
         theme.palette.mode === 'dark' ? setEditorTheme('monacoDarkTheme') : setEditorTheme('vs')
-    })
+    }, [theme.palette.mode])
 
     return (
         <div style={{height: '100%'}}>
             <Box sx={{height: '100%', borderRadius: 0}}>
-                <CardContent sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
-                    <Button size={'small'} variant={'outlined'} endIcon={
-                        codeSavingFlag && (<FiberManualRecord/>)
-                    }>
-                        Your Code
-                    </Button>
-
-                    <div>
-                        {loading ? (
-                            <Button
-                                endIcon={<StopCircleOutlined/>}
-                                variant="contained"
-                                color="error"
-                                size="small"
-                                style={{
-                                    textTransform: 'none',
-                                }}
-
-
-                                onClick={() => {
-                                    // stop the web-worker
-                                    queryCache.cancelQueries(['compiler']);
-                                    // set result to initial state
-                                    queryCache.setQueryData(['compiler', source], (data) => ({
-                                        outputItem: [],
-                                        outputString: ''
-                                    }));
-                                }}>
-                                Stop
-                            </Button>
-                        ) : (
-                            <Button
-                                endIcon={<PlayCircleOutline/>}
-                                id={COMPILE_AND_RUN_BUTTON_ID}
-                                variant="contained"
-                                color="primary"
-                                size="small"
-                                onClick={(e) => handleCompileAndRun(e)}
-                                style={{
-                                    textTransform: 'none'
-                                }}>
-                                Run
-                            </Button>
-                        )}
-                    </div>
+                <CardContent>
+                    <YourCodeHeader/>
                 </CardContent>
 
 
@@ -138,7 +88,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                             onResize={(width, height) => {
                                 if (editor) {
                                     editor.layout();
-                                    source
+                                    editorCode
                                 }
                             }}>
                             <div
@@ -149,7 +99,7 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
 
                                 <ControlledEditor
                                     language="javascript"
-                                    value={source}
+                                    value={editorCode}
                                     onChange={handleUploadSource}
                                     options={options}
                                     editorDidMount={handleEditorDidMount}
@@ -162,7 +112,8 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
                 </CardContent>
             </Box>
         </div>
-    );
+    )
+
 };
 
 export default YourCode;
