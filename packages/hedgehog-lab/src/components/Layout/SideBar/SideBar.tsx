@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {tutorials} from "../../../tutorials";
 import {
     Box,
@@ -12,18 +12,23 @@ import {
     ListItemText,
     Toolbar,
     Typography,
+    useMediaQuery,
     useTheme
 } from "@mui/material";
 import {BookOutlined, ExpandLessOutlined, ExpandMoreOutlined, FiberManualRecord} from "@mui/icons-material";
-import {useSetRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import {editorCodeState} from "../../YourCode/RYourCodeStates";
+import {sideBarWidth} from "../../YourCode/Config/SideBar";
+import {sideBarOpenState} from "../RLayoutStates";
 
-const drawerWidth = 240;
 
 const SideBar = (): React.ReactElement => {
     const [collapseOpen, setCollapseOpen] = useState(true)
+    const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState)
     const setEditorCode = useSetRecoilState(editorCodeState)
+
     const theme = useTheme()
+    const lgMatches = useMediaQuery(theme.breakpoints.down('lg'));
 
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
@@ -33,14 +38,23 @@ const SideBar = (): React.ReactElement => {
         setEditorCode(editorCode)
     }, [])
 
+
+    useEffect(() => {
+        if (lgMatches) setSideBarOpen(false)
+        else setSideBarOpen(true)
+    }, [lgMatches])
+
+
     return (
         <Drawer
-            variant="permanent"
+            variant="persistent"
+            anchor="left"
+            open={sideBarOpen}
             sx={{
-                width: drawerWidth,
+                width: sideBarWidth,
                 flexShrink: 0,
-                [`& .MuiDrawer-paper`]: {width: drawerWidth, boxSizing: 'border-box'},
-                borderRight: '1px solid rgba(0, 0, 0, 0.12)'
+                [`& .MuiDrawer-paper`]: {width: sideBarWidth, boxSizing: 'border-box'},
+                borderRight: sideBarOpen ? '1px solid rgba(0, 0, 0, 0.12)' : ''
             }}
         >
             <Toolbar/>

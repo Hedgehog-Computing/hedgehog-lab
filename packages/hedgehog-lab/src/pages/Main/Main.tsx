@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from "react";
 import Qs from 'qs';
-import {Box, Grid} from '@mui/material';
+import {Grid, styled} from '@mui/material';
 import {compiler} from "../../compiler";
 import Results from "../../components/Results/Results";
 import Footer from "../../components/DeprecatedCode/Footer/Footer";
 import YourCode from "../../components/YourCode/YourCode";
 import {queryCache} from "react-query";
-import {useSetRecoilState} from "recoil";
+import {useRecoilValue, useSetRecoilState} from "recoil";
 import {compilerReFetchState, editorCodeState} from "../../components/YourCode/RYourCodeStates";
+import {sideBarWidth} from "../../components/YourCode/Config/SideBar";
+import {sideBarOpenState} from "../../components/Layout/RLayoutStates";
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -15,10 +17,29 @@ print("hello world")
 
 const lastRunningCode = localStorage.getItem('lastRunningCode')
 
+const MainContent = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
+    open?: boolean;
+}>(({theme, open}) => ({
+    flexGrow: 1,
+    transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${sideBarWidth}px`,
+    ...(open && {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    }),
+}));
+
 
 const Main = (): React.ReactElement => {
     const setEditorCode = useSetRecoilState<string>(editorCodeState)
     const setCompilerReFetch = useSetRecoilState<boolean>(compilerReFetchState);
+    const sideBarOpen = useRecoilValue(sideBarOpenState)
     // If auto_run=true, then hedgehog lab will run the script automatically after loading the code
     const [autoRun, setAutoRun] = useState<boolean>(false)
 
@@ -53,38 +74,34 @@ const Main = (): React.ReactElement => {
     }, [autoRun])
 
     return (
-        <div>
-            <Box display={"flex"}>
-                <Box flexGrow={1}>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Grid
-                                container
-                                style={{
-                                    height: 'calc(100vh - 174px)'
-                                }}>
-                                <Grid item xs={12} md={6}>
-                                    <YourCode/>
-                                </Grid>
+        <MainContent open={sideBarOpen}>
+            <Grid container>
+                <Grid item xs={12}>
+                    <Grid
+                        container
+                        style={{
+                            height: 'calc(100vh - 174px)'
+                        }}>
+                        <Grid item xs={12} md={6}>
+                            <YourCode/>
+                        </Grid>
 
-                                <Grid
-                                    item
-                                    xs={12}
-                                    md={6}
-                                    style={{
-                                        height: 'calc(100vh - 64px)',
-                                        overflowY: 'auto'
-                                    }}>
-                                    <Results/>
-                                </Grid>
-                            </Grid>
+                        <Grid
+                            item
+                            xs={12}
+                            md={6}
+                            style={{
+                                height: 'calc(100vh - 64px)',
+                                overflowY: 'auto'
+                            }}>
+                            <Results/>
                         </Grid>
                     </Grid>
+                </Grid>
+            </Grid>
 
-                    <Footer/>
-                </Box>
-            </Box>
-        </div>
+            <Footer/>
+        </MainContent>
     );
 };
 
