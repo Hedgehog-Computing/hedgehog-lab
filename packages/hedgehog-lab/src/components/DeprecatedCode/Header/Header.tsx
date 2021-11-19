@@ -7,7 +7,7 @@ import MuiDialogActions from '@mui/material/DialogActions';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
-import {HEDGEHOG_DOMAIN} from "../../config"
+import {HEDGEHOG_DOMAIN} from "../../../config"
 import {MenuOutlined} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
 import {useSnackbar} from "notistack";

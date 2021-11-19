@@ -26,7 +26,7 @@ const ShareDialog = (): React.ReactElement => {
     }, [shareDialogOpen])
 
     useEffect(() => {
-        setShareUrl(`${domain}?code=${editorCode}&auto_run=${autoRun}`)
+        setShareUrl(`${domain}?code=${encodeURIComponent(editorCode)}&auto_run=${autoRun}`)
     })
 
     const handleAutoRunCheckBoxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +60,7 @@ const ShareDialog = (): React.ReactElement => {
                         <CloseOutlined/>
                     </IconButton>
                 </MuiDialogTitle>
-                <MuiDialogContent>
+                <MuiDialogContent sx={{mt: '5px'}}>
                     <CopyInput url={shareUrl}/>
 
                     <Divider sx={{pb: '20px'}}/>

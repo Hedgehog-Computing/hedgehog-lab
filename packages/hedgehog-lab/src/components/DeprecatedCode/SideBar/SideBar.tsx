@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
     Box,
     Divider,
@@ -14,11 +14,11 @@ import {
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import SideBarItem from './SideBarItem';
-import { tutorials } from '../../tutorials';
-import { Theme } from '@mui/material/styles';
+import {tutorials} from '../../../tutorials';
+import {Theme} from '@mui/material/styles';
 import clsx from 'clsx';
 import DelButton from "./DelButton";
-import { ArrowBackOutlined, BookOutlined, CodeOutlined, MenuOutlined } from "@mui/icons-material";
+import {ArrowBackOutlined, BookOutlined, CodeOutlined, MenuOutlined} from "@mui/icons-material";
 
 interface SideBarProps {
     handleLoadTutorial: (event: React.MouseEvent, i: number) => void;
@@ -140,10 +140,10 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
                 })
             }}>
 
-            <Box sx={{ borderRight: '1px solid rgba(0, 0, 0, 0.12)', height: '100%' }}>
+            <Box sx={{borderRight: '1px solid rgba(0, 0, 0, 0.12)', height: '100%'}}>
                 <List dense>
-                    <ListItem disablePadding sx={{ height: '56px' }}>
-                        <ListItemText sx={{ pl: '10px' }}>
+                    <ListItem disablePadding sx={{height: '56px'}}>
+                        <ListItemText sx={{pl: '10px'}}>
                             <Typography
                                 variant={'h6'}
                                 sx={{
@@ -162,22 +162,22 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
                             onClick={handleSideBarOpen}
                             size="large">
                             {siderBarOpen ? (
-                                <ArrowBackOutlined style={{ fontSize: '1.25rem' }} />
+                                <ArrowBackOutlined style={{fontSize: '1.25rem'}}/>
                             ) : (
                                 // <img
                                 //   src={process.env.PUBLIC_URL + '/cat.png'}
                                 //   style={{ height: '1.25rem' }}
                                 //   alt="Hedgehog Lab Logo"
                                 // />
-                                <MenuOutlined style={{ fontSize: '1.25rem' }} />
+                                <MenuOutlined style={{fontSize: '1.25rem'}}/>
                             )}
                         </IconButton>
                     </ListItem>
 
-                    <Divider />
+                    <Divider/>
 
                     <SideBarItem
-                        icon={<BookOutlined />}
+                        icon={<BookOutlined/>}
                         handleSideBarItemClick={handleSideBarItemClick}
                         name={'Tutorials'}
                         open={open}>
@@ -205,35 +205,35 @@ const SideBar: React.FC<SideBarProps> = (props: SideBarProps) => {
                     </SideBarItem>
 
                     <SideBarItem
-                        icon={<CodeOutlined />}
+                        icon={<CodeOutlined/>}
                         handleSideBarItemClick={handleSideBarItemClick}
                         name={'Local Code'}
                         open={open}>
                         {localList.length > 0 &&
-                            localList.map((item: { description: string; source: string }, i: number) => {
-                                return (
-                                    <Tooltip
-                                        key={`${i}-${Date.now()}`}
-                                        placement="top"
-                                        title={item.description}
-                                        arrow>
-                                        <ListItemButton dense>
-                                            <ListItem
-                                                secondaryAction={
-                                                    <DelButton name={item.description}
-                                                        getLocalCodeList={getLocalCodeList} />
-                                                }
-                                                dense
-                                                onClick={() => handleLoadFile(item.source)}>
-                                                <ListItemText>
-                                                    <span>{item.description}</span>
-                                                </ListItemText>
+                        localList.map((item: { description: string; source: string }, i: number) => {
+                            return (
+                                <Tooltip
+                                    key={`${i}-${Date.now()}`}
+                                    placement="top"
+                                    title={item.description}
+                                    arrow>
+                                    <ListItemButton dense>
+                                        <ListItem
+                                            secondaryAction={
+                                                <DelButton name={item.description}
+                                                           getLocalCodeList={getLocalCodeList}/>
+                                            }
+                                            dense
+                                            onClick={() => handleLoadFile(item.source)}>
+                                            <ListItemText>
+                                                <span>{item.description}</span>
+                                            </ListItemText>
 
-                                            </ListItem>
-                                        </ListItemButton>
-                                    </Tooltip>
-                                );
-                            })}
+                                        </ListItem>
+                                    </ListItemButton>
+                                </Tooltip>
+                            );
+                        })}
                     </SideBarItem>
                 </List>
             </Box>

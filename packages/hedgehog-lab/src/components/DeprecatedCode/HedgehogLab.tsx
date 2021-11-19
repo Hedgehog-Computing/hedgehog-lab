@@ -6,16 +6,16 @@ import {Theme} from '@mui/material/styles';
 import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 
-import DownloadSnackbar from './components/DownloadSnackbar/DownloadSnackbar';
-import Header from './components/Header/Header';
-import YourCode from './components/YourCode/YourCode';
-import Results from './components/Results/Results';
-import Footer from './components/Footer/Footer';
-import SideBar from './components/SideBar/SideBar';
-import {tutorials} from './tutorials';
+import DownloadSnackbar from './DownloadSnackbar/DownloadSnackbar';
+import Header from './Header/Header';
+import YourCode from '../YourCode/YourCode';
+import Results from '../Results/Results';
+import Footer from './Footer/Footer';
+import SideBar from './SideBar/SideBar';
+import {tutorials} from '../../tutorials';
 import {queryCache, useQuery} from 'react-query';
-import type {OutputResult} from './compiler';
-import {compiler} from './compiler';
+import type {OutputResult} from '../../compiler';
+import {compiler} from '../../compiler';
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")

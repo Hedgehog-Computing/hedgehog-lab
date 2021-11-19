@@ -439,6 +439,15 @@ export function getThemedComponents(theme: Theme) {
                     },
                 },
             },
+            MuiDialog: {
+                styleOverrides: {
+                    root: {
+                        backgroundColor: 'rgba(32, 38, 45, 0.2)',
+                        backdropFilter: 'blur(2px)',
+                        opacity: 1
+                    }
+                }
+            },
             MuiTableCell: {
                 styleOverrides: {
                     root: {

@@ -14,7 +14,7 @@ import {
     Typography,
     useTheme
 } from "@mui/material";
-import {BookOutlined, ExpandLess, ExpandMore, FiberManualRecord} from "@mui/icons-material";
+import {BookOutlined, ExpandLessOutlined, ExpandMoreOutlined, FiberManualRecord} from "@mui/icons-material";
 import {useSetRecoilState} from "recoil";
 import {editorCodeState} from "../../YourCode/RYourCodeStates";
 
@@ -56,7 +56,7 @@ const SideBar = (): React.ReactElement => {
                                 Tutorials
                             </Box>
                         </ListItemText>
-                        {collapseOpen ? <ExpandLess color={'primary'}/> : <ExpandMore/>}
+                        {collapseOpen ? <ExpandLessOutlined color={'primary'}/> : <ExpandMoreOutlined/>}
                     </ListItem>
 
                     <Collapse in={collapseOpen} timeout="auto" unmountOnExit>

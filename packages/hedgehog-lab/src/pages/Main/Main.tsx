@@ -3,7 +3,7 @@ import Qs from 'qs';
 import {Box, Grid} from '@mui/material';
 import {compiler} from "../../compiler";
 import Results from "../../components/Results/Results";
-import Footer from "../../components/Footer/Footer";
+import Footer from "../../components/DeprecatedCode/Footer/Footer";
 import YourCode from "../../components/YourCode/YourCode";
 import {queryCache} from "react-query";
 import {useSetRecoilState} from "recoil";
