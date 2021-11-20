@@ -19,6 +19,10 @@ const routes: Array<IRuteProps> = [
     {
         path: '/tutorial/:tutorialID',
         element: <Main/>
+    },
+    {
+        path: '/snippet/new',
+        element: <Main/>
     }
 ]
 

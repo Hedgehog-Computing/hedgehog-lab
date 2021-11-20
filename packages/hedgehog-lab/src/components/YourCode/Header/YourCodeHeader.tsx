@@ -1,15 +1,14 @@
-import {Box, Button} from "@mui/material";
-import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
+import {Box, Button, Paper} from "@mui/material";
+import {PlayCircleOutline, SaveOutlined, StopCircleOutlined} from "@mui/icons-material";
 import {queryCache} from "react-query";
 import React, {useCallback} from "react";
 import {useRecoilValue, useSetRecoilState} from "recoil";
-import {codeSavingFlagState, editorCodeState} from "../RYourCodeStates";
+import {editorCodeState} from "../RYourCodeStates";
 import {COMPILE_AND_RUN_BUTTON_ID} from "../YourCode";
 import {compiler} from "../../../compiler";
 import {compilerLoadingState, compilerReFetchState} from "../../Compiler/RCompilerStates";
 
 const YourCodeHeader = (): React.ReactElement => {
-    const codeSavingFlag = useRecoilValue<boolean>(codeSavingFlagState)
     const compilerLoading = useRecoilValue<boolean>(compilerLoadingState)
     const editorCode = useRecoilValue<string>(editorCodeState)
     const setCompilerReFetch = useSetRecoilState<boolean>(compilerReFetchState);
@@ -21,11 +20,11 @@ const YourCodeHeader = (): React.ReactElement => {
 
     return (
         <Box sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
-            <Button size={'small'} variant={'outlined'} endIcon={
-                codeSavingFlag && (<FiberManualRecord/>)
-            }>
-                Your Code
-            </Button>
+            <Paper elevation={2}>
+                <Button variant={'contained'} color={'secondary'} size={'small'} endIcon={<SaveOutlined/>}>
+                    Save to your snippet
+                </Button>
+            </Paper>
 
             <div>
                 {compilerLoading ? (
@@ -54,7 +53,7 @@ const YourCodeHeader = (): React.ReactElement => {
                     <Button
                         endIcon={<PlayCircleOutline/>}
                         id={COMPILE_AND_RUN_BUTTON_ID}
-                        variant="contained"
+                        variant={'contained'}
                         color="primary"
                         size="small"
                         onClick={handleRunCode}

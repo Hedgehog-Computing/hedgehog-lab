@@ -16,7 +16,14 @@ import {
     Typography,
     useTheme
 } from "@mui/material";
-import {BookOutlined, ExpandLessOutlined, ExpandMoreOutlined, FiberManualRecord} from "@mui/icons-material";
+import {
+    BookOutlined,
+    CreateOutlined,
+    ExpandLessOutlined,
+    ExpandMoreOutlined,
+    FiberManualRecord,
+    TextSnippetOutlined
+} from "@mui/icons-material";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {editorCodeState} from "../../YourCode/RYourCodeStates";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
@@ -61,10 +68,28 @@ const SideBar = (): React.ReactElement => {
             <Toolbar/>
 
             <Box sx={{overflow: 'auto'}}>
+                <Link component={RouteLink}
+                      to={`/snippet/new`}
+                      sx={{display: 'block'}}>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <CreateOutlined/>
+                        </ListItemIcon>
+
+                        <ListItemText>
+                            <Box fontWeight={"bold"} color={theme.palette.text.primary}>
+                                New Snippet
+                            </Box>
+                        </ListItemText>
+                    </ListItemButton>
+                </Link>
+
+                <Divider/>
+
                 <List>
                     <ListItem button onClick={handleCollapseClick}>
                         <ListItemIcon>
-                            <BookOutlined color={'primary'}/>
+                            <BookOutlined color={collapseOpen ? 'primary' : 'inherit'}/>
                         </ListItemIcon>
                         <ListItemText>
                             <Box fontWeight={"bold"}>
@@ -111,6 +136,17 @@ const SideBar = (): React.ReactElement => {
 
                     <Divider/>
 
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <TextSnippetOutlined/>
+                        </ListItemIcon>
+
+                        <ListItemText>
+                            <Box fontWeight={"bold"}>
+                                Your Snippet
+                            </Box>
+                        </ListItemText>
+                    </ListItemButton>
                 </List>
             </Box>
         </Drawer>
