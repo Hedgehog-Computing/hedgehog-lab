@@ -18,7 +18,7 @@ const YourCodeHeader = (): React.ReactElement => {
     const [compilerLoading, setCompilerLoading] = useRecoilState<boolean>(compilerLoadingState)
     const editorCode = useRecoilValue<string>(editorCodeState)
     const setCompilerResult = useSetRecoilState<any>(compilerResultState);
-    const compilerReFetch = useRecoilValue<boolean>(compilerReFetchState);
+    const [compilerReFetch, setCompilerReFetch] = useRecoilState<boolean>(compilerReFetchState);
 
     const {isFetching: isLoading, refetch} = useQuery<OutputResult,
         readonly [string, string]
@@ -30,6 +30,7 @@ const YourCodeHeader = (): React.ReactElement => {
         enabled: false,
         onSuccess: (result) => {
             setCompilerResult(result);
+            setCompilerReFetch(false)
         },
         onError: (lastError: any) => {
             // It's necessary to output all exception messages to user at output textbox,
@@ -39,21 +40,27 @@ const YourCodeHeader = (): React.ReactElement => {
                 outputItem: [],
                 outputString: lastError.toString()
             });
+            setCompilerReFetch(false)
         }
     });
 
-    useEffect(() => {
-        if (compilerReFetch) {
-            refetch({force: true} as any)
-        }
-    }, [compilerReFetch])
-
-    const handleRunCode = useCallback(() => {
+    const reFetchCodeForce = () => {
         setCompilerResult({
             outputItem: [],
             outputString: ''
         });
+
         refetch({force: true} as any)
+    }
+
+    useEffect(() => {
+        if (compilerReFetch) {
+            reFetchCodeForce()
+        }
+    }, [compilerReFetch])
+
+    const handleRunCode = useCallback(() => {
+        reFetchCodeForce()
     }, [editorCode])
 
     useEffect(() => {

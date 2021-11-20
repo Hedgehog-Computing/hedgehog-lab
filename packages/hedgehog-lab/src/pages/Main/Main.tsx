@@ -59,6 +59,7 @@ const Main = (): React.ReactElement => {
     useEffect(() => {
         const tutorialDetail = tutorials.find(o => o.description === tutorialID)
         setEditorCode(tutorialDetail ? tutorialDetail.source : '')
+        setCompilerReFetch(true)
     }, [tutorialID])
 
     return (
