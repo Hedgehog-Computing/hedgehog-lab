@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {Button, DialogActions, Divider, IconButton, Tooltip} from "@mui/material";
+import {Box, Button, DialogActions, Divider, IconButton, Tooltip} from "@mui/material";
 import {CloseOutlined, ShareOutlined} from "@mui/icons-material";
 import Dialog from "@mui/material/Dialog";
 import MuiDialogTitle from "@mui/material/DialogTitle";
@@ -60,8 +60,10 @@ const ShareDialog = (): React.ReactElement => {
                         <CloseOutlined/>
                     </IconButton>
                 </MuiDialogTitle>
-                <MuiDialogContent sx={{mt: '5px'}}>
-                    <CopyInput url={shareUrl}/>
+                <MuiDialogContent>
+                    <Box sx={{mt: '10px'}}>
+                        <CopyInput url={shareUrl}/>
+                    </Box>
 
                     <Divider sx={{pb: '20px'}}/>
 
