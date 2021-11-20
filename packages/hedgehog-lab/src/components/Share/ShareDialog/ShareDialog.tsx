@@ -7,17 +7,11 @@ import MuiDialogContent from "@mui/material/DialogContent";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CopyInput from "../../Base/Input/Copy/CopyInput";
-import {HEDGEHOG_DOMAIN} from "../../../config";
-import {useRecoilValue} from "recoil";
-import {editorCodeState} from "../../YourCode/RYourCodeStates";
+import {useLocation} from "react-use";
 
 const ShareDialog = (): React.ReactElement => {
 
     const [shareDialogOpen, setShareDialogOpen] = useState<boolean>(false)
-    const editorCode = useRecoilValue(editorCodeState)
-
-    const domain = HEDGEHOG_DOMAIN
-
     const [shareUrl, setShareUrl] = useState<string>('')
     const [autoRun, setAutoRun] = useState(false)
 
@@ -25,8 +19,10 @@ const ShareDialog = (): React.ReactElement => {
         setShareDialogOpen(!shareDialogOpen)
     }, [shareDialogOpen])
 
+    const location = useLocation()
+
     useEffect(() => {
-        setShareUrl(`${domain}?code=${encodeURIComponent(editorCode)}&auto_run=${autoRun}`)
+        setShareUrl(`${location.href}&auto_run=${autoRun}`)
     })
 
     const handleAutoRunCheckBoxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

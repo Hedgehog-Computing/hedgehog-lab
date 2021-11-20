@@ -6,8 +6,10 @@ import {
     Collapse,
     Divider,
     Drawer,
+    Link,
     List,
     ListItem,
+    ListItemButton,
     ListItemIcon,
     ListItemText,
     Toolbar,
@@ -19,7 +21,7 @@ import {useRecoilState, useSetRecoilState} from "recoil";
 import {editorCodeState} from "../../YourCode/RYourCodeStates";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import {sideBarOpenState} from "../RLayoutStates";
-
+import {Link as RouteLink} from 'react-router-dom'
 
 const SideBar = (): React.ReactElement => {
     const [collapseOpen, setCollapseOpen] = useState(true)
@@ -83,20 +85,25 @@ const SideBar = (): React.ReactElement => {
                               }}>
                             {tutorials.map((tutorial, index) => {
                                 return (
-                                    <ListItem button key={index} onClick={
-                                        () => {
-                                            handleSetEditorCode(tutorial.source)
-                                        }
-                                    }>
-                                        <ListItemText>
-                                            <FiberManualRecord
-                                                sx={{fontSize: '5px', color: theme.palette.grey[500], ml: '6px'}}/>
+                                    <Link key={index} sx={{display: 'block'}} component={RouteLink}
+                                          to={`/tutorial/${tutorial.description}`}>
+                                        <ListItemButton onClick={
+                                            () => {
+                                                handleSetEditorCode(tutorial.source)
+                                            }
+                                        }>
+                                            <ListItemText>
+                                                <FiberManualRecord
+                                                    sx={{fontSize: '5px', color: theme.palette.grey[500], ml: '6px'}}/>
 
-                                            <Typography variant={'body2'} component={'span'} sx={{ml: '18px'}}>
-                                                {tutorial.description}
-                                            </Typography>
-                                        </ListItemText>
-                                    </ListItem>
+                                                <Typography color={theme.palette.text.primary} variant={'body2'}
+                                                            component={'span'}
+                                                            sx={{ml: '18px'}}>
+                                                    {tutorial.description}
+                                                </Typography>
+                                            </ListItemText>
+                                        </ListItemButton>
+                                    </Link>
                                 )
                             })}
                         </List>

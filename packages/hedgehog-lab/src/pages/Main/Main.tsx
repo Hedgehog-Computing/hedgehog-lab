@@ -8,6 +8,8 @@ import YourCode from "../../components/YourCode/YourCode";
 import {queryCache} from "react-query";
 import {useSetRecoilState} from "recoil";
 import {compilerReFetchState, editorCodeState} from "../../components/YourCode/RYourCodeStates";
+import {useParams} from "react-router-dom";
+import {tutorials} from "../../tutorials";
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -51,6 +53,13 @@ const Main = (): React.ReactElement => {
     useEffect(() => {
         if (autoRun) setCompilerReFetch(true)
     }, [autoRun])
+
+    // Temporary, set up route for tutorial
+    const {tutorialID} = useParams()
+    useEffect(() => {
+        const tutorialDetail = tutorials.find(o => o.description === tutorialID)
+        setEditorCode(tutorialDetail ? tutorialDetail.source : '')
+    }, [tutorialID])
 
     return (
         <>

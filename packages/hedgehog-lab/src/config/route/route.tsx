@@ -16,6 +16,10 @@ const routes: Array<IRuteProps> = [
         path: '/auth',
         element: <AuthForm/>
     },
+    {
+        path: '/tutorial/:tutorialID',
+        element: <Main/>
+    }
 ]
 
 const settingRoutes: Array<IRuteProps> = [

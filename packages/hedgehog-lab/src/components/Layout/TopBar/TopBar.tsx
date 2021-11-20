@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import {Divider, IconButton, Link, styled, Toolbar, Typography} from "@mui/material";
+import {Divider, IconButton, Link, styled, Toolbar, Typography, useTheme} from "@mui/material";
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Box from "@mui/material/Box";
 import AuthDialog from "../../User/Auth/AuthDialog/AuthDialog";
@@ -31,6 +31,7 @@ const AppBar = styled(MuiAppBar, {
 
 const TopBar = (): React.ReactElement => {
     const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState)
+    const theme = useTheme()
 
     const handleSideBarOpen = useCallback(() => {
         setSideBarOpen(!sideBarOpen)
@@ -53,6 +54,7 @@ const TopBar = (): React.ReactElement => {
                     <Typography
                         variant="h6"
                         noWrap
+                        color={theme.palette.text.primary}
                         sx={{
                             fontWeight: "bold",
                             letterSpacing: 0,
