@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import {Divider, IconButton, styled, Toolbar, Typography} from "@mui/material";
+import {Divider, IconButton, Link, styled, Toolbar, Typography} from "@mui/material";
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Box from "@mui/material/Box";
 import AuthDialog from "../../User/Auth/AuthDialog/AuthDialog";
@@ -8,6 +8,7 @@ import RightButton from "./RightButton/RightButton";
 import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState} from "recoil";
 import {sideBarOpenState} from "../RLayoutStates";
+import {Link as RouterLink,} from 'react-router-dom';
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -48,17 +49,18 @@ const TopBar = (): React.ReactElement => {
                     <MenuOutlined/>
                 </IconButton>
 
-                <Typography
-                    variant="h6"
-                    noWrap
-                    component="div"
-                    sx={{
-                        fontWeight: "bold",
-                        letterSpacing: 0,
-                        width: '100%'
-                    }}>
-                    Hedgehog Lab
-                </Typography>
+                <Link component={RouterLink} to={'/'}>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{
+                            fontWeight: "bold",
+                            letterSpacing: 0,
+                            width: '100%'
+                        }}>
+                        Hedgehog Lab
+                    </Typography>
+                </Link>
 
                 <Box display={'flex'} justifyContent={'end'} width={'100%'}>
                     <ShareDialog/>

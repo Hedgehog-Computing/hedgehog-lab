@@ -5,6 +5,7 @@ import AuthForm from "../../components/User/Auth/AuthForm/AuthForm";
 import Account from "../../pages/Settings/Account";
 import Layout from "../../components/Layout/Layout";
 import Main from "../../pages/Main/Main";
+import ContainerLayout from "../../components/Layout/ContainerLayout";
 
 const routes: Array<IRuteProps> = [
     {
@@ -37,7 +38,7 @@ export const RoutePage = (): React.ReactElement => {
                         <Route path={item.path} key={key} element={item.element}/>
                     )}
 
-                    <Route path={'/Settings'}>
+                    <Route path={'/Settings'} element={<ContainerLayout/>}>
                         {settingRoutes.map((item, key) =>
                             <Route path={item.path} key={key} element={item.element}/>
                         )}

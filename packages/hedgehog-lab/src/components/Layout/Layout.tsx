@@ -1,10 +1,33 @@
 import React from "react";
 import SideBar from "./SideBar/SideBar";
-import {Box, CssBaseline, Toolbar} from "@mui/material";
+import {Box, CssBaseline, styled, Toolbar} from "@mui/material";
 import {Outlet} from "react-router-dom";
 import TopBar from "./TopBar/TopBar";
+import {sideBarWidth} from "../YourCode/Config/SideBar";
+import {useRecoilValue} from "recoil";
+import {sideBarOpenState} from "./RLayoutStates";
+
+const MainContent = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
+    open?: boolean;
+}>(({theme, open}) => ({
+    flexGrow: 1,
+    transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${sideBarWidth}px`,
+    ...(open && {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+    }),
+}));
 
 const Layout = (): React.ReactElement => {
+    const sideBarOpen = useRecoilValue(sideBarOpenState)
+
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
@@ -15,7 +38,9 @@ const Layout = (): React.ReactElement => {
             <Box component="main" sx={{flexGrow: 1, p: 3}}>
                 <Toolbar/>
 
-                <Outlet/>
+                <MainContent open={sideBarOpen}>
+                    <Outlet/>
+                </MainContent>
             </Box>
         </Box>
     )
