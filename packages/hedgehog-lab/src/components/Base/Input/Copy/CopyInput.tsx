@@ -27,7 +27,7 @@ const CopyInput: React.FC<ICopyInputProps> = (props): React.ReactElement => {
                 variant: 'success'
             })
         }
-    }, [copyToClipboardState])
+    }, [url])
 
     return (
         <OutlinedInput value={url}

@@ -7,6 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./config/route/route";
 import {RecoilRoot, useRecoilValue} from "recoil";
 import {themeModState} from "./config/themes/RThemeStates";
+import {Compiler} from "./components/Compiler/Compiler";
 
 
 const ThemePage = () => {
@@ -14,6 +15,7 @@ const ThemePage = () => {
 
     return (
         <ThemeProvider theme={labTheme(themeMode)}>
+            <Compiler/>
             <RoutePage/>
         </ThemeProvider>
     )

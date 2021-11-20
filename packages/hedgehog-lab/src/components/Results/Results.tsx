@@ -2,9 +2,9 @@ import React from 'react';
 import {Card, CircularProgress, Paper,} from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
-import Output from '../Output';
+import Output from './Output';
 import {useRecoilValue} from "recoil";
-import {compilerLoadingState, compilerResultState} from "../YourCode/RYourCodeStates";
+import {compilerLoadingState, compilerResultState} from "../Compiler/RCompilerStates";
 
 const Results = (): React.ReactElement => {
 

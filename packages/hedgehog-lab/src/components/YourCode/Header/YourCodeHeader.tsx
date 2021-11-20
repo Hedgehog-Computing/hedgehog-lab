@@ -1,71 +1,23 @@
 import {Box, Button} from "@mui/material";
 import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
-import {queryCache, useQuery} from "react-query";
-import React, {useCallback, useEffect} from "react";
-import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {
-    codeSavingFlagState,
-    compilerLoadingState,
-    compilerReFetchState,
-    compilerResultState,
-    editorCodeState
-} from "../RYourCodeStates";
+import {queryCache} from "react-query";
+import React, {useCallback} from "react";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {codeSavingFlagState, editorCodeState} from "../RYourCodeStates";
 import {COMPILE_AND_RUN_BUTTON_ID} from "../YourCode";
-import {compiler, OutputResult} from "../../../compiler";
+import {compiler} from "../../../compiler";
+import {compilerLoadingState, compilerReFetchState} from "../../Compiler/RCompilerStates";
 
 const YourCodeHeader = (): React.ReactElement => {
     const codeSavingFlag = useRecoilValue<boolean>(codeSavingFlagState)
-    const [compilerLoading, setCompilerLoading] = useRecoilState<boolean>(compilerLoadingState)
+    const compilerLoading = useRecoilValue<boolean>(compilerLoadingState)
     const editorCode = useRecoilValue<string>(editorCodeState)
-    const setCompilerResult = useSetRecoilState<any>(compilerResultState);
-    const [compilerReFetch, setCompilerReFetch] = useRecoilState<boolean>(compilerReFetchState);
-
-    const {isFetching: isLoading, refetch} = useQuery<OutputResult,
-        readonly [string, string]
-        //Error
-        >(['compiler', editorCode], compiler, {
-        retry: false,
-        refetchInterval: false,
-        refetchOnWindowFocus: false,
-        enabled: false,
-        onSuccess: (result) => {
-            setCompilerResult(result);
-            setCompilerReFetch(false)
-        },
-        onError: (lastError: any) => {
-            // It's necessary to output all exception messages to user at output textbox,
-            // including execution runtime exception and compiling exception -Lidang
-            console.log('Hedgehog Lab error: \n' + lastError.toString());
-            setCompilerResult({
-                outputItem: [],
-                outputString: lastError.toString()
-            });
-            setCompilerReFetch(false)
-        }
-    });
-
-    const reFetchCodeForce = () => {
-        setCompilerResult({
-            outputItem: [],
-            outputString: ''
-        });
-
-        refetch({force: true} as any)
-    }
-
-    useEffect(() => {
-        if (compilerReFetch) {
-            reFetchCodeForce()
-        }
-    }, [compilerReFetch])
+    const setCompilerReFetch = useSetRecoilState<boolean>(compilerReFetchState);
 
     const handleRunCode = useCallback(() => {
-        reFetchCodeForce()
-    }, [editorCode])
+        setCompilerReFetch(true)
+    }, [])
 
-    useEffect(() => {
-        setCompilerLoading(isLoading)
-    }, [isLoading])
 
     return (
         <Box sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
