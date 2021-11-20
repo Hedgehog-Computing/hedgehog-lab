@@ -13,7 +13,6 @@ const ShareDialog = (): React.ReactElement => {
 
     const [shareDialogOpen, setShareDialogOpen] = useState<boolean>(false)
     const [shareUrl, setShareUrl] = useState<string>('')
-    const [autoRun, setAutoRun] = useState(false)
 
     const handleShareDialogOpen = useCallback(() => {
         setShareDialogOpen(!shareDialogOpen)
@@ -21,13 +20,18 @@ const ShareDialog = (): React.ReactElement => {
 
     const location = useLocation()
 
+    const setLocationUrl = (autoRun: boolean) => {
+        setShareUrl(`${location.href}?auto_run=${autoRun}`)
+    }
+
     useEffect(() => {
-        setShareUrl(`${location.href}&auto_run=${autoRun}`)
-    })
+        setLocationUrl(false)
+    }, [])
 
     const handleAutoRunCheckBoxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const isChecked = event.target.checked
-        setAutoRun(isChecked)
+
+        setLocationUrl(isChecked)
     }, [])
 
     return (
