@@ -12,7 +12,6 @@ import {
     ListItemText,
     Toolbar,
     Typography,
-    useMediaQuery,
     useTheme
 } from "@mui/material";
 import {BookOutlined, ExpandLessOutlined, ExpandMoreOutlined, FiberManualRecord} from "@mui/icons-material";
@@ -28,7 +27,8 @@ const SideBar = (): React.ReactElement => {
     const setEditorCode = useSetRecoilState(editorCodeState)
 
     const theme = useTheme()
-    const lgMatches = useMediaQuery(theme.breakpoints.down('lg'));
+    const lgBreakpoint = window.matchMedia('(min-width: 1910px)');
+    const lgBreakpointMatches = lgBreakpoint.matches;
 
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
@@ -40,9 +40,8 @@ const SideBar = (): React.ReactElement => {
 
 
     useEffect(() => {
-        if (lgMatches) setSideBarOpen(false)
-        else setSideBarOpen(true)
-    }, [lgMatches])
+        setSideBarOpen(lgBreakpointMatches)
+    }, [lgBreakpointMatches])
 
 
     return (
