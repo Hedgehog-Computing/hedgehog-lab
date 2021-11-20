@@ -6,7 +6,7 @@ import Results from "../../components/Results/Results";
 import Footer from "../../components/DeprecatedCode/Footer/Footer";
 import YourCode from "../../components/YourCode/YourCode";
 import {queryCache} from "react-query";
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import {useSetRecoilState} from "recoil";
 import {editorCodeState} from "../../components/YourCode/RYourCodeStates";
 import {useParams} from "react-router-dom";
 import {tutorials} from "../../tutorials";
@@ -20,7 +20,7 @@ const lastRunningCode = localStorage.getItem('lastRunningCode')
 
 
 const Main = (): React.ReactElement => {
-    const setEditorCode = useRecoilValue<string>(editorCodeState)
+    const setEditorCode = useSetRecoilState<string>(editorCodeState)
     const setCompilerReFetch = useSetRecoilState<boolean>(compilerReFetchState);
     const setCompilerResult = useSetRecoilState(compilerResultState)
     // If auto_run=true, then hedgehog lab will run the script automatically after loading the code
