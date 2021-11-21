@@ -1,6 +1,6 @@
 import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
-import HOutlinedInput from "../HOutlined/HOutlinedInput";
+import HOutlinedInput from "../HOutlinedInput/HOutlinedInput";
 import {EmailOutlined} from "@mui/icons-material";
 
 const StartAdornment = () =>

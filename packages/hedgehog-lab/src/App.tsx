@@ -5,38 +5,30 @@ import {SnackbarProvider} from "notistack";
 import {labTheme} from "./config/themes/labTheme";
 import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./config/route/route";
-import {RecoilRoot} from "recoil";
+import {RecoilRoot, useRecoilValue} from "recoil";
+import {themeModState} from "./config/themes/RThemeStates";
+import {Compiler} from "./components/Compiler/Compiler";
 
-export const ColorModeContext = React.createContext({
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    toggleColorMode: () => {
-    }
-});
+
+const ThemePage = () => {
+    const themeMode = useRecoilValue(themeModState)
+
+    return (
+        <ThemeProvider theme={labTheme(themeMode)}>
+            <Compiler/>
+            <RoutePage/>
+        </ThemeProvider>
+    )
+}
 
 const App = (): React.ReactElement => {
-    // theme
-    const [mode, setMode] = React.useState<'light' | 'dark'>('light');
-
-    const colorMode = React.useMemo(
-        () => ({
-            toggleColorMode: () => {
-                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-            },
-        }),
-        [],
-    );
-
     return (
         <div className="App">
             <RecoilRoot>
                 <BrowserRouter>
                     <SnackbarProvider maxSnack={3}>
                         <StyledEngineProvider injectFirst>
-                            <ColorModeContext.Provider value={colorMode}>
-                                <ThemeProvider theme={labTheme(mode)}>
-                                    <RoutePage/>
-                                </ThemeProvider>
-                            </ColorModeContext.Provider>
+                            <ThemePage/>
                         </StyledEngineProvider>
                     </SnackbarProvider>
                 </BrowserRouter>
