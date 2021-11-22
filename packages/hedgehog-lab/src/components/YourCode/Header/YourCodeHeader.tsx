@@ -1,5 +1,5 @@
-import {Alert, Box, Button} from "@mui/material";
-import {PlayCircleOutline, SaveOutlined, StopCircleOutlined} from "@mui/icons-material";
+import {Box, Button} from "@mui/material";
+import {PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 import {queryCache} from "react-query";
 import React, {useCallback} from "react";
 import {useRecoilValue, useSetRecoilState} from "recoil";
@@ -7,6 +7,7 @@ import {editorCodeState} from "../RYourCodeStates";
 import {COMPILE_AND_RUN_BUTTON_ID} from "../YourCode";
 import {compiler} from "../../../compiler";
 import {compilerLoadingState, compilerReFetchState} from "../../Compiler/RCompilerStates";
+import SaveDialog from "../../Snippet/SaveNotice/SaveDialog";
 
 const YourCodeHeader = (): React.ReactElement => {
     const compilerLoading = useRecoilValue<boolean>(compilerLoadingState)
@@ -20,14 +21,7 @@ const YourCodeHeader = (): React.ReactElement => {
 
     return (
         <Box sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
-            <Alert variant={'filled'} severity={'error'}
-                   action={
-                       <Button variant={'outlined'} size={'small'} color={'inherit'} endIcon={<SaveOutlined/>}>
-                           Save
-                       </Button>
-                   }>
-                You have not saved it
-            </Alert>
+            <SaveDialog/>
             <div>
                 {compilerLoading ? (
                     <Button
