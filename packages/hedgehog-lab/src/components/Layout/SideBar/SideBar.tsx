@@ -69,7 +69,7 @@ const SideBar = (): React.ReactElement => {
 
             <Box sx={{overflow: 'auto'}}>
                 <Link component={RouteLink}
-                      to={`/snippet/new`}
+                      to={`/snippets/new`}
                       sx={{display: 'block'}}>
                     <ListItemButton>
                         <ListItemIcon>
@@ -136,17 +136,21 @@ const SideBar = (): React.ReactElement => {
 
                     <Divider/>
 
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <TextSnippetOutlined/>
-                        </ListItemIcon>
+                    <Link component={RouteLink}
+                          to={`/snippets`}
+                          sx={{display: 'block'}}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <TextSnippetOutlined/>
+                            </ListItemIcon>
 
-                        <ListItemText>
-                            <Box fontWeight={"bold"}>
-                                Your Snippet
-                            </Box>
-                        </ListItemText>
-                    </ListItemButton>
+                            <ListItemText>
+                                <Box fontWeight={"bold"} color={theme.palette.text.primary}>
+                                    My Snippets
+                                </Box>
+                            </ListItemText>
+                        </ListItemButton>
+                    </Link>
                 </List>
             </Box>
         </Drawer>

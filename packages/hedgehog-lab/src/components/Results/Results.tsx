@@ -17,7 +17,7 @@ const Results = (): React.ReactElement => {
         <div style={{height: '100%'}}>
             <Card
                 style={{
-                    height: '100%',
+                    height: 'calc(100vh - 160px)',
                     overflowY: 'auto',
                     overflowX: 'auto',
                     borderRadius: 0

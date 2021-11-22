@@ -1,4 +1,4 @@
-import {Box, Button, Paper} from "@mui/material";
+import {Alert, Box, Button} from "@mui/material";
 import {PlayCircleOutline, SaveOutlined, StopCircleOutlined} from "@mui/icons-material";
 import {queryCache} from "react-query";
 import React, {useCallback} from "react";
@@ -20,12 +20,14 @@ const YourCodeHeader = (): React.ReactElement => {
 
     return (
         <Box sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
-            <Paper elevation={2}>
-                <Button variant={'contained'} color={'secondary'} size={'small'} endIcon={<SaveOutlined/>}>
-                    Save to your snippet
-                </Button>
-            </Paper>
-
+            <Alert variant={'filled'} severity={'error'}
+                   action={
+                       <Button variant={'outlined'} size={'small'} color={'inherit'} endIcon={<SaveOutlined/>}>
+                           Save
+                       </Button>
+                   }>
+                You have not saved it
+            </Alert>
             <div>
                 {compilerLoading ? (
                     <Button
