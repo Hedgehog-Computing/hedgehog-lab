@@ -7,7 +7,7 @@ import Layout from "../../components/Layout/Layout";
 import Main from "../../pages/Main/Main";
 import ContainerLayout from "../../components/Layout/ContainerLayout";
 import Snippets from "../../pages/Snippets/Snippets";
-import SnippetsLayout from "../../components/Layout/Snippets/SnippetsLayout";
+import SnippetsLayout from "../../components/Layout/SnippetsLayout/SnippetsLayout";
 
 const routes: Array<IRuteProps> = [
     {
@@ -24,6 +24,10 @@ const routes: Array<IRuteProps> = [
     },
     {
         path: '/snippets/new',
+        element: <Main/>
+    },
+    {
+        path: '/snippets/:snippetID',
         element: <Main/>
     }
 ]

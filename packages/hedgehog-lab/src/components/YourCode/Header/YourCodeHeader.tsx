@@ -8,6 +8,8 @@ import {COMPILE_AND_RUN_BUTTON_ID} from "../YourCode";
 import {compiler} from "../../../compiler";
 import {compilerLoadingState, compilerReFetchState} from "../../Compiler/RCompilerStates";
 import SaveDialog from "../../Snippet/SaveNotice/SaveDialog";
+import {useParams} from "react-router-dom";
+import SaveNotice from "../../Snippet/SaveNotice/SaveNotice";
 
 const YourCodeHeader = (): React.ReactElement => {
     const compilerLoading = useRecoilValue<boolean>(compilerLoadingState)
@@ -18,10 +20,13 @@ const YourCodeHeader = (): React.ReactElement => {
         setCompilerReFetch(true)
     }, [])
 
+    const {snippetID} = useParams()
 
     return (
         <Box sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
-            <SaveDialog/>
+            {
+                snippetID ? <SaveNotice/> : <SaveDialog/>
+            }
             <div>
                 {compilerLoading ? (
                     <Button
@@ -51,7 +56,6 @@ const YourCodeHeader = (): React.ReactElement => {
                         id={COMPILE_AND_RUN_BUTTON_ID}
                         variant={'contained'}
                         color="primary"
-                        size="small"
                         onClick={handleRunCode}
                         style={{
                             textTransform: 'none'

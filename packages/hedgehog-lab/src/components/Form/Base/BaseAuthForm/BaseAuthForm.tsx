@@ -12,18 +12,10 @@ const BaseAuthForm: React.FC = (prop): React.ReactElement => {
     return (
         <>
             {children}
-            <EmailInput
-                {...useFormMethods.register("email")}
-                control={useFormMethods.control}
-                error={useFormMethods.formState.errors}
-            />
+            <EmailInput/>
 
             <Box sx={{mt: '20px', mb: '10px'}}>
-                <PasswordInput
-                    {...useFormMethods.register("password")}
-                    control={useFormMethods.control}
-                    error={useFormMethods.formState.errors}
-                />
+                <PasswordInput/>
             </Box>
         </>
     )

@@ -6,7 +6,7 @@ import ResizeObserver from 'react-resize-detector';
 import {monacoTheme} from '../../config/themes/monacoTheme';
 import YourCodeHeader from "./Header/YourCodeHeader";
 import {useRecoilState} from "recoil";
-import {editorCodeState} from "./RYourCodeStates";
+import {codeSavingFlagState, editorCodeState} from "./RYourCodeStates";
 
 export const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
@@ -32,7 +32,7 @@ const YourCode = (): React.ReactElement => {
 
     const [editorTheme, setEditorTheme] = useState<'monacoDarkTheme' | 'vs'>('vs')
 
-    const [codeSavingFlag, setCodeSavingFlag] = useState(false)
+    const [codeSavingFlag, setCodeSavingFlag] = useRecoilState(codeSavingFlagState)
 
     // save code to local storage
     const autoSaveCode = () => {

@@ -31,6 +31,7 @@ const SaveDialog = (): React.ReactElement => {
                 You have not saved it
             </Alert>
 
+
             <Dialog open={saveDialogOpen} aria-labelledby="Save your code" fullWidth maxWidth={'sm'}>
                 <DialogTitle id="save-your-code">
                     Share your code via URL
@@ -51,7 +52,6 @@ const SaveDialog = (): React.ReactElement => {
 
                 <DialogContent>
                     <Box sx={{mt: '10px'}}>
-
                         <OutlinedInput fullWidth placeholder={'Snippet name'}/>
                     </Box>
                 </DialogContent>
