@@ -1,12 +1,12 @@
 import * as React from "react";
-import BaseForm from "../../../Form/Base/BaseForm/BaseForm";
-import BaseAuthAction from "../../../Form/Base/BaseAuthAction/BaseAuthAction";
+import BaseForm from "../../Base/Form/BaseForm";
+import AuthAction from "../Action/AuthAction";
 import {Box} from "@mui/material";
-import EmailInput from "../../../Base/Input/Email/EmailInput";
+import EmailInput from "../../Base/Input/Email/EmailInput";
 
 const ForgetAction = () =>
     (
-        <BaseAuthAction
+        <AuthAction
             action={{text: 'Forget'}}
             signOrLogin={{text: 'Already a member?', actionText: 'Log in', action: 'login'}}
             forget={{text: 'Forget password?'}}

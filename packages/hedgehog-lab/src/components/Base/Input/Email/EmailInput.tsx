@@ -15,7 +15,7 @@ const EmailInput = (): React.ReactElement => {
     return (
         <Controller
             {...useFormMethods.register(name)}
-            // name ref IAuthFormProps
+            // name ref IBaseFormProps
             name={name}
             control={useFormMethods.control}
             defaultValue={''}

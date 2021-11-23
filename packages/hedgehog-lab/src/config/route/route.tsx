@@ -1,7 +1,7 @@
 import {Route, Routes, useLocation} from "react-router-dom";
 import * as React from "react";
 import {IRuteProps} from "./IRuteProps";
-import AuthForm from "../../components/User/Auth/AuthForm/AuthForm";
+import Auth from "../../components/Auth/Auth";
 import Account from "../../pages/Settings/Account";
 import Layout from "../../components/Layout/Layout";
 import Main from "../../pages/Main/Main";
@@ -16,7 +16,7 @@ const routes: Array<IRuteProps> = [
     },
     {
         path: '/auth',
-        element: <AuthForm/>
+        element: <Auth/>
     },
     {
         path: '/tutorial/:tutorialID',

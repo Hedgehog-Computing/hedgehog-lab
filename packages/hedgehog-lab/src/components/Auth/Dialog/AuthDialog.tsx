@@ -6,7 +6,7 @@ import {AccountCircleOutlined, CloseOutlined} from "@mui/icons-material";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
 import {authDialogState} from "../RAuthStates";
-import AuthForm from "../AuthForm/AuthForm";
+import Auth from "../Auth";
 
 
 interface DialogProps {
@@ -99,7 +99,7 @@ export default function AuthDialog(): React.ReactElement {
                     <DialogHeader handleClose={handleClose}/>
 
                     <DialogContent sx={{mt: '10px'}}>
-                        <AuthForm/>
+                        <Auth/>
                     </DialogContent>
                 </Box>
             </Dialog>

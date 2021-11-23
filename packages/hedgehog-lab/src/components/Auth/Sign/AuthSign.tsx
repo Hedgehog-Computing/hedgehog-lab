@@ -1,13 +1,14 @@
 import * as React from "react";
-import BaseForm from "../../../Form/Base/BaseForm/BaseForm";
-import BaseAuthAction from "../../../Form/Base/BaseAuthAction/BaseAuthAction";
-import BaseAuthForm from "../../../Form/Base/BaseAuthForm/BaseAuthForm";
+import BaseForm from "../../Base/Form/BaseForm";
+import AuthAction from "../Action/AuthAction";
 import {Box} from "@mui/material";
-import UserNameInput from "../../../Base/Input/UserName/UserNameInput";
+import UserNameInput from "../../Base/Input/UserName/UserNameInput";
+import EmailInput from "../../Base/Input/Email/EmailInput";
+import PasswordInput from "../../Base/Input/Password/PasswordInput";
 
 const SignAction = () =>
     (
-        <BaseAuthAction
+        <AuthAction
             action={{text: 'Sign In'}}
             signOrLogin={{text: 'Already a member?', actionText: 'Log in', action: 'login'}}
         />
@@ -16,11 +17,16 @@ const SignAction = () =>
 const SignForm = () => {
     return (
         <>
-            <BaseAuthForm>
-                <Box sx={{mb: '20px'}}>
-                    <UserNameInput/>
-                </Box>
-            </BaseAuthForm>
+            <Box sx={{mb: '20px'}}>
+                <UserNameInput/>
+            </Box>
+
+            <EmailInput/>
+
+            <Box sx={{mt: '20px', mb: '10px'}}>
+                <PasswordInput/>
+            </Box>
+
             <SignAction/>
         </>
     )

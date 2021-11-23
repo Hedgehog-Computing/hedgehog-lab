@@ -1,4 +1,4 @@
-export interface IAuthFormMethods {
+export interface IBaseFormMethods {
     login: string,
     sign: string,
     forget: string,

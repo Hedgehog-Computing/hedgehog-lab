@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Box from "@mui/material/Box";
-import AuthDialog from "../../User/Auth/AuthDialog/AuthDialog";
+import AuthDialog from "../../Auth/Dialog/AuthDialog";
 import ShareDialog from "../../Share/ShareDialog/ShareDialog";
 import RightButton from "./RightButton/RightButton";
 import {MenuOutlined} from "@mui/icons-material";

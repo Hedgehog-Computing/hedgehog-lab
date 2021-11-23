@@ -3,7 +3,7 @@
 ## Support form method
 
 You can add others into:  
-`/components/User/Auth/AuthForm/IAuthFormMethods.ts`
+`/components/User/Auth/Auth/IBaseFormMethods.ts`
 
 Don't forget set the state  
 `const [authAction, setAuthAction] = useRecoilState(authActionState)`
@@ -12,7 +12,7 @@ All logic fellow the state, view the form component file that you can find the c
 
 ## Add a new form
 
-1. Set the method name, you should add the name into the `IAuthFormMethods`, and `setAuthAction` first.
+1. Set the method name, you should add the name into the `IBaseFormMethods`, and `setAuthAction` first.
 2. Set the form validation and submit method, follow the blow file easily.
 3. Finally, render the component with `BaseForm`.
 
@@ -31,10 +31,10 @@ All logic fellow the state, view the form component file that you can find the c
 
 ### Form validation rules
 
-`/components/User/Auth/AuthForm/AuthFormYup.ts`
+`/components/User/Auth/Auth/BaseFormRule.ts`
 
 ### Form submit method
 
-`/components/User/Auth/AuthForm/AuthFormSubmit.ts`
+`/components/User/Auth/Auth/BaseFormModal.ts`
 
 

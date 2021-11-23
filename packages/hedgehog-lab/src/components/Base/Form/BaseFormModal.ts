@@ -1,10 +1,10 @@
-import {IAuthFormProps} from "./IAuthFormProps";
+import {IBaseFormProps} from "./IBaseFormProps";
+import {loginModal} from "../../../modals/login/loginModal";
 
-export const AuthFormSubmit = (method: string, data: IAuthFormProps): void => {
+export const BaseFormModal = (method: string, data: IBaseFormProps): void => {
     switch (method) {
         case 'login':
-            console.log('login')
-            console.log(data)
+            loginModal()
             break
         case 'sign':
             console.log('sign')

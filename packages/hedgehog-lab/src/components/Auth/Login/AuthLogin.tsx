@@ -1,12 +1,13 @@
 import * as React from "react";
-import BaseForm from "../../../Form/Base/BaseForm/BaseForm";
-import BaseAuthAction from "../../../Form/Base/BaseAuthAction/BaseAuthAction";
-import BaseAuthForm from "../../../Form/Base/BaseAuthForm/BaseAuthForm";
+import BaseForm from "../../Base/Form/BaseForm";
+import AuthAction from "../Action/AuthAction";
 import {Box} from "@mui/material";
+import EmailInput from "../../Base/Input/Email/EmailInput";
+import PasswordInput from "../../Base/Input/Password/PasswordInput";
 
 const LoginAction = () =>
     (
-        <BaseAuthAction
+        <AuthAction
             action={{text: 'Log in'}}
             signOrLogin={{text: 'Not on HHLAB yet?', actionText: 'Sign up', action: 'sign'}}
             forget={{text: 'Forget password?'}}
@@ -16,7 +17,12 @@ const LoginAction = () =>
 const LoginForm = () => {
     return (
         <>
-            <BaseAuthForm/>
+            <EmailInput/>
+
+            <Box sx={{mt: '20px', mb: '10px'}}>
+                <PasswordInput/>
+            </Box>
+
             <LoginAction/>
         </>
     )

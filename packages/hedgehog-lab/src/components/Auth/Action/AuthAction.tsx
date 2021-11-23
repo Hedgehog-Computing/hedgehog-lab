@@ -2,7 +2,7 @@ import {Button, Link, Typography} from "@mui/material";
 import * as React from "react";
 import {useCallback} from "react";
 import {useRecoilState} from "recoil";
-import {authActionState} from "../../../User/Auth/RAuthStates";
+import {authActionState} from "../RAuthStates";
 
 interface IBaseActionProps {
     forget?: {
@@ -19,7 +19,7 @@ interface IBaseActionProps {
 }
 
 
-const BaseAuthAction: React.FC<IBaseActionProps> = (prop) => {
+const AuthAction: React.FC<IBaseActionProps> = (prop) => {
     const [authAction, setAuthAction] = useRecoilState(authActionState)
 
     const handleSetAuthAction = useCallback((action: string) => {
@@ -52,4 +52,4 @@ const BaseAuthAction: React.FC<IBaseActionProps> = (prop) => {
     )
 }
 
-export default BaseAuthAction
+export default AuthAction
