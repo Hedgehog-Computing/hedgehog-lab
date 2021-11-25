@@ -68,25 +68,25 @@ const SideBar = (): React.ReactElement => {
             <Toolbar/>
 
             <Box sx={{overflow: 'auto'}}>
-                <Link component={RouteLink}
-                      to={`/snippets/new`}
-                      sx={{display: 'block'}}>
-                    <ListItemButton>
-                        <ListItemIcon>
-                            <CreateOutlined/>
-                        </ListItemIcon>
+                <List disablePadding>
+                    <Link component={RouteLink}
+                          to={`/snippets/new`}
+                          sx={{display: 'block'}}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <CreateOutlined/>
+                            </ListItemIcon>
 
-                        <ListItemText>
-                            <Box fontWeight={"bold"} color={theme.palette.text.primary}>
-                                New Snippet
-                            </Box>
-                        </ListItemText>
-                    </ListItemButton>
-                </Link>
+                            <ListItemText>
+                                <Box fontWeight={"bold"} color={theme.palette.text.primary}>
+                                    New Snippet
+                                </Box>
+                            </ListItemText>
+                        </ListItemButton>
+                    </Link>
 
-                <Divider/>
+                    <Divider/>
 
-                <List>
                     <ListItem button onClick={handleCollapseClick}>
                         <ListItemIcon>
                             <BookOutlined color={collapseOpen ? 'primary' : 'inherit'}/>
@@ -137,7 +137,7 @@ const SideBar = (): React.ReactElement => {
                     <Divider/>
 
                     <Link component={RouteLink}
-                          to={`/snippets`}
+                          to={`/hhlab`}
                           sx={{display: 'block'}}>
                         <ListItemButton>
                             <ListItemIcon>

@@ -7,7 +7,6 @@ import Layout from "../../components/Layout/Layout";
 import Main from "../../pages/Main/Main";
 import ContainerLayout from "../../components/Layout/ContainerLayout";
 import Snippets from "../../pages/Snippets/Snippets";
-import SnippetsLayout from "../../components/Layout/SnippetsLayout/SnippetsLayout";
 
 const routes: Array<IRuteProps> = [
     {
@@ -27,7 +26,15 @@ const routes: Array<IRuteProps> = [
         element: <Main/>
     },
     {
-        path: '/:user/:snippetID',
+        path: '/:userID',
+        element: <Snippets/>
+    },
+    {
+        path: '/:userID/starred',
+        element: <Snippets/>
+    },
+    {
+        path: '/:userID/:snippetID',
         element: <Main/>
     }
 ]
@@ -36,17 +43,6 @@ const settingRoutes: Array<IRuteProps> = [
     {
         path: 'account',
         element: <Account/>
-    }
-]
-
-const snippetRoutes: Array<IRuteProps> = [
-    {
-        path: '',
-        element: <Snippets/>
-    },
-    {
-        path: 'starred',
-        element: <Snippets/>
     }
 ]
 
@@ -67,14 +63,6 @@ export const RoutePage = (): React.ReactElement => {
                         {settingRoutes.map((item, key) =>
                             <Route path={item.path} key={key} element={item.element}/>
                         )}
-                    </Route>
-
-                    <Route path={'/snippets'} element={<ContainerLayout/>}>
-                        <Route path={''} element={<SnippetsLayout/>}>
-                            {snippetRoutes.map((item, key) =>
-                                <Route path={item.path} key={key} element={item.element}/>
-                            )}
-                        </Route>
                     </Route>
                 </Route>
             </Routes>
