@@ -64,7 +64,7 @@ export default function AuthDialog(): React.ReactElement {
     const [open, setOpen] = useRecoilState(authDialogState);
 
     const onDismiss = useCallback(() => {
-        navigate('/');
+        navigate('-1')
     }, [])
 
 
