@@ -7,32 +7,31 @@ import MuiDialogContent from "@mui/material/DialogContent";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import CopyInput from "../../Base/Input/Copy/CopyInput";
-import {useLocation} from "react-use";
+import {useLocation} from "react-router-dom";
+import {HEDGEHOG_DOMAIN} from "../../../config";
 
 const ShareDialog = (): React.ReactElement => {
 
     const [shareDialogOpen, setShareDialogOpen] = useState<boolean>(false)
     const [shareUrl, setShareUrl] = useState<string>('')
+    const [autoRun, setAutoRun] = useState<boolean>(false)
 
     const handleShareDialogOpen = useCallback(() => {
         setShareDialogOpen(!shareDialogOpen)
     }, [shareDialogOpen])
 
-    const location = useLocation()
+    const {pathname} = useLocation()
 
-    const setLocationUrl = (autoRun: boolean) => {
-        setShareUrl(`${location.href}?auto_run=${autoRun}`)
-    }
-
-    useEffect(() => {
-        setLocationUrl(false)
-    }, [])
 
     const handleAutoRunCheckBoxChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         const isChecked = event.target.checked
 
-        setLocationUrl(isChecked)
+        setAutoRun(isChecked)
     }, [])
+
+    useEffect(() => {
+        setShareUrl(`${HEDGEHOG_DOMAIN}${pathname}?auto_run=${autoRun}`)
+    }, [pathname, autoRun])
 
     return (
         <>
