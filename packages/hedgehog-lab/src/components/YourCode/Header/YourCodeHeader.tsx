@@ -33,10 +33,6 @@ const YourCodeHeader = (): React.ReactElement => {
                         endIcon={<StopCircleOutlined/>}
                         variant="contained"
                         color="error"
-                        size="small"
-                        style={{
-                            textTransform: 'none',
-                        }}
 
 
                         onClick={() => {
@@ -56,10 +52,7 @@ const YourCodeHeader = (): React.ReactElement => {
                         id={COMPILE_AND_RUN_BUTTON_ID}
                         variant={'contained'}
                         color="primary"
-                        onClick={handleRunCode}
-                        style={{
-                            textTransform: 'none'
-                        }}>
+                        onClick={handleRunCode}>
                         Run
                     </Button>
                 )}
