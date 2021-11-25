@@ -34,7 +34,7 @@ const SaveDialog = (): React.ReactElement => {
 
             <Dialog open={saveDialogOpen} aria-labelledby="Save your code" fullWidth maxWidth={'sm'}>
                 <DialogTitle id="save-your-code">
-                    Share your code via URL
+                    Save your snippet to cloud
 
                     <IconButton
                         aria-label="close"
