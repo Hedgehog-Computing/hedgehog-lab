@@ -15,11 +15,11 @@ const DeletePopup = (): React.ReactElement => {
             <Popover
                 {...bindPopover(popupState)}
                 anchorOrigin={{
-                    vertical: 'bottom',
+                    vertical: 'top',
                     horizontal: 'center',
                 }}
                 transformOrigin={{
-                    vertical: 'top',
+                    vertical: 'bottom',
                     horizontal: 'center',
                 }}
             >

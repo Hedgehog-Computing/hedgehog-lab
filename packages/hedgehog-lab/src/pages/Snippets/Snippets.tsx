@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Button, CardActionArea, Chip, Divider, Link, Paper, Typography} from "@mui/material";
+import {Box, Button, CardActionArea, Chip, Divider, Link, Pagination, Paper, Typography} from "@mui/material";
 import {CopyBlock, dracula} from "react-code-blocks";
 import {StarBorderOutlined} from "@mui/icons-material";
 import {Link as RouterLink} from 'react-router-dom'
@@ -24,7 +24,7 @@ const Snippets = (): React.ReactElement => {
 
     return (
         <>
-            {Array.from(Array(10).keys()).map((item, index) => {
+            {Array.from(Array(3).keys()).map((item, index) => {
                 return (
                     <Box key={index}>
                         <Box display={'flex'} justifyContent={'space-between'}>
@@ -79,6 +79,8 @@ const Snippets = (): React.ReactElement => {
                 )
             })
             }
+
+            <Pagination count={10}/>
         </>
     )
 }
