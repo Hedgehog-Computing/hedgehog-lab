@@ -7,9 +7,9 @@ import {editorCodeState} from "../RYourCodeStates";
 import {COMPILE_AND_RUN_BUTTON_ID} from "../YourCode";
 import {compiler} from "../../../compiler";
 import {compilerLoadingState, compilerReFetchState} from "../../Compiler/RCompilerStates";
-import SaveDialog from "../../Snippet/SaveNotice/SaveDialog";
+import SaveDialog from "../../Snippet/Save/SaveDialog";
 import {useParams} from "react-router-dom";
-import SaveNotice from "../../Snippet/SaveNotice/SaveNotice";
+import SaveState from "../../Snippet/Save/SaveState";
 
 const YourCodeHeader = (): React.ReactElement => {
     const compilerLoading = useRecoilValue<boolean>(compilerLoadingState)
@@ -25,7 +25,7 @@ const YourCodeHeader = (): React.ReactElement => {
     return (
         <Box sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
             {
-                snippetID ? <SaveNotice/> : <SaveDialog/>
+                snippetID ? <SaveState/> : <SaveDialog/>
             }
             <div>
                 {compilerLoading ? (

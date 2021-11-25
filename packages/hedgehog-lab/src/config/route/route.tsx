@@ -27,7 +27,7 @@ const routes: Array<IRuteProps> = [
         element: <Main/>
     },
     {
-        path: '/snippets/:snippetID',
+        path: '/:user/:snippetID',
         element: <Main/>
     }
 ]

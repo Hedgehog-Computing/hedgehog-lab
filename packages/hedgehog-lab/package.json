@@ -19,6 +19,7 @@
     "esbuild-loader": "^2.9.1",
     "history": "5",
     "ky": "^0.23.0",
+    "material-ui-popup-state": "^2.0.0",
     "monaco-editor": "^0.23.0",
     "notistack": "^2.0.2",
     "plotly.js": "^1.54.6",

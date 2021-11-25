@@ -2,6 +2,9 @@ import React from "react";
 import {Box, Button, CardActionArea, Chip, Divider, Link, Paper, Typography} from "@mui/material";
 import {CopyBlock, dracula} from "react-code-blocks";
 import {StarBorderOutlined} from "@mui/icons-material";
+import {Link as RouterLink} from 'react-router-dom'
+import RenameDialog from "../../components/Snippet/Rename/RenameDialog";
+import DeletePopup from "../../components/Snippet/Delete/DeletePopup";
 
 const printCode = `
 {
@@ -26,13 +29,13 @@ const Snippets = (): React.ReactElement => {
                     <Box key={index}>
                         <Box display={'flex'} justifyContent={'space-between'}>
                             <Box alignItems={"center"} display={"flex"}>
-                                <Link component={"span"} variant={'body1'} underline={"hover"}>
+                                <Link component={RouterLink} variant={'body1'} underline={"hover"} to={'/hhlab'}>
                                     hhlab
                                 </Link>
 
                                 <span style={{margin: ' 0 2px'}}>/</span>
 
-                                <Link component={"span"} variant={'body1'} underline={"hover"}>
+                                <Link component={RouterLink} variant={'body1'} underline={"hover"} to={'/hhlab/simple'}>
                                     simple
                                 </Link>
 
@@ -41,9 +44,13 @@ const Snippets = (): React.ReactElement => {
 
                             <Box>
                                 <Button color={'inherit'} size={"small"}
-                                        startIcon={<StarBorderOutlined fontSize={'small'}/>}>
+                                        startIcon={<StarBorderOutlined/>}>
                                     1 stars
                                 </Button>
+
+                                <RenameDialog/>
+
+                                <DeletePopup/>
                             </Box>
                         </Box>
 
@@ -54,7 +61,7 @@ const Snippets = (): React.ReactElement => {
                             </Typography>
 
                             <Paper elevation={0} sx={{mt: '10px'}}>
-                                <CardActionArea>
+                                <CardActionArea component={RouterLink} to={'/hhlab/simple'}>
                                     <Box sx={{
                                         '& button': {
                                             display: 'none'

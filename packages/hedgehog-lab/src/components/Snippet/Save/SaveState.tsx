@@ -4,7 +4,7 @@ import React from "react";
 import {useRecoilValue} from "recoil";
 import {codeSavingFlagState} from "../../YourCode/RYourCodeStates";
 
-const SaveNotice = (): React.ReactElement => {
+const SaveState = (): React.ReactElement => {
     const codeSavingFlag = useRecoilValue(codeSavingFlagState)
 
     return (
@@ -31,4 +31,4 @@ const SaveNotice = (): React.ReactElement => {
     )
 }
 
-export default SaveNotice
+export default SaveState
