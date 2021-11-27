@@ -6,9 +6,9 @@ import MuiDialogTitle from "@mui/material/DialogTitle";
 import MuiDialogContent from "@mui/material/DialogContent";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import CopyInput from "../../Base/Input/Copy/CopyInput";
+import CopyInput from "../Base/Input/Copy/CopyInput";
 import {useLocation} from "react-router-dom";
-import {HEDGEHOG_DOMAIN} from "../../../config";
+import {HEDGEHOG_DOMAIN} from "../../config";
 
 const ShareDialog = (): React.ReactElement => {
 

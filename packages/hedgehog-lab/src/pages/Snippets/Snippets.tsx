@@ -5,6 +5,7 @@ import {StarBorderOutlined} from "@mui/icons-material";
 import {Link as RouterLink} from 'react-router-dom'
 import RenameDialog from "../../components/Snippet/Rename/RenameDialog";
 import DeletePopup from "../../components/Snippet/Delete/DeletePopup";
+import SharePopup from "../../components/Snippet/Share/SharePopup";
 
 const printCode = `
 {
@@ -49,6 +50,8 @@ const Snippets = (): React.ReactElement => {
                                 </Button>
 
                                 <RenameDialog/>
+
+                                <SharePopup url={'https://exampleSnippet.com'}/>
 
                                 <DeletePopup/>
                             </Box>
