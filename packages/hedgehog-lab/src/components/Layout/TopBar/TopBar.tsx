@@ -19,7 +19,7 @@ import RightButton from "./RightButton/RightButton";
 import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState} from "recoil";
 import {sideBarOpenState} from "../RLayoutStates";
-import {Link as RouteLink, useLocation,} from 'react-router-dom';
+import {Link as RouteLink,} from 'react-router-dom';
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -42,8 +42,6 @@ const AppBar = styled(MuiAppBar, {
 
 const TopBar = (): React.ReactElement => {
     const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState)
-    const location = useLocation();
-    const state = location.state as { backgroundLocation?: Location };
     const theme = useTheme()
 
     const handleSideBarOpen = useCallback(() => {
@@ -92,7 +90,7 @@ const TopBar = (): React.ReactElement => {
 
                     <RightButton/>
 
-                    {state?.backgroundLocation !== undefined ? <AuthDialog/> : <></>}
+                    <AuthDialog/>
 
                 </Box>
             </Toolbar>

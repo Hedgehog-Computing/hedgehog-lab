@@ -80,7 +80,8 @@ export default function AuthDialog(): React.ReactElement {
 
     return (
         <>
-            <AuthButton handleClickOpen={handleClickOpen}/>
+            {location.pathname === '/auth' ? <></> : <AuthButton handleClickOpen={handleClickOpen}/>}
+
 
             <Dialog open={open}
                     onClose={(event, reason) => {
