@@ -44,7 +44,7 @@ const Snippets = (): React.ReactElement => {
                             </Box>
 
                             <Box>
-                                <Button color={'inherit'} size={"small"}
+                                <Button color={'inherit'}
                                         startIcon={<StarBorderOutlined/>}>
                                     1 stars
                                 </Button>

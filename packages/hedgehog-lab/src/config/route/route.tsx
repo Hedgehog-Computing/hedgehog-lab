@@ -17,10 +17,6 @@ const router: RouteObject[] = [
                 element: <Main/>
             },
             {
-                path: '/auth',
-                element: <Auth/>
-            },
-            {
                 path: '/tutorial/:tutorialID',
                 element: <Main/>
             },
@@ -56,8 +52,18 @@ const router: RouteObject[] = [
                     }
                 ]
             },
+            {
+                path: '/auth',
+                element: <ContainerLayout/>,
+                children: [
+                    {
+                        path: '',
+                        element: <Auth/>
+                    },
+                ]
+            },
         ]
-    }
+    },
 ];
 
 
