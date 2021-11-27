@@ -1,71 +1,77 @@
-import {Route, Routes, useLocation} from "react-router-dom";
+import {RouteObject, useLocation, useRoutes} from "react-router-dom";
 import * as React from "react";
-import {IRuteProps} from "./IRuteProps";
 import Auth from "../../components/Auth/Auth";
 import Account from "../../pages/Settings/Account";
 import Layout from "../../components/Layout/Layout";
 import Main from "../../pages/Main/Main";
-import ContainerLayout from "../../components/Layout/ContainerLayout";
 import Snippets from "../../pages/Snippets/Snippets";
+import ContainerLayout from "../../components/Layout/ContainerLayout";
 
-const routes: Array<IRuteProps> = [
+const router: RouteObject[] = [
     {
-        path: '/',
-        element: <Main/>
-    },
-    {
-        path: '/auth',
-        element: <Auth/>
-    },
-    {
-        path: '/tutorial/:tutorialID',
-        element: <Main/>
-    },
-    {
-        path: '/snippets/new',
-        element: <Main/>
-    },
-    {
-        path: '/:userID',
-        element: <Snippets/>
-    },
-    {
-        path: '/:userID/starred',
-        element: <Snippets/>
-    },
-    {
-        path: '/:userID/:snippetID',
-        element: <Main/>
+        path: "/",
+        element: <Layout/>,
+        children: [
+            {
+                path: '/',
+                element: <Main/>
+            },
+            {
+                path: '/auth',
+                element: <Auth/>
+            },
+            {
+                path: '/tutorial/:tutorialID',
+                element: <Main/>
+            },
+            {
+                path: '/snippets/new',
+                element: <Main/>
+            },
+            {
+                path: '/:userID',
+                element: <ContainerLayout/>,
+                children: [
+                    {
+                        path: '',
+                        element: <Snippets/>
+                    },
+                    {
+                        path: '/:userID/starred',
+                        element: <Snippets/>
+                    },
+                ]
+            },
+            {
+                path: '/:userID/:snippetID',
+                element: <Main/>
+            },
+            {
+                path: '/settings',
+                element: <ContainerLayout/>,
+                children: [
+                    {
+                        path: 'account',
+                        element: <Account/>
+                    }
+                ]
+            },
+        ]
     }
-]
+];
 
-const settingRoutes: Array<IRuteProps> = [
-    {
-        path: 'account',
-        element: <Account/>
-    }
-]
 
 export const RoutePage = (): React.ReactElement => {
     // modal route
     const location = useLocation();
     const state = location.state as { backgroundLocation?: Location };
 
+    const element = useRoutes(router, state?.backgroundLocation || location)
+
     return (
         <>
-            <Routes location={state?.backgroundLocation || location}>
-                <Route path={'/'} element={<Layout/>}>
-                    {routes.map((item, key) =>
-                        <Route path={item.path} key={key} element={item.element}/>
-                    )}
-
-                    <Route path={'/Settings'} element={<ContainerLayout/>}>
-                        {settingRoutes.map((item, key) =>
-                            <Route path={item.path} key={key} element={item.element}/>
-                        )}
-                    </Route>
-                </Route>
-            </Routes>
+            {element}
         </>
     )
+
 }

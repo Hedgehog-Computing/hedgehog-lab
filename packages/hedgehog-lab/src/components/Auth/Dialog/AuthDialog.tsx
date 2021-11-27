@@ -63,16 +63,11 @@ export default function AuthDialog(): React.ReactElement {
 
     const [open, setOpen] = useRecoilState(authDialogState);
 
-    const onDismiss = useCallback(() => {
-        navigate('-1')
-    }, [])
-
-
     useEffect(() => {
         if (state?.backgroundLocation !== undefined) {
             setOpen(true)
         }
-    })
+    }, [state?.backgroundLocation])
 
     const handleClickOpen = useCallback(() => {
         setOpen(true);
@@ -80,7 +75,7 @@ export default function AuthDialog(): React.ReactElement {
 
     const handleClose = useCallback(() => {
         setOpen(false);
-        onDismiss()
+        navigate(-1)
     }, [open])
 
     return (
