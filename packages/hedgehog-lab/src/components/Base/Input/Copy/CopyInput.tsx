@@ -1,4 +1,4 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import {IconButton, InputAdornment, OutlinedInput} from "@mui/material";
 import {CopyAllOutlined} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
@@ -27,6 +27,10 @@ const CopyInput: React.FC<ICopyInputProps> = (props): React.ReactElement => {
                 variant: 'success'
             })
         }
+    }, [url])
+
+    useEffect(() => {
+        handleCopy()
     }, [url])
 
     return (

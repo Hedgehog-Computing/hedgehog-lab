@@ -37,7 +37,7 @@ const PasswordInput = (): React.ReactElement => {
 
     return (
         <Controller
-            // name ref IAuthFormProps
+            // name ref IBaseFormProps
             name={name}
             control={useFormMethods.control}
             defaultValue={''}

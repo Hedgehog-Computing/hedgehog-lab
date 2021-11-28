@@ -15,7 +15,7 @@ const UserNameInput = (): React.ReactElement => {
     const useFormMethods = useFormContext()
     return (
         <Controller
-            // name ref IAuthFormProps
+            // name ref IBaseFormProps
             name={name}
             control={useFormMethods.control}
             defaultValue={''}

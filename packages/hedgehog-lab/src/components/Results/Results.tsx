@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, CircularProgress, Paper,} from '@mui/material';
+import {Card, LinearProgress, Paper, Typography,} from '@mui/material';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import Output from './Output';
@@ -17,7 +17,7 @@ const Results = (): React.ReactElement => {
         <div style={{height: '100%'}}>
             <Card
                 style={{
-                    height: '100%',
+                    height: 'calc(100vh - 160px)',
                     overflowY: 'auto',
                     overflowX: 'auto',
                     borderRadius: 0
@@ -25,19 +25,19 @@ const Results = (): React.ReactElement => {
                 {outputItem.length === 0 && outputString === '' ? (
                     <div className={'no-code'}>
                         <div className="no-code-content">
+                            <Typography variant={"h6"}>
+                                {compilerLoading
+                                    ? 'Loading...'
+                                    : `Please write your code on the ${document.body.clientWidth < 960 ? 'top' : 'left'
+                                    } and click the 'Compile and run' button`}
+                            </Typography>
                             {compilerLoading ? (
-                                <CircularProgress size={50} style={{color: 'black'}}/>
+                                <LinearProgress/>
                             ) : document.body.clientWidth < 960 ? (
                                 <ArrowUpwardOutlinedIcon style={{fontSize: 50}}/>
                             ) : (
                                 <ArrowBackOutlinedIcon style={{fontSize: 50}}/>
                             )}
-                            <p>
-                                {compilerLoading
-                                    ? 'Loading...'
-                                    : `Please write your code on the ${document.body.clientWidth < 960 ? 'top' : 'left'
-                                    } and click the 'Compile and run' button`}
-                            </p>
                         </div>
                     </div>
                 ) : (

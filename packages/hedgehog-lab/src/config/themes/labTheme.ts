@@ -406,6 +406,11 @@ export function getThemedComponents(theme: Theme) {
                 defaultProps: {
                     disableTouchRipple: true,
                 },
+                styleOverrides: {
+                    root: {
+                        minHeight: '48px'
+                    }
+                }
             },
             MuiPaper: {
                 styleOverrides: {

@@ -1,5 +1,5 @@
-import {IAuthFormProps} from "../../../User/Auth/AuthForm/IAuthFormProps";
+import {IBaseFormProps} from "../../Form/IBaseFormProps";
 
-export interface IPasswordProps extends IAuthFormProps {
+export interface IPasswordProps extends IBaseFormProps {
     handleClickShowPassword: () => void,
 }

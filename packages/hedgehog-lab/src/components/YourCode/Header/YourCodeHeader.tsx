@@ -1,5 +1,5 @@
-import {Box, Button, Paper} from "@mui/material";
-import {PlayCircleOutline, SaveOutlined, StopCircleOutlined} from "@mui/icons-material";
+import {Box, Button} from "@mui/material";
+import {PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 import {queryCache} from "react-query";
 import React, {useCallback} from "react";
 import {useRecoilValue, useSetRecoilState} from "recoil";
@@ -7,6 +7,9 @@ import {editorCodeState} from "../RYourCodeStates";
 import {COMPILE_AND_RUN_BUTTON_ID} from "../YourCode";
 import {compiler} from "../../../compiler";
 import {compilerLoadingState, compilerReFetchState} from "../../Compiler/RCompilerStates";
+import SaveDialog from "../../Snippet/Save/SaveDialog";
+import {useParams} from "react-router-dom";
+import SaveState from "../../Snippet/Save/SaveState";
 
 const YourCodeHeader = (): React.ReactElement => {
     const compilerLoading = useRecoilValue<boolean>(compilerLoadingState)
@@ -17,25 +20,19 @@ const YourCodeHeader = (): React.ReactElement => {
         setCompilerReFetch(true)
     }, [])
 
+    const {snippetID} = useParams()
 
     return (
         <Box sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
-            <Paper elevation={2}>
-                <Button variant={'contained'} color={'secondary'} size={'small'} endIcon={<SaveOutlined/>}>
-                    Save to your snippet
-                </Button>
-            </Paper>
-
+            {
+                snippetID ? <SaveState/> : <SaveDialog/>
+            }
             <div>
                 {compilerLoading ? (
                     <Button
                         endIcon={<StopCircleOutlined/>}
                         variant="contained"
                         color="error"
-                        size="small"
-                        style={{
-                            textTransform: 'none',
-                        }}
 
 
                         onClick={() => {
@@ -55,11 +52,7 @@ const YourCodeHeader = (): React.ReactElement => {
                         id={COMPILE_AND_RUN_BUTTON_ID}
                         variant={'contained'}
                         color="primary"
-                        size="small"
-                        onClick={handleRunCode}
-                        style={{
-                            textTransform: 'none'
-                        }}>
+                        onClick={handleRunCode}>
                         Run
                     </Button>
                 )}

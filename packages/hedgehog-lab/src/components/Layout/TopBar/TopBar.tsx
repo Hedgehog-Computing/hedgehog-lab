@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Box from "@mui/material/Box";
-import AuthDialog from "../../User/Auth/AuthDialog/AuthDialog";
-import ShareDialog from "../../Share/ShareDialog/ShareDialog";
+import AuthDialog from "../../Auth/Dialog/AuthDialog";
+import ShareDialog from "../../Share/ShareDialog";
 import RightButton from "./RightButton/RightButton";
 import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState} from "recoil";
@@ -48,6 +48,7 @@ const TopBar = (): React.ReactElement => {
         setSideBarOpen(!sideBarOpen)
     }, [sideBarOpen])
 
+
     return (
         <AppBar open={sideBarOpen} position="fixed"
                 sx={{
@@ -56,16 +57,17 @@ const TopBar = (): React.ReactElement => {
                 elevation={0}
                 color="inherit">
             <Toolbar disableGutters>
-                <Link component={RouteLink}
-                      to={`/`}
-                      sx={{display: 'block'}}>
-                    <ListItem>
-                        <ListItemIcon onClick={handleSideBarOpen}>
-                            <IconButton>
-                                <MenuOutlined/>
-                            </IconButton>
-                        </ListItemIcon>
 
+                <ListItem>
+                    <ListItemIcon onClick={handleSideBarOpen}>
+                        <IconButton>
+                            <MenuOutlined/>
+                        </IconButton>
+                    </ListItemIcon>
+
+                    <Link component={RouteLink}
+                          to={`/`}
+                          sx={{display: 'block'}}>
                         <ListItemText sx={{display: {xs: 'none', md: 'block'}}}>
                             <Typography
                                 variant="h6"
@@ -79,8 +81,9 @@ const TopBar = (): React.ReactElement => {
                                 Hedgehog Lab
                             </Typography>
                         </ListItemText>
-                    </ListItem>
-                </Link>
+                    </Link>
+                </ListItem>
+
 
                 <Box display={'flex'} justifyContent={'end'} width={'100%'} mr={'10px'}>
                     <ShareDialog/>
@@ -88,6 +91,7 @@ const TopBar = (): React.ReactElement => {
                     <RightButton/>
 
                     <AuthDialog/>
+
                 </Box>
             </Toolbar>
 
