@@ -1,10 +1,10 @@
 import {BaseTextFieldProps, InputAdornment, TextField} from "@mui/material";
 import * as React from "react";
 import toCapitalize from "../../../../utils/toCapitalize";
-import {useFormContext} from "react-hook-form";
+import {ControllerRenderProps, useFormContext} from "react-hook-form";
 
 interface IBaseInputProps extends BaseTextFieldProps {
-    name: string,
+    field: ControllerRenderProps,
     adornment?: {
         start?: React.ReactNode,
         end?: React.ReactNode
@@ -12,17 +12,18 @@ interface IBaseInputProps extends BaseTextFieldProps {
 }
 
 const BaseOutlinedInput: React.FC<IBaseInputProps> = (props) => {
-    const {name, type, adornment} = props
+    const {type, adornment, field} = props
 
     const useFormMethods = useFormContext()
-    const errorMessage = useFormMethods.formState.errors?.[name]?.message
+    const errorMessage = useFormMethods.formState.errors?.[field?.name]?.message
 
     return (
         <TextField
             variant={"outlined"}
             fullWidth
+            {...field}
             type={type}
-            placeholder={toCapitalize(name)}
+            placeholder={toCapitalize(field?.name ?? '')}
             error={!!errorMessage}
             helperText={errorMessage}
             InputProps={{

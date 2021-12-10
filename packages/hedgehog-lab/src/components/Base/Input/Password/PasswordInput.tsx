@@ -39,9 +39,9 @@ const PasswordInput = (): React.ReactElement => {
             name={name}
             control={useFormMethods.control}
             defaultValue={''}
-            render={() =>
+            render={({field}) =>
                 <BaseOutlinedInput
-                    name={name}
+                    field={field}
                     type={showPassword ? 'text' : 'password'}
                     adornment={{
                         start: <PasswordOutlined/>,

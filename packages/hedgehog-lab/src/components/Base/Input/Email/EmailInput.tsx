@@ -12,9 +12,9 @@ const EmailInput = (): React.ReactElement => {
             name={name}
             control={useFormMethods.control}
             defaultValue={''}
-            render={() =>
+            render={({field}) =>
                 <BaseOutlinedInput
-                    name={name}
+                    field={field}
                     adornment={{start: <EmailOutlined/>}}/>
             }
         />
