@@ -2,7 +2,7 @@ import {Button, Link, Typography} from "@mui/material";
 import * as React from "react";
 import {useCallback} from "react";
 import {useRecoilState} from "recoil";
-import {authActionState} from "../RAuthStates";
+import {authActionState} from "../../../pages/Auth/RAuthStates";
 
 interface IBaseActionProps {
     forget?: {

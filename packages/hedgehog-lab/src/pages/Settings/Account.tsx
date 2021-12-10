@@ -2,10 +2,10 @@ import React from "react";
 import {Box, Button, Card, Grid, Typography} from "@mui/material";
 import BaseForm from "../../components/Base/Form/BaseForm";
 import {useSetRecoilState} from "recoil";
-import {authActionState} from "../../components/Auth/RAuthStates";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
 import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
+import {authActionState} from "../Auth/RAuthStates";
 
 const accountForm = [
     {

@@ -6,8 +6,8 @@ import {PersonOutlined} from "@mui/icons-material";
 const name = 'username'
 
 const UserNameInput = (): React.ReactElement => {
-
     const useFormMethods = useFormContext()
+    
     return (
         <Controller
             name={name}

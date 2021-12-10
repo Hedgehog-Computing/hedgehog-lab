@@ -5,8 +5,8 @@ import {Box, Dialog, DialogContent, DialogTitle, IconButton, Typography} from "@
 import {AccountCircleOutlined, CloseOutlined} from "@mui/icons-material";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
-import {authDialogState} from "../RAuthStates";
-import Auth from "../Auth";
+import Auth from "../../../pages/Auth/Auth";
+import {authDialogState} from "../../../pages/Auth/RAuthStates";
 
 
 interface DialogProps {

@@ -1,10 +1,10 @@
 import * as React from "react";
-import BaseForm from "../../Base/Form/BaseForm";
-import AuthAction from "../Action/AuthAction";
+import BaseForm from "../../components/Base/Form/BaseForm";
+import AuthAction from "../../components/Auth/Action/AuthAction";
 import {Box} from "@mui/material";
-import UserNameInput from "../../Base/Input/UserName/UserNameInput";
-import EmailInput from "../../Base/Input/Email/EmailInput";
-import PasswordInput from "../../Base/Input/Password/PasswordInput";
+import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
+import EmailInput from "../../components/Base/Input/Email/EmailInput";
+import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
 
 const SignAction = () =>
     (
@@ -32,7 +32,7 @@ const SignForm = () => {
     )
 }
 
-const AuthSign = (): React.ReactElement => {
+const Sign = (): React.ReactElement => {
     return (
         <Box sx={{mt: '10px'}}>
             <BaseForm>
@@ -43,4 +43,4 @@ const AuthSign = (): React.ReactElement => {
 }
 
 
-export default AuthSign
+export default Sign

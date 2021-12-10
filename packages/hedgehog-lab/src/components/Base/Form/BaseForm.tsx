@@ -5,9 +5,9 @@ import {IBaseFormProps} from "./IBaseFormProps";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {FormRules} from "./BaseFormRule";
 import {useRecoilValue} from "recoil";
-import {authActionState} from "../../Auth/RAuthStates";
 import {IBaseFormMethods} from "./IBaseFormMethods";
 import {BaseFormModal} from "./BaseFormModal";
+import {authActionState} from "../../../pages/Auth/RAuthStates";
 
 
 const BaseForm: React.FC = (props): React.ReactElement => {

@@ -1,8 +1,8 @@
-import AuthLogin from "./Login/AuthLogin";
-import AuthSign from "./Sign/AuthSign";
-import AuthForget from "./Forget/AuthForget";
 import * as React from "react";
 import {useRecoilValue} from "recoil";
+import Sign from "./Sign";
+import AuthForget from "../../components/Auth/Forget/AuthForget";
+import Login from "./Login";
 import {authActionState} from "./RAuthStates";
 
 const Auth = (): React.ReactElement => {
@@ -11,8 +11,8 @@ const Auth = (): React.ReactElement => {
 
     return (
         <>
-            {authAction === 'login' && (<AuthLogin/>)}
-            {authAction === 'sign' && (<AuthSign/>)}
+            {authAction === 'login' && (<Login/>)}
+            {authAction === 'sign' && (<Sign/>)}
             {authAction === 'forget' && (<AuthForget/>)}
         </>
     )
