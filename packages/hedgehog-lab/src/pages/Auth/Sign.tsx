@@ -1,10 +1,14 @@
 import * as React from "react";
-import BaseForm from "../../components/Base/Form/BaseForm";
+import {useCallback} from "react";
 import AuthAction from "../../components/Auth/Action/AuthAction";
 import {Box} from "@mui/material";
 import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import {IAuthFormInput} from "./IAuthFormInput";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {signModal, signRule} from "../../modals/sign/signModal";
 
 const SignAction = () =>
     (
@@ -33,12 +37,20 @@ const SignForm = () => {
 }
 
 const Sign = (): React.ReactElement => {
+    const useFormMethods = useForm<IAuthFormInput>({
+        resolver: yupResolver(signRule)
+    })
+
+    const onSubmit: SubmitHandler<IAuthFormInput> = useCallback((data) => {
+        signModal(data)
+    }, [])
+
     return (
-        <Box sx={{mt: '10px'}}>
-            <BaseForm>
+        <FormProvider {...useFormMethods} >
+            <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
                 <SignForm/>
-            </BaseForm>
-        </Box>
+            </form>
+        </FormProvider>
     )
 }
 

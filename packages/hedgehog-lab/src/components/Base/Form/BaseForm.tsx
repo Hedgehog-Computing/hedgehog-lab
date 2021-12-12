@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useCallback} from "react";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
-import {IBaseFormProps} from "./IBaseFormProps";
+import {IAuthFormInput} from "../../../pages/Auth/IAuthFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {FormRules} from "./BaseFormRule";
 import {useRecoilValue} from "recoil";
@@ -18,11 +18,11 @@ const BaseForm: React.FC = (props): React.ReactElement => {
 
     const formRule = FormRules[method]
 
-    const useFormMethods = useForm<IBaseFormProps>({
+    const useFormMethods = useForm<IAuthFormInput>({
         resolver: yupResolver(formRule)
     })
 
-    const onSubmit: SubmitHandler<IBaseFormProps> = useCallback((data) => {
+    const onSubmit: SubmitHandler<IAuthFormInput> = useCallback((data) => {
         BaseFormModal(method, data)
     }, [authAction])
 

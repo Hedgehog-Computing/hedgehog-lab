@@ -1,50 +1,43 @@
 import * as React from "react";
 import {useCallback} from "react";
-import {Box} from "@mui/material";
-import EmailInput from "../../components/Base/Input/Email/EmailInput";
-import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
 import AuthAction from "../../components/Auth/Action/AuthAction";
+import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IAuthFormInput} from "./IAuthFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {loginModal, loginRule} from "../../modals/login/loginModal";
+import {forgetModal, forgetRule} from "../../modals/forget/forgetModal";
 
-
-const LoginForm = () => {
+const ForgetForm = () => {
     return (
         <>
             <EmailInput/>
 
-            <Box sx={{mt: '20px', mb: '10px'}}>
-                <PasswordInput/>
-            </Box>
-
             <AuthAction
-                action={{text: 'Log in'}}
-                signOrLogin={{text: 'Not on HHLAB yet?', actionText: 'Sign up', action: 'sign'}}
+                action={{text: 'Forget'}}
+                signOrLogin={{text: 'Already a member?', actionText: 'Log in', action: 'login'}}
                 forget={{text: 'Forget password?'}}
             />
         </>
     )
 }
 
-const Login = (): React.ReactElement => {
+const Forget = (): React.ReactElement => {
     const useFormMethods = useForm<IAuthFormInput>({
-        resolver: yupResolver(loginRule)
+        resolver: yupResolver(forgetRule)
     })
 
     const onSubmit: SubmitHandler<IAuthFormInput> = useCallback((data) => {
-        loginModal(data)
+        forgetModal(data)
     }, [])
 
     return (
         <FormProvider {...useFormMethods} >
             <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-                <LoginForm/>
+                <ForgetForm/>
             </form>
         </FormProvider>
     )
 }
 
 
-export default Login
+export default Forget

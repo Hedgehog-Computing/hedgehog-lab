@@ -1,6 +1,5 @@
 import React from "react";
 import {Box, Button, Card, Grid, Typography} from "@mui/material";
-import BaseForm from "../../components/Base/Form/BaseForm";
 import {useSetRecoilState} from "recoil";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
 import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
@@ -22,48 +21,57 @@ const accountForm = [
     },
 ]
 
-const Account = (): React.ReactElement => {
+const Header = (): React.ReactElement => (
+    <Box textAlign={"center"} mb={'30px'}>
+        <Typography variant={'h2'}>
+            Personal information
+        </Typography>
+
+        <Typography variant={'h6'}>
+            Your personal information and preferences in various HHLAB services
+        </Typography>
+    </Box>
+)
+
+const AccountForm = () => {
     const setAuthAction = useSetRecoilState(authActionState)
 
     return (
-        <>
-            <Box textAlign={"center"} mb={'30px'}>
-                <Typography variant={'h2'}>
-                    Personal information
-                </Typography>
+        <Card variant={"outlined"}>
+            <Box m={'20px'}>
+                {accountForm.map((item, index) => {
+                    return (
+                        <Grid key={index} container spacing={2} mt={index > 0 ? '20px' : '0'}>
+                            <Grid item xs={2} alignSelf={'center'}>
+                                <Typography variant={'body1'}>
+                                    {item.text}
+                                </Typography>
+                            </Grid>
+                            <Grid item xs={10}>
+                                {item.render}
+                            </Grid>
+                        </Grid>
+                    )
+                })}
 
-                <Typography variant={'h6'}>
-                    Your personal information and preferences in various HHLAB services
-                </Typography>
+                <Box textAlign={'end'}>
+                    <Button variant={"contained"} sx={{mt: '20px'}} type={"submit"}
+                            onClick={() => setAuthAction('settingAccount')}>
+                        Update
+                    </Button>
+                </Box>
             </Box>
+        </Card>
+    )
+}
 
-            <BaseForm>
-                <Card variant={"outlined"}>
-                    <Box m={'20px'}>
-                        {accountForm.map((item, index) => {
-                            return (
-                                <Grid key={index} container spacing={2} mt={index > 0 ? '20px' : '0'}>
-                                    <Grid item xs={2} alignSelf={'center'}>
-                                        <Typography variant={'body1'}>
-                                            {item.text}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid item xs={10}>
-                                        {item.render}
-                                    </Grid>
-                                </Grid>
-                            )
-                        })}
+const Account = (): React.ReactElement => {
 
-                        <Box textAlign={'end'}>
-                            <Button variant={"contained"} sx={{mt: '20px'}} type={"submit"}
-                                    onClick={() => setAuthAction('settingAccount')}>
-                                Update
-                            </Button>
-                        </Box>
-                    </Box>
-                </Card>
-            </BaseForm>
+    return (
+        <>
+            <Header/>
+
+            <AccountForm/>
         </>
     )
 }

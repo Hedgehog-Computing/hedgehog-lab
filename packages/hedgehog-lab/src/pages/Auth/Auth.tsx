@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useRecoilValue} from "recoil";
 import Sign from "./Sign";
-import AuthForget from "../../components/Auth/Forget/AuthForget";
+import Forget from "./Forget";
 import Login from "./Login";
 import {authActionState} from "./RAuthStates";
 
@@ -13,7 +13,7 @@ const Auth = (): React.ReactElement => {
         <>
             {authAction === 'login' && (<Login/>)}
             {authAction === 'sign' && (<Sign/>)}
-            {authAction === 'forget' && (<AuthForget/>)}
+            {authAction === 'forget' && (<Forget/>)}
         </>
     )
 }

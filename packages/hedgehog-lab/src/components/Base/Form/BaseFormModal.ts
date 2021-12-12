@@ -1,7 +1,7 @@
-import {IBaseFormProps} from "./IBaseFormProps";
+import {IAuthFormInput} from "../../../pages/Auth/IAuthFormInput";
 import {loginModal} from "../../../modals/login/loginModal";
 
-export const BaseFormModal = (method: string, data: IBaseFormProps): void => {
+export const BaseFormModal = (method: string, data: IAuthFormInput): void => {
     switch (method) {
         case 'login':
             loginModal()

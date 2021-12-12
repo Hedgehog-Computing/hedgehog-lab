@@ -1,4 +1,4 @@
-export interface IBaseFormProps {
+export interface IAuthFormInput {
     username?: string,
     email?: string,
     password?: string,
