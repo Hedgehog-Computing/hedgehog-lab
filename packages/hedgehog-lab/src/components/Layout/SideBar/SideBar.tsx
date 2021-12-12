@@ -27,7 +27,7 @@ import {
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {editorCodeState} from "../../YourCode/RYourCodeStates";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
-import {sideBarOpenState} from "../RLayoutStates";
+import {sideBarOpenState} from "../../../states/RLayoutStates";
 import {Link as RouteLink} from 'react-router-dom'
 
 const SideBar = (): React.ReactElement => {

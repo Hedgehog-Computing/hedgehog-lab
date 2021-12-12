@@ -2,11 +2,11 @@ import React from 'react';
 import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles';
 import './App.css';
 import {SnackbarProvider} from "notistack";
-import {labTheme} from "./config/themes/labTheme";
+import {labTheme} from "./themes/labTheme";
 import {BrowserRouter} from "react-router-dom";
-import {RoutePage} from "./config/route/route";
+import {RoutePage} from "./route/route";
 import {RecoilRoot, useRecoilValue} from "recoil";
-import {themeModState} from "./config/themes/RThemeStates";
+import {themeModState} from "./themes/RThemeStates";
 import {Compiler} from "./components/Compiler/Compiler";
 
 

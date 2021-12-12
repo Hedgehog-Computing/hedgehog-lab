@@ -3,8 +3,10 @@ import {IconButton, InputAdornment, OutlinedInput} from "@mui/material";
 import {CopyAllOutlined} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
 import {useSnackbar} from "notistack";
-import {ICopyInputProps} from "./ICopyInputProps";
 
+interface ICopyInputProps {
+    url: string,
+}
 
 const CopyInput: React.FC<ICopyInputProps> = (props): React.ReactElement => {
     const {url} = props

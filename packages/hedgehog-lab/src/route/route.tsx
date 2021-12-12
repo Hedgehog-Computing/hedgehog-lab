@@ -1,11 +1,11 @@
 import {RouteObject, useLocation, useRoutes} from "react-router-dom";
 import * as React from "react";
-import Auth from "../../components/Auth/Auth";
-import Account from "../../pages/Settings/Account";
-import Layout from "../../components/Layout/Layout";
-import Main from "../../pages/Main/Main";
-import Snippets from "../../pages/Snippets/Snippets";
-import ContainerLayout from "../../components/Layout/ContainerLayout";
+import Account from "../pages/Settings/Account";
+import Layout from "../components/Layout/Layout";
+import Main from "../pages/Main/Main";
+import Snippets from "../pages/Snippets/Snippets";
+import ContainerLayout from "../components/Layout/ContainerLayout";
+import Auth from "../pages/Auth/Auth";
 
 const router: RouteObject[] = [
     {

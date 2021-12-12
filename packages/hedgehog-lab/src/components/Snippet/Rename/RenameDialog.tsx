@@ -1,7 +1,7 @@
 import {CheckCircleOutlined, CloseOutlined, SettingsOutlined} from "@mui/icons-material";
 import {Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton} from "@mui/material";
 import React, {useCallback, useState} from "react";
-import HOutlinedInput from "../../Base/Input/HOutlinedInput/HOutlinedInput";
+import BaseOutlinedInput from "../../Base/Input/BaseOutlinedInput/BaseOutlinedInput";
 
 const RenameDialog = (): React.ReactElement => {
     const [renameDialogOpen, setRenameDialogOpen] = useState<boolean>(false)
@@ -36,7 +36,7 @@ const RenameDialog = (): React.ReactElement => {
 
                 <DialogContent>
                     <Box sx={{mt: '10px'}}>
-                        <HOutlinedInput name={'rename'} placeholder={'Snippet name'}/>
+                        <BaseOutlinedInput name={'rename'} placeholder={'Snippet name'}/>
                     </Box>
                 </DialogContent>
 

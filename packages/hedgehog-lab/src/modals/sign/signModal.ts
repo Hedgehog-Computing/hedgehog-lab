@@ -1,12 +1,12 @@
-import * as yup from "yup";
 import {IFormInput} from "../../interfaces/IFormInput";
+import * as yup from "yup";
 
-export const loginModal = (data: IFormInput): void => {
+export const signModal = (data: IFormInput): void => {
     console.log(data)
 }
 
-export const loginRule = yup.object({
+export const signRule = yup.object({
+    username: yup.string().required(),
     email: yup.string().email().required(),
     password: yup.string().min(6).required()
 }).required();
-

@@ -10,7 +10,7 @@ import {useSetRecoilState} from "recoil";
 import {editorCodeState} from "../../components/YourCode/RYourCodeStates";
 import {useParams} from "react-router-dom";
 import {tutorials} from "../../tutorials";
-import {compilerReFetchState, compilerResultState} from "../../components/Compiler/RCompilerStates";
+import {compilerReFetchState, compilerResultState} from "../../states/RCompilerStates";
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")

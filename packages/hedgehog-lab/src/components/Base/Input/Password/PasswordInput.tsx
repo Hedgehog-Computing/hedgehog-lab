@@ -3,15 +3,14 @@ import {PasswordOutlined, VisibilityOffOutlined, VisibilityOutlined} from "@mui/
 import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
 import {useCallback, useState} from "react";
-import HOutlinedInput from "../HOutlinedInput/HOutlinedInput";
-import {IPasswordProps} from "./IPasswordProps";
+import BaseOutlinedInput from "../BaseOutlinedInput/BaseOutlinedInput";
+import {IFormInput} from "../../../../interfaces/IFormInput";
 
 const name = 'password'
 
-const StartAdornment = () =>
-    (
-        <PasswordOutlined/>
-    )
+interface IPasswordProps extends IFormInput {
+    handleClickShowPassword: () => void,
+}
 
 const EndAdornment: React.FC<IPasswordProps> = (props) => {
     const {handleClickShowPassword, showPassword} = props
@@ -37,23 +36,20 @@ const PasswordInput = (): React.ReactElement => {
 
     return (
         <Controller
-            // name ref IBaseFormProps
             name={name}
             control={useFormMethods.control}
             defaultValue={''}
             render={({field}) =>
-                <HOutlinedInput
+                <BaseOutlinedInput
                     field={field}
-                    name={name}
-                    error={useFormMethods.formState.errors}
                     type={showPassword ? 'text' : 'password'}
-                    endAdornment={
-                        <EndAdornment handleClickShowPassword={handleClickShowPassword} showPassword={showPassword}/>
-                    }
-                    placeholder={'Password'}
-                    startAdornment={
-                        <StartAdornment/>
-                    }/>
+                    adornment={{
+                        start: <PasswordOutlined/>,
+                        end: <EndAdornment
+                            handleClickShowPassword={handleClickShowPassword}
+                            showPassword={showPassword}/>
+                    }}
+                />
             }
         />
     )

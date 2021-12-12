@@ -15,10 +15,10 @@ import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Box from "@mui/material/Box";
 import AuthDialog from "../../Auth/Dialog/AuthDialog";
 import ShareDialog from "../../Share/ShareDialog";
-import RightButton from "./RightButton/RightButton";
+import RightButton from "./RightButton";
 import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState} from "recoil";
-import {sideBarOpenState} from "../RLayoutStates";
+import {sideBarOpenState} from "../../../states/RLayoutStates";
 import {Link as RouteLink,} from 'react-router-dom';
 
 interface AppBarProps extends MuiAppBarProps {
