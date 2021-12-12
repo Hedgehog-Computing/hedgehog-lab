@@ -1,10 +1,14 @@
-import React from "react";
+import React, {useCallback} from "react";
+import {yupResolver} from "@hookform/resolvers/yup";
 import {Box, Button, Card, Grid, Typography} from "@mui/material";
-import {useSetRecoilState} from "recoil";
-import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
+import {IFormInput} from "../../interfaces/IFormInput";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
-import {authActionState} from "../Auth/RAuthStates";
+import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
+import {accountModal, accountRule} from "../../modals/account/accountModal";
+import {authActionState} from "../../states/RAuthStates";
+import {useSetRecoilState} from "recoil";
 
 const accountForm = [
     {
@@ -66,12 +70,23 @@ const AccountForm = () => {
 }
 
 const Account = (): React.ReactElement => {
+    const useFormMethods = useForm<IFormInput>({
+        resolver: yupResolver(accountRule)
+    })
+
+    const onSubmit: SubmitHandler<IFormInput> = useCallback((data) => {
+        accountModal(data)
+    }, [])
 
     return (
         <>
             <Header/>
 
-            <AccountForm/>
+            <FormProvider {...useFormMethods} >
+                <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+                    <AccountForm/>
+                </form>
+            </FormProvider>
         </>
     )
 }

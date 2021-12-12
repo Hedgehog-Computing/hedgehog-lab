@@ -3,7 +3,7 @@ import {Box, CardContent, ClickAwayListener, useTheme} from '@mui/material';
 import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import ResizeObserver from 'react-resize-detector';
-import {monacoTheme} from '../../config/themes/monacoTheme';
+import {monacoTheme} from '../../themes/monacoTheme';
 import YourCodeHeader from "./Header/YourCodeHeader";
 import {useRecoilState} from "recoil";
 import {codeSavingFlagState, editorCodeState} from "./RYourCodeStates";

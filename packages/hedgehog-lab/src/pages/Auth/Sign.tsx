@@ -6,7 +6,7 @@ import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
-import {IAuthFormInput} from "./IAuthFormInput";
+import {IFormInput} from "../../interfaces/IFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {signModal, signRule} from "../../modals/sign/signModal";
 
@@ -37,11 +37,11 @@ const SignForm = () => {
 }
 
 const Sign = (): React.ReactElement => {
-    const useFormMethods = useForm<IAuthFormInput>({
+    const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(signRule)
     })
 
-    const onSubmit: SubmitHandler<IAuthFormInput> = useCallback((data) => {
+    const onSubmit: SubmitHandler<IFormInput> = useCallback((data) => {
         signModal(data)
     }, [])
 

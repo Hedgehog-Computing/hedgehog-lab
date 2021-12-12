@@ -4,11 +4,11 @@ import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
 import {useCallback, useState} from "react";
 import BaseOutlinedInput from "../BaseOutlinedInput/BaseOutlinedInput";
-import {IAuthFormInput} from "../../../../pages/Auth/IAuthFormInput";
+import {IFormInput} from "../../../../interfaces/IFormInput";
 
 const name = 'password'
 
-interface IPasswordProps extends IAuthFormInput {
+interface IPasswordProps extends IFormInput {
     handleClickShowPassword: () => void,
 }
 

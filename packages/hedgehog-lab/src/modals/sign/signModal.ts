@@ -1,7 +1,7 @@
-import {IAuthFormInput} from "../../pages/Auth/IAuthFormInput";
+import {IFormInput} from "../../interfaces/IFormInput";
 import * as yup from "yup";
 
-export const signModal = (data: IAuthFormInput): void => {
+export const signModal = (data: IFormInput): void => {
     console.log(data)
 }
 

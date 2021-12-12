@@ -1,4 +1,4 @@
-export interface IAuthFormInput {
+export interface IFormInput {
     username?: string,
     email?: string,
     password?: string,

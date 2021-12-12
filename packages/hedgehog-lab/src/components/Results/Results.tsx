@@ -4,7 +4,7 @@ import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import Output from './Output';
 import {useRecoilValue} from "recoil";
-import {compilerLoadingState, compilerResultState} from "../Compiler/RCompilerStates";
+import {compilerLoadingState, compilerResultState} from "../../states/RCompilerStates";
 
 const Results = (): React.ReactElement => {
 

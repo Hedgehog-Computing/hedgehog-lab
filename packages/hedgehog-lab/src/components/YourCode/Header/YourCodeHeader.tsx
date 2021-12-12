@@ -6,7 +6,7 @@ import {useRecoilValue, useSetRecoilState} from "recoil";
 import {editorCodeState} from "../RYourCodeStates";
 import {COMPILE_AND_RUN_BUTTON_ID} from "../YourCode";
 import {compiler} from "../../../compiler";
-import {compilerLoadingState, compilerReFetchState} from "../../Compiler/RCompilerStates";
+import {compilerLoadingState, compilerReFetchState} from "../../../states/RCompilerStates";
 import SaveDialog from "../../Snippet/Save/SaveDialog";
 import {useParams} from "react-router-dom";
 import SaveState from "../../Snippet/Save/SaveState";

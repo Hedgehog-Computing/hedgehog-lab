@@ -7,16 +7,18 @@ const name = 'username'
 
 const UserNameInput = (): React.ReactElement => {
     const useFormMethods = useFormContext()
-    
+
     return (
         <Controller
             name={name}
             control={useFormMethods.control}
             defaultValue={''}
-            render={() =>
+            render={({field}) =>
                 <BaseOutlinedInput
-                    name={name}
-                    adornment={{start: <PersonOutlined/>}}
+                    field={field}
+                    adornment={{
+                        start: <PersonOutlined/>
+                    }}
                 />
             }
         />

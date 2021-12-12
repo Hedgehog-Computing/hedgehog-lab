@@ -5,7 +5,7 @@ import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
 import AuthAction from "../../components/Auth/Action/AuthAction";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
-import {IAuthFormInput} from "./IAuthFormInput";
+import {IFormInput} from "../../interfaces/IFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {loginModal, loginRule} from "../../modals/login/loginModal";
 
@@ -29,11 +29,11 @@ const LoginForm = () => {
 }
 
 const Login = (): React.ReactElement => {
-    const useFormMethods = useForm<IAuthFormInput>({
+    const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(loginRule)
     })
 
-    const onSubmit: SubmitHandler<IAuthFormInput> = useCallback((data) => {
+    const onSubmit: SubmitHandler<IFormInput> = useCallback((data) => {
         loginModal(data)
     }, [])
 

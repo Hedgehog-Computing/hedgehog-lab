@@ -3,7 +3,7 @@ import {useRecoilValue} from "recoil";
 import Sign from "./Sign";
 import Forget from "./Forget";
 import Login from "./Login";
-import {authActionState} from "./RAuthStates";
+import {authActionState} from "../../states/RAuthStates";
 
 const Auth = (): React.ReactElement => {
 

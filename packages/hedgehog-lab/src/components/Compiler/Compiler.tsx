@@ -3,7 +3,7 @@ import {compiler, OutputResult} from "../../compiler";
 import React, {useEffect} from "react";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {editorCodeState} from "../YourCode/RYourCodeStates";
-import {compilerLoadingState, compilerReFetchState, compilerResultState} from "./RCompilerStates";
+import {compilerLoadingState, compilerReFetchState, compilerResultState} from "../../states/RCompilerStates";
 
 export const Compiler = (): React.ReactElement => {
     const setCompilerLoading = useSetRecoilState<boolean>(compilerLoadingState)

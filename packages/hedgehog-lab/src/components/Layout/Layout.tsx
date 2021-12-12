@@ -5,7 +5,7 @@ import {Outlet} from "react-router-dom";
 import TopBar from "./TopBar/TopBar";
 import {sideBarWidth} from "../YourCode/Config/SideBar";
 import {useRecoilValue} from "recoil";
-import {sideBarOpenState} from "./RLayoutStates";
+import {sideBarOpenState} from "../../states/RLayoutStates";
 
 const MainContent = styled('main', {shouldForwardProp: (prop) => prop !== 'open'})<{
     open?: boolean;

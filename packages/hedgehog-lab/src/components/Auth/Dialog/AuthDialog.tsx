@@ -6,7 +6,7 @@ import {AccountCircleOutlined, CloseOutlined} from "@mui/icons-material";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
 import Auth from "../../../pages/Auth/Auth";
-import {authDialogState} from "../../../pages/Auth/RAuthStates";
+import {authDialogState} from "../../../states/RAuthStates";
 
 
 interface DialogProps {

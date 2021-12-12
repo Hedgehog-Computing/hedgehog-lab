@@ -3,7 +3,7 @@ import {useCallback} from "react";
 import AuthAction from "../../components/Auth/Action/AuthAction";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
-import {IAuthFormInput} from "./IAuthFormInput";
+import {IFormInput} from "../../interfaces/IFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {forgetModal, forgetRule} from "../../modals/forget/forgetModal";
 
@@ -22,11 +22,11 @@ const ForgetForm = () => {
 }
 
 const Forget = (): React.ReactElement => {
-    const useFormMethods = useForm<IAuthFormInput>({
+    const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(forgetRule)
     })
 
-    const onSubmit: SubmitHandler<IAuthFormInput> = useCallback((data) => {
+    const onSubmit: SubmitHandler<IFormInput> = useCallback((data) => {
         forgetModal(data)
     }, [])
 

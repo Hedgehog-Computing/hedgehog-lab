@@ -2,7 +2,7 @@ import React, {useCallback} from "react";
 import {NightsStayOutlined, WbSunnyOutlined} from "@mui/icons-material";
 import {IconButton, useTheme} from "@mui/material";
 import {useRecoilState} from "recoil";
-import {themeModState} from "../../../../config/themes/RThemeStates";
+import {themeModState} from "../../../themes/RThemeStates";
 
 const SwitchThemeButton = (): React.ReactElement => {
     const theme = useTheme()

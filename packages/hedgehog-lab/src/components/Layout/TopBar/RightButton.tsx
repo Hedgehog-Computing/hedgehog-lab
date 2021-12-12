@@ -1,8 +1,13 @@
 import React from "react";
 import {IconButton, Tooltip} from "@mui/material";
 import {GitHub as GitHubIcon, MenuBookOutlined} from "@mui/icons-material";
-import {IRightButtonProps} from "./IRightButtonProps";
-import SwitchThemeButton from "../../../Base/Theme/SwitchThemeButton/SwitchThemeButton";
+import SwitchThemeButton from "../../Base/Theme/SwitchThemeButton";
+
+interface IRightButtonProps {
+    href: string,
+    render: React.ReactNode,
+    tooltip: string
+}
 
 const RightButton = (): React.ReactElement => {
     const rightButton: Array<IRightButtonProps> = [
