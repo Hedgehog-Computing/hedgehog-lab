@@ -45,12 +45,12 @@ const SideBar = (): React.ReactElement => {
 
     const handleSetEditorCode = useCallback((editorCode) => {
         setEditorCode(editorCode)
-    }, [])
+    }, [setEditorCode])
 
 
     useEffect(() => {
         setSideBarOpen(lgBreakpointMatches)
-    }, [lgBreakpointMatches])
+    }, [lgBreakpointMatches, setSideBarOpen])
 
 
     return (

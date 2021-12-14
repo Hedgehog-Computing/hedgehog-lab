@@ -10,7 +10,7 @@ const SwitchThemeButton = (): React.ReactElement => {
 
     const handleThemeSwitch = useCallback(() => {
         setThemeMode(themeMode === 'light' ? 'dark' : 'light')
-    }, [themeMode])
+    }, [setThemeMode, themeMode])
 
     return (
         <IconButton onClick={handleThemeSwitch}>

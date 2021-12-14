@@ -24,9 +24,14 @@ const TableComponent: React.FC<TableComponentProps> = (
     const [order, setOrder] = React.useState<"asc" | "desc">("asc");
     const [orderBy, setOrderBy] = React.useState("");
     const [page, setPage] = useState<number>(0);
+
+    const currentTableExtend = currentTable as any
+    const currentTableOptions = currentTableExtend?.options;
+
     const [rowsPerPage, setRowsPerPage] = useState<number>(
-        currentTable?.options?.rows || 10
-    );
+        currentTableOptions?.rows || 10
+    )
+
     const [allCells, setAllCells] = useState<string[][]>(
         currentTable?.cells || []
     );
@@ -39,14 +44,14 @@ const TableComponent: React.FC<TableComponentProps> = (
         setCells(
             allCells.slice(newPage * rowsPerPage, newPage * rowsPerPage + rowsPerPage)
         );
-    }, [page])
+    }, [setPage, setCells, rowsPerPage, allCells])
 
     const handleChangeRowsPerPage = useCallback((event: any) => {
         const newRows = +event.target.value;
         setRowsPerPage(newRows);
         setPage(0);
         setCells(allCells.slice(0, newRows));
-    }, [rowsPerPage])
+    }, [setRowsPerPage, setPage, setCells, allCells])
 
     const createSortHandler = useCallback((property: string) => (
         event: React.MouseEvent<unknown>
@@ -54,14 +59,14 @@ const TableComponent: React.FC<TableComponentProps> = (
         const isAsc = orderBy === property && order === "asc";
         setOrder(isAsc ? "desc" : "asc");
         setOrderBy(property);
-    }, [order])
+    }, [orderBy, setOrder, setOrderBy, order])
 
     useEffect(() => {
         setPage(0);
-        setRowsPerPage(currentTable?.options?.rows || 10);
+        setRowsPerPage(currentTableOptions?.rows || 10);
         setOrder("asc");
         setOrderBy("");
-    }, [currentTable]);
+    }, [currentTableOptions?.rows]);
 
     useEffect(() => {
         if (orderBy !== "" && currentTable) {
@@ -74,13 +79,13 @@ const TableComponent: React.FC<TableComponentProps> = (
                 )
             );
         }
-    }, [order, orderBy]);
+    }, [order, orderBy, currentTable]);
 
     useEffect(() => {
         setPage(0);
-        setRowsPerPage(currentTable?.options?.rows || 10);
-        setCells(allCells.slice(0, currentTable?.options?.rows || 10));
-    }, [allCells]);
+        setRowsPerPage(currentTableOptions?.rows || 10);
+        setCells(allCells.slice(0, currentTableOptions?.rows || 10));
+    }, [allCells, setPage, setRowsPerPage, setCells, currentTableOptions?.rows]);
 
     return currentTable ? (
         <>
@@ -138,8 +143,8 @@ const TableComponent: React.FC<TableComponentProps> = (
                             10,
                             25,
                             100,
-                            ...(currentTable?.options?.rows
-                                ? [currentTable.options.rows]
+                            ...(currentTableOptions?.rows
+                                ? [currentTableOptions.rows]
                                 : []),
                         ].sort((a, b) => a - b)
                     )

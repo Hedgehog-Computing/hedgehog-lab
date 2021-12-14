@@ -18,7 +18,7 @@ const YourCodeHeader = (): React.ReactElement => {
 
     const handleRunCode = useCallback(() => {
         setCompilerReFetch(true)
-    }, [])
+    }, [setCompilerReFetch])
 
     const {snippetID} = useParams()
 

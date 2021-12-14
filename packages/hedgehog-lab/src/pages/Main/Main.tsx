@@ -50,11 +50,11 @@ const Main = (): React.ReactElement => {
 
     useEffect(() => {
         setEditorCode(code)
-    }, [code])
+    }, [code, setEditorCode])
 
     useEffect(() => {
         if (autoRun) setCompilerReFetch(true)
-    }, [autoRun])
+    }, [autoRun, setCompilerReFetch])
 
     // Temporary, set up route for tutorial
     const {tutorialID} = useParams()
@@ -68,7 +68,7 @@ const Main = (): React.ReactElement => {
             const tutorialDetail = tutorials.find(o => o.description === tutorialID)
             setEditorCode(tutorialDetail ? tutorialDetail.source : '')
         }
-    }, [tutorialID])
+    }, [tutorialID, setCompilerResult, setEditorCode])
 
     return (
         <>

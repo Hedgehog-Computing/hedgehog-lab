@@ -29,11 +29,11 @@ const CopyInput: React.FC<ICopyInputProps> = (props): React.ReactElement => {
                 variant: 'success'
             })
         }
-    }, [url])
+    }, [url, copyToClipboard, copyToClipboardState.error, enqueueSnackbar])
 
     useEffect(() => {
         handleCopy()
-    }, [url])
+    }, [handleCopy])
 
     return (
         <OutlinedInput value={url}

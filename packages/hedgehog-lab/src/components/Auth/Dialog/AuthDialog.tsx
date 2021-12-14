@@ -67,16 +67,16 @@ export default function AuthDialog(): React.ReactElement {
         if (state?.backgroundLocation !== undefined) {
             setOpen(true)
         }
-    }, [state?.backgroundLocation])
+    }, [state?.backgroundLocation, setOpen])
 
     const handleClickOpen = useCallback(() => {
         setOpen(true);
-    }, [open])
+    }, [setOpen])
 
     const handleClose = useCallback(() => {
         setOpen(false);
         navigate(-1)
-    }, [open])
+    }, [setOpen, navigate])
 
     return (
         <>
