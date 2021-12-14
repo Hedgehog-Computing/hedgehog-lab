@@ -1,17 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyledEngineProvider, ThemeProvider} from '@mui/material/styles';
 import './App.css';
 import {SnackbarProvider} from "notistack";
 import {labTheme} from "./themes/labTheme";
 import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./route/route";
-import {RecoilRoot, useRecoilValue} from "recoil";
+import {RecoilRoot, useRecoilState} from "recoil";
 import {themeModState} from "./themes/RThemeStates";
 import {Compiler} from "./components/Compiler/Compiler";
+import useSystemTheme from "./utils/useSystemTheme";
 
 
 const ThemePage = () => {
-    const themeMode = useRecoilValue(themeModState)
+    const [themeMode, setThemeMode] = useRecoilState(themeModState)
+    const systemTheme = useSystemTheme()
+    useEffect(() => {
+        const localTheme = localStorage.getItem('theme')
+
+        localTheme
+            ? setThemeMode(localTheme)
+            : setThemeMode(systemTheme)
+        
+    }, [systemTheme, setThemeMode])
 
     return (
         <ThemeProvider theme={labTheme(themeMode)}>

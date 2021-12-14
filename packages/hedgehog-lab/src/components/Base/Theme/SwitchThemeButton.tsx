@@ -9,7 +9,9 @@ const SwitchThemeButton = (): React.ReactElement => {
     const [themeMode, setThemeMode] = useRecoilState(themeModState)
 
     const handleThemeSwitch = useCallback(() => {
-        setThemeMode(themeMode === 'light' ? 'dark' : 'light')
+        const appTheme = themeMode === 'light' ? 'dark' : 'light'
+        setThemeMode(appTheme)
+        localStorage.setItem('theme', appTheme)
     }, [setThemeMode, themeMode])
 
     return (
