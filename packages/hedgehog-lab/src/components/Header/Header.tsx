@@ -8,11 +8,10 @@ import {
     InputAdornment,
     OutlinedInput,
     Toolbar,
-    Typography
+    Typography,
+    useTheme
 } from '@mui/material';
 import {Theme} from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
-import createStyles from '@mui/styles/createStyles';
 import withStyles from '@mui/styles/withStyles';
 import Dialog from '@mui/material/Dialog';
 import MuiDialogTitle from '@mui/material/DialogTitle';
@@ -23,9 +22,19 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Box from '@mui/material/Box';
 import {HEDGEHOG_DOMAIN} from "../../config"
-import {CopyAllOutlined, InsertDriveFileOutlined, MenuOutlined, ShareOutlined} from "@mui/icons-material";
+import {
+    CopyAllOutlined,
+    GitHub,
+    InsertDriveFileOutlined,
+    MenuOutlined,
+    NightsStayOutlined,
+    ShareOutlined,
+    WbSunnyOutlined
+} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
 import {useSnackbar} from "notistack";
+import {ColorModeContext} from '../../App';
+import AuthDialog from "../User/Auth/AuthDialog/AuthDialog";
 
 interface HeaderProps {
     siderBarOpen: boolean;
@@ -34,14 +43,6 @@ interface HeaderProps {
     source: string;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        appBar: {
-            zIndex: theme.zIndex.drawer + 1,
-            borderBottom: '1px solid #E0E0E0'
-        }
-    })
-);
 
 const DialogActions = withStyles((theme: Theme) => ({
     root: {
@@ -79,8 +80,6 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
 
     const {enqueueSnackbar} = useSnackbar()
-
-    const classes = useStyles();
 
     const handleCopy = (url: string) => {
         copyToClipboard(url);
@@ -121,6 +120,13 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
         setYourUrl(event.target.value);
     }
 
+    const theme = useTheme()
+
+    const colorMode = React.useContext(ColorModeContext);
+
+    const handleThemeSwitch = () => {
+        colorMode.toggleColorMode()
+    }
 
     useEffect(() => {
         if (source.length > 0) {
@@ -133,9 +139,9 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
 
     return (
         <div>
-            <AppBar position="fixed" elevation={0} color="transparent" className={classes.appBar}
+            <AppBar position="fixed" elevation={0} color="inherit"
                     sx={{width: siderBarOpen ? 'calc(100vw - 230px)' : '100%'}}>
-                <Toolbar variant="dense">
+                <Toolbar>
                     {!siderBarOpen &&
                     <>
                         <IconButton
@@ -163,10 +169,9 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                     }
 
                     <Box display={'flex'} justifyContent={'end'} width={'100%'}>
-                        <Button onClick={handleClickOpen} variant={'outlined'} size="small"
-                                startIcon={<ShareOutlined/>}>
-                            Share
-                        </Button>
+                        <IconButton onClick={handleClickOpen}>
+                            <ShareOutlined/>
+                        </IconButton>
 
                         <Dialog onClose={handleClose} aria-labelledby="Share your code via URL" open={dialogOpen}
                                 fullWidth={true} maxWidth={"lg"}>
@@ -240,30 +245,22 @@ const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                             </DialogActions>
                         </Dialog>
 
-                        <Button
-                            sx={{mx: '10px'}}
-                            onClick={() => {
-                                window.open('https://hedgehog-book.github.io');
-                            }}
-                            size="small"
-                            variant={'outlined'}
-                            startIcon={<InsertDriveFileOutlined/>}>
-                            Docs
-                        </Button>
+                        <IconButton href={'https://hedgehog-book.github.io'} target={'_blank'}>
+                            <InsertDriveFileOutlined/>
+                        </IconButton>
 
-                        <Button
-                            color="inherit"
-                            style={{textTransform: 'none', height: 36}}
-                            onClick={() => {
-                                window.open('https://github.com/hedgehog-computing/hedgehog-lab');
-                            }}>
-                            <img
-                                alt="GitHub stars"
-                                src="https://img.shields.io/github/stars/hedgehog-computing/hedgehog-lab?style=social"
-                            />
-                        </Button>
+                        <IconButton href={'https://github.com/Hedgehog-Computing/hedgehog-lab'} target={'_blank'}>
+                            <GitHub/>
+                        </IconButton>
+
+                        <IconButton onClick={handleThemeSwitch}>
+                            {theme.palette.mode === 'light' ? (<NightsStayOutlined/>) : (<WbSunnyOutlined/>)}
+                        </IconButton>
+
+                        <AuthDialog/>
                     </Box>
                 </Toolbar>
+                <Divider/>
             </AppBar>
         </div>
     );

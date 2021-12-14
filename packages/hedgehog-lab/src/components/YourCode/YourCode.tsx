@@ -1,14 +1,27 @@
-import React, {Dispatch, SetStateAction, useState} from 'react';
-import {Button, Card, CardContent, CardHeader} from '@mui/material';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import {Button, CardContent, ClickAwayListener, Paper, useTheme} from '@mui/material';
 import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
 import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
 import {queryCache} from 'react-query';
 import ResizeObserver from 'react-resize-detector';
 import SaveButton from "./SaveButton";
 import UploadButton from "./UploadButton";
-import {PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
+import {FiberManualRecord, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
+import {monacoTheme} from '../../config/themes/monacoTheme';
 
 const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
+
+
+monaco.init().then(monaco => {
+        monaco.editor.defineTheme('monacoDarkTheme', monacoTheme)
+
+        monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
+            noSyntaxValidation: true,
+            noSemanticValidation: true
+        })
+    }
+).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
+
 
 interface YourCodeProps {
     handleCompileAndRun: (event: React.MouseEvent) => void;
@@ -19,21 +32,32 @@ interface YourCodeProps {
     handleLoadFile: (str: string) => void;
 }
 
-monaco.init().then(monaco =>
-    monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-        noSyntaxValidation: true,
-        noSemanticValidation: true
-    })).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
 
 const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
+    const theme = useTheme()
+
     const {handleCompileAndRun, loading, setSource, source, getLocalCodeList, handleLoadFile} = props;
 
     const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
     const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
 
+    const [editorTheme, setEditorTheme] = useState<'monacoDarkTheme' | 'vs'>('vs')
+
+    const [codeSavingFlag, setCodeSavingFlag] = useState(false)
+
+    // save code to local storage
+    const autoSaveCode = () => {
+        localStorage.setItem('lastRunningCode', source as string)
+        setCodeSavingFlag(false)
+    }
+
+    window.addEventListener("beforeunload", () => {
+        autoSaveCode()
+    });
 
     const handleUploadSource: ControlledEditorOnChange = (e, v) => {
         setSource(v as string);
+        setCodeSavingFlag(true)
     };
 
     const options = {
@@ -57,81 +81,92 @@ const YourCode: React.FC<YourCodeProps> = (props: YourCodeProps) => {
         setEditor(editor);
     };
 
+    useEffect(() => {
+        theme.palette.mode === 'dark' ? setEditorTheme('monacoDarkTheme') : setEditorTheme('vs')
+    })
+
     return (
         <div style={{height: '100%'}}>
-            <Card className={'your-code-card'} style={{height: '100%'}}>
-                <CardHeader
-                    action={
-                        <div className="run-button">
-                            <UploadButton handleLoadFile={handleLoadFile}/>
-                            <SaveButton getLocalCodeList={getLocalCodeList} source={source}/>
-                            {loading ? (
-                                <Button
-                                    endIcon={<StopCircleOutlined/>}
-                                    variant="contained"
-                                    color="error"
-                                    size="small"
-                                    style={{
-                                        textTransform: 'none',
-                                    }}
+            <Paper sx={{height: '100%', borderRadius: 0}}>
+                <CardContent sx={{display: 'flex', alignContent: 'center', justifyContent: 'space-between'}}>
+                    <Button size={'small'} variant={'outlined'} endIcon={
+                        codeSavingFlag && (<FiberManualRecord/>)
+                    }>
+                        Your Code
+                    </Button>
+
+                    <div>
+                        <UploadButton handleLoadFile={handleLoadFile}/>
+                        <SaveButton getLocalCodeList={getLocalCodeList} source={source}/>
+                        {loading ? (
+                            <Button
+                                endIcon={<StopCircleOutlined/>}
+                                variant="contained"
+                                color="error"
+                                size="small"
+                                style={{
+                                    textTransform: 'none',
+                                }}
 
 
-                                    onClick={() => {
-                                        // stop the web-worker
-                                        queryCache.cancelQueries(['compiler']);
-                                        // set result to initial state
-                                        queryCache.setQueryData(['compiler', source], (data) => ({
-                                            outputItem: [],
-                                            outputString: ''
-                                        }));
-                                    }}>
-                                    Stop
-                                </Button>
-                            ) : (
-                                <Button
-                                    endIcon={<PlayCircleOutline/>}
-                                    id={COMPILE_AND_RUN_BUTTON_ID}
-                                    variant="contained"
-                                    color="primary"
-                                    size="small"
-                                    onClick={(e) => handleCompileAndRun(e)}
-                                    style={{
-                                        textTransform: 'none'
-                                    }}>
-                                    Run
-                                </Button>
-                            )}
-                        </div>
-                    }
-                />
+                                onClick={() => {
+                                    // stop the web-worker
+                                    queryCache.cancelQueries(['compiler']);
+                                    // set result to initial state
+                                    queryCache.setQueryData(['compiler', source], (data) => ({
+                                        outputItem: [],
+                                        outputString: ''
+                                    }));
+                                }}>
+                                Stop
+                            </Button>
+                        ) : (
+                            <Button
+                                endIcon={<PlayCircleOutline/>}
+                                id={COMPILE_AND_RUN_BUTTON_ID}
+                                variant="contained"
+                                color="primary"
+                                size="small"
+                                onClick={(e) => handleCompileAndRun(e)}
+                                style={{
+                                    textTransform: 'none'
+                                }}>
+                                Run
+                            </Button>
+                        )}
+                    </div>
+                </CardContent>
 
 
                 <CardContent>
-                    <ResizeObserver
-                        onResize={(width, height) => {
-                            if (editor) {
-                                editor.layout();
-                                source
-                            }
-                        }}>
-                        <div
-                            style={{
-                                height: 'calc(100vh - 160px)'
-
+                    <ClickAwayListener onClickAway={autoSaveCode}>
+                        <ResizeObserver
+                            onResize={(width, height) => {
+                                if (editor) {
+                                    editor.layout();
+                                    source
+                                }
                             }}>
+                            <div
+                                style={{
+                                    height: 'calc(100vh - 160px)'
 
-                            <ControlledEditor
-                                language="javascript"
-                                value={source}
-                                onChange={handleUploadSource}
-                                options={options}
-                                editorDidMount={handleEditorDidMount}
-                            />
+                                }}>
 
-                        </div>
-                    </ResizeObserver>
+                                <ControlledEditor
+                                    language="javascript"
+                                    value={source}
+                                    onChange={handleUploadSource}
+                                    options={options}
+                                    editorDidMount={handleEditorDidMount}
+                                    theme={editorTheme}
+                                />
+                            </div>
+                        </ResizeObserver>
+                    </ClickAwayListener>
+
                 </CardContent>
-            </Card>
+            </Paper>
         </div>
     );
 };
