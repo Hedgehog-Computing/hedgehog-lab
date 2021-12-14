@@ -14,7 +14,6 @@ import {
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from '@mui/material/AppBar';
 import Box from "@mui/material/Box";
 import AuthDialog from "../../Auth/Dialog/AuthDialog";
-import ShareDialog from "../../Share/ShareDialog";
 import RightButton from "./RightButton";
 import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState} from "recoil";
@@ -86,8 +85,6 @@ const TopBar = (): React.ReactElement => {
 
 
                 <Box display={'flex'} justifyContent={'end'} width={'100%'} mr={'10px'}>
-                    <ShareDialog/>
-
                     <RightButton/>
 
                     <AuthDialog/>
