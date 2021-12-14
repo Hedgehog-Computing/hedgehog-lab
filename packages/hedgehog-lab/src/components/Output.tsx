@@ -6,13 +6,15 @@ import Markdown from 'react-markdown';
 import type { CodeComponent } from 'react-markdown/src/ast-to-react'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
 import {coy} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import TableComponent from './OutputItemCompoments/TableComponent';
 
 import {
   OutputItem,
   isDrawingItem,
   isTeXItem,
   isFormulaItem,
-  isMarkdownItem
+  isMarkdownItem,
+  isTableItem
 } from '@hedgehog/core';
 
 type CodeProps = Parameters<CodeComponent>[0]
@@ -32,7 +34,7 @@ const syntaxComponents = {
   }
 }
 
-const Output = ({ outputItemList }: { outputItemList: OutputItem[] }): JSX.Element => {  
+const Output = ({ outputItemList }: { outputItemList: OutputItem[] }): JSX.Element => {
   const items = outputItemList.map((item) => {
     if (isDrawingItem(item)) {
       return <Plot data={item.data} layout={item.layout} />;
@@ -54,6 +56,8 @@ const Output = ({ outputItemList }: { outputItemList: OutputItem[] }): JSX.Eleme
       );
     } else if (isMarkdownItem(item)) {
       return <Markdown components={syntaxComponents}>{item.text}</Markdown>;
+    } else if (isTableItem(item)){
+      return <TableComponent tableItem = {item} />;
     } else {
       return <React.Fragment />;
     }

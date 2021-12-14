@@ -110,5 +110,5 @@ export default {
   tan,
   tanh,
   pow,
-  round,
+  round
 };

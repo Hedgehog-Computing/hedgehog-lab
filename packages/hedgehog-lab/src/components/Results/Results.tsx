@@ -4,9 +4,10 @@ import {
   TextareaAutosize,
   Card,
   CardContent,
-} from '@material-ui/core';
-import ArrowBackOutlinedIcon from '@material-ui/icons/ArrowBackOutlined';
-import ArrowUpwardOutlinedIcon from '@material-ui/icons/ArrowUpwardOutlined';
+  Paper,
+} from '@mui/material';
+import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import ArrowUpwardOutlinedIcon from '@mui/icons-material/ArrowUpwardOutlined';
 import Output from '../Output';
 import { OutputItem } from '@hedgehog/core';
 
@@ -23,10 +24,10 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
     <div style={{ height: '100%' }}>
       <Card
         style={{
-          backgroundColor: 'transparent',
           height: '100%',
           overflowY: 'auto',
-          overflowX: 'auto'
+          overflowX: 'auto',
+          borderRadius: 0
         }}>
         {executionOutputList.length === 0 && executionOutputString === '' ? (
           <div className={'no-code'}>
@@ -41,31 +42,25 @@ const Results: React.FC<ResultsProps> = (props: ResultsProps) => {
               <p>
                 {loading
                   ? 'Loading...'
-                  : `Please write your code on the ${
-                      document.body.clientWidth < 960 ? 'top' : 'left'
-                    } and click the 'Compile and run' button`}
+                  : `Please write your code on the ${document.body.clientWidth < 960 ? 'top' : 'left'
+                  } and click the 'Compile and run' button`}
               </p>
             </div>
           </div>
         ) : (
           <React.Fragment>
-            <CardContent>
+            <Paper variant={'outlined'} sx={{ p: 2, minHeight: '100%', borderRadius: 0 }}>
               {executionOutputList.length > 0 && (
                 <div>
                   <Output outputItemList={executionOutputList} />
                 </div>
               )}
               {executionOutputString && (
-                <TextareaAutosize
-                  value={executionOutputString}
-                  style={{
-                    //fontSize: 16,
-                    fontFamily: "'Fira code', 'Fira Mono', Consolas, Menlo, Courier, monospace"
-                  }}
-                  disabled
-                />
+                <pre style={{ fontFamily: 'monospace', fontWeight: 400, fontSize: '1rem', lineHeight: '1.5' }}>
+                  {executionOutputString}
+                </pre>
               )}
-            </CardContent>
+            </Paper>
           </React.Fragment>
         )}
       </Card>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Snackbar } from '@material-ui/core';
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
+import { Snackbar } from '@mui/material';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { OutputItem } from '@hedgehog/core';
 import ky from 'ky';
 
@@ -109,7 +109,9 @@ const DownloadSnackbar: React.FC<DownloadSnackbarProps> = (props: DownloadSnackb
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
-        onExited={handleExited}>
+        TransitionProps={{
+          onExited: handleExited
+        }}>
         <Alert onClose={handleClose} severity={alertType}>
           {messageInfo ? messageInfo.message : undefined}
         </Alert>

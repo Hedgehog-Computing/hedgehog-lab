@@ -77,7 +77,7 @@ export class Mat {
     }
     for (let i = 0; i < input2DArray.length; i++) {
       //copy current row of column and fill the remaining space with 0
-      let current_row = [...input2DArray[i]];
+      const current_row = [...input2DArray[i]];
       if (this.cols > input2DArray[i].length) {
         current_row.push(...Array(this.cols - input2DArray[i].length).fill(0));
       }
@@ -117,7 +117,7 @@ export class Mat {
 
   //generate a N-by-1 matrix by initializing a range vector [start:end:step].
   range(arg1: number, arg2: number | null = null, step = 1): Mat {
-    let rangeVector = [];
+    const rangeVector = [];
     let start = 0,
       end = 0;
     if (arg2 === null) {
@@ -143,7 +143,7 @@ export class Mat {
 
   // return a clone of this matrix
   clone(): Mat {
-    let returnMat = new Mat();
+    const returnMat = new Mat();
     returnMat.rows = this.rows;
     returnMat.cols = this.cols;
     returnMat.digits = this.digits;
@@ -166,7 +166,7 @@ export class Mat {
 
   equals(inMat: Mat, EPSILON = 0.0001): boolean {
     if (this.cols !== inMat.cols || this.rows !== inMat.rows) return false;
-    let sumOfDiff = this.minus(inMat).squareSum();
+    const sumOfDiff = this.minus(inMat).squareSum();
     return sumOfDiff <= EPSILON;
   }
 
@@ -201,8 +201,7 @@ export class Mat {
   diag(input1DArray: number[]): Mat {
     this.clear();
     this.zeros(input1DArray.length, input1DArray.length);
-    for (let i = 0; i < input1DArray.length; i++)
-      this.val[i][i] = input1DArray[i];
+    for (let i = 0; i < input1DArray.length; i++) this.val[i][i] = input1DArray[i];
     return this;
   }
 
@@ -216,7 +215,7 @@ export class Mat {
     }
 
     //else
-    let diag_ones = Array(row).fill(1);
+    const diag_ones = Array(row).fill(1);
     return this.diag(diag_ones);
   }
 
@@ -228,18 +227,16 @@ export class Mat {
     this.clear();
     this.zeros(row, col);
     for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++)
-        this.val[row][col] = Math.random();
+      for (let col = 0; col < this.cols; col++) this.val[row][col] = Math.random();
     }
     return this;
   }
 
   T(): Mat {
     // transpose
-    let returnMatrix = new Mat().zeros(this.cols, this.rows);
+    const returnMatrix = new Mat().zeros(this.cols, this.rows);
     for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++)
-        returnMatrix.val[col][row] = this.val[row][col];
+      for (let col = 0; col < this.cols; col++) returnMatrix.val[col][row] = this.val[row][col];
     }
     return returnMatrix;
   }
@@ -250,22 +247,21 @@ export class Mat {
 
   each(func: (element: number) => number): Mat {
     for (let row = 0; row < this.rows; row++) {
-      for (let col = 0; col < this.cols; col++)
-        this.val[row][col] = func(this.val[row][col]);
+      for (let col = 0; col < this.cols; col++) this.val[row][col] = func(this.val[row][col]);
     }
     return this;
   }
 
   //add, multiply, minus, divide with one scalar value
   addScalar(val: number): Mat {
-    let returnMatrix = this.clone();
+    const returnMatrix = this.clone();
     returnMatrix.each(function (eachMatrixValue: number): number {
       return eachMatrixValue + val;
     });
     return returnMatrix;
   }
   multiplyScalar(val: number): Mat {
-    let returnMatrix = this.clone();
+    const returnMatrix = this.clone();
     returnMatrix.each(function (eachMatrixValue: number): number {
       return eachMatrixValue * val;
     });
@@ -334,7 +330,7 @@ export class Mat {
   [Symbol.for('*')](rightOperand: Mat | number | number[] | number[][]): Mat {
     //if right operand is a raw array of number or 2D array, initialize the matrix first
     if (Array.isArray(rightOperand)) {
-      let rightOperandMatrix = new Mat(rightOperand);
+      const rightOperandMatrix = new Mat(rightOperand);
       return multiply(this, rightOperandMatrix);
     }
 
@@ -353,7 +349,7 @@ export class Mat {
   [Symbol.for('**')](rightOperand: Mat | number | number[] | number[][]): Mat {
     //if right operand is a raw array of number or 2D array, initialize the matrix first
     if (Array.isArray(rightOperand)) {
-      let rightOperandMatrix = new Mat(rightOperand);
+      const rightOperandMatrix = new Mat(rightOperand);
 
       //( in Matlab: matA .* matB)
       return dotMultiply(this, rightOperandMatrix);
@@ -362,7 +358,7 @@ export class Mat {
     // if right operand is a number, matrix element-wise power of N when right operand is number N
     // ( in Matlab: matA.^ N)
     if (typeof rightOperand === 'number') {
-      let returnMatrix = this.clone();
+      const returnMatrix = this.clone();
       for (let i = 1; i < rightOperand; i++) {
         dotMultiplyInPlace(returnMatrix, this);
       }
@@ -381,7 +377,7 @@ export class Mat {
 
     //if right operand is a 1D or 2D array
     if (Array.isArray(rightOperand)) {
-      let rightMatrix = new Mat(rightOperand);
+      const rightMatrix = new Mat(rightOperand);
       return divide(this, rightMatrix);
     }
     return divide(this, rightOperand);
@@ -391,8 +387,7 @@ export class Mat {
   // if N === -1, return the inverse matrix
   // otherwise return the result of matrix multiplying itself
   [Symbol.for('^')](rightOperand: number): Mat {
-    if (this.rows !== this.cols)
-      throw new Error('This matrix does not support ^ operator');
+    if (this.rows !== this.cols) throw new Error('This matrix does not support ^ operator');
     //if right operand is -1, return the inverse matrix
     if (rightOperand === -1) {
       // matrix inverse with mathjs
@@ -402,7 +397,7 @@ export class Mat {
     if (!Number.isInteger(rightOperand) || rightOperand < 1)
       throw new Error('This right operand does not support ^ operator');
 
-    let returnMatrix = this.clone();
+    const returnMatrix = this.clone();
     for (let i = 2; i <= rightOperand; i++) {
       multiplyInPlace(returnMatrix, this);
     }
@@ -417,7 +412,7 @@ export class Mat {
   ): boolean {
     //if right operand is a raw array of number or 2D array, initialize the matrix first
     if (Array.isArray(rightOperand)) {
-      let rightOperandMatrix = new Mat(rightOperand);
+      const rightOperandMatrix = new Mat(rightOperand);
       return this.equals(rightOperandMatrix);
     }
 
@@ -426,10 +421,7 @@ export class Mat {
       if (this.rows !== 1 || this.cols !== 1) {
         throw new Error('This matrix cannot be compared with a scalar');
       }
-      return (
-        (this.val[0][0] - rightOperand) * (this.val[0][0] - rightOperand) <
-        EPSILON
-      );
+      return (this.val[0][0] - rightOperand) * (this.val[0][0] - rightOperand) < EPSILON;
     }
     //otherwise, minus the right operand as a matrix
     return this.equals(rightOperand);
@@ -442,7 +434,7 @@ export class Mat {
   ): boolean {
     //if right operand is a raw array of number or 2D array, initialize the matrix first
     if (Array.isArray(rightOperand)) {
-      let rightOperandMatrix = new Mat(rightOperand);
+      const rightOperandMatrix = new Mat(rightOperand);
       return this.equals(rightOperandMatrix);
     }
 
@@ -451,10 +443,7 @@ export class Mat {
       if (this.rows !== 1 || this.cols !== 1) {
         throw new Error('This matrix cannot be compared with a scalar');
       }
-      return (
-        (this.val[0][0] - rightOperand) * (this.val[0][0] - rightOperand) <
-        EPSILON
-      );
+      return (this.val[0][0] - rightOperand) * (this.val[0][0] - rightOperand) < EPSILON;
     }
     //otherwise, minus the right operand as a matrix
     return this.equals(rightOperand);
@@ -484,9 +473,8 @@ export class Mat {
   //get a column vector (as an N-by-1 matrix) by index
   col(colIndex: number): Mat {
     this.dimCheck(0, colIndex);
-    let columnVector = Array(this.rows).fill(0);
-    for (let rowPt = 0; rowPt < this.rows; rowPt++)
-      columnVector[rowPt] = this.val[rowPt][colIndex];
+    const columnVector = Array(this.rows).fill(0);
+    for (let rowPt = 0; rowPt < this.rows; rowPt++) columnVector[rowPt] = this.val[rowPt][colIndex];
     return new Mat().initVec(columnVector);
   }
 
@@ -502,8 +490,8 @@ export class Mat {
 
   //reshape matrix
   reshape(row: number, col: number): Mat {
-    let returnMatrix = new Mat().zeros(row, col);
-    let thisArray = this.toArray();
+    const returnMatrix = new Mat().zeros(row, col);
+    const thisArray = this.toArray();
     let arrayPt = 0;
     for (let i = 0; i < row; i++) {
       for (let j = 0; j < col; j++) {
@@ -521,12 +509,7 @@ export class Mat {
 
   //resize matrix to a smaller matrix [rowStart , rowEnd), [colStart , colEnd)
   //All extra spaces will be filled with zero
-  subMatrix(
-    rowStart: number,
-    rowEnd: number,
-    colStart: number,
-    colEnd: number
-  ): Mat {
+  subMatrix(rowStart: number, rowEnd: number, colStart: number, colEnd: number): Mat {
     if (
       rowStart < 0 ||
       rowEnd > this.rows ||
@@ -538,15 +521,13 @@ export class Mat {
       throw new Error('Please check the dimensions of subMatrix');
     }
 
-    let returnMatrix = new Mat().zeros(rowEnd - rowStart, colEnd - colStart);
+    const returnMatrix = new Mat().zeros(rowEnd - rowStart, colEnd - colStart);
 
     for (let i = rowStart; i < rowEnd; i++) {
-      let row_index_of_return_matrix = i - rowStart;
+      const row_index_of_return_matrix = i - rowStart;
       for (let j = colStart; j < colEnd; j++) {
-        let col_index_of_return_matrix = j - colStart;
-        returnMatrix.val[row_index_of_return_matrix][
-          col_index_of_return_matrix
-        ] = this.val[i][j];
+        const col_index_of_return_matrix = j - colStart;
+        returnMatrix.val[row_index_of_return_matrix][col_index_of_return_matrix] = this.val[i][j];
       }
     }
     return returnMatrix;
@@ -555,9 +536,9 @@ export class Mat {
   //resize the matrix to a larger or smaller matrix
   //and fill the extra spaces with defaultValue
   resize(row: number, col: number, defaultValue = 0): Mat {
-    let returnMatrix = new Mat().Ns(row, col, defaultValue);
-    let min_row = Math.min(row, this.rows);
-    let min_col = Math.min(col, this.cols);
+    const returnMatrix = new Mat().Ns(row, col, defaultValue);
+    const min_row = Math.min(row, this.rows);
+    const min_col = Math.min(col, this.cols);
     for (let i = 0; i < min_row; i++) {
       for (let j = 0; j < min_col; j++) {
         returnMatrix.val[i][j] = this.val[i][j];
@@ -583,7 +564,7 @@ export class Mat {
 
   //get a column of matrix in array format
   ColVector(col: number): number[] {
-    let ret = [];
+    const ret = [];
     for (let i = 0; i < this.rows; i++) ret.push(this.val[i][col]);
     return ret;
   }
@@ -602,7 +583,7 @@ export class Mat {
     let ret = 0;
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
-        let val = this.val[i][j];
+        const val = this.val[i][j];
         ret += val * val;
       }
     }
@@ -614,31 +595,38 @@ export class Mat {
     this.digits = x;
     return this;
   }
-  
+
   /*serialize matrix to JavaScript 2D Array string, for example:
   [[1,2],
   [3,4]]
   (Users should directly copy the string as a JS 2D Array into their code)
   */
-  
-  toString(): string {
-    let rowStringList =  this.val.map(eachRow=> {return eachRow.map(eachValue=>{
-      if (this.digits <= 0) return String(eachValue);
-      else return String(eachValue.toFixed(this.digits))
-    }).reduce((rowAccumulator, currentElementString) => rowAccumulator + "," + currentElementString)})
 
-    let returnString = "";
-    for (let rowIndex = 0; rowIndex < rowStringList.length; rowIndex+=1) {
-      returnString +=  "[" + rowStringList[rowIndex] + "]" + ((rowIndex===rowStringList.length-1)?"":",\n")
+  toString(): string {
+    const rowStringList = this.val.map((eachRow) => {
+      return eachRow
+        .map((eachValue) => {
+          if (this.digits <= 0) return String(eachValue);
+          else return String(eachValue.toFixed(this.digits));
+        })
+        .reduce(
+          (rowAccumulator, currentElementString) => rowAccumulator + ',' + currentElementString
+        );
+    });
+
+    let returnString = '';
+    for (let rowIndex = 0; rowIndex < rowStringList.length; rowIndex += 1) {
+      returnString +=
+        '[' + rowStringList[rowIndex] + ']' + (rowIndex === rowStringList.length - 1 ? '' : ',\n');
     }
-    return "\n[" + returnString + "]\n"
+    return '\n[' + returnString + ']\n';
   }
-  
+
   /*serialize matrix to 2D Array with Tab, for example:
   1 2
   3 4
   */
-  toStringWithTab():string{
+  toStringWithTab(): string {
     let returnString = '';
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
@@ -708,7 +696,7 @@ export class Mat {
   //A =  [A]
   //     [x]
   appendInRow(x_: Mat): Mat {
-    let x = x_.clone();
+    const x = x_.clone();
     if (x.cols !== this.cols) {
       throw new Error('Dimension does not match on  appendInRow()');
     }
@@ -722,7 +710,7 @@ export class Mat {
   //append matrix x to the right
   //A = [A|x]
   appendInColumn(x_: Mat): Mat {
-    let x = x_.clone();
+    const x = x_.clone();
     if (x.rows !== this.rows) {
       throw new Error('Dimension does not match on  appendInColumn()');
     }
@@ -740,12 +728,9 @@ export class Mat {
 
 //leftMatrix + rightMatrix, save the result into left matrix
 function addInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
-  if (
-    leftMatrix.rows !== rightMatrix.rows ||
-    leftMatrix.cols !== rightMatrix.cols
-  )
+  if (leftMatrix.rows !== rightMatrix.rows || leftMatrix.cols !== rightMatrix.cols)
     throw new Error('Dimension does not match for operation:add');
-  let rows = leftMatrix.rows,
+  const rows = leftMatrix.rows,
     cols = leftMatrix.cols;
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
@@ -762,12 +747,9 @@ function add(leftMat: Mat, rightMat: Mat): Mat {
 
 //leftMatrix - rightMatrix, save the result into left matrix
 function minusInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
-  if (
-    leftMatrix.rows !== rightMatrix.rows ||
-    leftMatrix.cols !== rightMatrix.cols
-  )
+  if (leftMatrix.rows !== rightMatrix.rows || leftMatrix.cols !== rightMatrix.cols)
     throw new Error('Dimension does not match for operation:minus');
-  let rows = leftMatrix.rows,
+  const rows = leftMatrix.rows,
     cols = leftMatrix.cols;
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < cols; j++) {
@@ -787,18 +769,16 @@ function multiply(leftMat: Mat, rightMat: Mat): Mat {
   if (leftMat.cols !== rightMat.rows)
     throw new Error('Dimension does not match for operation:muitiply');
 
-  if (leftMat.mode === 'gpu' || rightMat.mode === 'gpu')
-    return multiply_gpu(leftMat, rightMat);
+  if (leftMat.mode === 'gpu' || rightMat.mode === 'gpu') return multiply_gpu(leftMat, rightMat);
 
-  let m = leftMat.rows,
+  const m = leftMat.rows,
     n = leftMat.cols,
     p = rightMat.cols;
-  let returnMatrix = new Mat().zeros(m, p);
+  const returnMatrix = new Mat().zeros(m, p);
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < p; j++) {
       let val = 0;
-      for (let it = 0; it < n; it++)
-        val += leftMat.val[i][it] * rightMat.val[it][j];
+      for (let it = 0; it < n; it++) val += leftMat.val[i][it] * rightMat.val[it][j];
       returnMatrix.val[i][j] = val;
     }
   }
@@ -807,7 +787,7 @@ function multiply(leftMat: Mat, rightMat: Mat): Mat {
 
 // leftMat * rightMat and save the result to left matrix
 function multiplyInPlace(leftMat: Mat, rightMat: Mat): Mat {
-  let resultMatrix = multiply(leftMat, rightMat);
+  const resultMatrix = multiply(leftMat, rightMat);
   leftMat.copy(resultMatrix);
   return leftMat;
 }
@@ -834,16 +814,13 @@ function multiply_gpu(leftMat: Mat, rightMat: Mat): Mat {
     return sum;
 }`;
 
-  const mulfunction_string =
-    mulfunction_part_1 + n.toString() + mulfunction_part_2;
+  const mulfunction_string = mulfunction_part_1 + n.toString() + mulfunction_part_2;
 
   // FIXME: evil as any
-  const multiplyMatrix = gpu
-    .createKernel(mulfunction_string as any)
-    .setOutput([m, p]);
+  const multiplyMatrix = gpu.createKernel(mulfunction_string as any).setOutput([m, p]);
 
   const c = multiplyMatrix(leftMat.val, rightMat.val);
-  let returnMat = new Mat();
+  const returnMat = new Mat();
   returnMat.val = c as number[][];
   returnMat.rows = m;
   returnMat.cols = p;
@@ -910,24 +887,22 @@ export function mat2csv(A: Mat): string {
 
 //CSV to Matrix
 export function csv2mat(strCSV: string): Mat {
-  let A = new Mat();
+  const A = new Mat();
   try {
     if (csv2mat.length === 0) return A;
-    let split_result = strCSV.split('\n');
-    let linesOfCSVString = split_result.filter((x) => x.length > 0);
-    let rows = linesOfCSVString.length;
-    let cols = linesOfCSVString[0].split(',').length;
+    const split_result = strCSV.split('\n');
+    const linesOfCSVString = split_result.filter((x) => x.length > 0);
+    const rows = linesOfCSVString.length;
+    const cols = linesOfCSVString[0].split(',').length;
     A.zeros(rows, cols);
 
     //process each line
     for (let row = 0; row < rows; row++) {
-      let eachRowString = linesOfCSVString[row];
-      let listOfElement = eachRowString.split(',');
+      const eachRowString = linesOfCSVString[row];
+      const listOfElement = eachRowString.split(',');
       if (listOfElement.length !== cols)
         throw new Error(
-          'Current row ' +
-            row.toString() +
-            ' does not have same element as first row'
+          'Current row ' + row.toString() + ' does not have same element as first row'
         );
       for (let col = 0; col < cols; col++) {
         A.val[row][col] = Number(listOfElement[col]);
@@ -947,8 +922,8 @@ export function mat2json(A: Mat): string {
 
 //Json to Matrix
 export function json2mat(json_str: string): Mat {
-  let A = new Mat();
-  let obj = JSON.parse(json_str);
+  const A = new Mat();
+  const obj = JSON.parse(json_str);
   A.init(obj.val);
   if (A.rows === obj.rows && A.cols === obj.cols) {
     return A;
