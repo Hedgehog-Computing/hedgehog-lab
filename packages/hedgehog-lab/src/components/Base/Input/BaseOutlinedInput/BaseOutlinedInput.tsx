@@ -12,7 +12,7 @@ interface IBaseInputProps extends BaseTextFieldProps {
 }
 
 const BaseOutlinedInput: React.FC<IBaseInputProps> = (props) => {
-    const {type, adornment, field} = props
+    const {type, adornment, field, placeholder} = props
 
     const useFormMethods = useFormContext()
     const errorMessage = useFormMethods.formState.errors?.[field?.name]?.message
@@ -23,7 +23,7 @@ const BaseOutlinedInput: React.FC<IBaseInputProps> = (props) => {
             fullWidth
             {...field}
             type={type}
-            placeholder={toCapitalize(field?.name ?? '')}
+            placeholder={placeholder ? placeholder : toCapitalize(field?.name ?? '')}
             error={!!errorMessage}
             helperText={errorMessage}
             InputProps={{
