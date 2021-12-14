@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import {useEffect, useState} from 'react'
 
 const getMql = () => {
   if (typeof window === 'undefined') {
@@ -21,7 +21,7 @@ const getDefaultTheme = (isSSR: boolean): SystemTheme => {
   return 'light'
 }
 
-const useSystemTheme = (isSSR: boolean = false) => {
+const useSystemTheme = (isSSR = false): string => {
   const defaultTheme = getDefaultTheme(isSSR)
   const [systemTheme, setSystemTheme] = useState<SystemTheme>(defaultTheme)
   useEffect(() => {
