@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {IconButton, InputAdornment, OutlinedInput} from "@mui/material";
-import {CopyAllOutlined} from "@mui/icons-material";
+import {CheckOutlined, CopyAllOutlined} from "@mui/icons-material";
 import {useCopyToClipboard} from "react-use";
 import {useSnackbar} from "notistack";
 
@@ -13,6 +13,7 @@ const CopyInput: React.FC<ICopyInputProps> = (props): React.ReactElement => {
 
     const {enqueueSnackbar} = useSnackbar()
     const [copyToClipboardState, copyToClipboard] = useCopyToClipboard();
+    const [copy, setCopy] = useState(false)
 
     const handleCopy = useCallback(() => {
         copyToClipboard(url);
@@ -28,8 +29,14 @@ const CopyInput: React.FC<ICopyInputProps> = (props): React.ReactElement => {
             enqueueSnackbar(`Copied ${snackBarMessage}...`, {
                 variant: 'success'
             })
+
+            setCopy(true)
+
+            setTimeout(() => {
+                setCopy(false)
+            }, 1000)
         }
-    }, [url, copyToClipboard, copyToClipboardState.error, enqueueSnackbar])
+    }, [url, copyToClipboard, copyToClipboardState.error, enqueueSnackbar, setCopy])
 
     useEffect(() => {
         handleCopy()
@@ -43,7 +50,9 @@ const CopyInput: React.FC<ICopyInputProps> = (props): React.ReactElement => {
                        endAdornment={
                            <InputAdornment position={'end'}>
                                <IconButton onClick={handleCopy}>
-                                   <CopyAllOutlined/>
+                                   {copy ? <CheckOutlined/>
+                                       : <CopyAllOutlined/>
+                                   }
                                </IconButton>
                            </InputAdornment>
                        }

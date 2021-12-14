@@ -27,7 +27,7 @@ const ShareDialog = (): React.ReactElement => {
         const isChecked = event.target.checked
 
         setAutoRun(isChecked)
-    }, [])
+    }, [setAutoRun])
 
     useEffect(() => {
         setShareUrl(`${HEDGEHOG_DOMAIN}${pathname}?auto_run=${autoRun}`)
