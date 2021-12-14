@@ -46,7 +46,7 @@ const TopBar = (): React.ReactElement => {
 
     const handleSideBarOpen = useCallback(() => {
         setSideBarOpen(!sideBarOpen)
-    }, [sideBarOpen])
+    }, [setSideBarOpen, sideBarOpen])
 
 
     return (

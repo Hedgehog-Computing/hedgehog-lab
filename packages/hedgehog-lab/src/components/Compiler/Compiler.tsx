@@ -33,24 +33,24 @@ export const Compiler = (): React.ReactElement => {
         }
     });
 
-    const reFetchCodeForce = () => {
-        setCompilerResult({
-            outputItem: [],
-            outputString: ''
-        });
-
-        refetch({force: true} as any).finally(() => setCompilerReFetch(false))
-    }
-
     useEffect(() => {
+        const reFetchCodeForce = () => {
+            setCompilerResult({
+                outputItem: [],
+                outputString: ''
+            });
+
+            refetch({force: true} as any).finally(() => setCompilerReFetch(false))
+        }
+
         if (compilerReFetch) {
             reFetchCodeForce()
         }
-    }, [compilerReFetch])
+    }, [compilerReFetch, refetch, setCompilerReFetch, setCompilerResult])
 
     useEffect(() => {
         setCompilerLoading(isLoading)
-    }, [isLoading])
+    }, [isLoading, setCompilerLoading])
 
     return (<></>)
 }

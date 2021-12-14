@@ -24,7 +24,7 @@ const AuthAction: React.FC<IBaseActionProps> = (prop) => {
 
     const handleSetAuthAction = useCallback((action: string) => {
         setAuthAction(action)
-    }, [authAction])
+    }, [setAuthAction])
 
     return (
         <>
