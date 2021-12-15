@@ -5,25 +5,25 @@ import MathJax from 'react-mathjax';
 import Markdown from 'react-markdown';
 import TableComponent from './OutputItemCompoments/TableComponent';
 import {isDrawingItem, isFormulaItem, isMarkdownItem, isTableItem, isTeXItem, OutputItem} from '@hedgehog/core';
-import type { CodeComponent } from 'react-markdown/src/ast-to-react'
+import type {CodeComponent} from 'react-markdown/src/ast-to-react'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter';
-import { coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import {dracula} from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 type CodeProps = Parameters<CodeComponent>[0]
 
 const syntaxComponents = {
-  code({node, inline, className, children, ...props} :CodeProps) {
-    const match = /language-(\w+)/.exec(className || '')
-    return !inline && match ? (
-      <SyntaxHighlighter style={coy} language={match[1]} PreTag="div" {...props} >
-        {String(children).replace(/\n$/, '')}
-      </SyntaxHighlighter>
-    ) : (
-      <code className={className} {...props}>
-        {children}
-      </code>
-    )
-  }
+    code({node, inline, className, children, ...props}: CodeProps) {
+        const match = /language-(\w+)/.exec(className || '')
+        return !inline && match ? (
+            <SyntaxHighlighter style={dracula} language={match[1]} PreTag="div" {...props as any} >
+                {String(children).replace(/\n$/, '')}
+            </SyntaxHighlighter>
+        ) : (
+            <code className={className} {...props}>
+                {children}
+            </code>
+        )
+    }
 }
 
 const Output = ({outputItemList}: { outputItemList: OutputItem[] }): React.ReactElement => {

@@ -422,6 +422,10 @@ export function getThemedComponents(theme: Theme) {
                         '&[href]': {
                             textDecorationLine: 'none',
                         },
+                        'a': {
+                            color: theme.palette.mode === 'dark' ? theme.palette.grey[200] : ''
+                        },
+                        color: theme.palette.mode === 'dark' ? theme.palette.grey[200] : '',
                     },
                     outlined: {
                         display: 'block',
