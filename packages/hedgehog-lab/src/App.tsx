@@ -7,8 +7,7 @@ import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./route/route";
 import {RecoilRoot, useRecoilState} from "recoil";
 import {themeModState} from "./themes/RThemeStates";
-import {Compiler} from "./components/Compiler/Compiler";
-import useSystemTheme from "./utils/useSystemTheme";
+import useSystemTheme from "./hooks/useSystemTheme";
 
 
 const ThemePage = () => {
@@ -20,12 +19,11 @@ const ThemePage = () => {
         localTheme
             ? setThemeMode(localTheme)
             : setThemeMode(systemTheme)
-        
+
     }, [systemTheme, setThemeMode])
 
     return (
         <ThemeProvider theme={labTheme(themeMode)}>
-            <Compiler/>
             <RoutePage/>
         </ThemeProvider>
     )
