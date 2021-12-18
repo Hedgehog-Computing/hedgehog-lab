@@ -1,11 +1,11 @@
 import {useQuery} from "react-query";
-import {compiler, OutputResult} from "../../compiler";
-import React, {useEffect} from "react";
+import {compiler, OutputResult} from "../compiler";
+import {useEffect} from "react";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {editorCodeState} from "../YourCode/RYourCodeStates";
-import {compilerLoadingState, compilerReFetchState, compilerResultState} from "../../states/RCompilerStates";
+import {editorCodeState} from "../components/YourCode/RYourCodeStates";
+import {compilerLoadingState, compilerReFetchState, compilerResultState} from "../states/RCompilerStates";
 
-export const Compiler = (): React.ReactElement => {
+export const useCompiler = (): readonly [((valOrUpdater: (((currVal: boolean) => boolean) | boolean)) => void), boolean] => {
     const setCompilerLoading = useSetRecoilState<boolean>(compilerLoadingState)
     const editorCode = useRecoilValue<string>(editorCodeState)
     const setCompilerResult = useSetRecoilState<any>(compilerResultState);
@@ -52,5 +52,5 @@ export const Compiler = (): React.ReactElement => {
         setCompilerLoading(isLoading)
     }, [isLoading, setCompilerLoading])
 
-    return (<></>)
+    return [setCompilerReFetch, isLoading] as const
 }
