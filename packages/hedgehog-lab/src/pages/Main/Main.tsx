@@ -1,16 +1,15 @@
 import React, {useEffect, useState} from "react";
 import Qs from 'qs';
 import {Grid} from '@mui/material';
-import {compiler} from "../../compiler";
 import Results from "../../components/Results/Results";
 import Footer from "../../components/DeprecatedCode/Footer/Footer";
 import YourCode from "../../components/YourCode/YourCode";
-import {queryCache} from "react-query";
-import {useSetRecoilState} from "recoil";
-import {editorCodeState} from "../../components/YourCode/RYourCodeStates";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import {useParams} from "react-router-dom";
 import {tutorials} from "../../tutorials";
-import {compilerReFetchState, compilerResultState} from "../../states/RCompilerStates";
+import {compilerResultState} from "../../states/RCompilerStates";
+import {useCompiler} from "../../hooks/useCompilier";
+import {editorCodeState} from "../../states/RYourCodeStates";
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -20,8 +19,8 @@ const lastRunningCode = localStorage.getItem('lastRunningCode')
 
 
 const Main = (): React.ReactElement => {
-    const setEditorCode = useSetRecoilState<string>(editorCodeState)
-    const setCompilerReFetch = useSetRecoilState<boolean>(compilerReFetchState);
+    const [editorCode, setEditorCode] = useRecoilState(editorCodeState)
+    const [setCompilerReFetch] = useCompiler()
     const setCompilerResult = useSetRecoilState(compilerResultState)
     // If auto_run=true, then hedgehog lab will run the script automatically after loading the code
     const [autoRun, setAutoRun] = useState<boolean>(false)
@@ -44,9 +43,6 @@ const Main = (): React.ReactElement => {
         }
     }, [params])
 
-    useEffect(() => {
-        queryCache.cancelQueries(['compiler']);
-    }, []);
 
     useEffect(() => {
         setEditorCode(code)
@@ -54,7 +50,7 @@ const Main = (): React.ReactElement => {
 
     useEffect(() => {
         if (autoRun) setCompilerReFetch(true)
-    }, [autoRun, setCompilerReFetch])
+    }, [autoRun, setCompilerReFetch, editorCode])
 
     // Temporary, set up route for tutorial
     const {tutorialID} = useParams()

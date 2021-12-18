@@ -11,10 +11,3 @@ export const editorCodeState = atom({
     default: ''
 })
 
-
-export const inputCodeState = atom({
-    key: 'inputCode',
-    default: ''
-})
-
-
