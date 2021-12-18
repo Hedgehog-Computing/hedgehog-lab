@@ -1,78 +1,24 @@
-import React, {useEffect, useState} from 'react';
-import {Box, CardContent, ClickAwayListener, useTheme} from '@mui/material';
-import {ControlledEditor, ControlledEditorOnChange, monaco} from '@monaco-editor/react';
-import * as monacoEditor from 'monaco-editor/esm/vs/editor/editor.api';
+import React, {useEffect} from 'react';
+import {Box, CardContent, ClickAwayListener} from '@mui/material';
+import {ControlledEditor} from '@monaco-editor/react';
 import ResizeObserver from 'react-resize-detector';
-import {monacoTheme} from '../../themes/monacoTheme';
 import YourCodeHeader from "./Header/YourCodeHeader";
-import {useRecoilState} from "recoil";
-import {codeSavingFlagState, editorCodeState} from "./RYourCodeStates";
-
-export const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
-
-
-monaco.init().then(monaco => {
-        monaco.editor.defineTheme('monacoDarkTheme', monacoTheme)
-
-        monaco.languages.typescript.javascriptDefaults.setDiagnosticsOptions({
-            noSyntaxValidation: true,
-            noSemanticValidation: true
-        })
-    }
-).catch(error => console.error('An error occurred during initialization of Monaco: ', error));
+import {useEditor} from "../../hooks/useEditor";
 
 
 const YourCode = (): React.ReactElement => {
-    const theme = useTheme()
-
-    const [editorCode, setEditorCode] = useRecoilState<string>(editorCodeState)
-
-    const [editor, setEditor] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
-    const [monaco, setMonaco] = useState<typeof monacoEditor | null>(null);
-
-    const [editorTheme, setEditorTheme] = useState<'monacoDarkTheme' | 'vs'>('vs')
-
-    const [codeSavingFlag, setCodeSavingFlag] = useRecoilState(codeSavingFlagState)
-
-    // save code to local storage
-    const autoSaveCode = () => {
-        localStorage.setItem('lastRunningCode', editorCode as string)
-        setCodeSavingFlag(false)
-    }
-
-    window.addEventListener("beforeunload", () => {
-        autoSaveCode()
-    });
-
-    const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-        setEditorCode(v as string);
-        setCodeSavingFlag(true)
-    };
-
-    const options = {
-        wordWrap: 'on' as const,
-        scrollBeyondLastLine: false,
-    };
-
-
-    const handleEditorDidMount = (
-        _: () => string,
-        editor: monacoEditor.editor.IStandaloneCodeEditor,
-    ) => {
-        editor.addAction({
-            id: COMPILE_AND_RUN_BUTTON_ID,
-            label: 'compile-and-run-butt-label',
-            keybindings: [2051], // Monaco.KeyMod.CtrlCmd | Monaco.KeyCode.Enter == 2051
-            run: () => {
-                document.getElementById(COMPILE_AND_RUN_BUTTON_ID)?.click();
-            }
-        });
-        setEditor(editor)
-    };
+    const [editorCode,
+        handleUploadSource,
+        handleEditorDidMount,
+        editor,
+        editorTheme,
+        options,
+        autoSaveCode
+    ] = useEditor()
 
     useEffect(() => {
-        theme.palette.mode === 'dark' ? setEditorTheme('monacoDarkTheme') : setEditorTheme('vs')
-    }, [theme.palette.mode])
+        console.log(`11111:${editorCode}`)
+    }, [editorCode])
 
     return (
         <div style={{height: '100%'}}>
@@ -85,10 +31,9 @@ const YourCode = (): React.ReactElement => {
                 <CardContent>
                     <ClickAwayListener onClickAway={autoSaveCode}>
                         <ResizeObserver
-                            onResize={(width, height) => {
+                            onResize={() => {
                                 if (editor) {
-                                    editor.layout();
-                                    editorCode
+                                    editor.layout()
                                 }
                             }}>
                             <div
@@ -113,7 +58,6 @@ const YourCode = (): React.ReactElement => {
             </Box>
         </div>
     )
-
 };
 
 export default YourCode;

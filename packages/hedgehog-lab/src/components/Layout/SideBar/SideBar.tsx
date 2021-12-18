@@ -25,10 +25,10 @@ import {
     TextSnippetOutlined
 } from "@mui/icons-material";
 import {useRecoilState, useSetRecoilState} from "recoil";
-import {editorCodeState} from "../../YourCode/RYourCodeStates";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import {sideBarOpenState} from "../../../states/RLayoutStates";
 import {Link as RouteLink} from 'react-router-dom'
+import {editorCodeState} from "../../../states/RYourCodeStates";
 
 const SideBar = (): React.ReactElement => {
     const [collapseOpen, setCollapseOpen] = useState(true)
@@ -111,7 +111,7 @@ const SideBar = (): React.ReactElement => {
                             {tutorials.map((tutorial, index) => {
                                 return (
                                     <Link key={index} sx={{display: 'block'}} component={RouteLink}
-                                          to={`/tutorial/${tutorial.description}`}>
+                                          to={`/tutorial/${tutorial.description}?auto_run=true`}>
                                         <ListItemButton onClick={
                                             () => {
                                                 handleSetEditorCode(tutorial.source)

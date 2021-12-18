@@ -1,8 +1,8 @@
-import {useQuery} from "react-query";
+import {queryCache, useQuery} from "react-query";
 import {compiler, OutputResult} from "../compiler";
 import {useEffect} from "react";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
-import {editorCodeState} from "../components/YourCode/RYourCodeStates";
+import {editorCodeState} from "../states/RYourCodeStates";
 import {compilerLoadingState, compilerReFetchState, compilerResultState} from "../states/RCompilerStates";
 
 export const useCompiler = (): readonly [((valOrUpdater: (((currVal: boolean) => boolean) | boolean)) => void), boolean] => {
@@ -51,6 +51,10 @@ export const useCompiler = (): readonly [((valOrUpdater: (((currVal: boolean) =>
     useEffect(() => {
         setCompilerLoading(isLoading)
     }, [isLoading, setCompilerLoading])
+
+    useEffect(() => {
+        queryCache.cancelQueries(['compiler']);
+    }, []);
 
     return [setCompilerReFetch, isLoading] as const
 }
