@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Box, CardContent, ClickAwayListener} from '@mui/material';
 import {ControlledEditor} from '@monaco-editor/react';
 import ResizeObserver from 'react-resize-detector';
@@ -15,10 +15,6 @@ const YourCode = (): React.ReactElement => {
         options,
         autoSaveCode
     ] = useEditor()
-
-    useEffect(() => {
-        console.log(`11111:${editorCode}`)
-    }, [editorCode])
 
     return (
         <div style={{height: '100%'}}>
