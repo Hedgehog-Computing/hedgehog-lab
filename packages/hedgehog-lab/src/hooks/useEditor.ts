@@ -6,6 +6,7 @@ import * as monacoEditor from "monaco-editor";
 import {ControlledEditorOnChange, monaco} from "@monaco-editor/react";
 import {monacoTheme} from "../themes/monacoTheme";
 import useKeyboardJs from "react-use/lib/useKeyboardJs";
+import {useDebounce} from "react-use";
 
 export const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
@@ -47,16 +48,22 @@ export const useEditor = ():
         setCodeSavingFlag(false)
     }, [editorCode, setCodeSavingFlag])
 
+    // auto save when page close
     window.addEventListener("beforeunload", () => {
         autoSaveCode()
     });
 
-    const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-        setEditorCode(v as string);
-        setCodeSavingFlag(true)
-    };
 
-    // override ctrl+S
+    // auto save code each 1s
+    const [] = useDebounce(
+        () => {
+            autoSaveCode()
+        },
+        1000,
+        [editorCode]
+    )
+
+    // override ctrl+S to save code
     document.addEventListener("keydown", function (e) {
         if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
             e.preventDefault();
@@ -70,6 +77,12 @@ export const useEditor = ():
             autoSaveCode()
         }
     }, [autoSaveCode, isPressed])
+
+    // set code to store when editor change
+    const handleUploadSource: ControlledEditorOnChange = (e, v) => {
+        setEditorCode(v as string);
+        setCodeSavingFlag(true)
+    };
 
     const options = {
         wordWrap: 'on' as const,
