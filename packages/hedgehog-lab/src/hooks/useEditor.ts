@@ -1,10 +1,11 @@
 import {useTheme} from "@mui/material";
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {codeSavingFlagState, editorCodeState} from "../states/RYourCodeStates";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import * as monacoEditor from "monaco-editor";
 import {ControlledEditorOnChange, monaco} from "@monaco-editor/react";
 import {monacoTheme} from "../themes/monacoTheme";
+import useKeyboardJs from "react-use/lib/useKeyboardJs";
 
 export const COMPILE_AND_RUN_BUTTON_ID = 'compile-and-run-button-id';
 
@@ -39,11 +40,12 @@ export const useEditor = ():
 
     const setCodeSavingFlag = useSetRecoilState(codeSavingFlagState)
 
+
     // save code to local storage
-    const autoSaveCode = () => {
+    const autoSaveCode = useCallback(() => {
         localStorage.setItem('lastRunningCode', editorCode as string)
         setCodeSavingFlag(false)
-    }
+    }, [editorCode, setCodeSavingFlag])
 
     window.addEventListener("beforeunload", () => {
         autoSaveCode()
@@ -53,6 +55,21 @@ export const useEditor = ():
         setEditorCode(v as string);
         setCodeSavingFlag(true)
     };
+
+    // override ctrl+S
+    document.addEventListener("keydown", function (e) {
+        if (e.keyCode == 83 && (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)) {
+            e.preventDefault();
+        }
+    }, false);
+
+    const [isPressed] = useKeyboardJs('ctrl + s')
+
+    useEffect(() => {
+        if (isPressed) {
+            autoSaveCode()
+        }
+    }, [autoSaveCode, isPressed])
 
     const options = {
         wordWrap: 'on' as const,
