@@ -2,6 +2,7 @@ import React from "react";
 import {IconButton, Tooltip} from "@mui/material";
 import {GitHub as GitHubIcon, MenuBookOutlined} from "@mui/icons-material";
 import SwitchThemeButton from "../../Base/Theme/SwitchThemeButton";
+import SettingsButton from "../../Settings/SettingsButton";
 
 interface IRightButtonProps {
     href: string,
@@ -36,6 +37,7 @@ const RightButton = (): React.ReactElement => {
             }
 
             <SwitchThemeButton/>
+            <SettingsButton/>
         </>
     )
 }

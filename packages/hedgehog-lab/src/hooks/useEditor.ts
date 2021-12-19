@@ -55,11 +55,15 @@ export const useEditor = ():
 
 
     // auto save code each 1s
+    const autoSaveTime = localStorage.getItem('auto-save-time')
+
+    if (!autoSaveTime) localStorage.setItem('auto-save-time', `1`)
+
     const [] = useDebounce(
         () => {
             autoSaveCode()
         },
-        1000,
+        autoSaveTime ? parseInt(autoSaveTime) * 1000 : 1000,
         [editorCode]
     )
 
