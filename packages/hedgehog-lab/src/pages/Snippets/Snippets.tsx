@@ -9,6 +9,7 @@ import {
   InputLabel,
   Link,
   MenuItem,
+  OutlinedInput,
   Pagination,
   Paper,
   Select,
@@ -35,10 +36,37 @@ const printCode = `
     
 `;
 
+const SearchSnippets = (): React.ReactElement => {
+  return (
+    <Box sx={{ display: "flex", justifyContent: "end", width: "100%" }}>
+      <OutlinedInput size="small" placeholder="Search your snippets" />
+      <Select
+        value={"5"}
+        sx={{
+          height: 40,
+          fontSize: "0.8125rem",
+          ml: 1,
+        }}
+      >
+        <MenuItem dense value={"5"}>
+          5
+        </MenuItem>
+        <MenuItem dense value={"10"}>
+          10
+        </MenuItem>
+      </Select>
+    </Box>
+  );
+};
+
 const Snippets = (): React.ReactElement => {
   return (
     <>
-      {Array.from(Array(3).keys()).map((item, index) => {
+      <SearchSnippets />
+
+      <Divider sx={{ my: 2 }} />
+
+      {Array.from(Array(5).keys()).map((item, index) => {
         return (
           <Box key={index}>
             <Box display={"flex"} justifyContent={"space-between"}>
