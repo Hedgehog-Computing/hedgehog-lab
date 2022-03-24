@@ -1,34 +1,18 @@
-import {Alert, IconButton} from "@mui/material";
-import {FiberManualRecord} from "@mui/icons-material";
+import { Box } from "@mui/material";
+import { FiberManualRecord } from "@mui/icons-material";
 import React from "react";
-import {useRecoilValue} from "recoil";
-import {codeSavingFlagState} from "../../../states/RYourCodeStates";
+import { useRecoilValue } from "recoil";
+import { codeSavingFlagState } from "../../../states/RYourCodeStates";
 
 const SaveState = (): React.ReactElement => {
-    const codeSavingFlag = useRecoilValue(codeSavingFlagState)
+  const codeSavingFlag = useRecoilValue(codeSavingFlagState);
 
-    return (
-        <>
-            {codeSavingFlag ? (
-                <Alert variant={'filled'} severity={'info'}
-                       action={
-                           <IconButton
-                               aria-label="close"
-                               color="inherit"
-                               size="small"
-                           >
-                               <FiberManualRecord fontSize="inherit"/>
-                           </IconButton>
-                       }>
-                    File Name
-                </Alert>
-            ) : (
-                <Alert variant={'filled'} severity={'success'}>
-                    File Name
-                </Alert>
-            )}
-        </>
-    )
-}
+  return (
+    <Box sx={{ width: "100%", textAlign: "center" }}>
+      File Name
+      {codeSavingFlag ? "*" : ""}
+    </Box>
+  );
+};
 
-export default SaveState
+export default SaveState;

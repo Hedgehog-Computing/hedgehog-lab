@@ -1,59 +1,51 @@
-import React from 'react';
-import {Box, CardContent, ClickAwayListener} from '@mui/material';
-import {ControlledEditor} from '@monaco-editor/react';
-import ResizeObserver from 'react-resize-detector';
+import React from "react";
+import { Box, CardContent, ClickAwayListener } from "@mui/material";
+import { ControlledEditor } from "@monaco-editor/react";
+import ResizeObserver from "react-resize-detector";
 import YourCodeHeader from "./Header/YourCodeHeader";
-import {useEditor} from "../../hooks/useEditor";
-
+import { useEditor } from "../../hooks/useEditor";
 
 const YourCode = (): React.ReactElement => {
-    const [editorCode,
-        handleUploadSource,
-        handleEditorDidMount,
-        editor,
-        editorTheme,
-        options,
-        autoSaveCode
-    ] = useEditor()
+  const [
+    editorCode,
+    handleUploadSource,
+    handleEditorDidMount,
+    editor,
+    editorTheme,
+    options,
+    autoSaveCode,
+  ] = useEditor();
 
-    return (
-        <div style={{height: '100%'}}>
-            <Box sx={{height: '100%', borderRadius: 0}}>
-                <CardContent>
-                    <YourCodeHeader/>
-                </CardContent>
-
-
-                <CardContent>
-                    <ClickAwayListener onClickAway={autoSaveCode}>
-                        <ResizeObserver
-                            onResize={() => {
-                                if (editor) {
-                                    editor.layout()
-                                }
-                            }}>
-                            <div
-                                style={{
-                                    height: 'calc(100vh - 160px)'
-
-                                }}>
-
-                                <ControlledEditor
-                                    language="javascript"
-                                    value={editorCode}
-                                    onChange={handleUploadSource}
-                                    options={options}
-                                    editorDidMount={handleEditorDidMount}
-                                    theme={editorTheme}
-                                />
-                            </div>
-                        </ResizeObserver>
-                    </ClickAwayListener>
-
-                </CardContent>
-            </Box>
-        </div>
-    )
+  return (
+    <div>
+      <Box sx={{ height: "100%", borderRadius: 0 }}>
+        <ClickAwayListener onClickAway={autoSaveCode}>
+          <ResizeObserver
+            onResize={() => {
+              if (editor) {
+                editor.layout();
+              }
+            }}
+          >
+            <div
+              style={{
+                height: "calc(100vh - 160px)",
+              }}
+            >
+              <ControlledEditor
+                language="javascript"
+                value={editorCode}
+                onChange={handleUploadSource}
+                options={options}
+                editorDidMount={handleEditorDidMount}
+                theme={editorTheme}
+              />
+            </div>
+          </ResizeObserver>
+        </ClickAwayListener>
+      </Box>
+    </div>
+  );
 };
 
 export default YourCode;
