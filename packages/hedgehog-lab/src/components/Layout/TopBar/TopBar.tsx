@@ -89,8 +89,15 @@ const Header = (): React.ReactElement => {
   const { snippetID } = useParams();
   const { pathname } = useLocation();
   const isSnippetsPath = matchPath("snippets/new", pathname);
+  const isTutorialsPath = matchPath("tutorial/*", pathname);
+  const isHomePath = matchPath("", pathname);
 
-  if (isSnippetsPath || snippetID !== undefined) {
+  if (
+    isHomePath ||
+    isTutorialsPath ||
+    isSnippetsPath ||
+    snippetID !== undefined
+  ) {
     return <YourCodeHeader />;
   }
 
