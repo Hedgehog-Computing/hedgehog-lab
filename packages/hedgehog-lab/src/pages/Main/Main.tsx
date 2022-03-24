@@ -10,6 +10,7 @@ import { tutorials } from "../../tutorials";
 import { compilerResultState } from "../../states/RCompilerStates";
 import { useCompiler } from "../../hooks/useCompilier";
 import { editorCodeState } from "../../states/RYourCodeStates";
+import { resultFullScreenState } from "../../states/RLayoutStates";
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -18,6 +19,10 @@ print("hello world")
 const lastRunningCode = localStorage.getItem("lastRunningCode");
 
 const Main = (): React.ReactElement => {
+  const [resultFullScreen, setResultFullScreen] = useRecoilState<boolean>(
+    resultFullScreenState
+  );
+
   const [editorCode, setEditorCode] = useRecoilState(editorCodeState);
   const [setCompilerReFetch] = useCompiler();
   const setCompilerResult = useSetRecoilState(compilerResultState);
@@ -75,14 +80,19 @@ const Main = (): React.ReactElement => {
               height: "calc(100vh - 174px)",
             }}
           >
-            <Grid item xs={12} md={6}>
+            <Grid
+              item
+              xs={12}
+              md={6}
+              sx={{ display: { xs: resultFullScreen ? "none" : "block" } }}
+            >
               <YourCode />
             </Grid>
 
             <Grid
               item
               xs={12}
-              md={6}
+              md={resultFullScreen ? 12 : 6}
               style={{
                 height: "calc(100vh - 64px)",
                 overflowY: "auto",

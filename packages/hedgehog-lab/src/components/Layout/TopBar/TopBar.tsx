@@ -19,7 +19,12 @@ import RightButton from "./RightButton";
 import { MenuOutlined } from "@mui/icons-material";
 import { useRecoilState } from "recoil";
 import { sideBarOpenState } from "../../../states/RLayoutStates";
-import { Link as RouteLink, useParams } from "react-router-dom";
+import {
+  Link as RouteLink,
+  matchPath,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import { sideBarWidth } from "../../YourCode/Config/SideBar";
 
@@ -80,12 +85,29 @@ const Brand = (): React.ReactElement => {
   );
 };
 
+const Header = (): React.ReactElement => {
+  const { snippetID } = useParams();
+  const { pathname } = useLocation();
+  const isSnippetsPath = matchPath("snippets/new", pathname);
+  const isTutorialsPath = matchPath("tutorial/*", pathname);
+  const isHomePath = matchPath("", pathname);
+
+  if (
+    isHomePath ||
+    isTutorialsPath ||
+    isSnippetsPath ||
+    snippetID !== undefined
+  ) {
+    return <YourCodeHeader />;
+  }
+
+  return <></>;
+};
+
 const TopBar = (): React.ReactElement => {
   const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
 
   const theme = useTheme();
-
-  const { snippetID } = useParams();
 
   return (
     <AppBar
@@ -103,8 +125,15 @@ const TopBar = (): React.ReactElement => {
         </Box>
 
         <Grid container alignContent={"center"}>
-          <Grid item xs={12} md={6}>
-            {snippetID !== undefined ?? <YourCodeHeader />}
+          <Grid
+            item
+            xs={12}
+            md={6}
+            sx={{
+              pr: sideBarOpen ? 1 : `${sideBarWidth - 110}px`,
+            }}
+          >
+            <Header />
           </Grid>
 
           <Grid item xs={12} md={6}>
