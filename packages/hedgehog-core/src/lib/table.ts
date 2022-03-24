@@ -22,9 +22,9 @@ export class Table {
   containsHeaders: boolean;
 
   /* The constructor contains three parameters: 
-    1. input a. raw csv string or b. 2-D string array as the raw data
-    2. boolean header? if it contains headers
-  */
+                    1. input a. raw csv string or b. 2-D string array as the raw data
+                    2. boolean header? if it contains headers
+                  */
   constructor(input?: string | string[][] | Table, header?: boolean) {
     if (header === undefined) {
       this.containsHeaders = false;
@@ -55,7 +55,7 @@ export class Table {
     }
 
     // craete headers if it exists
-    if (this.containsHeaders === true) {
+    if (this.containsHeaders) {
       // fetch the first array in cells into headers
       if (this.cells.length > 1) {
         this.headers = this.cells[0];
@@ -73,7 +73,7 @@ export class Table {
   /**
    * Insert a new row (array of string) at the end of table.
    */
-  insert(newTuple: string[]) {
+  insert(newTuple: string[]): void {
     if (newTuple.length === this.cols) {
       this.cells.push(newTuple);
     } else {

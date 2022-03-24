@@ -210,7 +210,7 @@ This is an example for **plain text** in [Hedgehog Lab](https://github.com/lidan
 
 ## Code Example
 
-\\\`\\\`\\\`
+\\\`\\\`\\\`js
 let matrixA = mat([[1,2,3],[4,5,6],[7,8,9]]);
 let matrixB = matrixA * matrixA.T();
 print(matrixB);
@@ -253,41 +253,100 @@ print(fibonacci(5))
 print(magic(7))
 `;
 
+const tableSource = `
+showTable(new Table([
+  ['Test','A'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['7','7'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['2','3'],
+  ['6','6'],
+  ['2','3'],
+  ['2','3'],
+],{header:true,rows:45}))
+`
+
 export const tutorials = [
-  {
-    description: 'Matrix',
-    source: matrixSource
-  },
-  {
-    description: 'Operators',
-    source: operatorsSource
-  },
-  {
-    description: 'GPU Acceleration',
-    source: gpuAccelerationSource
-  },
-  {
-    description: 'Built-in Functions',
-    source: buildInFunctionsSource
-  },
-  {
-    description: 'TeX',
-    source: insertTexSource
-  },
-  {
-    description: 'Figures',
-    source: graphicsSource
-  },
-  {
-    description: 'Symbolic Computing',
-    source: symbolicSource
-  },
-  {
-    description: 'Markdown',
-    source: markdownSource
-  },
-  {
-    description: 'Module',
-    source: moduleSource
-  }
+    {
+        description: 'Matrix',
+        source: matrixSource
+    },
+    {
+        description: 'Operators',
+        source: operatorsSource
+    },
+    {
+        description: 'GPU Acceleration',
+        source: gpuAccelerationSource
+    },
+    {
+        description: 'Built-in Functions',
+        source: buildInFunctionsSource
+    },
+    {
+        description: 'TeX',
+        source: insertTexSource
+    },
+    {
+        description: 'Figures',
+        source: graphicsSource
+    },
+    {
+        description: 'Symbolic Computing',
+        source: symbolicSource
+    },
+    {
+        description: 'Markdown',
+        source: markdownSource
+    },
+    {
+        description: 'Module',
+        source: moduleSource
+    },
+    {
+        description: 'Table',
+        source: tableSource
+    }
 ];

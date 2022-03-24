@@ -2,9 +2,9 @@ name: Release
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
@@ -32,5 +32,13 @@ jobs:
         run: yarn build
         env:
           CI: true
+        # release production page to release-page branch
+      - uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: release-page # The branch name where you want to push the assets
+          FOLDER: packages/hedgehog-lab/build # The directory where your assets are generated
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "Build: ({sha}) {msg}" # The commit message
       - name: Publish to GitHub Package
         run: ./scripts/publish-to-github.sh
