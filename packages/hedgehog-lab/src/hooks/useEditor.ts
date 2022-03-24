@@ -11,6 +11,7 @@ import { monacoTheme } from "../themes/monacoTheme";
 import useKeyboardJs from "react-use/lib/useKeyboardJs";
 import { useDebounce } from "react-use";
 import { useCompiler } from "./useCompilier";
+import { compilerLiveModeState } from "../states/RCompilerStates";
 
 export const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 
@@ -68,7 +69,14 @@ export const useEditor = (): readonly [
     autoSaveCode();
   });
 
-  const liveMode = localStorage.getItem("liveMode");
+  const liveMode = localStorage.getItem("liveMode") ?? "off";
+  const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
+    compilerLiveModeState
+  );
+
+  useEffect(() => {
+    setCompilerLiveMode(liveMode);
+  }, [liveMode, setCompilerLiveMode]);
 
   // auto save code each 1s
   const [] = useDebounce(
@@ -76,10 +84,10 @@ export const useEditor = (): readonly [
       autoSaveCode();
 
       // live mode
-      liveMode === "on" ?? setCompilerReFetch(true);
+      compilerLiveMode === "on" ?? setCompilerReFetch(true);
     },
     1000,
-    [editorCode]
+    [editorCode, compilerLiveMode]
   );
 
   // override ctrl+S to save code
