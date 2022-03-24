@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { tutorials } from "../../../tutorials";
 import {
   Box,
+  Button,
   Collapse,
   Divider,
   Drawer,
@@ -95,10 +96,12 @@ const SideBar = (): React.ReactElement => {
 
           <ListItem button onClick={handleCollapseClick}>
             <ListItemIcon>
-              <BookOutlined color={collapseOpen ? "primary" : "inherit"} />
+              <TextSnippetOutlined
+                color={collapseOpen ? "primary" : "inherit"}
+              />
             </ListItemIcon>
             <ListItemText>
-              <Box fontWeight={"bold"}>Tutorials</Box>
+              <Box fontWeight={"bold"}>My Snippets</Box>
             </ListItemText>
             {collapseOpen ? (
               <ExpandLessOutlined color={"primary"} />
@@ -155,23 +158,18 @@ const SideBar = (): React.ReactElement => {
                 );
               })}
             </List>
+
+            <Box sx={{ textAlign: "center", mt: 1 }}>
+              <Button
+                variant="outlined"
+                size="small"
+                component={RouteLink}
+                to={`/hhlab`}
+              >
+                All
+              </Button>
+            </Box>
           </Collapse>
-
-          <Divider />
-
-          <Link component={RouteLink} to={`/hhlab`} sx={{ display: "block" }}>
-            <ListItemButton>
-              <ListItemIcon>
-                <TextSnippetOutlined />
-              </ListItemIcon>
-
-              <ListItemText>
-                <Box fontWeight={"bold"} color={theme.palette.text.primary}>
-                  My Snippets
-                </Box>
-              </ListItemText>
-            </ListItemButton>
-          </Link>
         </List>
       </Box>
     </Drawer>

@@ -17,8 +17,6 @@ const YourCodeHeader = (): React.ReactElement => {
     setCompilerReFetch(true);
   }, [setCompilerReFetch]);
 
-  const { snippetID } = useParams();
-
   return (
     <Box
       sx={{
@@ -29,7 +27,7 @@ const YourCodeHeader = (): React.ReactElement => {
         justifyItems: "center",
       }}
     >
-      {snippetID ?? <SaveState />}
+      <SaveState />
       <div>
         {isLoading ? (
           <Button

@@ -104,7 +104,7 @@ const TopBar = (): React.ReactElement => {
 
         <Grid container alignContent={"center"}>
           <Grid item xs={12} md={6}>
-            <YourCodeHeader />
+            {snippetID !== undefined ?? <YourCodeHeader />}
           </Grid>
 
           <Grid item xs={12} md={6}>
