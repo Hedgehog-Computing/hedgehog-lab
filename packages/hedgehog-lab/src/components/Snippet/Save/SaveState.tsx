@@ -1,4 +1,4 @@
-import { Box, Checkbox } from "@mui/material";
+import { Box, Checkbox, Tooltip } from "@mui/material";
 import {
   CircleOutlined,
   FiberManualRecord,
@@ -37,13 +37,15 @@ const SaveState = (): React.ReactElement => {
         File Name
         {codeSavingFlag ? "*" : ""}
       </Box>
-      <Checkbox
-        checked={checked}
-        onChange={handleChange}
-        size="small"
-        icon={<CircleOutlined />}
-        checkedIcon={<MotionPhotosAuto />}
-      />
+      <Tooltip title="Live Mode" arrow>
+        <Checkbox
+          checked={checked}
+          onChange={handleChange}
+          size="small"
+          icon={<CircleOutlined />}
+          checkedIcon={<MotionPhotosAuto />}
+        />
+      </Tooltip>
     </Box>
   );
 };
