@@ -47,7 +47,7 @@ const Main = (): React.ReactElement => {
 
   useEffect(() => {
     if (autoRun) setCompilerReFetch(true);
-  }, [autoRun, setCompilerReFetch, editorCode]);
+  }, [autoRun, setCompilerReFetch]);
 
   // Temporary, set up route for tutorial
   const { tutorialID } = useParams();

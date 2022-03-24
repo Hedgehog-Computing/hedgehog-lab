@@ -58,36 +58,36 @@ export const useEditor = (): readonly [
 
   const [setCompilerReFetch] = useCompiler();
 
+  const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
+    compilerLiveModeState
+  );
+  const liveMode = localStorage.getItem("liveMode") ?? "off";
+
+  useEffect(() => {
+    setCompilerLiveMode(liveMode);
+  }, [liveMode, setCompilerLiveMode]);
+
   // save code to local storage
   const autoSaveCode = useCallback(() => {
     localStorage.setItem("lastRunningCode", editorCode as string);
     setCodeSavingFlag(false);
-  }, [editorCode, setCodeSavingFlag]);
+
+    // live mode
+    compilerLiveMode === "on" ? setCompilerReFetch(true) : null;
+  }, [compilerLiveMode, editorCode, setCodeSavingFlag, setCompilerReFetch]);
 
   // auto save when page close
   window.addEventListener("beforeunload", () => {
     autoSaveCode();
   });
 
-  const liveMode = localStorage.getItem("liveMode") ?? "off";
-  const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
-    compilerLiveModeState
-  );
-
-  useEffect(() => {
-    setCompilerLiveMode(liveMode);
-  }, [liveMode, setCompilerLiveMode]);
-
   // auto save code each 1s
   const [] = useDebounce(
     () => {
       autoSaveCode();
-
-      // live mode
-      compilerLiveMode === "on" ?? setCompilerReFetch(true);
     },
     1000,
-    [editorCode, compilerLiveMode]
+    [editorCode]
   );
 
   // override ctrl+S to save code

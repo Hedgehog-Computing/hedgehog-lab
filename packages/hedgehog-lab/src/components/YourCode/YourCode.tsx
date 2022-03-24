@@ -19,30 +19,28 @@ const YourCode = (): React.ReactElement => {
   return (
     <div>
       <Box sx={{ height: "100%", borderRadius: 0 }}>
-        <ClickAwayListener onClickAway={autoSaveCode}>
-          <ResizeObserver
-            onResize={() => {
-              if (editor) {
-                editor.layout();
-              }
+        <ResizeObserver
+          onResize={() => {
+            if (editor) {
+              editor.layout();
+            }
+          }}
+        >
+          <div
+            style={{
+              height: "calc(100vh - 160px)",
             }}
           >
-            <div
-              style={{
-                height: "calc(100vh - 160px)",
-              }}
-            >
-              <ControlledEditor
-                language="javascript"
-                value={editorCode}
-                onChange={handleUploadSource}
-                options={options}
-                editorDidMount={handleEditorDidMount}
-                theme={editorTheme}
-              />
-            </div>
-          </ResizeObserver>
-        </ClickAwayListener>
+            <ControlledEditor
+              language="javascript"
+              value={editorCode}
+              onChange={handleUploadSource}
+              options={options}
+              editorDidMount={handleEditorDidMount}
+              theme={editorTheme}
+            />
+          </div>
+        </ResizeObserver>
       </Box>
     </div>
   );
