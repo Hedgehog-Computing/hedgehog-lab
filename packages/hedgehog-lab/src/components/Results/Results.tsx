@@ -19,6 +19,8 @@ import {
 } from "../../states/RCompilerStates";
 import { FullscreenOutlined } from "@mui/icons-material";
 import { resultFullScreenState } from "../../states/RLayoutStates";
+import ShareDialog from "../Share/ShareDialog";
+import SharePopup from "../Share/SharePopup";
 
 const Results = (): React.ReactElement => {
   const compilerLoading = useRecoilValue<boolean>(compilerLoadingState);
@@ -67,12 +69,12 @@ const Results = (): React.ReactElement => {
             elevation={0}
             sx={{ px: 2, minHeight: "100%", borderRadius: 0 }}
           >
-            <Box sx={{ textAlign: "right" }}>
-              <Tooltip title="Fullscreen" arrow>
-                <IconButton onClick={handleResultFullScreen}>
-                  <FullscreenOutlined />
-                </IconButton>
-              </Tooltip>
+            <Box sx={{ display: "flex", justifyContent: "end" }}>
+              <SharePopup url="https://hhlab.dev/" />
+
+              <IconButton onClick={handleResultFullScreen}>
+                <FullscreenOutlined />
+              </IconButton>
             </Box>
 
             {outputItem.length > 0 && (
