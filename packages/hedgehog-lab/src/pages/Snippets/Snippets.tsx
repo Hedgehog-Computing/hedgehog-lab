@@ -20,7 +20,7 @@ import { StarBorderOutlined } from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 import RenameDialog from "../../components/Snippet/Rename/RenameDialog";
 import DeletePopup from "../../components/Snippet/Delete/DeletePopup";
-import SharePopup from "../../components/Snippet/Share/SharePopup";
+import SharePopup from "../../components/Share/SharePopup";
 
 const printCode = `
 {
