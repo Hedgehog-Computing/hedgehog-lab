@@ -1,5 +1,12 @@
-import { Box, Checkbox, Tooltip } from "@mui/material";
 import {
+  Box,
+  Checkbox,
+  IconButton,
+  OutlinedInput,
+  Tooltip,
+} from "@mui/material";
+import {
+  CheckOutlined,
   CircleOutlined,
   FiberManualRecord,
   MotionPhotosAuto,
@@ -8,6 +15,7 @@ import React, { useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { codeSavingFlagState } from "../../../states/RYourCodeStates";
 import { compilerLiveModeState } from "../../../states/RCompilerStates";
+import BasePopupText from "../../Base/Popup/BasePopupText";
 
 const SaveState = (): React.ReactElement => {
   const codeSavingFlag = useRecoilValue(codeSavingFlagState);
@@ -33,8 +41,29 @@ const SaveState = (): React.ReactElement => {
         justifyContent: "center",
       }}
     >
-      <Box>
-        File Name
+      <Box
+        sx={{
+          cursor: "pointer",
+          "&:hover": {
+            textDecoration: "underline",
+          },
+        }}
+      >
+        <BasePopupText text="File Name">
+          <Box>
+            <OutlinedInput
+              autoFocus
+              size="small"
+              placeholder="File Name"
+              endAdornment={
+                <IconButton size="small">
+                  <CheckOutlined />
+                </IconButton>
+              }
+            />
+          </Box>
+        </BasePopupText>
+
         {codeSavingFlag ? "*" : ""}
       </Box>
       <Tooltip title="Live Mode" arrow>
