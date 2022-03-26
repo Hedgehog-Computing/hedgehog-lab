@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, CardContent, ClickAwayListener } from "@mui/material";
+import {
+  Box,
+  CardContent,
+  Chip,
+  ClickAwayListener,
+  Divider,
+  Toolbar,
+} from "@mui/material";
 import { ControlledEditor } from "@monaco-editor/react";
 import ResizeObserver from "react-resize-detector";
 import YourCodeHeader from "./Header/YourCodeHeader";
@@ -18,6 +25,7 @@ const YourCode = (): React.ReactElement => {
 
   return (
     <div>
+      <Toolbar />
       <Box sx={{ height: "100%", borderRadius: 0 }}>
         <ResizeObserver
           onResize={() => {
