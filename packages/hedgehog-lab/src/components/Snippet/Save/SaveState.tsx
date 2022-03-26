@@ -1,6 +1,7 @@
 import {
   Box,
   Checkbox,
+  Chip,
   IconButton,
   OutlinedInput,
   Tooltip,
@@ -10,12 +11,17 @@ import {
   CircleOutlined,
   FiberManualRecord,
   MotionPhotosAuto,
+  NotificationImportantOutlined,
 } from "@mui/icons-material";
 import React, { useCallback } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { codeSavingFlagState } from "../../../states/RYourCodeStates";
 import { compilerLiveModeState } from "../../../states/RCompilerStates";
 import BasePopupText from "../../Base/Popup/BasePopupText";
+import { useTheme } from "@emotion/react";
+import { deepOrange } from "@mui/material/colors";
+import { Link } from "react-router-dom";
+import { authDialogState } from "../../../states/RAuthStates";
 
 const SaveState = (): React.ReactElement => {
   const codeSavingFlag = useRecoilValue(codeSavingFlagState);
@@ -30,6 +36,8 @@ const SaveState = (): React.ReactElement => {
     setCompilerLiveMode(liveMode);
     localStorage.setItem("liveMode", liveMode);
   };
+
+  const [authDialog, setAuthDialog] = useRecoilState(authDialogState);
 
   return (
     <Box
@@ -75,6 +83,14 @@ const SaveState = (): React.ReactElement => {
           checkedIcon={<MotionPhotosAuto />}
         />
       </Tooltip>
+
+      <Chip
+        label="Not synchronized"
+        size="small"
+        color="warning"
+        sx={{ cursor: "pointer" }}
+        onClick={() => setAuthDialog(true)}
+      />
     </Box>
   );
 };
