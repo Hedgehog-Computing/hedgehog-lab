@@ -20,6 +20,15 @@ const Main = (): React.ReactElement => {
     resultFullScreenState
   );
 
+  const { editorCode, setEditorCode } = useEditor();
+
+  useEffect(() => {
+    const lastRunningCode = localStorage.getItem("lastRunningCode");
+    if (editorCode === "") {
+      setEditorCode(lastRunningCode);
+    }
+  }, [editorCode, setEditorCode]);
+
   return (
     <>
       <Grid container>
