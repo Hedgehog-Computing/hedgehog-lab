@@ -69,7 +69,15 @@ const Results = (): React.ReactElement => {
             elevation={0}
             sx={{ px: 2, minHeight: "100%", borderRadius: 0 }}
           >
-            <Box sx={{ display: "flex", justifyContent: "end" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "end",
+                position: "sticky",
+                top: 0,
+                right: 0,
+              }}
+            >
               <SharePopup url="https://hhlab.dev/" />
 
               <IconButton onClick={handleResultFullScreen}>
@@ -85,8 +93,8 @@ const Results = (): React.ReactElement => {
             {outputString && (
               <pre
                 style={{
-                  fontFamily: "monospace",
-                  fontWeight: 400,
+                  fontFamily: "inherit",
+                  fontWeight: 500,
                   fontSize: "1rem",
                   lineHeight: "1.5",
                 }}

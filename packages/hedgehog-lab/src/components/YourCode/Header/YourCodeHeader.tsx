@@ -10,7 +10,7 @@ import { useCompiler } from "../../../hooks/useCompilier";
 import { COMPILE_AND_RUN_BUTTON_ID, useEditor } from "../../../hooks/useEditor";
 
 const YourCodeHeader = (): React.ReactElement => {
-  const [editorCode] = useEditor();
+  const { editorCode } = useEditor();
   const [setCompilerReFetch, isLoading] = useCompiler();
 
   const handleRunCode = useCallback(() => {
