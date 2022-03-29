@@ -13,12 +13,17 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
+  Popover,
   Toolbar,
   Typography,
   useTheme,
 } from "@mui/material";
 import {
+  ArrowRightOutlined,
   BookOutlined,
+  ChevronRightOutlined,
   CreateOutlined,
   ExpandLessOutlined,
   ExpandMoreOutlined,
@@ -28,13 +33,104 @@ import {
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { sideBarWidth } from "../../YourCode/Config/SideBar";
 import { sideBarOpenState } from "../../../states/RLayoutStates";
-import { Link as RouteLink } from "react-router-dom";
-import { editorCodeState } from "../../../states/RYourCodeStates";
+import { Link as RouteLink, useNavigate } from "react-router-dom";
+import {
+  bindPopover,
+  bindTrigger,
+  usePopupState,
+  bindHover,
+} from "material-ui-popup-state/hooks";
+import { useEditor } from "../../../hooks/useEditor";
+
+const NewSnippet = () => {
+  const theme = useTheme();
+  const popupState = usePopupState({
+    variant: "popover",
+    popupId: "newSnippetPopup",
+  });
+
+  const navigate = useNavigate();
+  const { setEditorCode } = useEditor();
+
+  const handleSetEditorCode = useCallback(
+    (editorCode) => {
+      setEditorCode(editorCode);
+      navigate("/snippet/new");
+    },
+    [navigate, setEditorCode]
+  );
+
+  return (
+    <>
+      <ListItemButton {...bindTrigger(popupState)}>
+        <ListItemIcon>
+          <CreateOutlined />
+        </ListItemIcon>
+
+        <ListItemText>
+          <Box fontWeight={"bold"} color={theme.palette.text.primary}>
+            New Snippet
+          </Box>
+        </ListItemText>
+
+        <ChevronRightOutlined />
+      </ListItemButton>
+
+      <Menu
+        {...bindPopover(popupState)}
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+      >
+        <Box sx={{ py: 1 }}>
+          <MenuItem
+            onClick={() => {
+              handleSetEditorCode("");
+            }}
+          >
+            <Typography
+              color={theme.palette.text.primary}
+              variant={"body2"}
+              component={"span"}
+              sx={{ ml: "18px" }}
+            >
+              Empty script
+            </Typography>
+          </MenuItem>
+          <Divider />
+          {tutorials.map((tutorial, index) => {
+            return (
+              <MenuItem
+                key={index}
+                onClick={() => {
+                  handleSetEditorCode(tutorial.source);
+                }}
+              >
+                <Typography
+                  color={theme.palette.text.primary}
+                  variant={"body2"}
+                  component={"span"}
+                  sx={{ ml: "18px" }}
+                >
+                  {tutorial.description}
+                </Typography>
+              </MenuItem>
+            );
+          })}
+        </Box>
+      </Menu>
+    </>
+  );
+};
 
 const SideBar = (): React.ReactElement => {
   const [collapseOpen, setCollapseOpen] = useState(true);
   const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
-  const setEditorCode = useSetRecoilState(editorCodeState);
 
   const theme = useTheme();
   const lgBreakpoint = window.matchMedia("(min-width: 1910px)");
@@ -43,13 +139,6 @@ const SideBar = (): React.ReactElement => {
   const handleCollapseClick = useCallback(() => {
     setCollapseOpen(!collapseOpen);
   }, [collapseOpen]);
-
-  const handleSetEditorCode = useCallback(
-    (editorCode) => {
-      setEditorCode(editorCode);
-    },
-    [setEditorCode]
-  );
 
   useEffect(() => {
     setSideBarOpen(lgBreakpointMatches);
@@ -74,23 +163,7 @@ const SideBar = (): React.ReactElement => {
 
       <Box sx={{ overflow: "auto" }}>
         <List disablePadding>
-          <Link
-            component={RouteLink}
-            to={`/snippets/new`}
-            sx={{ display: "block" }}
-          >
-            <ListItemButton>
-              <ListItemIcon>
-                <CreateOutlined />
-              </ListItemIcon>
-
-              <ListItemText>
-                <Box fontWeight={"bold"} color={theme.palette.text.primary}>
-                  New Snippet
-                </Box>
-              </ListItemText>
-            </ListItemButton>
-          </Link>
+          <NewSnippet />
 
           <Divider />
 
@@ -124,37 +197,26 @@ const SideBar = (): React.ReactElement => {
             >
               {tutorials.map((tutorial, index) => {
                 return (
-                  <Link
-                    key={index}
-                    sx={{ display: "block" }}
-                    component={RouteLink}
-                    to={`/tutorial/${tutorial.description}?auto_run=true`}
-                  >
-                    <ListItemButton
-                      onClick={() => {
-                        handleSetEditorCode(tutorial.source);
-                      }}
-                    >
-                      <ListItemText>
-                        <FiberManualRecord
-                          sx={{
-                            fontSize: "5px",
-                            color: theme.palette.grey[500],
-                            ml: "6px",
-                          }}
-                        />
+                  <ListItemButton key={index}>
+                    <ListItemText>
+                      <FiberManualRecord
+                        sx={{
+                          fontSize: "5px",
+                          color: theme.palette.grey[500],
+                          ml: "6px",
+                        }}
+                      />
 
-                        <Typography
-                          color={theme.palette.text.primary}
-                          variant={"body2"}
-                          component={"span"}
-                          sx={{ ml: "18px" }}
-                        >
-                          {tutorial.description}
-                        </Typography>
-                      </ListItemText>
-                    </ListItemButton>
-                  </Link>
+                      <Typography
+                        color={theme.palette.text.primary}
+                        variant={"body2"}
+                        component={"span"}
+                        sx={{ ml: "18px" }}
+                      >
+                        {tutorial.description}
+                      </Typography>
+                    </ListItemText>
+                  </ListItemButton>
                 );
               })}
             </List>

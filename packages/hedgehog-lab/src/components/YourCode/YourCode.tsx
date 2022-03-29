@@ -13,7 +13,7 @@ import YourCodeHeader from "./Header/YourCodeHeader";
 import { useEditor } from "../../hooks/useEditor";
 
 const YourCode = (): React.ReactElement => {
-  const [
+  const {
     editorCode,
     handleUploadSource,
     handleEditorDidMount,
@@ -21,11 +21,10 @@ const YourCode = (): React.ReactElement => {
     editorTheme,
     options,
     autoSaveCode,
-  ] = useEditor();
+  } = useEditor();
 
   return (
     <div>
-      <Toolbar />
       <Box sx={{ height: "100%", borderRadius: 0 }}>
         <ResizeObserver
           onResize={() => {
