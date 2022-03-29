@@ -41,7 +41,7 @@ const Layout = (): React.ReactElement => {
         <Toolbar />
 
         <MainContent open={sideBarOpen}>
-          <Box sx={{ overflow: "hidden", pt: 2 }}>
+          <Box sx={{ overflow: "hidden", pt: 1 }}>
             <Outlet />
           </Box>
         </MainContent>

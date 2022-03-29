@@ -1,12 +1,19 @@
 import React from "react";
-import { Box, CardContent, ClickAwayListener } from "@mui/material";
+import {
+  Box,
+  CardContent,
+  Chip,
+  ClickAwayListener,
+  Divider,
+  Toolbar,
+} from "@mui/material";
 import { ControlledEditor } from "@monaco-editor/react";
 import ResizeObserver from "react-resize-detector";
 import YourCodeHeader from "./Header/YourCodeHeader";
 import { useEditor } from "../../hooks/useEditor";
 
 const YourCode = (): React.ReactElement => {
-  const [
+  const {
     editorCode,
     handleUploadSource,
     handleEditorDidMount,
@@ -14,7 +21,7 @@ const YourCode = (): React.ReactElement => {
     editorTheme,
     options,
     autoSaveCode,
-  ] = useEditor();
+  } = useEditor();
 
   return (
     <div>

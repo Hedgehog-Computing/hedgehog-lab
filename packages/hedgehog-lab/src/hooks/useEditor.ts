@@ -29,21 +29,10 @@ monaco
     console.error("An error occurred during initialization of Monaco: ", error)
   );
 
-export const useEditor = (): readonly [
-  string,
-  (
-    ev: monacoEditor.editor.IModelContentChangedEvent,
-    value: string | undefined
-  ) => string | void,
-  (_: () => string, editor: monacoEditor.editor.IStandaloneCodeEditor) => void,
-  monacoEditor.editor.IEditor | null,
-  "monacoDarkTheme" | "vs",
-  monacoEditor.editor.IEditorConstructionOptions,
-  () => void
-] => {
+export const useEditor = (): any => {
   const theme = useTheme();
 
-  const [editorCode, setEditorCode] = useRecoilState<string>(editorCodeState);
+  const [editorCode, setEditorCode] = useRecoilState(editorCodeState);
 
   const [
     editor,
@@ -144,13 +133,14 @@ export const useEditor = (): readonly [
       : setEditorTheme("vs");
   }, [theme.palette.mode]);
 
-  return [
+  return {
     editorCode,
+    setEditorCode,
     handleUploadSource,
     handleEditorDidMount,
     editor,
     editorTheme,
     options,
     autoSaveCode,
-  ] as const;
+  };
 };
