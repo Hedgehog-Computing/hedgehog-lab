@@ -90,7 +90,7 @@ const NewSnippet = () => {
         <Box sx={{ py: 1 }}>
           <MenuItem
             onClick={() => {
-              handleSetEditorCode("");
+              handleSetEditorCode(" ");
             }}
           >
             <Typography

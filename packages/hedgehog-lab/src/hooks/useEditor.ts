@@ -103,7 +103,13 @@ export const useEditor = (): any => {
 
   // set code to store when editor change
   const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-    setEditorCode(v as string);
+    if (v) {
+      setEditorCode(v);
+    } else {
+      setEditorCode(" ");
+      console.log(editorCode);
+    }
+
     setCodeSavingFlag(true);
   };
 
