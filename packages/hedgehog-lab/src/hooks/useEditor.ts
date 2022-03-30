@@ -54,7 +54,8 @@ export const useEditor = (): any => {
 
   useEffect(() => {
     setCompilerLiveMode(liveMode);
-  }, [liveMode, setCompilerLiveMode]);
+    localStorage.setItem("liveMode", compilerLiveMode);
+  }, [compilerLiveMode, liveMode, setCompilerLiveMode]);
 
   // save code to local storage
   const autoSaveCode = useCallback(() => {
