@@ -28,11 +28,11 @@ const SaveState = (): React.ReactElement => {
   const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
     compilerLiveModeState
   );
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = useRecoilState(compilerLiveModeState);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const liveMode = event.target.checked ? "on" : "off";
-    setChecked(event.target.checked);
+    setChecked(liveMode);
     setCompilerLiveMode(liveMode);
     localStorage.setItem("liveMode", liveMode);
   };
@@ -76,7 +76,7 @@ const SaveState = (): React.ReactElement => {
       </Box>
       <Tooltip title="Live Mode" arrow>
         <Checkbox
-          checked={checked}
+          checked={checked === "on" ? true : false}
           onChange={handleChange}
           size="small"
           icon={<CircleOutlined />}

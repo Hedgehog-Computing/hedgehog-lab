@@ -8,6 +8,7 @@ import { RoutePage } from "./route/route";
 import { RecoilRoot, useRecoilState } from "recoil";
 import { themeModState } from "./themes/RThemeStates";
 import useSystemTheme from "./hooks/useSystemTheme";
+import { Box } from "@mui/material";
 
 const ThemePage = () => {
   const [themeMode, setThemeMode] = useRecoilState(themeModState);
@@ -32,7 +33,9 @@ const App = (): React.ReactElement => {
         <BrowserRouter>
           <SnackbarProvider maxSnack={3}>
             <StyledEngineProvider injectFirst>
-              <ThemePage />
+              <Box sx={{ pb: 1 }}>
+                <ThemePage />
+              </Box>
             </StyledEngineProvider>
           </SnackbarProvider>
         </BrowserRouter>

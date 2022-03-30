@@ -6,6 +6,7 @@ import {
   Chip,
   Divider,
   FormControl,
+  IconButton,
   InputLabel,
   Link,
   MenuItem,
@@ -13,10 +14,16 @@ import {
   Pagination,
   Paper,
   Select,
+  Tooltip,
   Typography,
 } from "@mui/material";
 import { CopyBlock, dracula } from "react-code-blocks";
-import { StarBorderOutlined } from "@mui/icons-material";
+import {
+  DeleteForeverOutlined,
+  NewReleasesOutlined,
+  PublishOutlined,
+  StarBorderOutlined,
+} from "@mui/icons-material";
 import { Link as RouterLink } from "react-router-dom";
 import RenameDialog from "../../components/Snippet/Rename/RenameDialog";
 import DeletePopup from "../../components/Snippet/Delete/DeletePopup";
@@ -108,18 +115,46 @@ const Snippets = (): React.ReactElement => {
                     Private
                   </MenuItem>
                 </Select>
+
+                <Select
+                  fullWidth
+                  value={"V2"}
+                  size="small"
+                  sx={{
+                    height: 24,
+                    fontSize: "0.8125rem",
+                    ml: 1,
+                  }}
+                >
+                  <MenuItem dense value={"V2"}>
+                    V2
+                  </MenuItem>
+                  <MenuItem dense value={"V1"}>
+                    V1
+                  </MenuItem>
+                </Select>
+
+                <Tooltip title="release" arrow>
+                  <IconButton size="small" sx={{ ml: 1 }}>
+                    <PublishOutlined />
+                  </IconButton>
+                </Tooltip>
               </Box>
 
               <Box>
-                <Button color={"inherit"} startIcon={<StarBorderOutlined />}>
+                <Button
+                  size="small"
+                  color={"inherit"}
+                  startIcon={<StarBorderOutlined />}
+                >
                   1 stars
                 </Button>
 
                 <RenameDialog />
 
-                <SharePopup url={"https://exampleSnippet.com"} />
+                <SharePopup size="small" url={"https://exampleSnippet.com"} />
 
-                <DeletePopup />
+                <DeletePopup size="small" />
               </Box>
             </Box>
 

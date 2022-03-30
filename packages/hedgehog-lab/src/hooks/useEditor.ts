@@ -54,7 +54,8 @@ export const useEditor = (): any => {
 
   useEffect(() => {
     setCompilerLiveMode(liveMode);
-  }, [liveMode, setCompilerLiveMode]);
+    localStorage.setItem("liveMode", compilerLiveMode);
+  }, [compilerLiveMode, liveMode, setCompilerLiveMode]);
 
   // save code to local storage
   const autoSaveCode = useCallback(() => {
@@ -103,7 +104,13 @@ export const useEditor = (): any => {
 
   // set code to store when editor change
   const handleUploadSource: ControlledEditorOnChange = (e, v) => {
-    setEditorCode(v as string);
+    if (v) {
+      setEditorCode(v);
+    } else {
+      setEditorCode(" ");
+      console.log(editorCode);
+    }
+
     setCodeSavingFlag(true);
   };
 
