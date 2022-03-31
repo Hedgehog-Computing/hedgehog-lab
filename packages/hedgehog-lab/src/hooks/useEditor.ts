@@ -50,12 +50,6 @@ export const useEditor = (): any => {
   const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
     compilerLiveModeState
   );
-  const liveMode = localStorage.getItem("liveMode") ?? "off";
-
-  useEffect(() => {
-    setCompilerLiveMode(liveMode);
-    localStorage.setItem("liveMode", compilerLiveMode);
-  }, [compilerLiveMode, liveMode, setCompilerLiveMode]);
 
   // save code to local storage
   const autoSaveCode = useCallback(() => {

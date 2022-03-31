@@ -13,7 +13,7 @@ import {
   MotionPhotosAuto,
   NotificationImportantOutlined,
 } from "@mui/icons-material";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { codeSavingFlagState } from "../../../states/RYourCodeStates";
 import { compilerLiveModeState } from "../../../states/RCompilerStates";
@@ -28,11 +28,17 @@ const SaveState = (): React.ReactElement => {
   const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
     compilerLiveModeState
   );
-  const [checked, setChecked] = useRecoilState(compilerLiveModeState);
+
+  const liveMode = localStorage.getItem("liveMode") ?? "off";
+
+  if (liveMode === "on") {
+    setCompilerLiveMode("on");
+  } else {
+    setCompilerLiveMode("off");
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const liveMode = event.target.checked ? "on" : "off";
-    setChecked(liveMode);
     setCompilerLiveMode(liveMode);
     localStorage.setItem("liveMode", liveMode);
   };
@@ -76,7 +82,7 @@ const SaveState = (): React.ReactElement => {
       </Box>
       <Tooltip title="Live Mode" arrow>
         <Checkbox
-          checked={checked === "on" ? true : false}
+          checked={compilerLiveMode === "on" ? true : false}
           onChange={handleChange}
           size="small"
           icon={<CircleOutlined />}
