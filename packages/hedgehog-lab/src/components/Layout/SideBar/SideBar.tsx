@@ -29,6 +29,7 @@ import {
   ExpandMoreOutlined,
   FiberManualRecord,
   TextSnippetOutlined,
+  TravelExploreOutlined,
 } from "@mui/icons-material";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { sideBarWidth } from "../../YourCode/Config/SideBar";
@@ -72,8 +73,6 @@ const NewSnippet = () => {
             New Snippet
           </Box>
         </ListItemText>
-
-        <ChevronRightOutlined />
       </ListItemButton>
 
       <Menu
@@ -128,6 +127,26 @@ const NewSnippet = () => {
   );
 };
 
+const ExploreSnippet = () => {
+  return (
+    <Link
+      to="/explore"
+      component={RouteLink}
+      sx={{ display: "block", color: "initial" }}
+    >
+      <ListItemButton>
+        <ListItemIcon>
+          <TravelExploreOutlined />
+        </ListItemIcon>
+
+        <ListItemText>
+          <Box fontWeight={"bold"}>Explore Snippets</Box>
+        </ListItemText>
+      </ListItemButton>
+    </Link>
+  );
+};
+
 const SideBar = (): React.ReactElement => {
   const [collapseOpen, setCollapseOpen] = useState(true);
   const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
@@ -164,6 +183,10 @@ const SideBar = (): React.ReactElement => {
       <Box sx={{ overflow: "auto" }}>
         <List disablePadding>
           <NewSnippet />
+
+          <Divider />
+
+          <ExploreSnippet />
 
           <Divider />
 
