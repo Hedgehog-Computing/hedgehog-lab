@@ -18,6 +18,8 @@
     "codemirror": "^5.61.1",
     "comlink": "^4.3.0",
     "esbuild-loader": "^2.9.1",
+    "graphql": "^16.3.0",
+    "graphql-request": "^4.2.0",
     "history": "5",
     "keyboardjs": "^2.6.4",
     "ky": "^0.23.0",
@@ -43,6 +45,7 @@
     "react-use": "^17.3.1",
     "recoil": "^0.5.2",
     "styled-components": "^5.3.0",
+    "swr": "^1.2.2",
     "typescript": "^3.9.7",
     "worker-loader": "^2.0.0",
     "yup": "^0.32.11"
