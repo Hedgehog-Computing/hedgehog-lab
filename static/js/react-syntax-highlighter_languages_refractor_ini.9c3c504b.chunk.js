@@ -1,0 +1,1 @@
+(this["webpackJsonp@hedgehog/lab"]=this["webpackJsonp@hedgehog/lab"]||[]).push([[60],{3023:function(t,e,n){"use strict";function s(t){t.languages.ini={comment:/^[ \t]*[;#].*$/m,selector:/^[ \t]*\[.*?\]/m,constant:/^[ \t]*[^\s=]+?(?=[ \t]*=)/m,"attr-value":{pattern:/=.*/,inside:{punctuation:/^[=]/}}}}t.exports=s,s.displayName="ini",s.aliases=[]}}]);
