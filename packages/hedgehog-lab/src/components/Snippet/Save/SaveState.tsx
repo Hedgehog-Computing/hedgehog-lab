@@ -12,6 +12,7 @@ import {
   FiberManualRecord,
   MotionPhotosAuto,
   NotificationImportantOutlined,
+  PublishOutlined,
 } from "@mui/icons-material";
 import React, { useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -64,14 +65,24 @@ const SaveState = (): React.ReactElement => {
         }}
       >
         <BasePopupText text="File Name">
-          <Box>
+          <Box sx={{ display: "grid", p: 1 }}>
             <OutlinedInput
-              autoFocus
               size="small"
               placeholder="File Name"
               endAdornment={
                 <IconButton size="small">
-                  <CheckOutlined />
+                  <PublishOutlined />
+                </IconButton>
+              }
+            />
+
+            <OutlinedInput
+              sx={{ mt: 1 }}
+              size="small"
+              placeholder="Description"
+              endAdornment={
+                <IconButton size="small">
+                  <PublishOutlined />
                 </IconButton>
               }
             />

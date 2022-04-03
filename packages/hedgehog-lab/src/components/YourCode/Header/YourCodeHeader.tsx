@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { PlayCircleOutline, StopCircleOutlined } from "@mui/icons-material";
 import { queryCache } from "react-query";
 import React, { useCallback, useEffect } from "react";
@@ -32,9 +32,7 @@ const YourCodeHeader = (): React.ReactElement => {
       <SaveState />
       <div>
         {isLoading ? (
-          <Button
-            endIcon={<StopCircleOutlined />}
-            variant="contained"
+          <IconButton
             color="error"
             onClick={() => {
               // stop the web-worker
@@ -46,18 +44,19 @@ const YourCodeHeader = (): React.ReactElement => {
               }));
             }}
           >
-            Stop
-          </Button>
+            <StopCircleOutlined />
+          </IconButton>
         ) : (
-          <Button
-            endIcon={<PlayCircleOutline />}
-            id={COMPILE_AND_RUN_BUTTON_ID}
-            variant={"contained"}
-            color="primary"
-            onClick={handleRunCode}
-          >
-            Run
-          </Button>
+          <>
+            <IconButton
+              id={COMPILE_AND_RUN_BUTTON_ID}
+              color="primary"
+              onClick={handleRunCode}
+              size="small"
+            >
+              <PlayCircleOutline />
+            </IconButton>
+          </>
         )}
       </div>
     </Box>
