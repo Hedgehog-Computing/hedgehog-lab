@@ -6,6 +6,7 @@ import Main from "../pages/Main/Main";
 import Snippets from "../pages/Snippets/Snippets";
 import ContainerLayout from "../components/Layout/ContainerLayout";
 import Auth from "../pages/Auth/Auth";
+import Explore from "../pages/Explore/Explore";
 
 const router: RouteObject[] = [
   {
@@ -14,10 +15,6 @@ const router: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <Main />,
-      },
-      {
-        path: "/tutorial/:tutorialID",
         element: <Main />,
       },
       {
@@ -41,6 +38,11 @@ const router: RouteObject[] = [
       {
         path: "/:userID/:snippetID",
         element: <Main />,
+      },
+      {
+        path: "/explore",
+        element: <ContainerLayout />,
+        children: [{ path: "", element: <Explore /> }],
       },
       {
         path: "/settings",
