@@ -32,34 +32,25 @@ const Main = (): React.ReactElement => {
   return (
     <>
       <Grid container>
-        <Grid item xs={12}>
-          <Grid
-            container
-            style={{
-              height: "calc(100vh - 174px)",
-            }}
-          >
-            <Grid
-              item
-              xs={12}
-              md={6}
-              sx={{ display: { xs: resultFullScreen ? "none" : "block" } }}
-            >
-              <YourCode />
-            </Grid>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ display: { xs: resultFullScreen ? "none" : "block" } }}
+        >
+          <YourCode />
+        </Grid>
 
-            <Grid
-              item
-              xs={12}
-              md={resultFullScreen ? 12 : 6}
-              style={{
-                height: "calc(100vh - 64px)",
-                overflowY: "auto",
-              }}
-            >
-              <Results />
-            </Grid>
-          </Grid>
+        <Grid
+          item
+          xs={12}
+          md={resultFullScreen ? 12 : 6}
+          style={{
+            height: "100%",
+            overflowY: "auto",
+          }}
+        >
+          <Results />
         </Grid>
       </Grid>
     </>

@@ -1,6 +1,6 @@
 export const useAuth = () => {
-  const login = false;
+  const isLogin = false;
   const isMe = false;
 
-  return { login, isMe };
+  return { isLogin, isMe };
 };

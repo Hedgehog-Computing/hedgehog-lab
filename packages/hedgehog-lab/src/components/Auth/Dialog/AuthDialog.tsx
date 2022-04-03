@@ -7,9 +7,16 @@ import {
   DialogContent,
   DialogTitle,
   IconButton,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
   Typography,
 } from "@mui/material";
-import { AccountCircleOutlined, CloseOutlined } from "@mui/icons-material";
+import {
+  AccountCircleOutlined,
+  CloseOutlined,
+  LoginOutlined,
+} from "@mui/icons-material";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import Auth from "../../../pages/Auth/Auth";
@@ -90,7 +97,15 @@ export default function AuthDialog(): React.ReactElement {
       {location.pathname === "/auth" ? (
         <></>
       ) : (
-        <AuthButton handleClickOpen={handleClickOpen} />
+        <ListItemButton onClick={handleClickOpen}>
+          <ListItemIcon>
+            <LoginOutlined />
+          </ListItemIcon>
+
+          <ListItemText>
+            <Box fontWeight={"bold"}>Login</Box>
+          </ListItemText>
+        </ListItemButton>
       )}
 
       <Dialog
