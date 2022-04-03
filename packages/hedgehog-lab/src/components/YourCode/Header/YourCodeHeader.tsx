@@ -10,6 +10,7 @@ import { useCompiler } from "../../../hooks/useCompilier";
 import { COMPILE_AND_RUN_BUTTON_ID, useEditor } from "../../../hooks/useEditor";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { compilerLiveModeState } from "../../../states/RCompilerStates";
+import RightButton from "../../Layout/TopBar/RightButton";
 
 const YourCodeHeader = (): React.ReactElement => {
   const { editorCode } = useEditor();
@@ -30,7 +31,9 @@ const YourCodeHeader = (): React.ReactElement => {
       }}
     >
       <SaveState />
-      <div>
+      <Box sx={{ display: "flex" }}>
+        <RightButton />
+
         {isLoading ? (
           <IconButton
             size="small"
@@ -59,7 +62,7 @@ const YourCodeHeader = (): React.ReactElement => {
             </IconButton>
           </>
         )}
-      </div>
+      </Box>
     </Box>
   );
 };

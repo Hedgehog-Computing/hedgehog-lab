@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { IconButton, Tooltip } from "@mui/material";
-import { GitHub as GitHubIcon, MenuBookOutlined } from "@mui/icons-material";
+import {
+  FullscreenOutlined,
+  GitHub as GitHubIcon,
+  MenuBookOutlined,
+} from "@mui/icons-material";
+import SharePopup from "../../Share/SharePopup";
+import { useRecoilState } from "recoil";
+import { resultFullScreenState } from "../../../states/RLayoutStates";
 
 interface IRightButtonProps {
   href: string;
@@ -9,30 +16,21 @@ interface IRightButtonProps {
 }
 
 const RightButton = (): React.ReactElement => {
-  const rightButton: Array<IRightButtonProps> = [
-    {
-      href: "https://hedgehog-book.github.io",
-      render: <MenuBookOutlined />,
-      tooltip: "Book",
-    },
-    {
-      href: "https://github.com/Hedgehog-Computing/hedgehog-lab",
-      render: <GitHubIcon />,
-      tooltip: "Github",
-    },
-  ];
+  const [resultFullScreen, setResultFullScreen] = useRecoilState<boolean>(
+    resultFullScreenState
+  );
+
+  const handleResultFullScreen = useCallback(() => {
+    setResultFullScreen(!resultFullScreen);
+  }, [resultFullScreen, setResultFullScreen]);
 
   return (
     <>
-      {rightButton.map((item, index) => (
-        <Tooltip title={item.tooltip} arrow key={index}>
-          <IconButton href={item.href} target={"_blank"}>
-            {item.render}
-          </IconButton>
-        </Tooltip>
-      ))}
+      <SharePopup url="https://hhlab.dev/" />
 
-      {/* <SwitchThemeButton/> */}
+      <IconButton onClick={handleResultFullScreen}>
+        <FullscreenOutlined />
+      </IconButton>
     </>
   );
 };
