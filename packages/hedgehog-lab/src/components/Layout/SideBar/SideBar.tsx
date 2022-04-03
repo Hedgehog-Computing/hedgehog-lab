@@ -163,6 +163,22 @@ const SideBar = (): React.ReactElement => {
     setSideBarOpen(lgBreakpointMatches);
   }, [lgBreakpointMatches, setSideBarOpen]);
 
+  interface IFooterLink {
+    text: string;
+    href: string;
+  }
+  const FooterLink: React.FC<IFooterLink> = (props) => {
+    return (
+      <Link
+        underline="hover"
+        sx={{ cursor: "pointer" }}
+        href={props.href}
+        target="_blank"
+      >
+        {props.text}
+      </Link>
+    );
+  };
   return (
     <Drawer
       variant="persistent"
@@ -180,7 +196,7 @@ const SideBar = (): React.ReactElement => {
     >
       <Toolbar />
 
-      <Box sx={{ overflow: "auto" }}>
+      <Box sx={{ overflow: "auto", display: "grid", height: "100%" }}>
         <List disablePadding>
           <NewSnippet />
 
@@ -256,6 +272,15 @@ const SideBar = (): React.ReactElement => {
             </Box>
           </Collapse>
         </List>
+
+        <Box sx={{ alignSelf: "end", m: 1 }}>
+          @2022 hhlab ·{" "}
+          <FooterLink
+            href="https://github.com/Hedgehog-Computing/hedgehog-lab"
+            text="GitHub"
+          />{" "}
+          · <FooterLink href="https://hedgehog-book.github.io/" text="Book" />
+        </Box>
       </Box>
     </Drawer>
   );

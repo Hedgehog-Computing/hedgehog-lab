@@ -33,6 +33,7 @@ const YourCodeHeader = (): React.ReactElement => {
       <div>
         {isLoading ? (
           <IconButton
+            size="small"
             color="error"
             onClick={() => {
               // stop the web-worker
