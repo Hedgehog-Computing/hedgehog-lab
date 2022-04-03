@@ -32,11 +32,13 @@ const SaveState = (): React.ReactElement => {
 
   const liveMode = localStorage.getItem("liveMode") ?? "off";
 
-  if (liveMode === "on") {
-    setCompilerLiveMode("on");
-  } else {
-    setCompilerLiveMode("off");
-  }
+  useEffect(() => {
+    if (liveMode === "on") {
+      setCompilerLiveMode("on");
+    } else {
+      setCompilerLiveMode("off");
+    }
+  }, [liveMode, setCompilerLiveMode]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const liveMode = event.target.checked ? "on" : "off";

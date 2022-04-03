@@ -38,37 +38,18 @@ const Results = (): React.ReactElement => {
   return (
     <div style={{ height: "100%" }}>
       <Card
-        style={{
+        sx={{
           height: "calc(100vh - 160px)",
           overflowY: "auto",
           overflowX: "auto",
           borderRadius: 0,
+          px: 2,
         }}
       >
         {outputItem.length === 0 && outputString === "" ? (
-          <div className={"no-code"}>
-            <div className="no-code-content">
-              <Typography variant={"h6"}>
-                {compilerLoading
-                  ? "Loading..."
-                  : `Please write your code on the ${
-                      document.body.clientWidth < 960 ? "top" : "left"
-                    } and click the 'Compile and run' button`}
-              </Typography>
-              {compilerLoading ? (
-                <LinearProgress />
-              ) : document.body.clientWidth < 960 ? (
-                <ArrowUpwardOutlinedIcon style={{ fontSize: 50 }} />
-              ) : (
-                <ArrowBackOutlinedIcon style={{ fontSize: 50 }} />
-              )}
-            </div>
-          </div>
+          <Box>{compilerLoading && <LinearProgress />}</Box>
         ) : (
-          <Paper
-            elevation={0}
-            sx={{ px: 2, minHeight: "100%", borderRadius: 0 }}
-          >
+          <Paper elevation={0} sx={{ minHeight: "100%", borderRadius: 0 }}>
             <Box
               sx={{
                 display: "flex",
