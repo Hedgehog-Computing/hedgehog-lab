@@ -59,8 +59,9 @@ const NewSnippet = () => {
     (editorCode) => {
       setEditorCode(editorCode);
       navigate("/snippet/new");
+      popupState.close();
     },
-    [navigate, setEditorCode]
+    [navigate, popupState, setEditorCode]
   );
 
   return (
