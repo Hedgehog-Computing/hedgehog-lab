@@ -1,14 +1,13 @@
-import {Outlet} from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import * as React from "react";
-import {Container} from "@mui/material";
-
+import { Container } from "@mui/material";
 
 const ContainerLayout = (): React.ReactElement => {
-    return (
-        <Container maxWidth={'lg'}>
-            <Outlet/>
-        </Container>
-    )
-}
+  return (
+    <Container maxWidth={"xl"}>
+      <Outlet />
+    </Container>
+  );
+};
 
-export default ContainerLayout
+export default ContainerLayout;

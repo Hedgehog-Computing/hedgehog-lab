@@ -1,4 +1,8 @@
-import { PublishOutlined, StarBorderOutlined } from "@mui/icons-material";
+import {
+  FavoriteBorderOutlined,
+  PublishOutlined,
+  StarBorderOutlined,
+} from "@mui/icons-material";
 import {
   Link,
   Box,
@@ -73,8 +77,8 @@ const SnippetList = () => {
                 <Link
                   component={RouterLink}
                   variant={"body1"}
-                  underline={"hover"}
-                  to={"/hhlab"}
+                  to={"/u/hhlab"}
+                  sx={{ fontWeight: "bold" }}
                 >
                   hhlab
                 </Link>
@@ -84,8 +88,8 @@ const SnippetList = () => {
                 <Link
                   component={RouterLink}
                   variant={"body1"}
-                  underline={"hover"}
-                  to={"/hhlab/simple"}
+                  to={"/s/hhlab/simple"}
+                  sx={{ fontWeight: "bold" }}
                 >
                   simple
                 </Link>
@@ -141,7 +145,7 @@ const SnippetList = () => {
                 <Button
                   size="small"
                   color={"inherit"}
-                  startIcon={<StarBorderOutlined />}
+                  startIcon={<FavoriteBorderOutlined />}
                   disabled={isMe}
                 >
                   1 stars

@@ -58,10 +58,9 @@ const NewSnippet = () => {
   const handleSetEditorCode = useCallback(
     (editorCode) => {
       setEditorCode(editorCode);
-      navigate("/snippet/new");
       popupState.close();
     },
-    [navigate, popupState, setEditorCode]
+    [popupState, setEditorCode]
   );
 
   return (
@@ -135,7 +134,13 @@ const ExploreSnippet = () => {
     <Link
       to="/explore"
       component={RouteLink}
-      sx={{ display: "block", color: "initial" }}
+      sx={{
+        display: "block",
+        color: "initial",
+        "&:hover": {
+          textDecoration: "none",
+        },
+      }}
     >
       <ListItemButton>
         <ListItemIcon>
@@ -143,7 +148,7 @@ const ExploreSnippet = () => {
         </ListItemIcon>
 
         <ListItemText>
-          <Box fontWeight={"bold"}>Explore Snippets</Box>
+          <Box fontWeight={"bold"}>Explore</Box>
         </ListItemText>
       </ListItemButton>
     </Link>
