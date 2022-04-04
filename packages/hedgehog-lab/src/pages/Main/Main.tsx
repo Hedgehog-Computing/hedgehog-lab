@@ -41,15 +41,7 @@ const Main = (): React.ReactElement => {
           <YourCode />
         </Grid>
 
-        <Grid
-          item
-          xs={12}
-          md={resultFullScreen ? 12 : 6}
-          style={{
-            height: "100%",
-            overflowY: "auto",
-          }}
-        >
+        <Grid item xs={12} md={resultFullScreen ? 12 : 6}>
           <Results />
         </Grid>
       </Grid>

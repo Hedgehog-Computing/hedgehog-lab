@@ -30,10 +30,10 @@ const Results = (): React.ReactElement => {
   const { outputString, outputItem } = compilerResult;
 
   return (
-    <div style={{ height: "100%" }}>
+    <div>
       <Card
         sx={{
-          height: "calc(100vh - 100px)",
+          height: "calc(100vh - 82px)",
           overflowY: "auto",
           overflowX: "auto",
           borderRadius: 0,
@@ -58,7 +58,7 @@ const Results = (): React.ReactElement => {
             )}
           </Box>
         ) : (
-          <Paper elevation={0} sx={{ minHeight: "100%", borderRadius: 0 }}>
+          <Paper elevation={0} sx={{ borderRadius: 0 }}>
             {outputItem.length > 0 && (
               <div>
                 <Output outputItemList={outputItem} />

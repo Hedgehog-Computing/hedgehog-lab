@@ -6,11 +6,13 @@ import {
   ClickAwayListener,
   Divider,
   Toolbar,
+  Typography,
 } from "@mui/material";
 import { ControlledEditor } from "@monaco-editor/react";
 import ResizeObserver from "react-resize-detector";
 import YourCodeHeader from "./Header/YourCodeHeader";
 import { useEditor } from "../../hooks/useEditor";
+import { grey } from "@mui/material/colors";
 
 const YourCode = (): React.ReactElement => {
   const {
@@ -25,7 +27,7 @@ const YourCode = (): React.ReactElement => {
 
   return (
     <div>
-      <Box sx={{ height: "calc(100vh - 100px)", borderRadius: 0 }}>
+      <Box sx={{ height: "calc(100vh - 82px)", borderRadius: 0 }}>
         <ResizeObserver
           onResize={() => {
             if (editor) {
