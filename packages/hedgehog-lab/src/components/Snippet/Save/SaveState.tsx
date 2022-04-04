@@ -12,8 +12,9 @@ import {
   FiberManualRecord,
   MotionPhotosAuto,
   NotificationImportantOutlined,
+  PublishOutlined,
 } from "@mui/icons-material";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { codeSavingFlagState } from "../../../states/RYourCodeStates";
 import { compilerLiveModeState } from "../../../states/RCompilerStates";
@@ -28,11 +29,19 @@ const SaveState = (): React.ReactElement => {
   const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
     compilerLiveModeState
   );
-  const [checked, setChecked] = React.useState(true);
+
+  const liveMode = localStorage.getItem("liveMode") ?? "off";
+
+  useEffect(() => {
+    if (liveMode === "on") {
+      setCompilerLiveMode("on");
+    } else {
+      setCompilerLiveMode("off");
+    }
+  }, [liveMode, setCompilerLiveMode]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const liveMode = event.target.checked ? "on" : "off";
-    setChecked(event.target.checked);
     setCompilerLiveMode(liveMode);
     localStorage.setItem("liveMode", liveMode);
   };
@@ -58,14 +67,24 @@ const SaveState = (): React.ReactElement => {
         }}
       >
         <BasePopupText text="File Name">
-          <Box>
+          <Box sx={{ display: "grid", p: 1 }}>
             <OutlinedInput
-              autoFocus
               size="small"
               placeholder="File Name"
               endAdornment={
                 <IconButton size="small">
-                  <CheckOutlined />
+                  <PublishOutlined />
+                </IconButton>
+              }
+            />
+
+            <OutlinedInput
+              sx={{ mt: 1 }}
+              size="small"
+              placeholder="Description"
+              endAdornment={
+                <IconButton size="small">
+                  <PublishOutlined />
                 </IconButton>
               }
             />
@@ -76,7 +95,7 @@ const SaveState = (): React.ReactElement => {
       </Box>
       <Tooltip title="Live Mode" arrow>
         <Checkbox
-          checked={checked}
+          checked={compilerLiveMode === "on" ? true : false}
           onChange={handleChange}
           size="small"
           icon={<CircleOutlined />}

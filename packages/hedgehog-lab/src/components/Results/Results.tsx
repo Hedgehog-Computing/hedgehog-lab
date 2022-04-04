@@ -6,6 +6,7 @@ import {
   IconButton,
   LinearProgress,
   Paper,
+  Skeleton,
   Tooltip,
   Typography,
 } from "@mui/material";
@@ -25,66 +26,39 @@ import SharePopup from "../Share/SharePopup";
 const Results = (): React.ReactElement => {
   const compilerLoading = useRecoilValue<boolean>(compilerLoadingState);
   const compilerResult = useRecoilValue<any>(compilerResultState);
-  const [resultFullScreen, setResultFullScreen] = useRecoilState<boolean>(
-    resultFullScreenState
-  );
 
   const { outputString, outputItem } = compilerResult;
-
-  const handleResultFullScreen = useCallback(() => {
-    setResultFullScreen(!resultFullScreen);
-  }, [resultFullScreen, setResultFullScreen]);
 
   return (
     <div style={{ height: "100%" }}>
       <Card
-        style={{
-          height: "calc(100vh - 160px)",
+        sx={{
+          height: "calc(100vh - 100px)",
           overflowY: "auto",
           overflowX: "auto",
           borderRadius: 0,
+          px: 2,
         }}
       >
         {outputItem.length === 0 && outputString === "" ? (
-          <div className={"no-code"}>
-            <div className="no-code-content">
-              <Typography variant={"h6"}>
-                {compilerLoading
-                  ? "Loading..."
-                  : `Please write your code on the ${
-                      document.body.clientWidth < 960 ? "top" : "left"
-                    } and click the 'Compile and run' button`}
-              </Typography>
-              {compilerLoading ? (
-                <LinearProgress />
-              ) : document.body.clientWidth < 960 ? (
-                <ArrowUpwardOutlinedIcon style={{ fontSize: 50 }} />
-              ) : (
-                <ArrowBackOutlinedIcon style={{ fontSize: 50 }} />
-              )}
-            </div>
-          </div>
+          <Box>
+            {compilerLoading && (
+              <>
+                {Array.from({ length: 10 }).map((_, index) => {
+                  return (
+                    <Box key={index} sx={{ mb: 3 }}>
+                      <Skeleton variant="rectangular" />
+                      <Skeleton variant="text" />
+                      <Skeleton variant="text" />
+                      <Skeleton variant="text" />
+                    </Box>
+                  );
+                })}
+              </>
+            )}
+          </Box>
         ) : (
-          <Paper
-            elevation={0}
-            sx={{ px: 2, minHeight: "100%", borderRadius: 0 }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "end",
-                position: "sticky",
-                top: 0,
-                right: 0,
-              }}
-            >
-              <SharePopup url="https://hhlab.dev/" />
-
-              <IconButton onClick={handleResultFullScreen}>
-                <FullscreenOutlined />
-              </IconButton>
-            </Box>
-
+          <Paper elevation={0} sx={{ minHeight: "100%", borderRadius: 0 }}>
             {outputItem.length > 0 && (
               <div>
                 <Output outputItemList={outputItem} />

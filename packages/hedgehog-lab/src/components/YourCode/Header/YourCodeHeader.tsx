@@ -1,13 +1,16 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, IconButton } from "@mui/material";
 import { PlayCircleOutline, StopCircleOutlined } from "@mui/icons-material";
 import { queryCache } from "react-query";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { compiler } from "../../../compiler";
 import SaveDialog from "../../Snippet/Save/SaveDialog";
 import { useParams } from "react-router-dom";
 import SaveState from "../../Snippet/Save/SaveState";
 import { useCompiler } from "../../../hooks/useCompilier";
 import { COMPILE_AND_RUN_BUTTON_ID, useEditor } from "../../../hooks/useEditor";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { compilerLiveModeState } from "../../../states/RCompilerStates";
+import RightButton from "../../Layout/TopBar/RightButton";
 
 const YourCodeHeader = (): React.ReactElement => {
   const { editorCode } = useEditor();
@@ -28,11 +31,12 @@ const YourCodeHeader = (): React.ReactElement => {
       }}
     >
       <SaveState />
-      <div>
+      <Box sx={{ display: "flex" }}>
+        <RightButton />
+
         {isLoading ? (
-          <Button
-            endIcon={<StopCircleOutlined />}
-            variant="contained"
+          <IconButton
+            size="small"
             color="error"
             onClick={() => {
               // stop the web-worker
@@ -44,20 +48,21 @@ const YourCodeHeader = (): React.ReactElement => {
               }));
             }}
           >
-            Stop
-          </Button>
+            <StopCircleOutlined />
+          </IconButton>
         ) : (
-          <Button
-            endIcon={<PlayCircleOutline />}
-            id={COMPILE_AND_RUN_BUTTON_ID}
-            variant={"contained"}
-            color="primary"
-            onClick={handleRunCode}
-          >
-            Run
-          </Button>
+          <>
+            <IconButton
+              id={COMPILE_AND_RUN_BUTTON_ID}
+              color="primary"
+              onClick={handleRunCode}
+              size="small"
+            >
+              <PlayCircleOutline />
+            </IconButton>
+          </>
         )}
-      </div>
+      </Box>
     </Box>
   );
 };

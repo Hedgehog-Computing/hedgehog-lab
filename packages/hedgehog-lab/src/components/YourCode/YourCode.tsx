@@ -25,7 +25,7 @@ const YourCode = (): React.ReactElement => {
 
   return (
     <div>
-      <Box sx={{ height: "100%", borderRadius: 0 }}>
+      <Box sx={{ height: "calc(100vh - 100px)", borderRadius: 0 }}>
         <ResizeObserver
           onResize={() => {
             if (editor) {
@@ -35,7 +35,7 @@ const YourCode = (): React.ReactElement => {
         >
           <div
             style={{
-              height: "calc(100vh - 160px)",
+              height: "100%",
             }}
           >
             <ControlledEditor

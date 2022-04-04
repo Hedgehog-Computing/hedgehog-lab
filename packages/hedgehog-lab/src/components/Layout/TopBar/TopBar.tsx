@@ -119,36 +119,12 @@ const TopBar = (): React.ReactElement => {
       elevation={0}
       color="inherit"
     >
-      <Toolbar disableGutters>
+      <Toolbar disableGutters sx={{ mr: 2 }}>
         <Box minWidth={sideBarWidth}>
           <Brand />
         </Box>
 
-        <Grid container alignContent={"center"}>
-          <Grid
-            item
-            xs={12}
-            md={6}
-            sx={{
-              pr: sideBarOpen ? 1 : `${sideBarWidth - 110}px`,
-            }}
-          >
-            <Header />
-          </Grid>
-
-          <Grid item xs={12} md={6}>
-            <Box
-              display={"flex"}
-              justifyContent={"end"}
-              width={"100%"}
-              pr={"10px"}
-            >
-              <RightButton />
-
-              <AuthDialog />
-            </Box>
-          </Grid>
-        </Grid>
+        <Header />
       </Toolbar>
 
       <Divider />
