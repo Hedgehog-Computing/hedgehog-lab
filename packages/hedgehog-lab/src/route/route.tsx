@@ -18,11 +18,7 @@ const router: RouteObject[] = [
         element: <Main />,
       },
       {
-        path: "/snippets/new",
-        element: <Main />,
-      },
-      {
-        path: "/:userID",
+        path: "/u/:userID",
         element: <ContainerLayout />,
         children: [
           {
@@ -30,13 +26,13 @@ const router: RouteObject[] = [
             element: <Snippets />,
           },
           {
-            path: "/:userID/starred",
+            path: "likes",
             element: <Snippets />,
           },
         ],
       },
       {
-        path: "/:userID/:snippetID",
+        path: "/s/:userID/:snippetID",
         element: <Main />,
       },
       {

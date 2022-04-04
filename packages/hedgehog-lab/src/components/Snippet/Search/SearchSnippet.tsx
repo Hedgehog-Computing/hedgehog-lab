@@ -3,6 +3,7 @@ import {
   CodeOutlined,
   FavoriteBorderOutlined,
   FavoriteOutlined,
+  StarBorderOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -11,7 +12,9 @@ import {
   MenuItem,
   IconButton,
   Tooltip,
+  Button,
 } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import React, { useCallback, useState } from "react";
 import { useRecoilState } from "recoil";
 import { useAuth } from "../../../hooks/useAuth";
@@ -27,9 +30,14 @@ const SearchSnippet = (): React.ReactElement => {
 
   return (
     <Box
-      sx={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+      sx={{
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+        alignItems: "center",
+      }}
     >
-      <Box>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
         <OutlinedInput
           size="small"
           placeholder={`Search ${isMe ? "your" : "all"} snippets`}
@@ -52,7 +60,7 @@ const SearchSnippet = (): React.ReactElement => {
       </Box>
 
       <Box>
-        <Tooltip title={"Hide code"} arrow>
+        <Tooltip title={showCodeBlock ? "Hide code" : "Show code"} arrow>
           <IconButton onClick={handleShowCodeBlock}>
             {showCodeBlock ? <CodeOutlined /> : <CodeOffOutlined />}
           </IconButton>

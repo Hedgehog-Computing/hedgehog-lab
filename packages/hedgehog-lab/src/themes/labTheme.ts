@@ -367,15 +367,11 @@ export function getThemedComponents(theme: Theme) {
         },
         styleOverrides: {
           root: {
-            color:
-              theme.palette.mode === "dark"
-                ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  theme.palette.primary[400]
-                : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                  // @ts-ignore
-                  theme.palette.primary[600],
-            fontWeight: 700,
+            "&:hover": {
+              textDecoration: "underline",
+              cursor: "pointer",
+            },
+            color: "inherit",
             display: "inline-flex",
             alignItems: "center",
             "&.MuiTypography-body1 > svg": {
@@ -391,10 +387,6 @@ export function getThemedComponents(theme: Theme) {
         styleOverrides: {
           root: {
             borderRadius: 5,
-            "&:hover, &:focus": {
-              backgroundColor:
-                theme.palette.mode === "dark" ? "" : theme.palette.grey[100],
-            },
           },
         },
       },
@@ -421,12 +413,6 @@ export function getThemedComponents(theme: Theme) {
       MuiPaper: {
         styleOverrides: {
           root: {
-            backgroundColor:
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              theme.palette.mode === "dark"
-                ? theme.palette.primaryDark[900]
-                : "#fff",
             "&[href]": {
               textDecorationLine: "none",
             },
