@@ -275,7 +275,7 @@ const SideBar = (): React.ReactElement => {
                     variant="outlined"
                     size="small"
                     component={RouteLink}
-                    to={`/hhlab`}
+                    to={`/u/hhlab`}
                   >
                     All
                   </Button>
