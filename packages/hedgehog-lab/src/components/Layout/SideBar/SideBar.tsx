@@ -58,9 +58,10 @@ const NewSnippet = () => {
   const handleSetEditorCode = useCallback(
     (editorCode) => {
       setEditorCode(editorCode);
+      navigate("/");
       popupState.close();
     },
-    [popupState, setEditorCode]
+    [navigate, popupState, setEditorCode]
   );
 
   return (
