@@ -148,7 +148,7 @@ const SnippetList = () => {
                   startIcon={<FavoriteBorderOutlined />}
                   disabled={isMe}
                 >
-                  1 stars
+                  1 liked
                 </Button>
 
                 {isMe && <RenameDialog />}

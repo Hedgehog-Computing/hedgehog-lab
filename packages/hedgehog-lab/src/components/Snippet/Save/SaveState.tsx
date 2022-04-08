@@ -23,6 +23,7 @@ import { useTheme } from "@emotion/react";
 import { deepOrange } from "@mui/material/colors";
 import { Link } from "react-router-dom";
 import { authDialogState } from "../../../states/RAuthStates";
+import { useAuth } from "../../../hooks/useAuth";
 
 const SaveState = (): React.ReactElement => {
   const codeSavingFlag = useRecoilValue(codeSavingFlagState);
@@ -47,6 +48,8 @@ const SaveState = (): React.ReactElement => {
   };
 
   const [authDialog, setAuthDialog] = useRecoilState(authDialogState);
+
+  const { isLogin } = useAuth();
 
   return (
     <Box
@@ -103,13 +106,17 @@ const SaveState = (): React.ReactElement => {
         />
       </Tooltip>
 
-      <Chip
-        label="Not synchronized"
-        size="small"
-        color="warning"
-        sx={{ cursor: "pointer" }}
-        onClick={() => setAuthDialog(true)}
-      />
+      {isLogin ? (
+        ""
+      ) : (
+        <Chip
+          label="Not synchronized"
+          size="small"
+          color="warning"
+          sx={{ cursor: "pointer" }}
+          onClick={() => setAuthDialog(true)}
+        />
+      )}
     </Box>
   );
 };
