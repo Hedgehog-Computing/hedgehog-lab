@@ -27,8 +27,11 @@ import {
   CreateOutlined,
   ExpandLessOutlined,
   ExpandMoreOutlined,
+  FeedOutlined,
   FiberManualRecord,
+  FollowTheSignsOutlined,
   TextSnippetOutlined,
+  TimelineOutlined,
   TravelExploreOutlined,
 } from "@mui/icons-material";
 import { useRecoilState, useSetRecoilState } from "recoil";
@@ -71,11 +74,7 @@ const NewSnippet = () => {
           <CreateOutlined />
         </ListItemIcon>
 
-        <ListItemText>
-          <Box fontWeight={"bold"} color={theme.palette.text.primary}>
-            New Snippet
-          </Box>
-        </ListItemText>
+        <ListItemText>New Snippet</ListItemText>
       </ListItemButton>
 
       <Menu
@@ -148,9 +147,7 @@ const ExploreSnippet = () => {
           <TravelExploreOutlined />
         </ListItemIcon>
 
-        <ListItemText>
-          <Box fontWeight={"bold"}>Explore</Box>
-        </ListItemText>
+        <ListItemText>Explore</ListItemText>
       </ListItemButton>
     </Link>
   );
@@ -206,7 +203,16 @@ const SideBar = (): React.ReactElement => {
     >
       <Toolbar />
 
-      <Box sx={{ overflow: "auto", display: "grid", height: "100%" }}>
+      <Box
+        sx={{
+          overflow: "auto",
+          display: "grid",
+          height: "100%",
+          [`& .MuiListItemText-root span`]: {
+            fontWeight: "bold",
+          },
+        }}
+      >
         <List disablePadding>
           <NewSnippet />
 
@@ -218,15 +224,33 @@ const SideBar = (): React.ReactElement => {
 
           {isLogin ? (
             <>
+              <Link
+                to="/timeline"
+                component={RouteLink}
+                sx={{
+                  display: "block",
+                  color: "initial",
+                  "&:hover": {
+                    textDecoration: "none",
+                  },
+                }}
+              >
+                {" "}
+                <ListItem button>
+                  <ListItemIcon>
+                    <TimelineOutlined />
+                  </ListItemIcon>
+                  <ListItemText>Timeline</ListItemText>
+                </ListItem>
+              </Link>
+
               <ListItem button onClick={handleCollapseClick}>
                 <ListItemIcon>
                   <TextSnippetOutlined
                     color={collapseOpen ? "primary" : "inherit"}
                   />
                 </ListItemIcon>
-                <ListItemText>
-                  <Box fontWeight={"bold"}>My Snippets</Box>
-                </ListItemText>
+                <ListItemText>My Snippets</ListItemText>
                 {collapseOpen ? (
                   <ExpandLessOutlined color={"primary"} />
                 ) : (
@@ -271,7 +295,7 @@ const SideBar = (): React.ReactElement => {
                   })}
                 </List>
 
-                <Box sx={{ textAlign: "center", mt: 1 }}>
+                <Box sx={{ textAlign: "center", my: 1 }}>
                   <Button
                     variant="outlined"
                     size="small"

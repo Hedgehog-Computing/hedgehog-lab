@@ -7,6 +7,7 @@ import Snippets from "../pages/Snippets/Snippets";
 import ContainerLayout from "../components/Layout/ContainerLayout";
 import Auth from "../pages/Auth/Auth";
 import Explore from "../pages/Explore/Explore";
+import Timeline from "../pages/Timeline/Timeline";
 
 const router: RouteObject[] = [
   {
@@ -39,6 +40,11 @@ const router: RouteObject[] = [
         path: "/explore",
         element: <ContainerLayout />,
         children: [{ path: "", element: <Explore /> }],
+      },
+      {
+        path: "/timeline",
+        element: <ContainerLayout />,
+        children: [{ path: "", element: <Timeline /> }],
       },
       {
         path: "/settings",

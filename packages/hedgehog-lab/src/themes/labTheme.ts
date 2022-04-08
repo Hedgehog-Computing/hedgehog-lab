@@ -370,8 +370,9 @@ export function getThemedComponents(theme: Theme) {
             "&:hover": {
               textDecoration: "underline",
               cursor: "pointer",
+              color: `${theme.palette.primary.main} !important`,
             },
-            color: "inherit",
+            color: "initial !important",
             display: "inline-flex",
             alignItems: "center",
             "&.MuiTypography-body1 > svg": {

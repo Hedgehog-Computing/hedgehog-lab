@@ -4,7 +4,7 @@ import { Container } from "@mui/material";
 
 const ContainerLayout = (): React.ReactElement => {
   return (
-    <Container maxWidth={"xl"}>
+    <Container maxWidth={"xl"} sx={{ my: 2 }}>
       <Outlet />
     </Container>
   );
