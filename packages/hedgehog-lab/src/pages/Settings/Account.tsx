@@ -6,7 +6,7 @@ import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
 import {IFormInput} from "../../interfaces/IFormInput";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
-import {accountModal, accountRule} from "../../modals/account/accountModal";
+import {accountModal, accountRule} from "../../models/account/accountModal";
 import {authActionState} from "../../states/RAuthStates";
 import {useSetRecoilState} from "recoil";
 

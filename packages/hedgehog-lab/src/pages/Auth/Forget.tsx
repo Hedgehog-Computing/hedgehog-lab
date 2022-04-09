@@ -5,7 +5,7 @@ import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IFormInput} from "../../interfaces/IFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {forgetModal, forgetRule} from "../../modals/forget/forgetModal";
+import {forgetModal, forgetRule} from "../../models/forget/forgetModal";
 
 const ForgetForm = () => {
     return (

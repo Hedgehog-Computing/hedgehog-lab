@@ -3,7 +3,7 @@ import * as React from "react";
 import BaseOutlinedInput from "../BaseOutlinedInput/BaseOutlinedInput";
 import {PersonOutlined} from "@mui/icons-material";
 
-const name = 'username'
+const name = 'firstname'
 
 const UserNameInput = (): React.ReactElement => {
     const useFormMethods = useFormContext()

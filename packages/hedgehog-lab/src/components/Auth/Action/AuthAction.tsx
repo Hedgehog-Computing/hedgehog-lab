@@ -1,8 +1,9 @@
-import {Button, Link, Typography} from "@mui/material";
+import {Link, Typography} from "@mui/material";
 import * as React from "react";
 import {useCallback} from "react";
 import {useRecoilState} from "recoil";
-import {authActionState} from "../../../states/RAuthStates";
+import {authActionLoadingState, authActionState} from "../../../states/RAuthStates";
+import {LoadingButton} from "@mui/lab";
 
 interface IBaseActionProps {
     forget?: {
@@ -21,6 +22,7 @@ interface IBaseActionProps {
 
 const AuthAction: React.FC<IBaseActionProps> = (prop) => {
     const [authAction, setAuthAction] = useRecoilState(authActionState)
+    const [loading, setLoading] = useRecoilState(authActionLoadingState)
 
     const handleSetAuthAction = useCallback((action: string) => {
         setAuthAction(action)
@@ -45,9 +47,10 @@ const AuthAction: React.FC<IBaseActionProps> = (prop) => {
                 </Link>
             </Typography>
 
-            <Button type={"submit"} sx={{mt: '20px'}} fullWidth size={"large"} variant={'contained'}>
+            <LoadingButton loading={loading} type={"submit"} sx={{mt: 2}} fullWidth size={"large"}
+                           variant={'contained'}>
                 {prop.action.text}
-            </Button>
+            </LoadingButton>
         </>
     )
 }
