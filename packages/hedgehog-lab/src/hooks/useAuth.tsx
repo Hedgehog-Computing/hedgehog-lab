@@ -1,6 +1,14 @@
-export const useAuth = () => {
-  const isLogin = true;
-  const isMe = true;
+import {useState} from "react";
+import {useRecoilValue} from "recoil";
+import {authState} from "../states/RAuthStates";
 
-  return { isLogin, isMe };
+export const useAuth = () => {
+  const auth = useRecoilValue(authState);
+
+  const isAuthenticated = auth.isAuthenticated
+
+  const [isMe, setIsMe] = useState(false);
+
+
+  return {isAuthenticated, isMe,};
 };

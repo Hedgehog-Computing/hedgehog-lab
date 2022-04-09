@@ -7,7 +7,7 @@ import AuthAction from "../../components/Auth/Action/AuthAction";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IFormInput} from "../../interfaces/IFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {loginModal, loginRule} from "../../modals/login/loginModal";
+import {loginModal, loginRule} from "../../models/login/loginModal";
 
 
 const LoginForm = () => {
