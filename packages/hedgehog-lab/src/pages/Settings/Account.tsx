@@ -5,10 +5,11 @@ import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IFormInput} from "../../interfaces/IFormInput";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
-import {accountModal, accountRule} from "../../models/account/accountModal";
+import {accountRule} from "../../models/account/accountModal";
 import {authActionState} from "../../states/RAuthStates";
 import {useSetRecoilState} from "recoil";
 import {useAuth} from "../../hooks/useAuth";
+import {http} from "../../hooks/http";
 
 
 const Header = (): React.ReactElement => (
@@ -68,13 +69,22 @@ const AccountForm = () => {
 }
 
 const Account = (): React.ReactElement => {
+    const {auth} = useAuth()
+
     const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(accountRule)
     })
 
-    const onSubmit: SubmitHandler<IFormInput> = useCallback((data) => {
-        accountModal(data)
-    }, [])
+    const onSubmit: SubmitHandler<IFormInput> = useCallback(async (data) => {
+        console.log(123)
+        await http.post('/auth/update', auth.accessToken).then(res => {
+            return res
+        }).catch(err => {
+            const message = err.response.data.message
+        }).finally(() => {
+            return
+        });
+    }, [auth.accessToken])
 
     return (
         <>

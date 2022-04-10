@@ -26,7 +26,7 @@ const EndAdornment: React.FC<IPasswordProps> = (props) => {
     )
 }
 
-const PasswordInput: React.FC<IInputProps> = (): React.ReactElement => {
+const PasswordInput: React.FC<IInputProps> = (props): React.ReactElement => {
     const useFormMethods = useFormContext()
     const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -38,7 +38,7 @@ const PasswordInput: React.FC<IInputProps> = (): React.ReactElement => {
         <Controller
             name={name}
             control={useFormMethods.control}
-            defaultValue={''}
+            defaultValue={props.defaultValue}
             render={({field}) =>
                 <BaseOutlinedInput
                     field={field}

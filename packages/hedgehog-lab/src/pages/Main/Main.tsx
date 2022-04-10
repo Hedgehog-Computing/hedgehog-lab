@@ -5,7 +5,6 @@ import YourCode from "../../components/YourCode/YourCode";
 import {useRecoilState} from "recoil";
 import {resultFullScreenState} from "../../states/RLayoutStates";
 import {useEditor} from "../../hooks/useEditor";
-import {useAuth} from "../../hooks/useAuth";
 
 const DEFAULT_SOURCE = `//write your code here
 print("hello world")
@@ -16,7 +15,6 @@ const Main = (): React.ReactElement => {
         resultFullScreenState
     );
 
-    const {me} = useAuth()
 
     const {editorCode, setEditorCode} = useEditor();
 
@@ -26,10 +24,6 @@ const Main = (): React.ReactElement => {
             setEditorCode(lastRunningCode);
         }
     }, [editorCode, setEditorCode]);
-
-    useEffect(() => {
-        me()
-    }, [me])
 
     return (
         <>
