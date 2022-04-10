@@ -13,8 +13,9 @@
   },
   "scripts": {
     "watch": "lerna run --parallel watch",
-    "build": "yarn global add node-gyp-build lerna run build --stream",
-    "postinstall": "patch-package"
+    "build": "lerna run build --stream",
+    "postinstall": "patch-package",
+    "vercel-build": "yarn global add node-gyp"
   },
   "dependencies": {}
 }
