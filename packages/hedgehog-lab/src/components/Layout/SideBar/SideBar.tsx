@@ -2,31 +2,31 @@ import * as React from "react";
 import {useCallback, useEffect, useState} from "react";
 import {tutorials} from "../../../tutorials";
 import {
-  Box,
-  Button,
-  Collapse,
-  Divider,
-  Drawer,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-  useTheme,
+    Box,
+    Button,
+    Collapse,
+    Divider,
+    Drawer,
+    Link,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography,
+    useTheme,
 } from "@mui/material";
 import {
-  CreateOutlined,
-  ExpandLessOutlined,
-  ExpandMoreOutlined,
-  FiberManualRecord,
-  TextSnippetOutlined,
-  TimelineOutlined,
-  TravelExploreOutlined,
+    CreateOutlined,
+    ExpandLessOutlined,
+    ExpandMoreOutlined,
+    FiberManualRecord,
+    TextSnippetOutlined,
+    TimelineOutlined,
+    TravelExploreOutlined,
 } from "@mui/icons-material";
 import {useRecoilState} from "recoil";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
@@ -48,7 +48,7 @@ const NewSnippet = () => {
     const {setEditorCode} = useEditor();
 
     const handleSetEditorCode = useCallback(
-        (editorCode) => {
+        (editorCode: any) => {
             setEditorCode(editorCode);
             navigate("/");
             popupState.close();
@@ -233,6 +233,8 @@ const SideBar = (): React.ReactElement => {
                                     <ListItemText>Timeline</ListItemText>
                                 </ListItem>
                             </Link>
+
+                            <Divider/>
 
                             <ListItem button onClick={handleCollapseClick}>
                                 <ListItemIcon>

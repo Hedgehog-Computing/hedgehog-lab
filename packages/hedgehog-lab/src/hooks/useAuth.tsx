@@ -1,14 +1,19 @@
-import {useState} from "react";
-import {useRecoilValue} from "recoil";
+import {useRecoilState} from "recoil";
 import {authState} from "../states/RAuthStates";
+import {useNavigate} from "react-router-dom";
 
 export const useAuth = () => {
-  const auth = useRecoilValue(authState);
+    const [auth, setAuth] = useRecoilState(authState);
 
-  const isAuthenticated = auth.isAuthenticated
+    const navigate = useNavigate()
+    const isAuthenticated = auth.isAuthenticated
 
-  const [isMe, setIsMe] = useState(false);
+    const isMe = false
 
+    const logout = () => {
+        setAuth({...auth, isAuthenticated: false});
+        navigate('/')
+    };
 
-  return {isAuthenticated, isMe,};
+    return {isAuthenticated, isMe, logout};
 };

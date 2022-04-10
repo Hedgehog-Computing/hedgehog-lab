@@ -1,24 +1,25 @@
 import React, {useCallback} from "react";
 import {
-  Divider,
-  IconButton,
-  Link,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  styled,
-  Toolbar,
-  Typography,
-  useTheme,
+    Divider,
+    IconButton,
+    Link,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    styled,
+    Toolbar,
+    Typography,
+    useTheme,
 } from "@mui/material";
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import {MenuOutlined} from "@mui/icons-material";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {sideBarOpenState} from "../../../states/RLayoutStates";
 import {Link as RouteLink, matchPath, useLocation, useParams,} from "react-router-dom";
 import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
+import AccountMenu from "../../Auth/Account/AccountMenu";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -93,14 +94,18 @@ const Header = (): React.ReactElement => {
         return <YourCodeHeader/>;
     }
 
-    return <></>;
+    return (
+        <>
+            <Box sx={{display: 'flex', ml: 'auto'}}>
+                <AccountMenu/>
+            </Box>
+        </>
+    );
 };
 
 const TopBar = (): React.ReactElement => {
-    const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
-
-    const theme = useTheme();
-
+    const sideBarOpen = useRecoilValue(sideBarOpenState);
+    
     return (
         <AppBar
             open={sideBarOpen}
