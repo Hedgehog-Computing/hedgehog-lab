@@ -105,7 +105,7 @@ const Header = (): React.ReactElement => {
 
 const TopBar = (): React.ReactElement => {
     const sideBarOpen = useRecoilValue(sideBarOpenState);
-    
+
     return (
         <AppBar
             open={sideBarOpen}

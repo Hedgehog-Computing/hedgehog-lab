@@ -11,7 +11,12 @@ const AccountMenu = () => {
         <>
             {isAuthenticated && (
                 <BasePopupButton size={'small'} icon={<Avatar sx={{width: 24, height: 24}}/>}>
-                    <Link component={RouteLink} to={'/settings/account'}>
+                    <Link component={RouteLink} to={'/settings/account'}
+                          sx={{
+                              textDecoration: 'none !important', '& :hover': {
+                                  color: 'initial'
+                              }
+                          }}>
                         <MenuItem divider>
                             My Account
                         </MenuItem>

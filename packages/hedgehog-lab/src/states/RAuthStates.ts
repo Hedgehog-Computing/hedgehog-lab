@@ -25,3 +25,8 @@ export const authActionLoadingState = atom({
     key: 'authActionLoading',
     default: false
 })
+
+export const authErrorMessageState = atom({
+    key: 'authErrorMessage',
+    default: ''
+})
