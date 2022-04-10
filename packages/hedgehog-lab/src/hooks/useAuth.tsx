@@ -1,6 +1,6 @@
 import {useRecoilState} from "recoil";
 import {authActionLoadingState, authDialogState, authErrorMessageState, authState} from "../states/RAuthStates";
-import {useNavigate} from "react-router-dom";
+import {useMatch, useNavigate} from "react-router-dom";
 import {http} from "./http";
 
 export const useAuth = () => {
@@ -12,8 +12,7 @@ export const useAuth = () => {
     const navigate = useNavigate()
     const isAuthenticated = auth.isAuthenticated
 
-    const isMe = false
-
+    const isMe = !!useMatch(`u/${auth.user.firstname}`)
     const login = (accessToken: string) => {
         setAuth({...auth, isAuthenticated: true, accessToken})
         setErrorMessage('')
@@ -37,7 +36,7 @@ export const useAuth = () => {
         await http.post('/auth/me', {accessToken}).then(res => {
             setAuth({...auth, isAuthenticated: true, user: res.data})
             setAuthDialogOpen(false)
-        }).catch(err => {
+        }).catch(() => {
             setAuth({...auth, isAuthenticated: false})
             setAuthDialogOpen(true)
             logout()

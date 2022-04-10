@@ -149,7 +149,7 @@ const SideBar = (): React.ReactElement => {
     const theme = useTheme();
     const lgBreakpoint = window.matchMedia("(min-width: 1910px)");
     const lgBreakpointMatches = lgBreakpoint.matches;
-    const {isAuthenticated} = useAuth();
+    const {isAuthenticated, auth} = useAuth();
 
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
@@ -292,7 +292,7 @@ const SideBar = (): React.ReactElement => {
                                         variant="outlined"
                                         size="small"
                                         component={RouteLink}
-                                        to={`/u/hhlab`}
+                                        to={`/u/${auth.user.firstname}`}
                                     >
                                         All
                                     </Button>
