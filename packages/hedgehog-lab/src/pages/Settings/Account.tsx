@@ -2,28 +2,14 @@ import React, {useCallback} from "react";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Box, Button, Card, Grid, Typography} from "@mui/material";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
-import UserNameInput from "../../components/Base/Input/UserName/UserNameInput";
 import {IFormInput} from "../../interfaces/IFormInput";
 import EmailInput from "../../components/Base/Input/Email/EmailInput";
 import PasswordInput from "../../components/Base/Input/Password/PasswordInput";
 import {accountModal, accountRule} from "../../models/account/accountModal";
 import {authActionState} from "../../states/RAuthStates";
 import {useSetRecoilState} from "recoil";
+import {useAuth} from "../../hooks/useAuth";
 
-const accountForm = [
-    {
-        text: 'Name',
-        render: <UserNameInput/>
-    },
-    {
-        text: 'Email',
-        render: <EmailInput/>
-    },
-    {
-        text: 'Password',
-        render: <PasswordInput/>
-    },
-]
 
 const Header = (): React.ReactElement => (
     <Box textAlign={"center"} mb={'30px'}>
@@ -39,6 +25,18 @@ const Header = (): React.ReactElement => (
 
 const AccountForm = () => {
     const setAuthAction = useSetRecoilState(authActionState)
+    const {auth} = useAuth()
+
+    const accountForm = [
+        {
+            text: 'Email',
+            render: <EmailInput defaultValue={auth.user.email}/>
+        },
+        {
+            text: 'Password',
+            render: <PasswordInput/>
+        },
+    ]
 
     return (
         <Card variant={"outlined"}>

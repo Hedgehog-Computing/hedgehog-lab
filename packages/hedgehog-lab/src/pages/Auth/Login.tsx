@@ -36,12 +36,11 @@ const Login = (): React.ReactElement => {
     const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(loginRule)
     })
-    
+
     const onSubmit: SubmitHandler<IFormInput> = useCallback(async (data) => {
         setLoading(true)
         await http.post('/auth/login', data).then(res => {
-            login()
-            return res
+            login(res.data?.accessToken)
         }).catch(err => {
             const message = err.response.data.message
             setErrorMessage(message)

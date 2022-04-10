@@ -4,7 +4,7 @@ import {Controller, useFormContext} from "react-hook-form";
 import * as React from "react";
 import {useCallback, useState} from "react";
 import BaseOutlinedInput from "../BaseOutlinedInput/BaseOutlinedInput";
-import {IFormInput} from "../../../../interfaces/IFormInput";
+import {IFormInput, IInputProps} from "../../../../interfaces/IFormInput";
 
 const name = 'password'
 
@@ -26,7 +26,7 @@ const EndAdornment: React.FC<IPasswordProps> = (props) => {
     )
 }
 
-const PasswordInput = (): React.ReactElement => {
+const PasswordInput: React.FC<IInputProps> = (): React.ReactElement => {
     const useFormMethods = useFormContext()
     const [showPassword, setShowPassword] = useState<boolean>(false)
 

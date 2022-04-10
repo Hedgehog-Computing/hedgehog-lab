@@ -3,10 +3,12 @@ import {atom} from "recoil";
 export const authState = atom<{
     isAuthenticated: boolean;
     user: any;
+    accessToken: string
 }>({
     key: "authState",
     default: {
         isAuthenticated: false,
+        accessToken: '',
         user: {}
     },
 });

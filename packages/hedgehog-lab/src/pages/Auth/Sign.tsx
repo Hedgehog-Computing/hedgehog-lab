@@ -30,7 +30,7 @@ const Sign = (): React.ReactElement => {
     const onSubmit: SubmitHandler<IFormInput> = useCallback(async (data) => {
         setLoading(true)
         await http.post('/auth/signup', data).then(res => {
-            login()
+            login(res.data?.accessToken)
             return res
         }).catch(err => {
             const message = err.response.data.message
