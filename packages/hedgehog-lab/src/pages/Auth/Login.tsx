@@ -7,7 +7,9 @@ import AuthAction from "../../components/Auth/Action/AuthAction";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IFormInput} from "../../interfaces/IFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {loginModal, loginRule} from "../../models/login/loginModal";
+import {loginRule} from "../../models/login/loginModal";
+import {http} from "../../hooks/http";
+import {useAuth} from "../../hooks/useAuth";
 
 
 const LoginForm = () => {
@@ -29,13 +31,23 @@ const LoginForm = () => {
 }
 
 const Login = (): React.ReactElement => {
+    const {setLoading, setErrorMessage, login} = useAuth()
+
     const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(loginRule)
     })
 
-    const onSubmit: SubmitHandler<IFormInput> = useCallback((data) => {
-        loginModal(data)
-    }, [])
+    const onSubmit: SubmitHandler<IFormInput> = useCallback(async (data) => {
+        setLoading(true)
+        await http.post('/auth/login', data).then(res => {
+            login(res.data?.accessToken)
+        }).catch(err => {
+            const message = err.response.data.message
+            setErrorMessage(message)
+        }).finally(() => {
+            setLoading(false)
+        });
+    }, [login, setErrorMessage, setLoading])
 
     return (
         <FormProvider {...useFormMethods} >

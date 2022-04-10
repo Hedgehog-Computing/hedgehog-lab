@@ -9,10 +9,17 @@ import {RecoilRoot, useRecoilState} from "recoil";
 import {themeModState} from "./themes/RThemeStates";
 import useSystemTheme from "./hooks/useSystemTheme";
 import {Box} from "@mui/material";
+import {useEffectOnce} from "react-use";
+import {useAuth} from "./hooks/useAuth";
 
 const ThemePage = () => {
     const [themeMode, setThemeMode] = useRecoilState(themeModState);
     const systemTheme = useSystemTheme();
+    const {me} = useAuth()
+    useEffectOnce(() => {
+        me()
+    })
+    
     useEffect(() => {
         const localTheme = localStorage.getItem("theme");
 

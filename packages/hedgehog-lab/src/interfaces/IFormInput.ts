@@ -4,3 +4,7 @@ export interface IFormInput {
     password?: string,
     showPassword?: boolean
 }
+
+export interface IInputProps {
+    defaultValue?: string
+}

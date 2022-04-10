@@ -2,31 +2,31 @@ import * as React from "react";
 import {useCallback, useEffect, useState} from "react";
 import {tutorials} from "../../../tutorials";
 import {
-  Box,
-  Button,
-  Collapse,
-  Divider,
-  Drawer,
-  Link,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Toolbar,
-  Typography,
-  useTheme,
+    Box,
+    Button,
+    Collapse,
+    Divider,
+    Drawer,
+    Link,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography,
+    useTheme,
 } from "@mui/material";
 import {
-  CreateOutlined,
-  ExpandLessOutlined,
-  ExpandMoreOutlined,
-  FiberManualRecord,
-  TextSnippetOutlined,
-  TimelineOutlined,
-  TravelExploreOutlined,
+    CreateOutlined,
+    ExpandLessOutlined,
+    ExpandMoreOutlined,
+    FiberManualRecord,
+    TextSnippetOutlined,
+    TimelineOutlined,
+    TravelExploreOutlined,
 } from "@mui/icons-material";
 import {useRecoilState} from "recoil";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
@@ -48,7 +48,7 @@ const NewSnippet = () => {
     const {setEditorCode} = useEditor();
 
     const handleSetEditorCode = useCallback(
-        (editorCode) => {
+        (editorCode: any) => {
             setEditorCode(editorCode);
             navigate("/");
             popupState.close();
@@ -149,7 +149,7 @@ const SideBar = (): React.ReactElement => {
     const theme = useTheme();
     const lgBreakpoint = window.matchMedia("(min-width: 1910px)");
     const lgBreakpointMatches = lgBreakpoint.matches;
-    const {isAuthenticated} = useAuth();
+    const {isAuthenticated, auth} = useAuth();
 
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
@@ -234,6 +234,8 @@ const SideBar = (): React.ReactElement => {
                                 </ListItem>
                             </Link>
 
+                            <Divider/>
+
                             <ListItem button onClick={handleCollapseClick}>
                                 <ListItemIcon>
                                     <TextSnippetOutlined
@@ -290,7 +292,7 @@ const SideBar = (): React.ReactElement => {
                                         variant="outlined"
                                         size="small"
                                         component={RouteLink}
-                                        to={`/u/hhlab`}
+                                        to={`/u/${auth.user.firstname}`}
                                     >
                                         All
                                     </Button>
