@@ -18,9 +18,15 @@ const Output = ({outputItemList}: { outputItemList: OutputItem[] }): React.React
 
     const items = outputItemList.map((item) => {
         if (isDrawingItem(item)) {
-            return <Plot data={item.data} layout={item.layout}/>;
+              const actualLayout = item.layout === undefined? {}: item.layout;
+              //@ts-ignore
+            return <Plot
+            data={JSON.parse(JSON.stringify(item.data))}
+            layout={JSON.parse(JSON.stringify(actualLayout))}
+           />
         } else if (isTeXItem(item)) {
             return (
+                //@ts-ignore
                 <MathJax.Provider>
                     <div>
                         <MathJax.Node inline formula={item.text}/>
@@ -29,6 +35,7 @@ const Output = ({outputItemList}: { outputItemList: OutputItem[] }): React.React
             );
         } else if (isFormulaItem(item)) {
             return (
+                //@ts-ignore
                 <MathJax.Provider>
                     <div>
                         <MathJax.Node formula={item.text}/>
@@ -40,6 +47,7 @@ const Output = ({outputItemList}: { outputItemList: OutputItem[] }): React.React
                 code({node, inline, className, children, ...props}: CodeProps): React.ReactElement {
                     const match = /language-(\w+)/.exec(className || '')
                     return !inline && match ? (
+                        //@ts-ignore
                         <SyntaxHighlighter style={themeMode === 'light' ? atomOneLight : atomOneDark}
                                            language={match[1]}
                                            customStyle={{backgroundColor: 'transparent'}}
