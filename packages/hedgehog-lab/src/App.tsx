@@ -1,27 +1,24 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {StyledEngineProvider, ThemeProvider} from "@mui/material/styles";
 import "./App.css";
 import {SnackbarProvider} from "notistack";
 import {labTheme} from "./themes/labTheme";
 import {BrowserRouter} from "react-router-dom";
 import {RoutePage} from "./route/route";
-import {RecoilRoot, useRecoilState} from "recoil";
-import {themeModState} from "./themes/RThemeStates";
-import useSystemTheme from "./hooks/useSystemTheme";
+import {RecoilRoot} from "recoil";
 import {Box} from "@mui/material";
+import {useAuth} from "./hooks/useAuth";
+import {useEffectOnce} from "react-use";
 
 const ThemePage = () => {
-    const [themeMode, setThemeMode] = useRecoilState(themeModState);
-    const systemTheme = useSystemTheme();
+    const {me} = useAuth()
 
-    useEffect(() => {
-        const localTheme = localStorage.getItem("theme");
-
-        localTheme ? setThemeMode(localTheme) : setThemeMode(systemTheme);
-    }, [systemTheme, setThemeMode]);
+    useEffectOnce(() => {
+        me()
+    })
 
     return (
-        <ThemeProvider theme={labTheme(themeMode)}>
+        <ThemeProvider theme={labTheme('light')}>
             <RoutePage/>
         </ThemeProvider>
     );
@@ -33,16 +30,17 @@ const App = (): React.ReactElement => {
         <div className="App">
             {/*// @ts-ignore */}
             <RecoilRoot>
-                <BrowserRouter>
-                    <SnackbarProvider maxSnack={3}>
-                        <StyledEngineProvider injectFirst>
-                            <Box sx={{pb: 1}}>
-                                <ThemePage/>
-                            </Box>
-                        </StyledEngineProvider>
-                    </SnackbarProvider>
-                </BrowserRouter>
-
+                <React.Suspense fallback={'loading...'}>
+                    <BrowserRouter>
+                        <SnackbarProvider maxSnack={3}>
+                            <StyledEngineProvider injectFirst>
+                                <Box sx={{pb: 1}}>
+                                    <ThemePage/>
+                                </Box>
+                            </StyledEngineProvider>
+                        </SnackbarProvider>
+                    </BrowserRouter>
+                </React.Suspense>
             </RecoilRoot>
         </div>
     );

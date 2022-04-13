@@ -9,7 +9,6 @@ import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IFormInput} from "../../interfaces/IFormInput";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {signRule} from "../../models/sign/signModel";
-import {http} from "../../hooks/http";
 import {useAuth} from "../../hooks/useAuth";
 
 const SignAction = () =>
@@ -21,25 +20,16 @@ const SignAction = () =>
     )
 
 const Sign = (): React.ReactElement => {
-    const {setLoading, setErrorMessage, login} = useAuth()
+    const {setLoading, setErrorMessage, login, signup} = useAuth()
 
     const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(signRule)
     })
 
     const onSubmit: SubmitHandler<IFormInput> = useCallback(async (data) => {
-        setLoading(true)
-        await http.post('/auth/signup', data).then(res => {
-            login(res.data?.accessToken)
-            return res
-        }).catch(err => {
-            const message = err.response.data.message
-            setErrorMessage(message)
-        }).finally(() => {
-            setLoading(false)
-        });
+        signup(data)
 
-    }, [login, setErrorMessage, setLoading])
+    }, [signup])
 
     return (
         <FormProvider {...useFormMethods} >

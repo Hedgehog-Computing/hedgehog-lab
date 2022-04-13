@@ -1,5 +1,4 @@
 import {atom, selector} from "recoil";
-import {http} from "../hooks/http";
 
 interface IAuthState {
     isAuthenticated: boolean;
@@ -8,7 +7,7 @@ interface IAuthState {
 }
 
 const authStateAtom = atom<IAuthState>({
-    key: "authStateAtom",
+    key: "AuthStateAtom",
     default: {
         isAuthenticated: false,
         accessToken: '',
@@ -18,19 +17,9 @@ const authStateAtom = atom<IAuthState>({
 
 
 export const authState = selector({
-    key: "authState",
+    key: "AuthState",
     get: async ({get}) => {
-        const accessToken = localStorage.getItem('accessToken');
-        try {
-            const response = await http.post('/auth/me', {accessToken});
-            return {
-                isAuthenticated: true,
-                accessToken,
-                user: response.data
-            };
-        } catch (error) {
-            return get(authStateAtom);
-        }
+        return get(authStateAtom);
     },
     set: ({set}, newValue: any) => {
         if (newValue.accessToken) {
@@ -53,14 +42,7 @@ const currentUserEmailAtom = atom({
 export const currentUserEmail = selector({
     key: 'CurrentUserEmail',
     get: async ({get}) => {
-        const accessToken = localStorage.getItem('accessToken');
-
-        try {
-            const response = await http.post('/auth/me', {accessToken});
-            return response.data.email;
-        } catch (error) {
-            return error.response.data.message;
-        }
+        return get(currentUserEmailAtom);
     },
     set: ({set}, newValue: any) => {
         console.log('set', newValue);

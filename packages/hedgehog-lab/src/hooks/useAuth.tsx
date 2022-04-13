@@ -2,6 +2,7 @@ import {useRecoilState} from "recoil";
 import {authActionLoadingState, authDialogState, authErrorMessageState, authState} from "../states/RAuthStates";
 import {useMatch, useNavigate} from "react-router-dom";
 import {useCallback} from "react";
+import {http} from "./http";
 
 export const useAuth = () => {
     const [auth, setAuth] = useRecoilState(authState);
@@ -10,18 +11,48 @@ export const useAuth = () => {
     const [loading, setLoading] = useRecoilState(authActionLoadingState)
 
     const navigate = useNavigate()
-    const isAuthenticated = auth.isAuthenticated
 
     const isMe = !!useMatch(`u/${auth.user.firstname}`)
     const mathAccountPage = useMatch(`/settings/account`)
 
-    const login = useCallback((accessToken: string) => {
+    const authorize = useCallback((accessToken: string) => {
         setAuth({...auth, isAuthenticated: true, accessToken})
         setErrorMessage('')
 
         localStorage.setItem('accessToken', accessToken)
 
     }, [auth, setAuth, setErrorMessage])
+
+    const login = useCallback(async (data: any) => {
+        setLoading(true)
+        try {
+            const res = await http.post('/auth/login', data)
+            authorize(res.data?.accessToken)
+
+        } catch (error) {
+            const message = error.response.data.message
+            setErrorMessage(message)
+        } finally {
+            setLoading(false)
+        }
+
+    }, [authorize, setErrorMessage, setLoading])
+
+
+    const signUp = useCallback(async (data: any) => {
+        setLoading(true)
+        try {
+            const res = await http.post('/auth/signup', data)
+            authorize(res.data?.accessToken)
+        } catch (error) {
+            const message = error.response.data.message
+            setErrorMessage(message)
+        } finally {
+            setLoading(false)
+        }
+
+
+    }, [authorize, setErrorMessage, setLoading])
 
     const logout = useCallback(() => {
         setAuth({...auth, isAuthenticated: false});
@@ -33,9 +64,25 @@ export const useAuth = () => {
     }, [setAuth, auth, mathAccountPage, navigate])
 
 
+    const me = async () => {
+        const accessToken = localStorage.getItem('accessToken');
+        try {
+            const response = await http.post('/auth/me', {accessToken});
+            setAuth({
+                isAuthenticated: true,
+                accessToken,
+                user: response.data
+            })
+        } catch (error) {
+            logout()
+            return auth;
+        }
+    }
+
     return {
+        login,
+        signup: signUp,
         auth,
-        isAuthenticated,
         isMe,
         logout,
         loading,
@@ -44,6 +91,8 @@ export const useAuth = () => {
         setAuthDialogOpen,
         errorMessage,
         setErrorMessage,
-        login,
+        authorize,
+        setAuth,
+        me
     };
 };

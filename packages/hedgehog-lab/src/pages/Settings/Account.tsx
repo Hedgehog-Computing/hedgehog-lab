@@ -4,8 +4,6 @@ import {Box, Button, Card, Grid, OutlinedInput, Typography} from "@mui/material"
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
 import {IFormInput} from "../../interfaces/IFormInput";
 import {accountRule} from "../../models/account/accountModal";
-import {currentUserEmail} from "../../states/RAuthStates";
-import {useRecoilState} from "recoil";
 import {useAuth} from "../../hooks/useAuth";
 import {useNavigate} from "react-router-dom";
 
@@ -25,7 +23,6 @@ const Header = (): React.ReactElement => (
 const AccountForm = () => {
     const {auth} = useAuth()
 
-    const [email, setEmail] = useRecoilState(currentUserEmail)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -39,32 +36,30 @@ const AccountForm = () => {
     }, [])
 
     return (
-        <React.Suspense fallback={<div>Loading...</div>}>
-            <Card variant={"outlined"}>
-                <Box m={'20px'}>
-                    <Grid container spacing={2}>
-                        <Grid item xs={2} alignSelf={'center'}>
-                            <Typography variant={'body1'}>
-                                Email
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={10}>
 
-                            <OutlinedInput value={email} disabled={true} fullWidth/>
-
-                        </Grid>
+        <Card variant={"outlined"}>
+            <Box m={'20px'}>
+                <Grid container spacing={2}>
+                    <Grid item xs={2} alignSelf={'center'}>
+                        <Typography variant={'body1'}>
+                            Email
+                        </Typography>
                     </Grid>
+                    <Grid item xs={10}>
+                        <OutlinedInput value={auth.user?.email} disabled fullWidth/>
+                    </Grid>
+                </Grid>
 
 
-                    <Box textAlign={'end'}>
-                        <Button variant={"contained"} sx={{mt: '20px'}}
-                                onClick={changePassword}>
-                            Rest Password
-                        </Button>
-                    </Box>
+                <Box textAlign={'end'}>
+                    <Button variant={"contained"} sx={{mt: '20px'}}
+                            onClick={changePassword}>
+                        Rest Password
+                    </Button>
                 </Box>
-            </Card>
-        </React.Suspense>
+            </Box>
+        </Card>
+
     )
 }
 
