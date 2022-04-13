@@ -1,6 +1,7 @@
 import {useRecoilState} from "recoil";
 import {authActionLoadingState, authDialogState, authErrorMessageState, authState} from "../states/RAuthStates";
 import {useMatch, useNavigate} from "react-router-dom";
+import {useCallback} from "react";
 import {http} from "./http";
 
 export const useAuth = () => {
@@ -10,45 +11,78 @@ export const useAuth = () => {
     const [loading, setLoading] = useRecoilState(authActionLoadingState)
 
     const navigate = useNavigate()
-    const isAuthenticated = auth.isAuthenticated
 
     const isMe = !!useMatch(`u/${auth.user.firstname}`)
-    const login = (accessToken: string) => {
+    const mathAccountPage = useMatch(`/settings/account`)
+
+    const authorize = useCallback((accessToken: string) => {
         setAuth({...auth, isAuthenticated: true, accessToken})
         setErrorMessage('')
 
         localStorage.setItem('accessToken', accessToken)
-        me()
-    }
 
-    const logout = () => {
-        setAuth({...auth, isAuthenticated: false});
-        localStorage.removeItem('accessToken')
-        navigate('/')
-    };
+    }, [auth, setAuth, setErrorMessage])
 
-    const me = async () => {
-        const accessToken = localStorage.getItem('accessToken')
-        if (!accessToken) {
-            logout()
+    const login = useCallback(async (data: any) => {
+        setLoading(true)
+        try {
+            const res = await http.post('/auth/login', data)
+            authorize(res.data?.accessToken)
+
+        } catch (error) {
+            const message = error.response.data.message
+            setErrorMessage(message)
+        } finally {
+            setLoading(false)
         }
 
-        await http.post('/auth/me', {accessToken}).then(res => {
-            setAuth({...auth, isAuthenticated: true, user: res.data})
-            setAuthDialogOpen(false)
-        }).catch(() => {
-            setAuth({...auth, isAuthenticated: false})
-            setAuthDialogOpen(true)
-            logout()
-        }).finally(() => {
+    }, [authorize, setErrorMessage, setLoading])
+
+
+    const signUp = useCallback(async (data: any) => {
+        setLoading(true)
+        try {
+            const res = await http.post('/auth/signup', data)
+            authorize(res.data?.accessToken)
+        } catch (error) {
+            const message = error.response.data.message
+            setErrorMessage(message)
+        } finally {
             setLoading(false)
-        });
+        }
+
+
+    }, [authorize, setErrorMessage, setLoading])
+
+    const logout = useCallback(() => {
+        setAuth({...auth, isAuthenticated: false});
+        localStorage.removeItem('accessToken')
+
+        if (!!mathAccountPage) {
+            navigate('/')
+        }
+    }, [setAuth, auth, mathAccountPage, navigate])
+
+
+    const me = async () => {
+        const accessToken = localStorage.getItem('accessToken');
+        try {
+            const response = await http.post('/auth/me', {accessToken});
+            setAuth({
+                isAuthenticated: true,
+                accessToken,
+                user: response.data
+            })
+        } catch (error) {
+            logout()
+            return auth;
+        }
     }
 
     return {
+        login,
+        signup: signUp,
         auth,
-        setAuth,
-        isAuthenticated,
         isMe,
         logout,
         loading,
@@ -57,7 +91,8 @@ export const useAuth = () => {
         setAuthDialogOpen,
         errorMessage,
         setErrorMessage,
-        login,
+        authorize,
+        setAuth,
         me
     };
 };

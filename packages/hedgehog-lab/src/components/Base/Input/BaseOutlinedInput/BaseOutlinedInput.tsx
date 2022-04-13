@@ -19,6 +19,7 @@ const BaseOutlinedInput: React.FC<IBaseInputProps> = (props) => {
 
     return (
         <TextField
+            {...props}
             variant={"outlined"}
             fullWidth
             {...field}

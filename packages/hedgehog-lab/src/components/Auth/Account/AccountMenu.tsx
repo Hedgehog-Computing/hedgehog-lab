@@ -1,15 +1,20 @@
 import {useAuth} from "../../../hooks/useAuth";
 import BasePopupButton from "../../Base/Popup/BasePopupButton";
-import {Avatar, Link, MenuItem} from "@mui/material";
+import {Avatar, IconButton, Link, MenuItem} from "@mui/material";
 import {Link as RouteLink} from "react-router-dom";
 import React from "react";
 
 const AccountMenu = () => {
-    const {isAuthenticated, logout} = useAuth()
+    const {auth, setAuthDialogOpen, setAuth} = useAuth()
+    const handleLogout = () => {
+
+        setAuth({isAuthenticated: false, user: {}, accessToken: ''})
+        console.log(auth)
+    }
 
     return (
         <>
-            {isAuthenticated && (
+            {auth.isAuthenticated ? (
                 <BasePopupButton size={'small'} icon={<Avatar sx={{width: 24, height: 24}}/>}>
                     <Link component={RouteLink} to={'/settings/account'}
                           sx={{
@@ -22,10 +27,14 @@ const AccountMenu = () => {
                         </MenuItem>
                     </Link>
 
-                    <MenuItem onClick={logout}>
-                        Logout
+                    <MenuItem onClick={handleLogout}>
+                        Logout {auth.isAuthenticated}
                     </MenuItem>
                 </BasePopupButton>
+            ) : (
+                <IconButton onClick={() => setAuthDialogOpen(true)}>
+                    <Avatar sx={{width: 24, height: 24}}/>
+                </IconButton>
             )}
         </>
 

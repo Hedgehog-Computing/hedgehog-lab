@@ -32,7 +32,7 @@ const SaveState = (): React.ReactElement => {
 
     const [authDialog, setAuthDialog] = useRecoilState(authDialogState);
 
-    const {isAuthenticated} = useAuth();
+    const {auth} = useAuth();
 
     return (
         <Box
@@ -89,7 +89,7 @@ const SaveState = (): React.ReactElement => {
                 />
             </Tooltip>
 
-            {isAuthenticated ? (
+            {auth.isAuthenticated ? (
                 ""
             ) : (
                 <Chip

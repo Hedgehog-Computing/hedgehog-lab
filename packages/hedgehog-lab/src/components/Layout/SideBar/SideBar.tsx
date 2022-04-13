@@ -149,7 +149,7 @@ const SideBar = (): React.ReactElement => {
     const theme = useTheme();
     const lgBreakpoint = window.matchMedia("(min-width: 1910px)");
     const lgBreakpointMatches = lgBreakpoint.matches;
-    const {isAuthenticated, auth} = useAuth();
+    const {auth} = useAuth();
 
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
@@ -212,7 +212,7 @@ const SideBar = (): React.ReactElement => {
 
                     <Divider/>
 
-                    {isAuthenticated ? (
+                    {auth.isAuthenticated ? (
                         <>
                             <Link
                                 to="/timeline"

@@ -8,6 +8,7 @@ const name = 'email'
 
 const EmailInput: React.FC<IInputProps> = (props): React.ReactElement => {
     const useFormMethods = useFormContext()
+
     return (
         <Controller
             name={name}
@@ -15,6 +16,7 @@ const EmailInput: React.FC<IInputProps> = (props): React.ReactElement => {
             defaultValue={props.defaultValue}
             render={({field}) =>
                 <BaseOutlinedInput
+                    disabled={props.disabled}
                     value={props.defaultValue}
                     field={field}
                     adornment={{start: <EmailOutlined/>}}/>
