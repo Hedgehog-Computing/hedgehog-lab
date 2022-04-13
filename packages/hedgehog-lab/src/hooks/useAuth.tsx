@@ -19,9 +19,6 @@ export const useAuth = () => {
     const authorize = useCallback((accessToken: string) => {
         setAuth({...auth, isAuthenticated: true, accessToken})
         setErrorMessage('')
-
-        localStorage.setItem('accessToken', accessToken)
-
     }, [auth, setAuth, setErrorMessage])
 
     const login = useCallback(async (data: any) => {
