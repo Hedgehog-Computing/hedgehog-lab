@@ -1,3 +1,5 @@
+import {InputBaseProps} from "@mui/material";
+
 export interface IFormInput {
     username?: string,
     email?: string,
@@ -5,6 +7,6 @@ export interface IFormInput {
     showPassword?: boolean
 }
 
-export interface IInputProps {
+export interface IInputProps extends Partial<InputBaseProps> {
     defaultValue?: string
 }

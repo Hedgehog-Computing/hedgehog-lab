@@ -1,7 +1,7 @@
 import {useRecoilState} from "recoil";
 import {authActionLoadingState, authDialogState, authErrorMessageState, authState} from "../states/RAuthStates";
 import {useMatch, useNavigate} from "react-router-dom";
-import {http} from "./http";
+import {useCallback} from "react";
 
 export const useAuth = () => {
     const [auth, setAuth] = useRecoilState(authState);
@@ -15,42 +15,26 @@ export const useAuth = () => {
     const isMe = !!useMatch(`u/${auth.user.firstname}`)
     const mathAccountPage = useMatch(`/settings/account`)
 
-    const login = (accessToken: string) => {
+    const login = useCallback((accessToken: string) => {
         setAuth({...auth, isAuthenticated: true, accessToken})
         setErrorMessage('')
 
         localStorage.setItem('accessToken', accessToken)
-        me()
-    }
 
-    const logout = () => {
+    }, [auth, setAuth, setErrorMessage])
+
+    const logout = useCallback(() => {
         setAuth({...auth, isAuthenticated: false});
         localStorage.removeItem('accessToken')
 
         if (!!mathAccountPage) {
             navigate('/')
         }
-    };
+    }, [setAuth, auth, mathAccountPage, navigate])
 
-    const me = async () => {
-        const accessToken = localStorage.getItem('accessToken')
-        if (!accessToken) {
-            logout()
-        }
-
-        await http.post('/auth/me', {accessToken}).then(res => {
-            setAuth({...auth, isAuthenticated: true, user: res.data})
-        }).catch(() => {
-            setAuth({...auth, isAuthenticated: false})
-            logout()
-        }).finally(() => {
-            setLoading(false)
-        });
-    }
 
     return {
         auth,
-        setAuth,
         isAuthenticated,
         isMe,
         logout,
@@ -61,6 +45,5 @@ export const useAuth = () => {
         errorMessage,
         setErrorMessage,
         login,
-        me
     };
 };
