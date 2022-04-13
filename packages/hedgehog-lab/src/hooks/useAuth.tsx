@@ -13,6 +13,8 @@ export const useAuth = () => {
     const isAuthenticated = auth.isAuthenticated
 
     const isMe = !!useMatch(`u/${auth.user.firstname}`)
+    const mathAccountPage = useMatch(`/settings/account`)
+
     const login = (accessToken: string) => {
         setAuth({...auth, isAuthenticated: true, accessToken})
         setErrorMessage('')
@@ -24,7 +26,10 @@ export const useAuth = () => {
     const logout = () => {
         setAuth({...auth, isAuthenticated: false});
         localStorage.removeItem('accessToken')
-        navigate('/')
+
+        if (!!mathAccountPage) {
+            navigate('/')
+        }
     };
 
     const me = async () => {
@@ -35,10 +40,8 @@ export const useAuth = () => {
 
         await http.post('/auth/me', {accessToken}).then(res => {
             setAuth({...auth, isAuthenticated: true, user: res.data})
-            setAuthDialogOpen(false)
         }).catch(() => {
             setAuth({...auth, isAuthenticated: false})
-            setAuthDialogOpen(true)
             logout()
         }).finally(() => {
             setLoading(false)
