@@ -16,17 +16,20 @@ export const useAuth = () => {
     const isMe = !!useMatch(`u/${auth.user.firstname}`)
     const mathAccountPage = useMatch(`/settings/account`)
 
-    const authorize = useCallback((accessToken: string) => {
-        setAuth({...auth, isAuthenticated: true, accessToken})
-        setErrorMessage('')
-    }, [auth, setAuth, setErrorMessage])
+    const authorize = useCallback(async (accessToken: string) => {
+        localStorage.setItem('accessToken', accessToken)
+        try {
+            await me()
+        } catch (error) {
+            setErrorMessage(error.response.data.message)
+        }
+    }, [setErrorMessage])
 
     const login = useCallback(async (data: any) => {
         setLoading(true)
         try {
             const res = await http.post('/auth/login', data)
             authorize(res.data?.accessToken)
-
         } catch (error) {
             const message = error.response.data.message
             setErrorMessage(message)

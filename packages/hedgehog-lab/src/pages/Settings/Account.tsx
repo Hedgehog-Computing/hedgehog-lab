@@ -32,8 +32,8 @@ const AccountForm = () => {
     })
 
     const changePassword = useCallback(() => {
-        console.log('send email')
-    }, [])
+        console.log(auth)
+    }, [auth])
 
     return (
 
@@ -42,7 +42,7 @@ const AccountForm = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={2} alignSelf={'center'}>
                         <Typography variant={'body1'}>
-                            Email
+                            Email {auth.user?.email}
                         </Typography>
                     </Grid>
                     <Grid item xs={10}>
@@ -64,8 +64,6 @@ const AccountForm = () => {
 }
 
 const Account = (): React.ReactElement => {
-    const {auth} = useAuth()
-
     const useFormMethods = useForm<IFormInput>({
         resolver: yupResolver(accountRule)
     })
