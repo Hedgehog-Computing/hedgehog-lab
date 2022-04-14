@@ -1,4 +1,4 @@
-import {useRecoilState} from "recoil";
+import {useRecoilState, useResetRecoilState} from "recoil";
 import {authActionLoadingState, authDialogState, authErrorMessageState, authState} from "../states/RAuthStates";
 import {useMatch, useNavigate} from "react-router-dom";
 import {useCallback} from "react";
@@ -9,26 +9,27 @@ export const useAuth = () => {
     const [errorMessage, setErrorMessage] = useRecoilState(authErrorMessageState)
     const [authDialogOpen, setAuthDialogOpen] = useRecoilState(authDialogState)
     const [loading, setLoading] = useRecoilState(authActionLoadingState)
+    const restAuth = useResetRecoilState(authState)
 
     const navigate = useNavigate()
 
     const isMe = !!useMatch(`u/${auth.user.firstname}`)
     const mathAccountPage = useMatch(`/settings/account`)
 
-    const authorize = useCallback((accessToken: string) => {
-        setAuth({...auth, isAuthenticated: true, accessToken})
-        setErrorMessage('')
-
+    const authorize = useCallback(async (accessToken: string) => {
         localStorage.setItem('accessToken', accessToken)
-
-    }, [auth, setAuth, setErrorMessage])
+        try {
+            await me()
+        } catch (error) {
+            setErrorMessage(error.response.data.message)
+        }
+    }, [setErrorMessage])
 
     const login = useCallback(async (data: any) => {
         setLoading(true)
         try {
             const res = await http.post('/auth/login', data)
             authorize(res.data?.accessToken)
-
         } catch (error) {
             const message = error.response.data.message
             setErrorMessage(message)
@@ -55,13 +56,12 @@ export const useAuth = () => {
     }, [authorize, setErrorMessage, setLoading])
 
     const logout = useCallback(() => {
-        setAuth({...auth, isAuthenticated: false});
-        localStorage.removeItem('accessToken')
+        restAuth()
 
         if (!!mathAccountPage) {
             navigate('/')
         }
-    }, [setAuth, auth, mathAccountPage, navigate])
+    }, [restAuth, mathAccountPage, navigate])
 
 
     const me = async () => {
