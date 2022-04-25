@@ -1,15 +1,16 @@
-import {CodeOffOutlined, CodeOutlined, FavoriteBorderOutlined,} from "@mui/icons-material";
+import {CodeOffOutlined, CodeOutlined, Favorite, FavoriteBorderOutlined,} from "@mui/icons-material";
 import {Box, IconButton, MenuItem, OutlinedInput, Select, SelectChangeEvent, Tooltip,} from "@mui/material";
 import React, {useCallback} from "react";
 import {useRecoilState} from "recoil";
 import {useAuth} from "../../../hooks/useAuth";
 import {searchState, showCodeBlockState} from "../../../states/RSnippetStates";
+import {useMatch, useNavigate} from "react-router-dom";
 
 const SearchSnippet = (): React.ReactElement => {
     const [showCodeBlock, setShowCodeBlock] = useRecoilState(showCodeBlockState);
     const [search, setSearch] = useRecoilState(searchState);
     const {isMe} = useAuth();
-
+    const navigate = useNavigate()
     const handleShowCodeBlock = useCallback(() => {
         setShowCodeBlock(!showCodeBlock);
     }, [setShowCodeBlock, showCodeBlock]);
@@ -22,6 +23,10 @@ const SearchSnippet = (): React.ReactElement => {
     const handleChangeSize = useCallback((event: SelectChangeEvent) => {
         setSearch({...search, size: parseInt(event.target.value)});
     }, [setSearch, search])
+
+    const isLikes = useMatch(`/u/:userID/likes`);
+    const userID = useMatch(`/u/:userID`);
+
     return (
         <Box
             sx={{
@@ -63,13 +68,13 @@ const SearchSnippet = (): React.ReactElement => {
                     </IconButton>
                 </Tooltip>
 
-                {isMe && (
-                    <Tooltip title={"Favorite"} arrow>
-                        <IconButton>
-                            <FavoriteBorderOutlined/>
-                        </IconButton>
-                    </Tooltip>
-                )}
+                <Tooltip title={"Favorite"} arrow>
+                    <IconButton onClick={() => {
+                        navigate(isLikes ? `/u/${isLikes.params.userID}` : `/u/${userID?.params.userID}/likes`)
+                    }}>
+                        {isLikes ? <Favorite/> : <FavoriteBorderOutlined/>}
+                    </IconButton>
+                </Tooltip>
             </Box>
         </Box>
     );
