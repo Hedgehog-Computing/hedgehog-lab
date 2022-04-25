@@ -1,13 +1,9 @@
-import { queryCache, useQuery } from "react-query";
-import { compiler, OutputResult } from "../compiler";
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { editorCodeState } from "../states/RYourCodeStates";
-import {
-  compilerLoadingState,
-  compilerReFetchState,
-  compilerResultState,
-} from "../states/RCompilerStates";
+import {queryCache, useQuery} from "react-query";
+import {compiler, OutputResult} from "../compiler";
+import {useEffect} from "react";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {editorCodeState} from "../states/RYourCodeStates";
+import {compilerLoadingState, compilerReFetchState, compilerResultState,} from "../states/RCompilerStates";
 
 export const useCompiler = (): readonly [
   (valOrUpdater: ((currVal: boolean) => boolean) | boolean) => void,
@@ -17,14 +13,13 @@ export const useCompiler = (): readonly [
   const editorCode = useRecoilValue<string>(editorCodeState);
   const setCompilerResult = useSetRecoilState<any>(compilerResultState);
   const [compilerReFetch, setCompilerReFetch] = useRecoilState<boolean>(
-    compilerReFetchState
+      compilerReFetchState
   );
 
-  const { isFetching: isLoading, refetch } = useQuery<
-    OutputResult,
-    readonly [string, string]
-    //Error
-  >(["compiler", editorCode], compiler, {
+  const {isFetching: isLoading, refetch} = useQuery<OutputResult,
+      readonly [string, string]
+      //Error
+      >(["compiler", editorCode], compiler, {
     retry: false,
     refetchInterval: false,
     refetchOnWindowFocus: false,
@@ -50,7 +45,9 @@ export const useCompiler = (): readonly [
         outputString: "",
       });
 
-      refetch({ force: true } as any).finally(() => setCompilerReFetch(false));
+      setCompilerLoading(true);
+
+      refetch({force: true} as any).finally(() => setCompilerReFetch(false));
     };
 
     if (compilerReFetch) {

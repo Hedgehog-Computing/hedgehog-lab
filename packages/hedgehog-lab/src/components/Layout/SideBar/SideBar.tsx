@@ -9,7 +9,6 @@ import {
     Drawer,
     Link,
     List,
-    ListItem,
     ListItemButton,
     ListItemIcon,
     ListItemText,
@@ -36,6 +35,8 @@ import {bindPopover, bindTrigger, usePopupState,} from "material-ui-popup-state/
 import {useEditor} from "../../../hooks/useEditor";
 import {useAuth} from "../../../hooks/useAuth";
 import AuthDialog from "../../Auth/Dialog/AuthDialog";
+import useSWR from "swr";
+import {fetcher} from "../../../network/fetcher";
 
 const NewSnippet = () => {
     const theme = useTheme();
@@ -142,18 +143,102 @@ const ExploreSnippet = () => {
     );
 };
 
-const SideBar = (): React.ReactElement => {
-    const [collapseOpen, setCollapseOpen] = useState(true);
-    const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
+const MySnippets = () => {
 
     const theme = useTheme();
+    const [collapseOpen, setCollapseOpen] = useState(true);
+    const {auth} = useAuth()
+    const {data, error} = useSWR([`/snippets/mySnippets?token=${auth.accessToken}`], fetcher);
+    const handleCollapseClick = useCallback(() => {
+        setCollapseOpen(!collapseOpen);
+    }, [collapseOpen]);
+
+    return (
+        <>
+            <ListItemButton onClick={handleCollapseClick}>
+                <ListItemIcon>
+                    <TextSnippetOutlined
+                        color={collapseOpen ? "primary" : "inherit"}
+                    />
+                </ListItemIcon>
+                <ListItemText>My Snippets</ListItemText>
+                {collapseOpen ? (
+                    <ExpandLessOutlined color={"primary"}/>
+                ) : (
+                    <ExpandMoreOutlined/>
+                )}
+            </ListItemButton>
+            <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
+                <List
+                    component="div"
+                    disablePadding
+                    sx={{
+                        borderLeft: "solid 1px",
+                        ml: "27px",
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
+                        borderColor: theme.palette.primary[500],
+                    }}
+                >
+                    {data && data.hits.map((item: { _source: { title: React.ReactNode; }; }, index: string | number | null | undefined) => {
+                        return (
+                            <Link component={RouteLink} to={`s/${auth.user.firstname}/${item._source.title}`}
+                                  key={index}
+                                  sx={{
+                                      display: "block",
+                                      color: "initial",
+                                      "&:hover": {
+                                          textDecoration: "none",
+                                      },
+                                  }}>
+                                <ListItemButton>
+                                    <ListItemText>
+                                        <FiberManualRecord
+                                            sx={{
+                                                fontSize: "5px",
+                                                color: theme.palette.grey[500],
+                                                ml: "6px",
+                                            }}
+                                        />
+
+                                        <Typography
+                                            color={theme.palette.text.primary}
+                                            variant={"body2"}
+                                            component={"span"}
+                                            sx={{ml: "18px"}}
+                                        >
+                                            {item._source.title}
+                                        </Typography>
+                                    </ListItemText>
+                                </ListItemButton>
+                            </Link>
+                        );
+                    })}
+                </List>
+
+                <Box sx={{textAlign: "center", my: 1}}>
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        component={RouteLink}
+                        to={`/u/${auth.user.firstname}`}
+                    >
+                        All
+                    </Button>
+                </Box>
+            </Collapse>
+        </>
+    )
+}
+
+const SideBar = (): React.ReactElement => {
+    const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
+
+
     const lgBreakpoint = window.matchMedia("(min-width: 1910px)");
     const lgBreakpointMatches = lgBreakpoint.matches;
     const {auth} = useAuth();
 
-    const handleCollapseClick = useCallback(() => {
-        setCollapseOpen(!collapseOpen);
-    }, [collapseOpen]);
 
     useEffect(() => {
         setSideBarOpen(lgBreakpointMatches);
@@ -226,78 +311,17 @@ const SideBar = (): React.ReactElement => {
                                 }}
                             >
                                 {" "}
-                                <ListItem button>
+                                <ListItemButton>
                                     <ListItemIcon>
                                         <TimelineOutlined/>
                                     </ListItemIcon>
                                     <ListItemText>Timeline</ListItemText>
-                                </ListItem>
+                                </ListItemButton>
                             </Link>
 
                             <Divider/>
 
-                            <ListItem button onClick={handleCollapseClick}>
-                                <ListItemIcon>
-                                    <TextSnippetOutlined
-                                        color={collapseOpen ? "primary" : "inherit"}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText>My Snippets</ListItemText>
-                                {collapseOpen ? (
-                                    <ExpandLessOutlined color={"primary"}/>
-                                ) : (
-                                    <ExpandMoreOutlined/>
-                                )}
-                            </ListItem>
-                            <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
-                                <List
-                                    component="div"
-                                    disablePadding
-                                    sx={{
-                                        borderLeft: "solid 1px",
-                                        ml: "27px",
-                                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                        // @ts-ignore
-                                        borderColor: theme.palette.primary[500],
-                                    }}
-                                >
-                                    {tutorials.map((tutorial, index) => {
-                                        return (
-                                            <ListItemButton key={index}>
-                                                <ListItemText>
-                                                    <FiberManualRecord
-                                                        sx={{
-                                                            fontSize: "5px",
-                                                            color: theme.palette.grey[500],
-                                                            ml: "6px",
-                                                        }}
-                                                    />
-
-                                                    <Typography
-                                                        color={theme.palette.text.primary}
-                                                        variant={"body2"}
-                                                        component={"span"}
-                                                        sx={{ml: "18px"}}
-                                                    >
-                                                        {tutorial.description}
-                                                    </Typography>
-                                                </ListItemText>
-                                            </ListItemButton>
-                                        );
-                                    })}
-                                </List>
-
-                                <Box sx={{textAlign: "center", my: 1}}>
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        component={RouteLink}
-                                        to={`/u/${auth.user.firstname}`}
-                                    >
-                                        All
-                                    </Button>
-                                </Box>
-                            </Collapse>
+                            <MySnippets/>
                         </>
                     ) : (
                         <AuthDialog/>

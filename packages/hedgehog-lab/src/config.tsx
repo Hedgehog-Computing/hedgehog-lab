@@ -1,5 +1,5 @@
-const HEDGEHOG_DOMAIN = 'https://hhlab.dev';
+const HEDGEHOG_DOMAIN = 'https://hlab.app';
 
 export {
-  HEDGEHOG_DOMAIN
+    HEDGEHOG_DOMAIN
 }

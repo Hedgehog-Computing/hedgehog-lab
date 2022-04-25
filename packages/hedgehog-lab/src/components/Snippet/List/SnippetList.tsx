@@ -1,20 +1,7 @@
-import {FavoriteBorderOutlined, PublishOutlined,} from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  CardActionArea,
-  Chip,
-  Divider,
-  IconButton,
-  Link,
-  MenuItem,
-  Paper,
-  Select,
-  Tooltip,
-  Typography,
-} from "@mui/material";
+import {FavoriteBorderOutlined,} from "@mui/icons-material";
+import {Box, Button, CardActionArea, Chip, Divider, Link, MenuItem, Paper, Select, Typography,} from "@mui/material";
 import React from "react";
-import {CopyBlock, dracula} from "react-code-blocks";
+import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink} from "react-router-dom";
 import {useRecoilValue} from "recoil";
 import {useAuth} from "../../../hooks/useAuth";
@@ -23,50 +10,31 @@ import SharePopup from "../../Share/SharePopup";
 import DeletePopup from "../Delete/DeletePopup";
 import RenameDialog from "../Rename/RenameDialog";
 
-const printCode = `
-{
-    "version": 2,
-    "name": "now-laravel-core",
-    "scope": "your scope",
-    "regions": [
-    "all"
-    ],
-    "public": true,
-    "builds": [
-    
-    
-`;
 
-const CodeBlcok = (): React.ReactElement => {
-    return (
-        <Paper elevation={0} sx={{mt: "10px"}}>
-            <CardActionArea component={RouterLink} to={"/hhlab/simple"}>
-                <Box
-                    sx={{
-                        "& button": {
-                            display: "none",
-                        },
-                    }}
-                >
-                    <CopyBlock
-                        showLineNumbers
-                        text={printCode}
-                        language={"javascript"}
-                        theme={dracula}
-                    />
-                </Box>
-            </CardActionArea>
-        </Paper>
-    );
-};
+interface ISnippetsProps {
+    _id: string;
+    _source: {
+        title: string;
+        description: string;
+        content: string;
+        author: string;
+        visibility: string[];
+        createdAt: string;
+        updatedAt: string;
+    };
+}
 
-const SnippetList = () => {
+interface ISnippetListProps {
+    snippets: ISnippetsProps[];
+}
+
+const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const showCodeBlock = useRecoilValue(showCodeBlockState);
     const {isMe} = useAuth();
 
     return (
         <>
-            {Array.from(Array(5).keys()).map((item, index) => {
+            {props.snippets.map((item, index) => {
                 return (
                     <Box key={index}>
                         <Box display={"flex"} justifyContent={"space-between"}>
@@ -74,10 +42,10 @@ const SnippetList = () => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={"/u/hhlab"}
+                                    to={"/u/" + item._source.author}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    hhlab
+                                    {item._source.author}
                                 </Link>
 
                                 <span style={{margin: " 0 2px"}}>/</span>
@@ -85,16 +53,16 @@ const SnippetList = () => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={"/s/hhlab/simple"}
+                                    to={`/s/${item._source.author}/${item._source.title}`}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    simple
+                                    {item._source.title}
                                 </Link>
 
                                 {isMe ? (
                                     <Select
                                         fullWidth
-                                        value={"Public"}
+                                        value={item._source.visibility}
                                         size="small"
                                         sx={{
                                             height: 24,
@@ -102,7 +70,7 @@ const SnippetList = () => {
                                             ml: 1,
                                         }}
                                     >
-                                        <MenuItem dense value={"Public"}>
+                                        <MenuItem dense value={"public"}>
                                             Public
                                         </MenuItem>
                                         <MenuItem dense value={"private"}>
@@ -110,38 +78,11 @@ const SnippetList = () => {
                                         </MenuItem>
                                     </Select>
                                 ) : (
-                                    <Chip variant={"outlined"} label={'Public'} sx={{
+                                    <Chip variant={"outlined"} label={item._source.visibility} sx={{
                                         height: 24,
                                         fontSize: "0.8125rem",
                                         ml: 1,
                                     }}/>
-                                )}
-
-
-                                <Select
-                                    fullWidth
-                                    value={"V2"}
-                                    size="small"
-                                    sx={{
-                                        height: 24,
-                                        fontSize: "0.8125rem",
-                                        ml: 1,
-                                    }}
-                                >
-                                    <MenuItem dense value={"V2"}>
-                                        V2
-                                    </MenuItem>
-                                    <MenuItem dense value={"V1"}>
-                                        V1
-                                    </MenuItem>
-                                </Select>
-
-                                {isMe && (
-                                    <Tooltip title="release" arrow>
-                                        <IconButton size="small" sx={{ml: 1}}>
-                                            <PublishOutlined/>
-                                        </IconButton>
-                                    </Tooltip>
                                 )}
                             </Box>
 
@@ -165,11 +106,33 @@ const SnippetList = () => {
 
                         <Box>
                             <Typography variant={"body2"}>
-                                Last active 11 months ago <br/>
-                                Visual Studio Code Settings Sync Gist
+                                {item._source.updatedAt} <br/>
+                                {item._source.description}
                             </Typography>
 
-                            {showCodeBlock && <CodeBlcok/>}
+                            {showCodeBlock && (
+                                <Paper elevation={0} sx={{mt: 1}} variant={"outlined"}>
+                                    <CardActionArea component={RouterLink}
+                                                    to={`/s/${item._source.author}/${item._source.title}`}>
+                                        <Box
+                                            sx={{
+                                                "& button": {
+                                                    display: "none",
+                                                },
+                                                '& div': {
+                                                    p: 1,
+                                                },
+                                            }}
+                                        >
+                                            <CopyBlock
+                                                text={item._source.content.slice(0, 200)}
+                                                language={"javascript"}
+                                                theme={atomOneLight}
+                                            />
+                                        </Box>
+                                    </CardActionArea>
+                                </Paper>
+                            )}
                         </Box>
 
                         <Divider sx={{my: "20px"}}/>

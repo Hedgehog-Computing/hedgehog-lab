@@ -1,22 +1,51 @@
-import { Divider, Box, Pagination } from "@mui/material";
+import {Box, Divider, Pagination} from "@mui/material";
 import React from "react";
-import SnippetList from "./List/SnippetList";
 import SearchSnippet from "./Search/SearchSnippet";
+import useSWR from "swr";
+import {fetcher} from "../../network/fetcher";
+import SnippetList from "./List/SnippetList";
+import {Skeleton} from "@mui/lab";
+import {useRecoilState} from "recoil";
+import {searchState} from "../../states/RSnippetStates";
+import {useAuth} from "../../hooks/useAuth";
+import {useMatch} from "react-router-dom";
 
 const Snippet = () => {
-  return (
-    <>
-      <SearchSnippet />
+    const [search, setSearch] = useRecoilState(searchState)
+    const {auth} = useAuth()
 
-      <Divider sx={{ my: 2 }} />
+    const q = search.text ? search.text : '*:*'
 
-      <SnippetList />
+    const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
+    const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
+    const me = useMatch(`u/${auth.user.firstname}`)
+    const url = me ? mySnippetsUrl : exploreUrl
+    
+    const {data, error} = useSWR([url], fetcher);
 
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Pagination count={10} />
-      </Box>
-    </>
-  );
+
+    return (
+        <>
+            <SearchSnippet/>
+
+            <Divider sx={{my: 2}}/>
+
+            {data && 'hits' in data && (
+                <>
+                    <SnippetList snippets={data['hits']}/>
+                    <Box sx={{display: "flex", justifyContent: "center"}}>
+                        <Pagination count={data['total'] && Math.ceil(data['total']['value'] / search.size)}/>
+                    </Box>
+                </>
+            )}
+
+            {!data && (
+                <Skeleton variant="rectangular" width="100%" height={200}/>
+            )}
+
+
+        </>
+    );
 };
 
 export default Snippet;
