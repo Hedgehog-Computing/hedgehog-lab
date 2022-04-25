@@ -71,7 +71,7 @@ export const useAuth = () => {
     const me = async () => {
         const accessToken = localStorage.getItem("accessToken");
         try {
-            const response = await http.post("/auth/me", {accessToken});
+            const response = await http.post("/auth/me", {token: accessToken});
             setAuth({
                 isAuthenticated: true,
                 accessToken,
