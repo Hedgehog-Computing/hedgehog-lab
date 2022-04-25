@@ -1,18 +1,5 @@
-import {FavoriteBorderOutlined, PublishOutlined,} from "@mui/icons-material";
-import {
-    Box,
-    Button,
-    CardActionArea,
-    Chip,
-    Divider,
-    IconButton,
-    Link,
-    MenuItem,
-    Paper,
-    Select,
-    Tooltip,
-    Typography,
-} from "@mui/material";
+import {FavoriteBorderOutlined,} from "@mui/icons-material";
+import {Box, Button, CardActionArea, Chip, Divider, Link, MenuItem, Paper, Select, Typography,} from "@mui/material";
 import React from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink} from "react-router-dom";
@@ -83,7 +70,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                             ml: 1,
                                         }}
                                     >
-                                        <MenuItem dense value={"Public"}>
+                                        <MenuItem dense value={"public"}>
                                             Public
                                         </MenuItem>
                                         <MenuItem dense value={"private"}>
@@ -96,14 +83,6 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                         fontSize: "0.8125rem",
                                         ml: 1,
                                     }}/>
-                                )}
-
-                                {isMe && (
-                                    <Tooltip title="release" arrow>
-                                        <IconButton size="small" sx={{ml: 1}}>
-                                            <PublishOutlined/>
-                                        </IconButton>
-                                    </Tooltip>
                                 )}
                             </Box>
 

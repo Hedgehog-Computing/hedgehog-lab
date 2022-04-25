@@ -7,13 +7,21 @@ import SnippetList from "./List/SnippetList";
 import {Skeleton} from "@mui/lab";
 import {useRecoilState} from "recoil";
 import {searchState} from "../../states/RSnippetStates";
+import {useAuth} from "../../hooks/useAuth";
+import {useMatch} from "react-router-dom";
 
 const Snippet = () => {
     const [search, setSearch] = useRecoilState(searchState)
+    const {auth} = useAuth()
 
     const q = search.text ? search.text : '*:*'
 
-    const {data, error} = useSWR([`/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`], fetcher);
+    const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
+    const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
+    const me = useMatch(`u/${auth.user.firstname}`)
+    const url = me ? mySnippetsUrl : exploreUrl
+    
+    const {data, error} = useSWR([url], fetcher);
 
 
     return (
