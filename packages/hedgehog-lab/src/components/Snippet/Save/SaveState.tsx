@@ -1,39 +1,13 @@
 import {Box, Checkbox, Chip, IconButton, OutlinedInput, Tooltip,} from "@mui/material";
 import {CircleOutlined, MotionPhotosAuto, PublishOutlined,} from "@mui/icons-material";
 import React, {useEffect} from "react";
-import {useRecoilState, useRecoilValue, useResetRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {codeSavingFlagState, editorMetaState} from "../../../states/RYourCodeStates";
 import {compilerLiveModeState} from "../../../states/RCompilerStates";
 import BasePopupText from "../../Base/Popup/BasePopupText";
 import {authDialogState} from "../../../states/RAuthStates";
 import {useAuth} from "../../../hooks/useAuth";
-import {useMatch} from "react-router-dom";
-import useSWR from "swr";
-import {fetcher} from "../../../network/fetcher";
 
-export const useEditorMeta = () => {
-    const [editorMeta, setEditorMeta] = useRecoilState(editorMetaState);
-    const resetEditorMeta = useResetRecoilState(editorMetaState);
-
-    const isUserSnippetPage = useMatch(`/s/:userID/:snippetID`)
-
-    let URL
-
-    if (isUserSnippetPage) {
-        const {userID, snippetID} = isUserSnippetPage?.params
-        URL = `/snippets?author=${userID}&title=${snippetID}`
-    }
-
-    const {data, error} = useSWR([URL], fetcher)
-
-    data && setEditorMeta(data)
-
-    useEffect(() => {
-        !data && resetEditorMeta()
-    }, [data, resetEditorMeta, setEditorMeta])
-
-    return {isUserSnippetPage, data, error}
-};
 
 const SaveState = (): React.ReactElement => {
     const codeSavingFlag = useRecoilValue(codeSavingFlagState);
@@ -135,3 +109,4 @@ const SaveState = (): React.ReactElement => {
 };
 
 export default SaveState;
+
