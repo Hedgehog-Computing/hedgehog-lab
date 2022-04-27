@@ -14,13 +14,14 @@ const Snippet = () => {
     const [search, setSearch] = useRecoilState(searchState)
     const {auth} = useAuth()
 
+
     const q = search.text ? search.text : '*:*'
 
     const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
     const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
     const me = useMatch(`u/${auth.user.firstname}`)
     const url = me ? mySnippetsUrl : exploreUrl
-    
+
     const {data, error} = useSWR([url], fetcher);
 
 

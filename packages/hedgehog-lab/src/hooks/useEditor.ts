@@ -99,7 +99,6 @@ export const useEditor = (): any => {
             setEditorCode(v);
         } else {
             setEditorCode(" ");
-            console.log(editorCode);
         }
 
         setCodeSavingFlag(true);
@@ -142,3 +141,4 @@ export const useEditor = (): any => {
         autoSaveCode,
     };
 };
+

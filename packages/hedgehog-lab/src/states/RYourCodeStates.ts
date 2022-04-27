@@ -7,12 +7,18 @@ export const codeSavingFlagState = atom({
 
 interface IEditorMetaState {
     title: string
+    currentFile?: string,
+    id: string,
+    description: string,
 }
 
 const editorMetaAtom = atom<IEditorMetaState>({
     key: "editorMetaAtom",
     default: {
-        title: ''
+        title: '',
+        currentFile: '',
+        id: '',
+        description: '',
     },
 });
 

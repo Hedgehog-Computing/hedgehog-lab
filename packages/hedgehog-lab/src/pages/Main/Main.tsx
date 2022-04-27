@@ -5,11 +5,11 @@ import YourCode from "../../components/YourCode/YourCode";
 import {useRecoilState} from "recoil";
 import {resultFullScreenState} from "../../states/RLayoutStates";
 import {useEditor} from "../../hooks/useEditor";
-import {useEditorMeta} from "../../components/Snippet/Save/SaveState";
+import {useNavigate} from "react-router-dom";
+import {useEditorMeta} from "../../hooks/useEditorMeta";
+import {useEffectOnce} from "react-use";
 
-const DEFAULT_SOURCE = `//write your code here
-print("hello world")
-`;
+const DEFAULT_SOURCE = ``;
 
 const Main = (): React.ReactElement => {
     const [resultFullScreen, setResultFullScreen] = useRecoilState<boolean>(
@@ -18,41 +18,46 @@ const Main = (): React.ReactElement => {
 
     const {isUserSnippetPage, data, error} = useEditorMeta()
     const {editorCode, setEditorCode} = useEditor();
-
-    useEffect(() => {
+    const navigate = useNavigate()
+    useEffectOnce(() => {
         if (!isUserSnippetPage) {
             const lastRunningCode = localStorage.getItem("lastRunningCode");
             if (editorCode === "") {
                 setEditorCode(lastRunningCode);
             }
-        } else {
-            setEditorCode(data?.content ?? DEFAULT_SOURCE)
         }
-    }, [data, editorCode, isUserSnippetPage, setEditorCode]);
+    });
+
+    useEffect(() => {
+        setEditorCode(data?.content ?? DEFAULT_SOURCE)
+    }, [data?.content, setEditorCode])
+
     return (
         <>
-            {data ? (
-                    <Grid container>
-                        <Grid
-                            item
-                            xs={12}
-                            md={6}
-                            sx={{display: {xs: resultFullScreen ? "none" : "block"}}}
-                        >
-                            <YourCode/>
-                        </Grid>
 
-                        <Grid item xs={12} md={resultFullScreen ? 12 : 6}>
-                            <Results/>
-                        </Grid>
-                    </Grid>
-                ) :
-                <Box p={2}>
-                    {Array.from([1, 2, 3, 4, 5]).map((_, index) => (
-                        <Skeleton key={index} width={'100%'} height={'50px'}/>
-                    ))}
-                </Box>
-            }
+            <Grid container>
+                <Grid
+                    item
+                    xs={12}
+                    md={6}
+                    sx={{display: {xs: resultFullScreen ? "none" : "block"}}}
+                >
+                    {(data || error) || isUserSnippetPage ? <YourCode/> :
+                        (
+                            <Box p={2}>
+                                {Array.from([1, 2, 3, 4, 5]).map((_, index) => (
+                                    <Skeleton key={index} width={'100%'} height={'50px'}/>
+                                ))}
+                            </Box>
+                        )}
+
+                </Grid>
+
+                <Grid item xs={12} md={resultFullScreen ? 12 : 6}>
+                    <Results/>
+                </Grid>
+            </Grid>
+
         </>
     );
 };

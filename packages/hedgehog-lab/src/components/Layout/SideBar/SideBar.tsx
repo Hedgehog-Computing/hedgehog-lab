@@ -180,7 +180,7 @@ const MySnippets = () => {
                         borderColor: theme.palette.primary[500],
                     }}
                 >
-                    {data && data.hits.map((item: { _source: { title: React.ReactNode; }; }, index: string | number | null | undefined) => {
+                    {data && data.hits.map((item: { _source: { title: string; }; }, index: string | number | null | undefined) => {
                         return (
                             <Link component={RouteLink} to={`s/${auth.user.firstname}/${item._source.title}`}
                                   key={index}
@@ -207,7 +207,7 @@ const MySnippets = () => {
                                             component={"span"}
                                             sx={{ml: "18px"}}
                                         >
-                                            {item._source.title}
+                                            {item._source.title.slice(0, 10)}
                                         </Typography>
                                     </ListItemText>
                                 </ListItemButton>

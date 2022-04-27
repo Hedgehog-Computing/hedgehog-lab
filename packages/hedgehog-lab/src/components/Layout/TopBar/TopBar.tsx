@@ -20,6 +20,7 @@ import {Link as RouteLink, matchPath, useLocation, useParams,} from "react-route
 import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import AccountMenu from "../../Auth/Account/AccountMenu";
+import {editorMetaState} from "../../../states/RYourCodeStates";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -43,7 +44,7 @@ const AppBar = styled(MuiAppBar, {
 const Brand = (): React.ReactElement => {
     const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
     const theme = useTheme();
-
+    const editorMeta = useRecoilValue(editorMetaState)
     const handleSideBarOpen = useCallback(() => {
         setSideBarOpen(!sideBarOpen);
     }, [setSideBarOpen, sideBarOpen]);
@@ -57,7 +58,7 @@ const Brand = (): React.ReactElement => {
                     </IconButton>
                 </ListItemIcon>
 
-                <Link component={RouteLink} to={`/`} sx={{display: "block"}}>
+                <Link component={RouteLink} to={`${editorMeta.currentFile}`} sx={{display: "block"}}>
                     <ListItemText sx={{display: {xs: "none", md: "block"}}}>
                         <Typography
                             variant="h6"
