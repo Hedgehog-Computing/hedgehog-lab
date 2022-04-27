@@ -56,9 +56,11 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     to={`/s/${item._source.author}/${item._source.title}`}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    {item._source.title}
+                                    {item._source.title.slice(0, 10)}
                                 </Link>
+                            </Box>
 
+                            <Box display={'flex'} alignItems={'center'}>
                                 {isMe ? (
                                     <Select
                                         fullWidth
@@ -84,10 +86,9 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                         ml: 1,
                                     }}/>
                                 )}
-                            </Box>
 
-                            <Box>
                                 <Button
+                                    fullWidth
                                     size="small"
                                     color={"inherit"}
                                     startIcon={<FavoriteBorderOutlined/>}
