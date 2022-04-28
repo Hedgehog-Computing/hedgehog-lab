@@ -4,6 +4,8 @@
 
 Try it at [https://hedgehog-lab.github.io/](https://hedgehog-lab.github.io/) or [https://hhlab.dev](https://hhlab.dev).
 
+Join our community at [**Discord server**](https://discord.gg/kmuBw8pRFf)
+
 ## Installation
 
 [Master channel for stable branch](https://github.com/lidangzzz/hedgehog-lab/tree/master)  
