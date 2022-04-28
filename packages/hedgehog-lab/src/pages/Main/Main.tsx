@@ -22,6 +22,7 @@ const Main = (): React.ReactElement => {
     const {editorCode, setEditorCode} = useEditor();
     const mathExamplePage = useMatch('/s/example/:exampleName')
 
+
     const navigate = useNavigate()
     useEffectOnce(() => {
         if (!isUserSnippetPage) {
@@ -39,11 +40,12 @@ const Main = (): React.ReactElement => {
     useEffect(() => {
         if (mathExamplePage) {
             const title = mathExamplePage.params.exampleName
-            const currentObj = tutorials.find(o => o.description === title) ?? {'source': DEFAULT_SOURCE}
+            const currentObj = tutorials.find(o => o.description === title) ?? {'description': 'Empty', 'source': ''}
 
             setEditorCode(currentObj?.source ?? '')
+            console.log(1)
         }
-    })
+    }, [mathExamplePage?.params?.exampleName])
 
     return (
         <>
