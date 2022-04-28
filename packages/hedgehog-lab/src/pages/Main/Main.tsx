@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Box, Grid, Skeleton} from "@mui/material";
+import {Grid} from "@mui/material";
 import Results from "../../components/Results/Results";
 import YourCode from "../../components/YourCode/YourCode";
 import {useRecoilState} from "recoil";
@@ -8,6 +8,7 @@ import {useEditor} from "../../hooks/useEditor";
 import {useNavigate} from "react-router-dom";
 import {useEditorMeta} from "../../hooks/useEditorMeta";
 import {useEffectOnce} from "react-use";
+import EditorLoading from "../../components/Base/Editor/Loading";
 
 const DEFAULT_SOURCE = ``;
 
@@ -42,13 +43,9 @@ const Main = (): React.ReactElement => {
                     md={6}
                     sx={{display: {xs: resultFullScreen ? "none" : "block"}}}
                 >
-                    {(data || error) || isUserSnippetPage ? <YourCode/> :
+                    {(data || error) ? <YourCode/> :
                         (
-                            <Box p={2}>
-                                {Array.from([1, 2, 3, 4, 5]).map((_, index) => (
-                                    <Skeleton key={index} width={'100%'} height={'50px'}/>
-                                ))}
-                            </Box>
+                            <EditorLoading/>
                         )}
 
                 </Grid>

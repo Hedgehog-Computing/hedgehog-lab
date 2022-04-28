@@ -7,6 +7,7 @@ import {compilerLiveModeState} from "../../../states/RCompilerStates";
 import BasePopupText from "../../Base/Popup/BasePopupText";
 import {authDialogState} from "../../../states/RAuthStates";
 import {useAuth} from "../../../hooks/useAuth";
+import {useMatch} from "react-router-dom";
 
 
 const SaveState = (): React.ReactElement => {
@@ -37,6 +38,8 @@ const SaveState = (): React.ReactElement => {
 
 
     const editorMeta = useRecoilValue(editorMetaState);
+
+    const isAuthSnippetPage = useMatch(`/s/:userID/:snippetID`)?.params
 
     return (
         <Box
@@ -93,11 +96,9 @@ const SaveState = (): React.ReactElement => {
                 />
             </Tooltip>
 
-            {auth.isAuthenticated ? (
-                ""
-            ) : (
+            {!auth.isAuthenticated || isAuthSnippetPage?.userID !== auth.user.firstname && (
                 <Chip
-                    label="Not synchronized"
+                    label={!auth.isAuthenticated ? `Login to get sync` : `Save to your cloud`}
                     size="small"
                     color="warning"
                     sx={{cursor: "pointer"}}
