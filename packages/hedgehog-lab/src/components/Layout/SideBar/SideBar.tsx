@@ -37,6 +37,7 @@ import {useAuth} from "../../../hooks/useAuth";
 import AuthDialog from "../../Auth/Dialog/AuthDialog";
 import useSWR from "swr";
 import {fetcher} from "../../../network/fetcher";
+import {useSnippet} from "../../../hooks/useSnippet";
 
 const NewSnippet = () => {
     const theme = useTheme();
@@ -47,11 +48,11 @@ const NewSnippet = () => {
 
     const navigate = useNavigate();
     const {setEditorCode} = useEditor();
+    const {setCreateDialog} = useSnippet()
 
     const handleSetEditorCode = useCallback(
-        (editorCode: any) => {
-            setEditorCode(editorCode);
-            navigate("/");
+        (description: any) => {
+            navigate(`/s/example/${description}`);
             popupState.close();
         },
         [navigate, popupState, setEditorCode]
@@ -81,7 +82,7 @@ const NewSnippet = () => {
                 <Box sx={{py: 1}}>
                     <MenuItem
                         onClick={() => {
-                            handleSetEditorCode(" ");
+                            handleSetEditorCode("Empty");
                         }}
                     >
                         <Typography
@@ -96,21 +97,25 @@ const NewSnippet = () => {
                     <Divider/>
                     {tutorials.map((tutorial, index) => {
                         return (
-                            <MenuItem
-                                key={index}
-                                onClick={() => {
-                                    handleSetEditorCode(tutorial.source);
-                                }}
-                            >
-                                <Typography
-                                    color={theme.palette.text.primary}
-                                    variant={"body2"}
-                                    component={"span"}
-                                    sx={{ml: "18px"}}
-                                >
-                                    {tutorial.description}
-                                </Typography>
-                            </MenuItem>
+                            <>
+                                {tutorial.description !== 'Empty' && (
+                                    <MenuItem
+                                        key={index}
+                                        onClick={() => {
+                                            handleSetEditorCode(tutorial.description);
+                                        }}
+                                    >
+                                        <Typography
+                                            color={theme.palette.text.primary}
+                                            variant={"body2"}
+                                            component={"span"}
+                                            sx={{ml: "18px"}}
+                                        >
+                                            {tutorial.description}
+                                        </Typography>
+                                    </MenuItem>
+                                )}
+                            </>
                         );
                     })}
                 </Box>
@@ -329,7 +334,13 @@ const SideBar = (): React.ReactElement => {
                 </List>
 
                 <Box sx={{alignSelf: "end", m: 1}}>
-                    @2022 hhlab ·{" "}
+                    <Link href={'https://discord.gg/kmuBw8pRFf'} target={'_blank'} sx={{display: 'block', mb: 1}}>
+                        <Button fullWidth variant={'outlined'}>
+                            Join our Discord
+                        </Button>
+                    </Link>
+
+                    @2022 hlab ·{" "}
                     <FooterLink
                         href="https://github.com/Hedgehog-Computing/hedgehog-lab"
                         text="GitHub"

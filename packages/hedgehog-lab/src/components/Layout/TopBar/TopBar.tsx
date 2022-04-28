@@ -16,7 +16,7 @@ import Box from "@mui/material/Box";
 import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {sideBarOpenState} from "../../../states/RLayoutStates";
-import {Link as RouteLink, matchPath, useLocation, useParams,} from "react-router-dom";
+import {Link as RouteLink, matchPath, useLocation, useMatch, useParams,} from "react-router-dom";
 import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import AccountMenu from "../../Auth/Account/AccountMenu";
@@ -58,7 +58,7 @@ const Brand = (): React.ReactElement => {
                     </IconButton>
                 </ListItemIcon>
 
-                <Link component={RouteLink} to={`${editorMeta.currentFile}`} sx={{display: "block"}}>
+                <Link component={RouteLink} to={`${editorMeta.currentFile ?? '/'}`} sx={{display: "block"}}>
                     <ListItemText sx={{display: {xs: "none", md: "block"}}}>
                         <Typography
                             variant="h6"
@@ -85,12 +85,15 @@ const Header = (): React.ReactElement => {
     const isSnippetsPath = matchPath("snippets/new", pathname);
     const isTutorialsPath = matchPath("tutorial/*", pathname);
     const isHomePath = matchPath("", pathname);
+    const matchExamplePage = useMatch('/s/example/:exampleName')
+
 
     if (
         isHomePath ||
         isTutorialsPath ||
         isSnippetsPath ||
-        snippetID !== undefined
+        snippetID !== undefined ||
+        matchExamplePage
     ) {
         return <YourCodeHeader/>;
     }

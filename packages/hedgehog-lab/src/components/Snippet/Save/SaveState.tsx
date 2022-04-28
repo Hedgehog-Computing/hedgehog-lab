@@ -1,12 +1,17 @@
 import {Box, Checkbox, Chip, IconButton, OutlinedInput, Tooltip,} from "@mui/material";
 import {CircleOutlined, MotionPhotosAuto, PublishOutlined,} from "@mui/icons-material";
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {codeSavingFlagState, editorMetaState} from "../../../states/RYourCodeStates";
 import {compilerLiveModeState} from "../../../states/RCompilerStates";
 import BasePopupText from "../../Base/Popup/BasePopupText";
 import {authDialogState} from "../../../states/RAuthStates";
 import {useAuth} from "../../../hooks/useAuth";
+import {useMatch} from "react-router-dom";
+import {useSnippet} from "../../../hooks/useSnippet";
+import CreateSnippetDialog from "../CreateSnippetDialog";
+import {useEditor} from "../../../hooks/useEditor";
+import {useDebounce} from "react-use";
 
 
 const SaveState = (): React.ReactElement => {
@@ -37,6 +42,33 @@ const SaveState = (): React.ReactElement => {
 
 
     const editorMeta = useRecoilValue(editorMetaState);
+
+    const isAuthSnippetPage = useMatch(`/s/:userID/:snippetID`)?.params
+    const {setCreateDialog, updateSnippet} = useSnippet()
+    const {editorCode} = useEditor()
+
+    const update = useCallback(() => {
+        if (auth.isAuthenticated || isAuthSnippetPage?.userID === auth.user.firstname && editorMeta.id) {
+            updateSnippet({
+                token: auth.accessToken,
+                id: editorMeta?.id,
+                title: editorMeta.title,
+                description: editorMeta.description,
+                content: editorCode
+            }).then(r => console.log(r))
+        }
+    }, [auth.accessToken, auth.isAuthenticated, auth.user.firstname, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
+
+    const [] = useDebounce(
+        () => {
+            if (editorMeta.id) {
+                update();
+            }
+
+        },
+        1000,
+        [editorCode]
+    );
 
     return (
         <Box
@@ -93,17 +125,17 @@ const SaveState = (): React.ReactElement => {
                 />
             </Tooltip>
 
-            {auth.isAuthenticated ? (
-                ""
-            ) : (
+            {(!auth.isAuthenticated || isAuthSnippetPage?.userID !== auth.user.firstname) && (
                 <Chip
-                    label="Not synchronized"
+                    label={!auth.isAuthenticated ? `Login to get sync` : `Save to your cloud`}
                     size="small"
                     color="warning"
                     sx={{cursor: "pointer"}}
-                    onClick={() => setAuthDialog(true)}
+                    onClick={() => !auth.isAuthenticated ? setAuthDialog(true) : setCreateDialog({open: true})}
                 />
             )}
+
+            <CreateSnippetDialog/>
         </Box>
     );
 };

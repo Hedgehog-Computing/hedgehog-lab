@@ -56,7 +56,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     to={`/s/${item._source.author}/${item._source.title}`}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    {item._source.title.slice(0, 10)}
+                                    {item._source.title}
                                 </Link>
                             </Box>
 

@@ -27,6 +27,8 @@ const SearchSnippet = (): React.ReactElement => {
     const isLikes = useMatch(`/u/:userID/likes`);
     const userID = useMatch(`/u/:userID`);
 
+    const isExplore = useMatch(`/explore`);
+
     return (
         <Box
             sx={{
@@ -68,13 +70,17 @@ const SearchSnippet = (): React.ReactElement => {
                     </IconButton>
                 </Tooltip>
 
-                <Tooltip title={"Favorite"} arrow>
-                    <IconButton onClick={() => {
-                        navigate(isLikes ? `/u/${isLikes.params.userID}` : `/u/${userID?.params.userID}/likes`)
-                    }}>
-                        {isLikes ? <Favorite/> : <FavoriteBorderOutlined/>}
-                    </IconButton>
-                </Tooltip>
+                {
+                    !isExplore && (
+                        <Tooltip title={"Favorite"} arrow>
+                            <IconButton onClick={() => {
+                                navigate(isLikes ? `/u/${isLikes.params.userID}` : `/u/${userID?.params.userID}/likes`)
+                            }}>
+                                {isLikes ? <Favorite/> : <FavoriteBorderOutlined/>}
+                            </IconButton>
+                        </Tooltip>
+                    )
+                }
             </Box>
         </Box>
     );
