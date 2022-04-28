@@ -310,6 +310,10 @@ showTable(new Table([
 
 export const tutorials = [
     {
+        description: 'Empty',
+        source: ''
+    },
+    {
         description: 'Matrix',
         source: matrixSource
     },

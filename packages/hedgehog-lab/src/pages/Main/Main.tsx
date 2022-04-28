@@ -5,10 +5,11 @@ import YourCode from "../../components/YourCode/YourCode";
 import {useRecoilState} from "recoil";
 import {resultFullScreenState} from "../../states/RLayoutStates";
 import {useEditor} from "../../hooks/useEditor";
-import {useNavigate} from "react-router-dom";
+import {useMatch, useNavigate} from "react-router-dom";
 import {useEditorMeta} from "../../hooks/useEditorMeta";
 import {useEffectOnce} from "react-use";
 import EditorLoading from "../../components/Base/Editor/Loading";
+import {tutorials} from "../../tutorials";
 
 const DEFAULT_SOURCE = ``;
 
@@ -19,6 +20,8 @@ const Main = (): React.ReactElement => {
 
     const {isUserSnippetPage, data, error} = useEditorMeta()
     const {editorCode, setEditorCode} = useEditor();
+    const mathExamplePage = useMatch('/s/example/:exampleName')
+
     const navigate = useNavigate()
     useEffectOnce(() => {
         if (!isUserSnippetPage) {
@@ -32,6 +35,15 @@ const Main = (): React.ReactElement => {
     useEffect(() => {
         setEditorCode(data?.content ?? DEFAULT_SOURCE)
     }, [data?.content, setEditorCode])
+
+    useEffect(() => {
+        if (mathExamplePage) {
+            const title = mathExamplePage.params.exampleName
+            const currentObj = tutorials.find(o => o.description === title) ?? {'source': DEFAULT_SOURCE}
+
+            setEditorCode(currentObj?.source ?? '')
+        }
+    })
 
     return (
         <>

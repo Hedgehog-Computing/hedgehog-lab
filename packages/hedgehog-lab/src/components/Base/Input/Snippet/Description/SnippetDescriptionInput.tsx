@@ -1,11 +1,11 @@
 import {Controller, useFormContext} from "react-hook-form";
-import * as React from "react";
-import {DriveFileRenameOutlineOutlined} from "@mui/icons-material";
 import BaseOutlinedInput from "../../BaseOutlinedInput/BaseOutlinedInput";
+import {DescriptionOutlined} from "@mui/icons-material";
+import * as React from "react";
 
-const name = 'title'
+const name = 'description';
 
-const SnippetNameInput = (): React.ReactElement => {
+const SnippetDescriptionInput = () => {
     const useFormMethods = useFormContext()
 
     return (
@@ -16,9 +16,9 @@ const SnippetNameInput = (): React.ReactElement => {
             render={({field}) =>
                 <BaseOutlinedInput
                     field={field}
-                    placeholder={'snippet name'}
+                    placeholder={'snippet description'}
                     adornment={{
-                        start: <DriveFileRenameOutlineOutlined/>
+                        start: <DescriptionOutlined/>
                     }}
                 />
             }
@@ -26,5 +26,4 @@ const SnippetNameInput = (): React.ReactElement => {
     )
 }
 
-
-export default SnippetNameInput
+export default SnippetDescriptionInput;
