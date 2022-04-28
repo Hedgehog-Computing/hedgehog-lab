@@ -67,7 +67,7 @@ const SaveState = (): React.ReactElement => {
 
         },
         1000,
-        [update]
+        [editorCode]
     );
 
     return (
