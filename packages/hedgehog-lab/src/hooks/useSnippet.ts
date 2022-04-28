@@ -13,14 +13,27 @@ interface ICreateSnippet {
     visibility: string,
 }
 
+interface IUpdateSnippet {
+    id: string;
+    title: string;
+    content: string;
+    description: string,
+    token: string,
+}
+
 export const useSnippet = () => {
     const [createDialog, setCreateDialog] = useRecoilState(dialogState)
     const [createLoading, setCreateLoading] = useState(false)
+    const [updateLoading, setUpdateLoading] = useState(false)
 
     const createSnippet = useCallback((data: ICreateSnippet) => {
         setCreateLoading(true)
         return http.post('snippets/create', data).finally(() => setCreateLoading(false))
     }, [])
 
-    return {createSnippet, createDialog, setCreateDialog, createLoading, setCreateLoading}
+    const updateSnippet = useCallback((data: IUpdateSnippet) => {
+        return http.post('snippets/update', data).finally(() => setCreateLoading(false))
+    }, [])
+
+    return {createSnippet, createDialog, setCreateDialog, createLoading, setCreateLoading, updateSnippet}
 };

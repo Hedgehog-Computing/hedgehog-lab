@@ -12,7 +12,6 @@ const YourCode = (): React.ReactElement => {
         editor,
         editorTheme,
         options,
-        autoSaveCode,
     } = useEditor();
 
     return (

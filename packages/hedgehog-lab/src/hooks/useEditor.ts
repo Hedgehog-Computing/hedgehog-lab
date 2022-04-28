@@ -1,6 +1,6 @@
 import {useTheme} from "@mui/material";
-import {useRecoilState, useSetRecoilState} from "recoil";
-import {codeSavingFlagState, editorCodeState,} from "../states/RYourCodeStates";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
+import {codeSavingFlagState, editorCodeState, editorMetaState,} from "../states/RYourCodeStates";
 import {useCallback, useEffect, useState} from "react";
 import * as monacoEditor from "monaco-editor";
 import {ControlledEditorOnChange, monaco} from "@monaco-editor/react";
@@ -9,6 +9,9 @@ import useKeyboardJs from "react-use/lib/useKeyboardJs";
 import {useDebounce} from "react-use";
 import {useCompiler} from "./useCompilier";
 import {compilerLiveModeState} from "../states/RCompilerStates";
+import {useMatch} from "react-router-dom";
+import {useSnippet} from "./useSnippet";
+import {useAuth} from "./useAuth";
 
 export const COMPILE_AND_RUN_BUTTON_ID = "compile-and-run-button-id";
 
@@ -48,11 +51,15 @@ export const useEditor = (): any => {
         compilerLiveModeState
     );
 
+    const editorMeta = useRecoilValue(editorMetaState);
+    const isAuthSnippetPage = useMatch(`/s/:userID/:snippetID`)?.params
+    const {updateSnippet} = useSnippet()
+    const {auth} = useAuth()
+
     // save code to local storage
     const autoSaveCode = useCallback(() => {
         localStorage.setItem("lastRunningCode", editorCode as string);
         setCodeSavingFlag(false);
-
         // live mode
         compilerLiveMode === "on" ? setCompilerReFetch(true) : null;
     }, [compilerLiveMode, editorCode, setCodeSavingFlag, setCompilerReFetch]);
