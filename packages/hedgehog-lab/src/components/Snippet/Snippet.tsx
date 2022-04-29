@@ -22,7 +22,7 @@ const Snippet = () => {
     const me = useMatch(`u/${auth.user.firstname}`)
     const url = me ? mySnippetsUrl : exploreUrl
 
-    const {data, error} = useSWR([url], fetcher);
+    const {data, error} = useSWR([url], fetcher, {refreshInterval: 1000});
 
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setSearch({...search, from: value})

@@ -6,7 +6,7 @@ import {useCallback, useState} from "react";
 interface ICreateSnippet {
     title: string;
     content: string;
-    description: string,
+    description?: string,
     token: string,
     authorId: string,
     versions: number,
@@ -17,7 +17,7 @@ interface IUpdateSnippet {
     id: string;
     title: string;
     content: string;
-    description: string,
+    description?: string,
     token: string,
 }
 
@@ -32,8 +32,9 @@ export const useSnippet = () => {
     }, [])
 
     const updateSnippet = useCallback((data: IUpdateSnippet) => {
-        return http.post('snippets/update', data).finally(() => setCreateLoading(false))
+        setUpdateLoading(true)
+        return http.post('snippets/update', data).finally(() => setUpdateLoading(false))
     }, [])
 
-    return {createSnippet, createDialog, setCreateDialog, createLoading, setCreateLoading, updateSnippet}
+    return {createSnippet, createDialog, setCreateDialog, createLoading, setCreateLoading, updateSnippet, updateLoading}
 };

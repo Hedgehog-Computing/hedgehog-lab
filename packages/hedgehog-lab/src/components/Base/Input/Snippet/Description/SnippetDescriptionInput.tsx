@@ -2,10 +2,11 @@ import {Controller, useFormContext} from "react-hook-form";
 import BaseOutlinedInput from "../../BaseOutlinedInput/BaseOutlinedInput";
 import {DescriptionOutlined} from "@mui/icons-material";
 import * as React from "react";
+import {BaseTextFieldProps} from "@mui/material";
 
 const name = 'description';
 
-const SnippetDescriptionInput = () => {
+const SnippetDescriptionInput: React.FC<BaseTextFieldProps> = (props) => {
     const useFormMethods = useFormContext()
 
     return (
@@ -15,8 +16,9 @@ const SnippetDescriptionInput = () => {
             defaultValue={''}
             render={({field}) =>
                 <BaseOutlinedInput
+                    size={props.size}
                     field={field}
-                    placeholder={'snippet description'}
+                    placeholder={'Snippet description'}
                     adornment={{
                         start: <DescriptionOutlined/>
                     }}

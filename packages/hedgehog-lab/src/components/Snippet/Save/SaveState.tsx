@@ -1,24 +1,41 @@
-import {Box, Checkbox, Chip, IconButton, OutlinedInput, Tooltip,} from "@mui/material";
-import {CircleOutlined, MotionPhotosAuto, PublishOutlined,} from "@mui/icons-material";
+import {Alert, Box, Checkbox, Chip, Tooltip,} from "@mui/material";
+import {CircleOutlined, MotionPhotosAuto,} from "@mui/icons-material";
 import React, {useCallback, useEffect} from "react";
 import {useRecoilState, useRecoilValue} from "recoil";
-import {codeSavingFlagState, editorMetaState} from "../../../states/RYourCodeStates";
+import {codeSavingFlagState} from "../../../states/RYourCodeStates";
 import {compilerLiveModeState} from "../../../states/RCompilerStates";
 import BasePopupText from "../../Base/Popup/BasePopupText";
 import {authDialogState} from "../../../states/RAuthStates";
 import {useAuth} from "../../../hooks/useAuth";
-import {useMatch} from "react-router-dom";
+import {useMatch, useNavigate} from "react-router-dom";
 import {useSnippet} from "../../../hooks/useSnippet";
 import CreateSnippetDialog from "../CreateSnippetDialog";
 import {useEditor} from "../../../hooks/useEditor";
 import {useDebounce} from "react-use";
+import SnippetNameInput from "../../Base/Input/Snippet/Name/SnippetNameInput";
+import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {useEditorMeta} from "../../../hooks/useEditorMeta";
+import * as yup from "yup";
+import {LoadingButton} from "@mui/lab";
 
+interface IUpdateSnippetInput {
+    title: string,
+    description?: string,
+}
+
+const updateSnippetRule = yup.object({
+    title: yup.string().required("Title is required"),
+    description: yup.string(),
+}).required();
 
 const SaveState = (): React.ReactElement => {
     const codeSavingFlag = useRecoilValue(codeSavingFlagState);
     const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
         compilerLiveModeState
     );
+
+    const [updateError, setUpdateError] = React.useState<string | null>(null);
 
     const liveMode = localStorage.getItem("liveMode") ?? "off";
 
@@ -40,12 +57,17 @@ const SaveState = (): React.ReactElement => {
 
     const {auth} = useAuth();
 
-
-    const editorMeta = useRecoilValue(editorMetaState);
+    const navigate = useNavigate()
+    const {editorMeta, setEditorMeta} = useEditorMeta()
 
     const isAuthSnippetPage = useMatch(`/s/:userID/:snippetID`)?.params
-    const {setCreateDialog, updateSnippet} = useSnippet()
+    const {setCreateDialog, updateSnippet, updateLoading} = useSnippet()
     const {editorCode} = useEditor()
+
+    const useFormMethods = useForm<IUpdateSnippetInput>({
+        resolver: yupResolver(updateSnippetRule)
+    })
+
 
     const update = useCallback(() => {
         if ((auth.isAuthenticated && isAuthSnippetPage?.userID === auth.user.firstname) && editorMeta.id) {
@@ -58,6 +80,20 @@ const SaveState = (): React.ReactElement => {
             }).then(r => console.log(r))
         }
     }, [auth.accessToken, auth.isAuthenticated, auth.user.firstname, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
+
+    const onSubmit: SubmitHandler<IUpdateSnippetInput> = useCallback(async (data) => {
+        updateSnippet({
+            token: auth.accessToken,
+            id: editorMeta?.id,
+            title: data.title,
+            content: editorCode
+        }).then(r => {
+            setUpdateError(null)
+            setEditorMeta({...editorMeta, title: data.title})
+            navigate(`/s/${auth.user.firstname}/${data.title}`)
+        }).catch(e => setUpdateError(e.response.data.message))
+    }, [auth.accessToken, auth.user.firstname, editorCode, editorMeta, navigate, setEditorMeta, updateSnippet])
+
 
     const [] = useDebounce(
         () => {
@@ -80,41 +116,42 @@ const SaveState = (): React.ReactElement => {
                 justifyContent: "center",
             }}
         >
-            <Box
-                sx={{
-                    cursor: "pointer",
-                    "&:hover": {
-                        textDecoration: "underline",
-                    },
-                }}
-            >
-                <BasePopupText text={editorMeta ? `${editorMeta.title}` : 'File Name'}>
-                    <Box sx={{display: "grid", p: 1}}>
-                        <OutlinedInput
-                            size="small"
-                            placeholder="File Name"
-                            endAdornment={
-                                <IconButton size="small">
-                                    <PublishOutlined/>
-                                </IconButton>
-                            }
-                        />
+            {editorMeta.title ? (
+                <Box
+                    sx={{
+                        cursor: "pointer",
+                        "&:hover": {
+                            textDecoration: "underline",
+                        },
+                    }}
+                >
+                    <BasePopupText text={editorMeta.title ? `${editorMeta.title}` : 'File Name'}>
+                        <Box sx={{display: "grid", p: 1}}>
+                            {updateError && (
+                                <Alert severity="error" sx={{mb: 2}}>
+                                    {updateError}
+                                </Alert>
+                            )}
 
-                        <OutlinedInput
-                            sx={{mt: 1}}
-                            size="small"
-                            placeholder="Description"
-                            endAdornment={
-                                <IconButton size="small">
-                                    <PublishOutlined/>
-                                </IconButton>
-                            }
-                        />
-                    </Box>
-                </BasePopupText>
+                            <FormProvider {...useFormMethods} >
+                                <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+                                    <SnippetNameInput size={'small'} value={editorMeta.title}/>
 
-                {codeSavingFlag ? "*" : ""}
-            </Box>
+                                    <Box textAlign={'right'} mt={1}>
+                                        <LoadingButton loading={updateLoading} type={'submit'} variant={'contained'}
+                                                       size={'small'}>Submit</LoadingButton>
+                                    </Box>
+                                </form>
+                            </FormProvider>
+                        </Box>
+                    </BasePopupText>
+
+
+                </Box>
+            ) : (<Box sx={{cursor: 'pointer'}} onClick={() => setCreateDialog({open: true})}>New File</Box>)}
+
+            {codeSavingFlag ? "*" : ""}
+
             <Tooltip title="Live Mode" arrow>
                 <Checkbox
                     checked={compilerLiveMode === "on"}
