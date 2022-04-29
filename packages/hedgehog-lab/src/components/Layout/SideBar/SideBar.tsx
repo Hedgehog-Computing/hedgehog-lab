@@ -52,7 +52,7 @@ const NewSnippet = () => {
 
     const handleSetEditorCode = useCallback(
         (description: any) => {
-            navigate(`/s/example/${description}`);
+            navigate(`/example/${description}`);
             popupState.close();
         },
         [navigate, popupState, setEditorCode]

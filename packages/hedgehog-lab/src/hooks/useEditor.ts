@@ -60,6 +60,7 @@ export const useEditor = (): any => {
     const autoSaveCode = useCallback(() => {
         localStorage.setItem("lastRunningCode", editorCode as string);
         setCodeSavingFlag(false);
+        console.log(1)
         // live mode
         compilerLiveMode === "on" ? setCompilerReFetch(true) : null;
     }, [compilerLiveMode, editorCode, setCodeSavingFlag, setCompilerReFetch]);
@@ -98,7 +99,7 @@ export const useEditor = (): any => {
         if (isPressed) {
             autoSaveCode();
         }
-    }, [autoSaveCode, isPressed]);
+    }, [isPressed]);
 
     // set code to store when editor change
     const handleUploadSource: ControlledEditorOnChange = (e, v) => {

@@ -9,7 +9,14 @@ import {showCodeBlockState} from "../../../states/RSnippetStates";
 import SharePopup from "../../Share/SharePopup";
 import DeletePopup from "../Delete/DeletePopup";
 import RenameDialog from "../Rename/RenameDialog";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
+dayjs.extend(relativeTime)
+
+const formatDate = (date: string) => {
+    return dayjs(date).fromNow()
+}
 
 interface ISnippetsProps {
     _id: string;
@@ -107,7 +114,8 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
 
                         <Box>
                             <Typography variant={"body2"}>
-                                {item._source.updatedAt} <br/>
+                                {formatDate(item._source.updatedAt)} <br/>
+
                                 {item._source.description}
                             </Typography>
 

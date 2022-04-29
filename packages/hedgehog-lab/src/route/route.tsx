@@ -37,7 +37,7 @@ const router: RouteObject[] = [
                 element: <Main/>,
             },
             {
-                path: "/s/example/:exampleName",
+                path: "/example/:exampleName",
                 element: <Main/>,
             },
             {

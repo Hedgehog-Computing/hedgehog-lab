@@ -48,7 +48,7 @@ const SaveState = (): React.ReactElement => {
     const {editorCode} = useEditor()
 
     const update = useCallback(() => {
-        if (auth.isAuthenticated || isAuthSnippetPage?.userID === auth.user.firstname && editorMeta.id) {
+        if ((auth.isAuthenticated && isAuthSnippetPage?.userID === auth.user.firstname) && editorMeta.id) {
             updateSnippet({
                 token: auth.accessToken,
                 id: editorMeta?.id,
