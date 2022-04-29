@@ -7,7 +7,8 @@ import {useAuth} from "../../hooks/useAuth";
 const Snippets = (): React.ReactElement => {
     const {auth} = useAuth()
     const currentUser = useMatch('/u/:userId')
-    const name = currentUser?.params.userId
+    const currentUserLikes = useMatch('/u/:userId/likes')
+    const name = currentUser?.params.userId ?? currentUserLikes?.params.userId
 
     return (
         <>

@@ -23,10 +23,12 @@ const Snippet = () => {
     let url = me ? mySnippetsUrl : exploreUrl
 
     const isUserSnippet = useMatch('/u/:userId')
+    const isUserSnippetLike = useMatch('/u/:userId/likes')
 
     if (isUserSnippet && !me) {
         url = `${exploreUrl}&author=${isUserSnippet.params.userId}`
     }
+
 
     const {data, error} = useSWR([url], fetcher);
 
