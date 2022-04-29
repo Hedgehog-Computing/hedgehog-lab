@@ -43,7 +43,6 @@ const Main = (): React.ReactElement => {
             const currentObj = tutorials.find(o => o.description === title) ?? {'description': 'Empty', 'source': ''}
 
             setEditorCode(currentObj?.source ?? '')
-            console.log(1)
         }
     }, [mathExamplePage?.params?.exampleName])
 

@@ -20,9 +20,15 @@ const Snippet = () => {
     const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
     const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
     const me = useMatch(`u/${auth.user.firstname}`)
-    const url = me ? mySnippetsUrl : exploreUrl
+    let url = me ? mySnippetsUrl : exploreUrl
 
-    const {data, error} = useSWR([url], fetcher, {refreshInterval: 1000});
+    const isUserSnippet = useMatch('/u/:userId')
+
+    if (isUserSnippet && !me) {
+        url = `${exploreUrl}&author=${isUserSnippet.params.userId}`
+    }
+
+    const {data, error} = useSWR([url], fetcher);
 
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setSearch({...search, from: value})
