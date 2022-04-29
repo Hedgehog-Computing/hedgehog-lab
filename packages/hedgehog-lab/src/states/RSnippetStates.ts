@@ -10,7 +10,7 @@ export const searchState = atom<{ text: string; from: number; size: number }>({
     key: "search",
     default: {
         text: '',
-        from: 0,
+        from: 1,
         size: 10,
     },
 });

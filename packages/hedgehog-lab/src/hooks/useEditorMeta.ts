@@ -42,5 +42,5 @@ export const useEditorMeta = () => {
         }
     }, [data, resetEditorMeta, setEditorMeta])
 
-    return {isUserSnippetPage, data, error, editorMeta}
+    return {isUserSnippetPage, data, error, editorMeta, setEditorMeta}
 };

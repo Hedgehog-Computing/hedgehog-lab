@@ -13,12 +13,12 @@ import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
 import {LoadingButton} from "@mui/lab";
 
-interface ICreateSnippetInput {
+export interface ICreateSnippetInput {
     title: string,
     description: string,
 }
 
-const createSnippetRule = yup.object({
+export const createSnippetRule = yup.object({
     title: yup.string().required("Title is required"),
     description: yup.string().required("Description is required"),
 }).required();
