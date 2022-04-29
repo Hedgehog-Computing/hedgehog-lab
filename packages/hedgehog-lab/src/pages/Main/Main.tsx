@@ -20,7 +20,7 @@ const Main = (): React.ReactElement => {
 
     const {isUserSnippetPage, data, error} = useEditorMeta()
     const {editorCode, setEditorCode} = useEditor();
-    const mathExamplePage = useMatch('/s/example/:exampleName')
+    const mathExamplePage = useMatch('/example/:exampleName')
 
 
     const navigate = useNavigate()

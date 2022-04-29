@@ -9,7 +9,14 @@ import {showCodeBlockState} from "../../../states/RSnippetStates";
 import SharePopup from "../../Share/SharePopup";
 import DeletePopup from "../Delete/DeletePopup";
 import RenameDialog from "../Rename/RenameDialog";
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
+dayjs.extend(relativeTime)
+
+const formatDate = (date: string) => {
+    return dayjs(date).fromNow()
+}
 
 interface ISnippetsProps {
     _id: string;
@@ -99,7 +106,9 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
 
                                 {isMe && <RenameDialog/>}
 
-                                <SharePopup size="small" url={"https://exampleSnippet.com"}/>
+                                <SharePopup size="small" script={`import ${item._source.author}/${item._source.title}`}
+                                            embed={`https://hlab.app/s/${item._source.author}/${item._source.title}`}
+                                            url={`https://hlab.app/s/${item._source.author}/${item._source.title}`}/>
 
                                 {isMe && <DeletePopup size="small"/>}
                             </Box>
@@ -107,7 +116,8 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
 
                         <Box>
                             <Typography variant={"body2"}>
-                                {item._source.updatedAt} <br/>
+                                {formatDate(item._source.updatedAt)} <br/>
+
                                 {item._source.description}
                             </Typography>
 

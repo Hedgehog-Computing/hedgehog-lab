@@ -4,6 +4,7 @@ import {FullscreenOutlined,} from "@mui/icons-material";
 import SharePopup from "../../Share/SharePopup";
 import {useRecoilState} from "recoil";
 import {resultFullScreenState} from "../../../states/RLayoutStates";
+import {useMatch} from "react-router-dom";
 
 interface IRightButtonProps {
     href: string;
@@ -20,9 +21,16 @@ const RightButton = (): React.ReactElement => {
         setResultFullScreen(!resultFullScreen);
     }, [resultFullScreen, setResultFullScreen]);
 
+    const emptyPage = useMatch('')
+    const userSnippetPage = useMatch('/s/:userId/:snippetId')
+
     return (
         <>
-            <SharePopup url="https://hlab.app/"/>
+            {userSnippetPage && (
+                <SharePopup script={`import ${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
+                            embed={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
+                            url={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}/>
+            )}
 
             <IconButton onClick={handleResultFullScreen}>
                 <FullscreenOutlined/>

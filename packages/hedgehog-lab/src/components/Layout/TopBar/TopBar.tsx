@@ -85,7 +85,7 @@ const Header = (): React.ReactElement => {
     const isSnippetsPath = matchPath("snippets/new", pathname);
     const isTutorialsPath = matchPath("tutorial/*", pathname);
     const isHomePath = matchPath("", pathname);
-    const matchExamplePage = useMatch('/s/example/:exampleName')
+    const matchExamplePage = useMatch('/example/:exampleName')
 
 
     if (

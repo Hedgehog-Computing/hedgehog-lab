@@ -24,7 +24,10 @@ const Snippet = () => {
 
     const {data, error} = useSWR([url], fetcher);
 
-
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setSearch({...search, from: value})
+        window.scrollTo({top: 0, behavior: 'smooth'})
+    }
     return (
         <>
             <SearchSnippet/>
@@ -35,7 +38,9 @@ const Snippet = () => {
                 <>
                     <SnippetList snippets={data['hits']}/>
                     <Box sx={{display: "flex", justifyContent: "center"}}>
-                        <Pagination count={data['total'] && Math.ceil(data['total']['value'] / search.size)}/>
+                        <Pagination onChange={handlePageChange}
+                                    page={search.from}
+                                    count={data['total'] && Math.ceil(data['total']['value'] / search.size)}/>
                     </Box>
                 </>
             )}
