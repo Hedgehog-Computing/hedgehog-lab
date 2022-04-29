@@ -3,12 +3,15 @@ import React from "react";
 import Snippet from "../../components/Snippet/Snippet";
 import {Link as RouterLink, useMatch} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
+import {useRecoilValue} from "recoil";
+import {userMetaState} from "../../states/RSnippetStates";
 
 const Snippets = (): React.ReactElement => {
     const {auth} = useAuth()
     const currentUser = useMatch('/u/:userId')
     const currentUserLikes = useMatch('/u/:userId/likes')
     const name = currentUser?.params.userId ?? currentUserLikes?.params.userId
+    const userMeta = useRecoilValue(userMetaState)
 
     return (
         <>
@@ -22,7 +25,7 @@ const Snippets = (): React.ReactElement => {
 
                             <Box sx={{mt: 1}}>
                                 <Link component={RouterLink} to={`/u/${name}`}>
-                                    x Snippets
+                                    {userMeta.snippet.count} Snippets
                                 </Link>
                             </Box>
                             <Box>

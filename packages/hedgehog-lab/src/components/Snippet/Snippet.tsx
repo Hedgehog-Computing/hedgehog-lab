@@ -1,19 +1,20 @@
 import {Box, Divider, Pagination} from "@mui/material";
-import React from "react";
+import React, {useCallback, useEffect} from "react";
 import SearchSnippet from "./Search/SearchSnippet";
 import useSWR from "swr";
 import {fetcher} from "../../network/fetcher";
 import SnippetList from "./List/SnippetList";
 import {Skeleton} from "@mui/lab";
-import {useRecoilState} from "recoil";
-import {searchState} from "../../states/RSnippetStates";
+import {useRecoilState, useResetRecoilState} from "recoil";
+import {searchState, userMetaState} from "../../states/RSnippetStates";
 import {useAuth} from "../../hooks/useAuth";
 import {useMatch} from "react-router-dom";
 
 const Snippet = () => {
     const [search, setSearch] = useRecoilState(searchState)
+    const reSetSearch = useResetRecoilState(searchState)
     const {auth} = useAuth()
-
+    const [userMeta, setUserMeta] = useRecoilState(userMetaState)
 
     const q = search.text ? search.text : '*:*'
 
@@ -23,19 +24,31 @@ const Snippet = () => {
     let url = me ? mySnippetsUrl : exploreUrl
 
     const isUserSnippet = useMatch('/u/:userId')
+    const currentName = isUserSnippet?.params.userId ?? ''
+
     const isUserSnippetLike = useMatch('/u/:userId/likes')
 
-    if (isUserSnippet && !me) {
-        url = `${exploreUrl}&author=${isUserSnippet.params.userId}`
+    if (isUserSnippet) {
+        url = `${exploreUrl}&author=${currentName}`
     }
 
 
     const {data, error} = useSWR([url], fetcher);
 
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
         setSearch({...search, from: value})
         window.scrollTo({top: 0, behavior: 'smooth'})
-    }
+    }, [search, setSearch])
+
+    useEffect(() => {
+        data && setUserMeta({snippet: {count: data['total']['value'], liked: 0}})
+    }, [data, setUserMeta])
+
+    useEffect(() => {
+        reSetSearch()
+    }, [currentName])
+
+
     return (
         <>
             <SearchSnippet/>
