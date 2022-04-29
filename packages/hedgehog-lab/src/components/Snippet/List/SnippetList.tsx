@@ -106,7 +106,9 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
 
                                 {isMe && <RenameDialog/>}
 
-                                <SharePopup size="small" url={"https://exampleSnippet.com"}/>
+                                <SharePopup size="small" script={`import ${item._source.author}/${item._source.title}`}
+                                            embed={`https://hlab.app/s/${item._source.author}/${item._source.title}`}
+                                            url={`https://hlab.app/s/${item._source.author}/${item._source.title}`}/>
 
                                 {isMe && <DeletePopup size="small"/>}
                             </Box>

@@ -7,6 +7,8 @@ import BasePopupButton from "../Base/Popup/BasePopupButton";
 
 interface ISharePopupProps {
     url: string;
+    script: string;
+    embed: string;
     size?: IconButtonProps["size"];
 }
 
@@ -50,14 +52,14 @@ const SharePopup: React.FC<ISharePopupProps> = (props) => {
                     </Tabs>
 
                     <TabPanel value={value} index={0}>
-                        <CopyInput url="*import xxx"/>
+                        <CopyInput url={props.script}/>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <CopyInput url="https://hlab.app/hhlab/script?version=latest"/>
+                        <CopyInput url={props.url}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <CopyInput
-                            url="<iframe src='https://hlab.app/hhlab/script?version=latest' width='100%' height='100%' />"/>
+                            url={`<iframe src='${props.embed}' width='100%' height='100%' />`}/>
                     </TabPanel>
                 </Box>
             </BasePopupButton>
