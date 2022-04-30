@@ -32,6 +32,10 @@ const Snippet = () => {
         url = `${exploreUrl}&author=${currentName}`
     }
 
+    if (isUserSnippetLike) {
+        url = `${exploreUrl}&likedByUser=${isUserSnippetLike?.params.userId}`
+    }
+
 
     const {data, error} = useSWR([url], fetcher, {refreshInterval: 1000});
 
