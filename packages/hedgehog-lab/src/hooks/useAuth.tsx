@@ -14,6 +14,8 @@ export const useAuth = () => {
     const navigate = useNavigate();
 
     const isMe = !!useMatch(`u/${auth.user.firstname}`);
+    const isMeLike = !!useMatch(`u/${auth.user.firstname}/likes`)
+
     const mathAccountPage = useMatch(`/settings/account`);
 
     const authorize = useCallback(
@@ -98,5 +100,6 @@ export const useAuth = () => {
         authorize,
         setAuth,
         me,
+        isMeLike
     };
 };

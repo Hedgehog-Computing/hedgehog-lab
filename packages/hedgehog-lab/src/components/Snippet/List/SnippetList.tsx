@@ -16,7 +16,7 @@ import {LoadingButton} from "@mui/lab";
 
 dayjs.extend(relativeTime)
 
-const formatDate = (date: string) => {
+export const formatDate = (date: string) => {
     return dayjs(date).fromNow()
 }
 
