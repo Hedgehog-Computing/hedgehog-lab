@@ -49,7 +49,7 @@ const Snippet = () => {
     useEffect(() => {
         snippetMeta && setUserMeta({
             snippet: {
-                count: snippetMeta['snippetLikeCount'],
+                count: snippetMeta['snippetCount'],
                 liked: snippetMeta['snippetLikeCount']
             }
         })
