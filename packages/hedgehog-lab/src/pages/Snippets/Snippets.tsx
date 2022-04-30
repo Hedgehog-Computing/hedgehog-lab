@@ -30,7 +30,7 @@ const Snippets = (): React.ReactElement => {
                             </Box>
                             <Box>
                                 <Link component={RouterLink} to={`/u/${name}/likes`}>
-                                    x Liked Snippets
+                                    {userMeta.snippet.liked} Liked Snippets
                                 </Link>
                             </Box>
                         </CardContent>

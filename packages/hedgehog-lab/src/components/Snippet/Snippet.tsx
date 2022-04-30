@@ -20,6 +20,7 @@ const Snippet = () => {
 
     const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
     const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
+    const snippetMetaUrl = `/snippets/meta?token=${auth.accessToken}`
     const me = useMatch(`u/${auth.user.firstname}`)
     let url = me ? mySnippetsUrl : exploreUrl
 
@@ -38,6 +39,7 @@ const Snippet = () => {
 
 
     const {data, error} = useSWR([url], fetcher, {refreshInterval: 1000});
+    const {data: snippetMeta, error: snippetMetaError} = useSWR(snippetMetaUrl, fetcher, {refreshInterval: 1000});
 
     const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
         setSearch({...search, from: value})
@@ -45,8 +47,13 @@ const Snippet = () => {
     }, [search, setSearch])
 
     useEffect(() => {
-        data && setUserMeta({snippet: {count: data['total']['value'], liked: 0}})
-    }, [data, setUserMeta])
+        snippetMeta && setUserMeta({
+            snippet: {
+                count: snippetMeta['snippetLikeCount'],
+                liked: snippetMeta['snippetLikeCount']
+            }
+        })
+    }, [setUserMeta, snippetMeta])
 
     useEffect(() => {
         reSetSearch()
