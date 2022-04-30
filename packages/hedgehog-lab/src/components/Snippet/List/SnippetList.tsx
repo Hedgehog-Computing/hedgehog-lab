@@ -1,6 +1,6 @@
-import {FavoriteBorderOutlined,} from "@mui/icons-material";
-import {Box, Button, CardActionArea, Chip, Divider, Link, MenuItem, Paper, Select, Typography,} from "@mui/material";
-import React from "react";
+import {Favorite, FavoriteBorderOutlined,} from "@mui/icons-material";
+import {Box, CardActionArea, Chip, Divider, Link, MenuItem, Paper, Select, Typography,} from "@mui/material";
+import React, {useCallback, useState} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink} from "react-router-dom";
 import {useRecoilValue} from "recoil";
@@ -11,6 +11,8 @@ import DeletePopup from "../Delete/DeletePopup";
 import RenameDialog from "../Rename/RenameDialog";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import {http} from "../../../network/http";
+import {LoadingButton} from "@mui/lab";
 
 dayjs.extend(relativeTime)
 
@@ -21,6 +23,7 @@ const formatDate = (date: string) => {
 interface ISnippetsProps {
     _id: string;
     _source: {
+        id: string
         title: string;
         description: string;
         content: string;
@@ -33,7 +36,12 @@ interface ISnippetsProps {
         _count: {
             snippetLike: number
         }
+        snippetLike: ISnippetLikeProps[]
     };
+}
+
+interface ISnippetLikeProps {
+    userId: string
 }
 
 interface ISnippetListProps {
@@ -43,6 +51,24 @@ interface ISnippetListProps {
 const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const showCodeBlock = useRecoilValue(showCodeBlockState);
     const {isMe, auth} = useAuth();
+    const [likeLoading, setLikeLoading] = useState(false)
+
+    const handleLikeSnippet = useCallback((snippetId: string) => {
+        setLikeLoading(true)
+        http.post('/snippets/like', {snippetId: snippetId, token: auth.accessToken})
+            .then(() => {
+                console.log('action success')
+            })
+            .catch(err => {
+                console.log(err)
+            }).finally(() => {
+            setLikeLoading(false)
+        })
+    }, [auth.accessToken])
+
+    const isCurrentUserLike = (snippetLike?: ISnippetLikeProps[]) => {
+        return snippetLike ? snippetLike?.find(like => like.userId === auth.user.id) : false
+    }
 
     return (
         <>
@@ -99,15 +125,19 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     }}/>
                                 )}
 
-                                <Button
+                                <LoadingButton
+                                    loading={likeLoading}
+                                    onClick={() => handleLikeSnippet(item._source.id)}
                                     fullWidth
                                     size="small"
-                                    color={"inherit"}
-                                    startIcon={<FavoriteBorderOutlined/>}
+                                    sx={{color: "inherit"}}
+                                    startIcon={isCurrentUserLike(item._source.snippetLike)
+                                        ? <Favorite/>
+                                        : <FavoriteBorderOutlined/>}
                                     disabled={isMe || !auth.isAuthenticated || item._source.author.firstname === auth.user.firstname}
                                 >
                                     {item._source._count.snippetLike} liked
-                                </Button>
+                                </LoadingButton>
 
                                 {isMe && <RenameDialog/>}
 

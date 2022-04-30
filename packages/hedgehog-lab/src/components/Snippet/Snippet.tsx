@@ -33,7 +33,7 @@ const Snippet = () => {
     }
 
 
-    const {data, error} = useSWR([url], fetcher);
+    const {data, error} = useSWR([url], fetcher, {refreshInterval: 1000});
 
     const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
         setSearch({...search, from: value})

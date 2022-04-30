@@ -72,7 +72,7 @@ const SearchSnippet = (): React.ReactElement => {
 
                 {
                     !isExplore && (
-                        <Tooltip title={"Favorite"} arrow>
+                        <Tooltip title={"Liked"} arrow>
                             <IconButton onClick={() => {
                                 navigate(isLikes ? `/u/${isLikes.params.userID}` : `/u/${userID?.params.userID}/likes`)
                             }}>
