@@ -24,10 +24,15 @@ interface ISnippetsProps {
         title: string;
         description: string;
         content: string;
-        author: string;
+        author: {
+            firstname: string;
+        };
         visibility: string[];
         createdAt: string;
         updatedAt: string;
+        _count: {
+            snippetLike: number
+        }
     };
 }
 
@@ -37,7 +42,7 @@ interface ISnippetListProps {
 
 const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const showCodeBlock = useRecoilValue(showCodeBlockState);
-    const {isMe} = useAuth();
+    const {isMe, auth} = useAuth();
 
     return (
         <>
@@ -49,10 +54,10 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={"/u/" + item._source.author}
+                                    to={"/u/" + item._source.author.firstname}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    {item._source.author}
+                                    {item._source.author.firstname}
                                 </Link>
 
                                 <span style={{margin: " 0 2px"}}>/</span>
@@ -60,7 +65,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={`/s/${item._source.author}/${item._source.title}`}
+                                    to={`/s/${item._source.author.firstname}/${item._source.title}`}
                                     sx={{fontWeight: "bold"}}
                                 >
                                     {item._source.title}
@@ -99,16 +104,17 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     size="small"
                                     color={"inherit"}
                                     startIcon={<FavoriteBorderOutlined/>}
-                                    disabled={isMe}
+                                    disabled={isMe || !auth.isAuthenticated || item._source.author.firstname === auth.user.firstname}
                                 >
-                                    1 liked
+                                    {item._source._count.snippetLike} liked
                                 </Button>
 
                                 {isMe && <RenameDialog/>}
 
-                                <SharePopup size="small" script={`import ${item._source.author}/${item._source.title}`}
-                                            embed={`https://hlab.app/s/${item._source.author}/${item._source.title}`}
-                                            url={`https://hlab.app/s/${item._source.author}/${item._source.title}`}/>
+                                <SharePopup size="small"
+                                            script={`import ${item._source.author.firstname}/${item._source.title}`}
+                                            embed={`https://hlab.app/s/${item._source.author.firstname}/${item._source.title}`}
+                                            url={`https://hlab.app/s/${item._source.author.firstname}/${item._source.title}`}/>
 
                                 {isMe && <DeletePopup size="small"/>}
                             </Box>
@@ -124,7 +130,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                             {showCodeBlock && (
                                 <Paper elevation={0} sx={{mt: 1}} variant={"outlined"}>
                                     <CardActionArea component={RouterLink}
-                                                    to={`/s/${item._source.author}/${item._source.title}`}>
+                                                    to={`/s/${item._source.author.firstname}/${item._source.title}`}>
                                         <Box
                                             sx={{
                                                 "& button": {
