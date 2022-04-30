@@ -10,12 +10,15 @@ import useSWR from "swr";
 import {fetcher} from "../../network/fetcher";
 import {formatDate} from "../../components/Snippet/List/SnippetList";
 import {http} from "../../network/http";
+import EditorLoading from "../../components/Base/Editor/Loading";
 
 
 const Timeline = () => {
     const [loading, setLoading] = React.useState(false);
+    const [currentPage, setCurrentPage] = React.useState(1);
+
     const {auth} = useAuth()
-    const timeLineUrl = `/users/timeline?token=${auth.accessToken}`
+    const timeLineUrl = `/users/timeline?token=${auth.accessToken}&skip=0&take=10&currentPage=${currentPage}`
     const {data, error} = useSWR(timeLineUrl, fetcher, {refreshInterval: 1000})
 
     const handleLike = useCallback((snippetId: string) => {
@@ -37,7 +40,7 @@ const Timeline = () => {
 
     return (
         <>
-            {data && data.response.map((item: any, index: number) => {
+            {data ? data.response.data.map((item: any, index: number) => {
                 return (
                     <>
                         <Box key={index}>
@@ -133,13 +136,20 @@ const Timeline = () => {
                         </Box>
 
                         <Divider sx={{my: 2}}/>
+
+
                     </>
                 );
-            })}
+            }) : <EditorLoading/>}
 
-            <Box sx={{display: "flex", justifyContent: "center"}}>
-                <Pagination count={5}/>
-            </Box>
+
+            {data && (
+                <Box sx={{display: "flex", justifyContent: "center"}}>
+                    <Pagination count={Math.ceil(data.response.count / 10)} page={currentPage} onChange={(e, value) => {
+                        setCurrentPage(value)
+                    }}/>
+                </Box>
+            )}
         </>
     );
 };
