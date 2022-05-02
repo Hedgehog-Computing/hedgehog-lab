@@ -145,7 +145,8 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                             embed={`https://hlab.app/s/${item._source.author.firstname}/${item._source.title}`}
                                             url={`https://hlab.app/s/${item._source.author.firstname}/${item._source.title}`}/>
 
-                                {isMe && <DeletePopup size="small"/>}
+                                {isMe && <DeletePopup size="small"
+                                                      snippet={{name: item._source.title, id: item._source.id}}/>}
                             </Box>
                         </Box>
 
