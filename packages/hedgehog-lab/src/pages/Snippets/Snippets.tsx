@@ -9,6 +9,7 @@ import useSWR from "swr";
 import {fetcher} from "../../network/fetcher";
 import {http} from "../../network/http";
 import {LoadingButton} from "@mui/lab";
+import {ReactJSXElement} from "@emotion/react/types/jsx-namespace";
 
 const Snippets = (): React.ReactElement => {
     const [followLoading, setFollowLoading] = useState(false);
@@ -42,6 +43,20 @@ const Snippets = (): React.ReactElement => {
 
     const {data, error} = useSWR(isFollowingUrl, fetcher, {refreshInterval: 1000})
 
+    const FollowButton = (): ReactJSXElement => {
+        if (name !== auth.user.firstname && auth.accessToken) {
+            if (data) {
+                return (
+                    <LoadingButton loading={followLoading} variant={"contained"} color={'error'}
+                                   onClick={handleUnFollow}>UnFollow</LoadingButton>
+                )
+            } else return (<LoadingButton loading={followLoading} variant={"outlined"}
+                                          onClick={handleFollow}>Follow</LoadingButton>)
+        } else {
+            return <></>
+        }
+    }
+
     return (
         <>
             <Grid container spacing={3}>
@@ -67,13 +82,7 @@ const Snippets = (): React.ReactElement => {
                                 </Box>
 
                                 <Box>
-                                    {(!isMe && !isMeLike && auth.accessToken) &&
-                                    data
-                                        ? <LoadingButton loading={followLoading} variant={"contained"} color={'error'}
-                                                         onClick={handleUnFollow}>UnFollow</LoadingButton>
-                                        : <LoadingButton loading={followLoading} variant={"outlined"}
-                                                         onClick={handleFollow}>Follow</LoadingButton>
-                                    }
+                                    <FollowButton/>
                                 </Box>
                             </Box>
                         </CardContent>

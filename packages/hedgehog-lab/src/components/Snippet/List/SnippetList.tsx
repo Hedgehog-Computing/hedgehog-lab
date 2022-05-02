@@ -134,7 +134,6 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     startIcon={isCurrentUserLike(item._source.snippetLike)
                                         ? <Favorite/>
                                         : <FavoriteBorderOutlined/>}
-                                    disabled={isMe || !auth.isAuthenticated || item._source.author.firstname === auth.user.firstname}
                                 >
                                     {item._source._count.snippetLike} liked
                                 </LoadingButton>
