@@ -13,8 +13,8 @@ export const useAuth = () => {
 
     const navigate = useNavigate();
 
-    const isMe = !!useMatch(`u/${auth.user.firstname}`);
-    const isMeLike = !!useMatch(`u/${auth.user.firstname}/likes`)
+    const isMe = !!useMatch(`u/${auth.user.username}`);
+    const isMeLike = !!useMatch(`u/${auth.user.username}/likes`)
 
     const mathAccountPage = useMatch(`/settings/account`);
 

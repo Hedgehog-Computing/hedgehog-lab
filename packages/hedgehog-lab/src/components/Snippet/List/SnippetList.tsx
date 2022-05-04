@@ -28,7 +28,7 @@ interface ISnippetsProps {
         description: string;
         content: string;
         author: {
-            firstname: string;
+            username: string;
         };
         visibility: string[];
         createdAt: string;
@@ -80,10 +80,10 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={"/u/" + item._source.author.firstname}
+                                    to={"/u/" + item._source.author.username}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    {item._source.author.firstname}
+                                    {item._source.author.username}
                                 </Link>
 
                                 <span style={{margin: " 0 2px"}}>/</span>
@@ -91,7 +91,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={`/s/${item._source.author.firstname}/${item._source.title}`}
+                                    to={`/s/${item._source.author.username}/${item._source.title}`}
                                     sx={{fontWeight: "bold"}}
                                 >
                                     {item._source.title}
@@ -141,9 +141,9 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 {isMe && <RenameDialog/>}
 
                                 <SharePopup size="small"
-                                            script={`import ${item._source.author.firstname}/${item._source.title}`}
-                                            embed={`https://hlab.app/s/${item._source.author.firstname}/${item._source.title}`}
-                                            url={`https://hlab.app/s/${item._source.author.firstname}/${item._source.title}`}/>
+                                            script={`import ${item._source.author.username}/${item._source.title}`}
+                                            embed={`https://hlab.app/s/${item._source.author.username}/${item._source.title}`}
+                                            url={`https://hlab.app/s/${item._source.author.username}/${item._source.title}`}/>
 
                                 {isMe && <DeletePopup size="small"
                                                       snippet={{name: item._source.title, id: item._source.id}}/>}
@@ -160,7 +160,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                             {showCodeBlock && (
                                 <Paper elevation={0} sx={{mt: 1}} variant={"outlined"}>
                                     <CardActionArea component={RouterLink}
-                                                    to={`/s/${item._source.author.firstname}/${item._source.title}`}>
+                                                    to={`/s/${item._source.author.username}/${item._source.title}`}>
                                         <Box
                                             sx={{
                                                 "& button": {

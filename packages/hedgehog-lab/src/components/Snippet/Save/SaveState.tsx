@@ -70,7 +70,7 @@ const SaveState = (): React.ReactElement => {
 
 
     const update = useCallback(() => {
-        if ((auth.isAuthenticated && isAuthSnippetPage?.userID === auth.user.firstname) && editorMeta.id) {
+        if ((auth.isAuthenticated && isAuthSnippetPage?.userID === auth.user.username) && editorMeta.id) {
             updateSnippet({
                 token: auth.accessToken,
                 id: editorMeta?.id,
@@ -79,7 +79,7 @@ const SaveState = (): React.ReactElement => {
                 content: editorCode
             }).then(r => console.log(r))
         }
-    }, [auth.accessToken, auth.isAuthenticated, auth.user.firstname, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
+    }, [auth.accessToken, auth.isAuthenticated, auth.user.username, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
 
     const onSubmit: SubmitHandler<IUpdateSnippetInput> = useCallback(async (data) => {
         updateSnippet({
@@ -90,9 +90,9 @@ const SaveState = (): React.ReactElement => {
         }).then(r => {
             setUpdateError(null)
             setEditorMeta({...editorMeta, title: data.title})
-            navigate(`/s/${auth.user.firstname}/${data.title}`)
+            navigate(`/s/${auth.user.username}/${data.title}`)
         }).catch(e => setUpdateError(e.response.data.message))
-    }, [auth.accessToken, auth.user.firstname, editorCode, editorMeta, navigate, setEditorMeta, updateSnippet])
+    }, [auth.accessToken, auth.user.username, editorCode, editorMeta, navigate, setEditorMeta, updateSnippet])
 
 
     const [] = useDebounce(
@@ -162,7 +162,7 @@ const SaveState = (): React.ReactElement => {
                 />
             </Tooltip>
 
-            {(!auth.isAuthenticated || isAuthSnippetPage?.userID !== auth.user.firstname) && (
+            {(!auth.isAuthenticated || isAuthSnippetPage?.userID !== auth.user.username) && (
                 <Chip
                     label={!auth.isAuthenticated ? `Login to get sync` : `Save to your cloud`}
                     size="small"

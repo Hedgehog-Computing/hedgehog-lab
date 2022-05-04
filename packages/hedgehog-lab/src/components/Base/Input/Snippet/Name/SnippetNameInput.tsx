@@ -18,7 +18,7 @@ const SnippetNameInput: React.FC<BaseTextFieldProps> = (props): React.ReactEleme
                 <BaseOutlinedInput
                     size={props.size}
                     field={field}
-                    placeholder={'Snippet name'}
+                    placeholder={'Snippet name*'}
                     adornment={{
                         start: <DriveFileRenameOutlineOutlined/>
                     }}

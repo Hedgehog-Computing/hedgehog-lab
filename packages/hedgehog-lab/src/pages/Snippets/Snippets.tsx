@@ -44,7 +44,7 @@ const Snippets = (): React.ReactElement => {
     const {data, error} = useSWR(isFollowingUrl, fetcher, {refreshInterval: 1000})
 
     const FollowButton = (): ReactJSXElement => {
-        if (name !== auth.user.firstname && auth.accessToken) {
+        if (name !== auth.user.username && auth.accessToken) {
             if (data) {
                 return (
                     <LoadingButton loading={followLoading} variant={"contained"} color={'error'}

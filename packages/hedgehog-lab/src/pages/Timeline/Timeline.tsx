@@ -18,7 +18,7 @@ const Timeline = () => {
     const [currentPage, setCurrentPage] = React.useState(1);
 
     const {auth} = useAuth()
-    const timeLineUrl = `/users/timeline?token=${auth.accessToken}&skip=0&take=10&currentPage=${currentPage}`
+    const timeLineUrl = auth.accessToken && `/users/timeline?token=${auth.accessToken}&skip=0&take=10&currentPage=${currentPage}`
     const {data, error} = useSWR(timeLineUrl, fetcher, {refreshInterval: 1000})
 
     const handleLike = useCallback((snippetId: string) => {
@@ -48,9 +48,9 @@ const Timeline = () => {
                                 <Stack direction="row" alignItems={"center"} spacing={1}>
                                     <Avatar/>
                                     <Box>
-                                        <Link component={RouteLink} to={`/u/${item.user.firstname}`} color={"initial"}>
+                                        <Link component={RouteLink} to={`/u/${item.user.username}`} color={"initial"}>
                                             <Typography component="span" fontWeight={"bold"}>
-                                                {item.user.firstname}
+                                                {item.user.username}
                                             </Typography>
                                         </Link>
 
@@ -58,13 +58,15 @@ const Timeline = () => {
                                             {item.action}
                                         </Typography>
 
-                                        <Link component={RouteLink}
-                                              to={`/s/${item.snippet.author.firstname}/${item.snippet.title}`}
-                                              color={"initial"}>
+                                        {item.snippet?.author.username ? <Link component={RouteLink}
+                                                                               to={`/s/${item.snippet?.author.username}/${item.snippet?.title}`}
+                                                                               color={"initial"}>
                                             <Typography component="span" fontWeight={"bold"}>
-                                                {item.snippet.author.firstname}/{item.snippet.title}
+                                                {item.snippet?.author.username}/{item.snippet?.title}
                                             </Typography>
-                                        </Link>
+                                        </Link> : <Typography component="span" fontWeight={"bold"} color={'error'}>
+                                            Deleted Snippet
+                                        </Typography>}
 
                                         <Typography
                                             component="span"
@@ -77,61 +79,62 @@ const Timeline = () => {
                                     </Box>
                                 </Stack>
 
-                                <Card variant="outlined" sx={{mt: "5px", ml: 4, bgcolor: grey[50]}}>
-                                    <CardContent>
-                                        <Grid container>
-                                            <Grid item xs={12} md={10}>
-                                                <Box>
-                                                    <Link
-                                                        component={RouteLink}
-                                                        to={`/s/${item.snippet.author.firstname}/${item.snippet.title}`}
-                                                        color={"initial"}
-                                                    >
-                                                        <Typography
-                                                            fontWeight={"bold"}>{item.snippet.author.firstname}/{item.snippet.title}</Typography>
-                                                    </Link>
-
-                                                    <Typography variant="body2">
-                                                        {item.snippet.description}
-                                                    </Typography>
-
-                                                    <Stack direction="row" alignItems={"center"} spacing={1} mt={1}>
-                                                        <Typography
-                                                            variant="body2"
-                                                            sx={{display: "flex", alignItems: "center"}}
+                                {item.snippet?.author.username &&
+                                    <Card variant="outlined" sx={{mt: "5px", ml: 4, bgcolor: grey[50]}}>
+                                        <CardContent>
+                                            <Grid container>
+                                                <Grid item xs={12} md={10}>
+                                                    <Box>
+                                                        <Link
+                                                            component={RouteLink}
+                                                            to={`/s/${item.snippet?.author.username}/${item.snippet?.title}`}
+                                                            color={"initial"}
                                                         >
-                                                            <FavoriteBorderOutlined
-                                                                fontSize="small"
-                                                                sx={{mr: "5px", mt: '4px'}}
-                                                            />{" "}
-                                                            {item.snippet._count.snippetLike}
+                                                            <Typography
+                                                                fontWeight={"bold"}>{item.snippet?.author.username}/{item.snippet?.title}</Typography>
+                                                        </Link>
+
+                                                        <Typography variant="body2">
+                                                            {item.snippet?.description}
                                                         </Typography>
 
-                                                        <Typography
-                                                            variant="body2">{formatDate(item.snippet.updatedAt)}</Typography>
-                                                    </Stack>
-                                                </Box>
-                                            </Grid>
+                                                        <Stack direction="row" alignItems={"center"} spacing={1} mt={1}>
+                                                            <Typography
+                                                                variant="body2"
+                                                                sx={{display: "flex", alignItems: "center"}}
+                                                            >
+                                                                <FavoriteBorderOutlined
+                                                                    fontSize="small"
+                                                                    sx={{mr: "5px", mt: '4px'}}
+                                                                />{" "}
+                                                                {item.snippet?._count.snippetLike}
+                                                            </Typography>
 
-                                            <Grid item xs={12} md={2}>
-                                                <Box sx={{textAlign: "right"}}>
-                                                    <LoadingButton
-                                                        color="inherit"
-                                                        variant="outlined"
-                                                        loading={loading}
-                                                        loadingPosition="start"
-                                                        onClick={() => handleLike(item.snippet.id)}
-                                                        startIcon={isCurrentUserLike(item.snippet.snippetLike)
-                                                            ? <Favorite/>
-                                                            : <FavoriteBorderOutlined/>}
-                                                    >
-                                                        Like
-                                                    </LoadingButton>
-                                                </Box>
+                                                            <Typography
+                                                                variant="body2">{formatDate(item.snippet?.updatedAt)}</Typography>
+                                                        </Stack>
+                                                    </Box>
+                                                </Grid>
+
+                                                <Grid item xs={12} md={2}>
+                                                    <Box sx={{textAlign: "right"}}>
+                                                        <LoadingButton
+                                                            color="inherit"
+                                                            variant="outlined"
+                                                            loading={loading}
+                                                            loadingPosition="start"
+                                                            onClick={() => handleLike(item.snippet?.id)}
+                                                            startIcon={isCurrentUserLike(item.snippet?.snippetLike)
+                                                                ? <Favorite/>
+                                                                : <FavoriteBorderOutlined/>}
+                                                        >
+                                                            Like
+                                                        </LoadingButton>
+                                                    </Box>
+                                                </Grid>
                                             </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Card>
+                                        </CardContent>
+                                    </Card>}
                             </>
                         </Box>
 

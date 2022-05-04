@@ -19,8 +19,8 @@ export interface ICreateSnippetInput {
 }
 
 export const createSnippetRule = yup.object({
-    title: yup.string().required("Title is required"),
-    description: yup.string().required("Description is required"),
+    title: yup.string().required("Name is required"),
+    description: yup.string(),
 }).required();
 
 const CreateSnippetDialog = () => {
@@ -49,17 +49,18 @@ const CreateSnippetDialog = () => {
             setCreateDialog({open: false})
             const {title} = res.data
 
-            navigate(`/s/${auth.user.firstname}/${title}`)
+            navigate(`/s/${auth.user.username}/${title}`)
         } catch (e) {
             setError(e.response.data.message)
             console.log(e.response.data.message)
         }
-    }, [auth.accessToken, auth.user.firstname, auth.user.id, createSnippet, editorCode, navigate, setCreateDialog])
+    }, [auth.accessToken, auth.user.username, auth.user.id, createSnippet, editorCode, navigate, setCreateDialog])
 
 
     return (
         <Dialog open={createDialog.open} fullWidth onClose={(event, reason) => {
             if (reason !== "backdropClick") {
+                setError('')
                 setCreateDialog({open: false})
             }
         }}>
@@ -102,7 +103,7 @@ const CreateSnippetDialog = () => {
                         </Box>
 
                         <Box textAlign={"right"} mt={1}>
-                            <LoadingButton loading={createLoading} type={"submit"} sx={{mt: 2}}
+                            <LoadingButton disabled={!editorCode} loading={createLoading} type={"submit"} sx={{mt: 2}}
                                            variant={'contained'}>
                                 Submit
                             </LoadingButton>
@@ -113,9 +114,14 @@ const CreateSnippetDialog = () => {
                 <Divider sx={{mt: 2}}/>
 
 
-                <Typography variant={"h6"} component={"p"} sx={{fontWeight: "bold", my: 1}}>
-                    Code Preview(excerpt)
+                <Typography variant={"h6"} component={"p"} sx={{fontWeight: "bold", mt: 1}}>
+                    Code Preview(excerpt)*
                 </Typography>
+
+                {!editorCode && (
+                    <Alert severity={'error'} sx={{my: 1}}>Content should not be empty</Alert>
+                )}
+
                 <Paper variant={'outlined'}>
                     <CodeBlock text={editorCode.slice(0, 200)}
                                language={"javascript"}
