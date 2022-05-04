@@ -60,7 +60,7 @@ export const useEditor = (): any => {
     const autoSaveCode = useCallback(() => {
         localStorage.setItem("lastRunningCode", editorCode as string);
         setCodeSavingFlag(false);
-        console.log(1)
+        //console.log(1)
         // live mode
         compilerLiveMode === "on" ? setCompilerReFetch(true) : null;
     }, [compilerLiveMode, editorCode, setCodeSavingFlag, setCompilerReFetch]);

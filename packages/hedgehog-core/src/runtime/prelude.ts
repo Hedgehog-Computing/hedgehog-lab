@@ -451,3 +451,7 @@ Output: string, text of URL
 export function get(input: string): string {
   return fetch(input).text();
 }
+
+export function echart(input: any) {
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'ECHART', option: input });
+}

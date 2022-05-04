@@ -5,18 +5,21 @@
  */
 
 import * as prelude from './prelude';
+import * as vars from './vars';
 
 export function executeOutput(code: string) {
   let preludeImport = '';
-
   for (const key in prelude) {
     preludeImport += `const ${key} = prelude.${key};`;
   }
+  for (const key in vars) {
+    preludeImport += `var ${key} = vars.${key};`;
+  }
 
   // eslint-disable-next-line no-new-func
-  const fn = new Function('prelude', preludeImport + code + '\n return _OUTPUT_ITEMS_LIST_;');
+  const fn = new Function( 'prelude', 'vars', preludeImport + code + '\n return _OUTPUT_ITEMS_LIST_;');
 
-  const results = fn.call({}, prelude);
+  const results = fn.call({}, prelude, vars);
 
   console.log('***Execution results***');
   console.log(results);

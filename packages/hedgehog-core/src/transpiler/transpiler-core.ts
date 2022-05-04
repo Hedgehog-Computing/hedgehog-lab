@@ -1,5 +1,6 @@
 import preprocessor from './preprocessor';
 import operatorOverload from './operator-overload';
+import stripe from 'strip-comments';
 
 async function transpilerCore(source: string) {
   //todo: move the registration of plugins and presets to the constructor
@@ -34,7 +35,7 @@ async function transpilerCore(source: string) {
   );
 
   //return the code
-  console.log('The output of transpiler core is: \n' + transpiled.code);
+  //console.log('The output of transpiler core is: \n' + transpiled.code);
   return transpiled.code;
 }
 

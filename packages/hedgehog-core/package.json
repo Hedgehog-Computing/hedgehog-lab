@@ -26,6 +26,7 @@
         "@babel/preset-typescript": "^7.10.4",
         "@babel/standalone": "^7.10.5",
         "@tensorflow/tfjs": "^2.7.0",
+        "@types/strip-comments": "^2.0.1",
         "babel-template": "^6.26.0",
         "clean-webpack-plugin": "^3.0.0",
         "csv": "^5.5.0",
@@ -37,6 +38,7 @@
         "ml-pca": "^4.0.2",
         "ml-regression-simple-linear": "^2.0.3",
         "nerdamer": "^1.1.5",
+        "strip-comments": "^2.0.1",
         "sync-fetch": "^0.3.0",
         "webpack": "^5.21.2",
         "webpack-cli": "^4.5.0"

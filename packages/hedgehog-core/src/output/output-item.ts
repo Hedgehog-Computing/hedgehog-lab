@@ -61,4 +61,20 @@ export const isMarkdownItem = (item: OutputItem): item is MarkdownItem => {
   return item.itemType === 'MARKDOWN';
 };
 
-export type OutputItem = TextItem | DrawingItem | TeXItem | FormulaItem | MarkdownItem | TableItem;
+export type EChartItem = {
+  itemType: 'ECHART';
+  option: any;
+};
+
+export const isEChartItem = (item: OutputItem): item is MarkdownItem => {
+  return item.itemType === 'ECHART';
+};
+
+export type OutputItem =
+  | TextItem
+  | DrawingItem
+  | TeXItem
+  | FormulaItem
+  | MarkdownItem
+  | TableItem
+  | EChartItem;
