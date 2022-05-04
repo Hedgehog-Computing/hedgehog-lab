@@ -48,9 +48,9 @@ const Timeline = () => {
                                 <Stack direction="row" alignItems={"center"} spacing={1}>
                                     <Avatar/>
                                     <Box>
-                                        <Link component={RouteLink} to={`/u/${item.user.firstname}`} color={"initial"}>
+                                        <Link component={RouteLink} to={`/u/${item.user.username}`} color={"initial"}>
                                             <Typography component="span" fontWeight={"bold"}>
-                                                {item.user.firstname}
+                                                {item.user.username}
                                             </Typography>
                                         </Link>
 
@@ -58,11 +58,11 @@ const Timeline = () => {
                                             {item.action}
                                         </Typography>
 
-                                        {item.snippet?.author.firstname ? <Link component={RouteLink}
-                                                                                to={`/s/${item.snippet?.author.firstname}/${item.snippet?.title}`}
-                                                                                color={"initial"}>
+                                        {item.snippet?.author.username ? <Link component={RouteLink}
+                                                                               to={`/s/${item.snippet?.author.username}/${item.snippet?.title}`}
+                                                                               color={"initial"}>
                                             <Typography component="span" fontWeight={"bold"}>
-                                                {item.snippet?.author.firstname}/{item.snippet?.title}
+                                                {item.snippet?.author.username}/{item.snippet?.title}
                                             </Typography>
                                         </Link> : <Typography component="span" fontWeight={"bold"} color={'error'}>
                                             Deleted Snippet
@@ -79,7 +79,7 @@ const Timeline = () => {
                                     </Box>
                                 </Stack>
 
-                                {item.snippet?.author.firstname &&
+                                {item.snippet?.author.username &&
                                     <Card variant="outlined" sx={{mt: "5px", ml: 4, bgcolor: grey[50]}}>
                                         <CardContent>
                                             <Grid container>
@@ -87,11 +87,11 @@ const Timeline = () => {
                                                     <Box>
                                                         <Link
                                                             component={RouteLink}
-                                                            to={`/s/${item.snippet?.author.firstname}/${item.snippet?.title}`}
+                                                            to={`/s/${item.snippet?.author.username}/${item.snippet?.title}`}
                                                             color={"initial"}
                                                         >
                                                             <Typography
-                                                                fontWeight={"bold"}>{item.snippet?.author.firstname}/{item.snippet?.title}</Typography>
+                                                                fontWeight={"bold"}>{item.snippet?.author.username}/{item.snippet?.title}</Typography>
                                                         </Link>
 
                                                         <Typography variant="body2">

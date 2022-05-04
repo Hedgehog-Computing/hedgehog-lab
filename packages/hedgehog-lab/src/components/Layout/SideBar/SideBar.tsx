@@ -187,7 +187,7 @@ const MySnippets = () => {
                 >
                     {data && data.hits.map((item: { _source: { title: string; }; }, index: string | number | null | undefined) => {
                         return (
-                            <Link component={RouteLink} to={`s/${auth.user.firstname}/${item._source.title}`}
+                            <Link component={RouteLink} to={`s/${auth.user.username}/${item._source.title}`}
                                   key={index}
                                   sx={{
                                       display: "block",
@@ -226,7 +226,7 @@ const MySnippets = () => {
                         variant="outlined"
                         size="small"
                         component={RouteLink}
-                        to={`/u/${auth.user.firstname}`}
+                        to={`/u/${auth.user.username}`}
                     >
                         All
                     </Button>

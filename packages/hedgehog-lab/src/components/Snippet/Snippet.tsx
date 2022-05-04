@@ -21,7 +21,7 @@ const Snippet = () => {
     const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
     const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
     const snippetMetaUrl = `/snippets/meta?token=${auth.accessToken}`
-    const me = useMatch(`u/${auth.user.firstname}`)
+    const me = useMatch(`u/${auth.user.username}`)
     let url = me ? mySnippetsUrl : exploreUrl
 
     const isUserSnippet = useMatch('/u/:userId')
