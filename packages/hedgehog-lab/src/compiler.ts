@@ -12,28 +12,47 @@ type CancelablePromise<T> = Promise<T> & {
     cancel: () => any
 }
 
-export const compiler = (...param: readonly [string, string]): any => {
-    const compilerWorker = new CompilerWorker()
-    const outputWorker = new OutputWorker()
-
-    const compile = Comlink.wrap<{
+class WorkerProvider {
+    private compilerWorker: CompilerWorker
+    private outputWorker: OutputWorker
+    private compilerProxy: Comlink.Remote<{
         compile: (data: string) => Promise<string>
-    }>(compilerWorker).compile
-
-    const output = Comlink.wrap<{
+    }>
+    private outputProxy: Comlink.Remote<{
         output: (data: string) => Promise<any[]>
-    }>(outputWorker).output
+    }>
 
-    const cleanup = () => {
-        compilerWorker.terminate()
-        outputWorker.terminate()
+    constructor() {
+        this.compilerWorker = new CompilerWorker()
+        this.compilerProxy = Comlink.wrap(this.compilerWorker)
+        this.outputWorker = new OutputWorker()
+        this.outputProxy = Comlink.wrap(this.outputWorker)
+    }
+
+    get() {
+        return { compile: this.compilerProxy.compile, output: this.outputProxy.output }
+    }
+
+    terminate() {
+        this.compilerWorker?.terminate()
+        this.outputWorker?.terminate()
 
         // unlisten worker
-        compile[Comlink.releaseProxy]()
-        output[Comlink.releaseProxy]()
+        this.compilerProxy?.[Comlink.releaseProxy]()
+        this.outputProxy?.[Comlink.releaseProxy]()
+    }
+}
+
+let provider = new WorkerProvider();
+
+export const compiler = (...param: readonly [string, string]): any => {
+    const terminate = () => {
+        provider.terminate();
+        provider = new WorkerProvider();
     }
 
     const run = async () => {
+        const { compile, output } = provider.get()
         const code = await compile(param[1])
         const result = await output(code)
         let outputString = ""
@@ -43,7 +62,6 @@ export const compiler = (...param: readonly [string, string]): any => {
                 outputString += element.text + "\n"
             }
         })
-        cleanup()
         return {
             outputString,
             outputItem,
@@ -52,6 +70,6 @@ export const compiler = (...param: readonly [string, string]): any => {
 
     const result = run()
         // provide the cancel function for react-query
-    ;(result as CancelablePromise<OutputResult>).cancel = cleanup
+    ;(result as CancelablePromise<OutputResult>).cancel = terminate
     return result
 }
