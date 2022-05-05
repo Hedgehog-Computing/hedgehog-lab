@@ -34,21 +34,21 @@ class WorkerProvider {
     }
 
     terminate() {
-        this.compilerWorker?.terminate()
-        this.outputWorker?.terminate()
+        this.compilerWorker.terminate()
+        this.outputWorker.terminate()
 
         // unlisten worker
-        this.compilerProxy?.[Comlink.releaseProxy]()
-        this.outputProxy?.[Comlink.releaseProxy]()
+        this.compilerProxy[Comlink.releaseProxy]()
+        this.outputProxy[Comlink.releaseProxy]()
     }
 }
 
-let provider = new WorkerProvider();
+let provider = new WorkerProvider()
 
 export const compiler = (...param: readonly [string, string]): any => {
     const terminate = () => {
-        provider.terminate();
-        provider = new WorkerProvider();
+        provider.terminate()
+        provider = new WorkerProvider()
     }
 
     const run = async () => {
