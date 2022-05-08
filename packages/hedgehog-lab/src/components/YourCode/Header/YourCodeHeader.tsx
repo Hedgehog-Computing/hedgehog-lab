@@ -1,4 +1,4 @@
-import {Box, IconButton} from "@mui/material";
+import {Box, Button, IconButton} from "@mui/material";
 import {PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 import {queryCache} from "react-query";
 import React, {useCallback} from "react";
@@ -32,6 +32,8 @@ const YourCodeHeader = (): React.ReactElement => {
             <Box sx={{display: "flex", alignItems: 'center'}}>
                 <RightButton/>
 
+                <AccountMenu/>
+
                 {isLoading ? (
                     <IconButton
                         size="small"
@@ -50,18 +52,20 @@ const YourCodeHeader = (): React.ReactElement => {
                     </IconButton>
                 ) : (
                     <>
-                        <IconButton
+                        <Button
+                            variant={"contained"}
                             id={COMPILE_AND_RUN_BUTTON_ID}
                             color="primary"
                             onClick={handleRunCode}
                             size="small"
+                            endIcon={<PlayCircleOutline/>}
+                            sx={{ml: 1}}
                         >
-                            <PlayCircleOutline/>
-                        </IconButton>
+                            Run
+                        </Button>
                     </>
                 )}
 
-                <AccountMenu/>
             </Box>
         </Box>
     );
