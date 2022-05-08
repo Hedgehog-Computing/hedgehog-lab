@@ -7,10 +7,6 @@ interface ICreateSnippet {
     title: string;
     content: string;
     description?: string,
-    token: string,
-    authorId: string,
-    versions: number,
-    visibility: string,
 }
 
 interface IUpdateSnippet {
