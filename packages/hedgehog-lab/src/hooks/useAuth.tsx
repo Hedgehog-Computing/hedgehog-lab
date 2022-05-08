@@ -24,7 +24,7 @@ export const useAuth = () => {
             try {
                 await me();
             } catch (error) {
-                setErrorMessage(error.response.data.message);
+                setErrorMessage(error.response?.data.message);
             }
         },
         [setErrorMessage]
@@ -38,7 +38,7 @@ export const useAuth = () => {
                 const token = res.data?.response?.result?.accessToken
                 authorize(token);
             } catch (error) {
-                const message = error.response.data.message;
+                const message = error.response?.data.message;
                 setErrorMessage(message);
             } finally {
                 setLoading(false);
@@ -54,7 +54,7 @@ export const useAuth = () => {
                 const res = await http.post("/auth/signup", data);
                 authorize(res.data?.response?.result?.accessToken);
             } catch (error) {
-                const message = error.response.data.message;
+                const message = error.response?.data.message;
                 setErrorMessage(message);
             } finally {
                 setLoading(false);
