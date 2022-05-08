@@ -20,7 +20,7 @@ git clone https://github.com/lidangzzz/hedgehog-lab.git
 # Using SSH
 git clone git@github.com:lidangzzz/hedgehog-lab.git
 ```
-
+Before the developing, Plsease make sure you are already install and enabled the [`yarn`](https://yarnpkg.com/)  
 Once cloned, switch to the master branch and navigate to the folder by typing `cd hedgehog-lab` and then running the
 following commands:
 
