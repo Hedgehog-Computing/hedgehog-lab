@@ -5,7 +5,7 @@ import {useRecoilState, useRecoilValue} from "recoil";
 import {codeSavingFlagState} from "../../../states/RYourCodeStates";
 import {compilerLiveModeState} from "../../../states/RCompilerStates";
 import BasePopupText from "../../Base/Popup/BasePopupText";
-import {authDialogState} from "../../../states/RAuthStates";
+import {authDialogState} from "../../../states/RUserStates";
 import {useAuth} from "../../../hooks/useAuth";
 import {useMatch, useNavigate} from "react-router-dom";
 import {useSnippet} from "../../../hooks/useSnippet";

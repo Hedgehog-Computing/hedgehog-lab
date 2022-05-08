@@ -4,7 +4,7 @@ import {useRecoilValue, useSetRecoilState} from "recoil";
 import Sign from "./Sign";
 import Forget from "./Forget";
 import Login from "./Login";
-import {authActionLoadingState, authActionState} from "../../states/RAuthStates";
+import {authActionLoadingState, authActionState} from "../../states/RUserStates";
 import {useAuth} from "../../hooks/useAuth";
 import {Alert, Box} from "@mui/material";
 

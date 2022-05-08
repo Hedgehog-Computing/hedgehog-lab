@@ -16,7 +16,7 @@ const authStateAtom = atom<IAuthState>({
 });
 
 
-export const authState = selector({
+export const userState = selector({
     key: "AuthState",
     get: async ({get}) => {
         return get(authStateAtom);

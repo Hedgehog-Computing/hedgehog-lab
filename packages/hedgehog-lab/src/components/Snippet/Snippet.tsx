@@ -30,7 +30,7 @@ const Snippet = () => {
     const isUserSnippetLike = useMatch('/u/:userId/likes')
 
     if (isUserSnippet) {
-        url = `${exploreUrl}&author=${currentName}`
+        url = `${exploreUrl}&user=${currentName}`
     }
 
     if (isUserSnippetLike) {
