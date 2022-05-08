@@ -23,8 +23,8 @@ export const useEditorMeta = () => {
 
 
     const navigate = useNavigate()
-    const {data, error} = useSWR([URL], fetcher)
-
+    // eslint-disable-next-line prefer-const
+    let {data, error} = useSWR([URL], fetcher)
     const matchPage = useMatch('/:userID/:snippetID')
     useEffect(() => {
         if (error && matchPage) {
@@ -38,7 +38,8 @@ export const useEditorMeta = () => {
     useEffect(() => {
         !data && resetEditorMeta()
         if (data) {
-            setEditorMeta({title: data.title, id: data.id, currentFile: currentFilePath})
+            const res = data.response.result
+            setEditorMeta({title: res.title, id: res.id, currentFile: currentFilePath})
         }
     }, [data, resetEditorMeta, setEditorMeta])
 

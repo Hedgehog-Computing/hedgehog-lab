@@ -14,7 +14,6 @@ interface IUpdateSnippet {
     title: string;
     content: string;
     description?: string,
-    token: string,
 }
 
 export const useSnippet = () => {

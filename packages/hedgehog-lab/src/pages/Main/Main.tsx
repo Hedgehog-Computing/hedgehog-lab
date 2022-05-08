@@ -34,7 +34,7 @@ const Main = (): React.ReactElement => {
     });
 
     useEffect(() => {
-        setEditorCode(data?.content ?? DEFAULT_SOURCE)
+        setEditorCode(data?.response?.result?.content ?? DEFAULT_SOURCE)
     }, [data?.content, setEditorCode])
 
     useEffect(() => {

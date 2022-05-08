@@ -72,18 +72,16 @@ const SaveState = (): React.ReactElement => {
     const update = useCallback(() => {
         if ((auth.isAuthenticated && isAuthSnippetPage?.userID === auth.user.username) && editorMeta.id) {
             updateSnippet({
-                token: auth.accessToken,
                 id: editorMeta?.id,
                 title: editorMeta.title,
                 description: editorMeta.description,
                 content: editorCode
             }).then(r => console.log(r))
         }
-    }, [auth.accessToken, auth.isAuthenticated, auth.user.username, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
+    }, [, auth.isAuthenticated, auth.user.username, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
 
     const onSubmit: SubmitHandler<IUpdateSnippetInput> = useCallback(async (data) => {
         updateSnippet({
-            token: auth.accessToken,
             id: editorMeta?.id,
             title: data.title,
             content: editorCode
