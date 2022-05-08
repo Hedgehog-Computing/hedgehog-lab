@@ -37,7 +37,6 @@ import {useAuth} from "../../../hooks/useAuth";
 import AuthDialog from "../../Auth/Dialog/AuthDialog";
 import useSWR from "swr";
 import {fetcher} from "../../../network/fetcher";
-import {useSnippet} from "../../../hooks/useSnippet";
 
 const NewSnippet = () => {
     const theme = useTheme();
@@ -48,7 +47,6 @@ const NewSnippet = () => {
 
     const navigate = useNavigate();
     const {setEditorCode} = useEditor();
-    const {setCreateDialog} = useSnippet()
 
     const handleSetEditorCode = useCallback(
         (description: any) => {
@@ -153,7 +151,7 @@ const MySnippets = () => {
     const theme = useTheme();
     const [collapseOpen, setCollapseOpen] = useState(true);
     const {auth} = useAuth()
-    const {data, error} = useSWR([`/snippets/mySnippets?token=${auth.accessToken}`], fetcher, {refreshInterval: 1000});
+    const {data, error} = useSWR([`/snippets/mySnippets`], fetcher, {refreshInterval: 1000});
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
     }, [collapseOpen]);
@@ -185,9 +183,9 @@ const MySnippets = () => {
                         borderColor: theme.palette.primary[500],
                     }}
                 >
-                    {data && data.hits.map((item: { _source: { title: string; }; }, index: string | number | null | undefined) => {
+                    {data && data.response.result.map((item: { title: any; }, index: string | number | null | undefined) => {
                         return (
-                            <Link component={RouteLink} to={`s/${auth.user.username}/${item._source.title}`}
+                            <Link component={RouteLink} to={`s/${auth.user.username}/${item.title}`}
                                   key={index}
                                   sx={{
                                       display: "block",
@@ -212,7 +210,7 @@ const MySnippets = () => {
                                             component={"span"}
                                             sx={{ml: "18px"}}
                                         >
-                                            {item._source.title.slice(0, 10)}
+                                            {item.title.slice(0, 10)}
                                         </Typography>
                                     </ListItemText>
                                 </ListItemButton>
