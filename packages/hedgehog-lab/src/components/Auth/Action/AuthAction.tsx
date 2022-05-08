@@ -2,7 +2,7 @@ import {Link, Typography} from "@mui/material";
 import * as React from "react";
 import {useCallback} from "react";
 import {useRecoilState} from "recoil";
-import {authActionLoadingState, authActionState} from "../../../states/RAuthStates";
+import {authActionLoadingState, authActionState} from "../../../states/RUserStates";
 import {LoadingButton} from "@mui/lab";
 
 interface IBaseActionProps {

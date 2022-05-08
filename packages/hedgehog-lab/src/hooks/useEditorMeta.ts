@@ -17,7 +17,7 @@ export const useEditorMeta = () => {
 
     if (isUserSnippetPage) {
         const {userID, snippetID} = isUserSnippetPage?.params
-        URL = `/snippets?author=${userID}&title=${snippetID}`
+        URL = `/snippets?user=${userID}&title=${snippetID}`
         currentFilePath = `/s/${userID}/${snippetID}`
     }
 

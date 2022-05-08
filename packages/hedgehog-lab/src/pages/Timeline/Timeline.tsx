@@ -58,11 +58,11 @@ const Timeline = () => {
                                             {item.action}
                                         </Typography>
 
-                                        {item.snippet?.author.username ? <Link component={RouteLink}
-                                                                               to={`/s/${item.snippet?.author.username}/${item.snippet?.title}`}
-                                                                               color={"initial"}>
+                                        {item.snippet?.user.username ? <Link component={RouteLink}
+                                                                             to={`/s/${item.snippet?.user.username}/${item.snippet?.title}`}
+                                                                             color={"initial"}>
                                             <Typography component="span" fontWeight={"bold"}>
-                                                {item.snippet?.author.username}/{item.snippet?.title}
+                                                {item.snippet?.user.username}/{item.snippet?.title}
                                             </Typography>
                                         </Link> : <Typography component="span" fontWeight={"bold"} color={'error'}>
                                             Deleted Snippet
@@ -79,7 +79,7 @@ const Timeline = () => {
                                     </Box>
                                 </Stack>
 
-                                {item.snippet?.author.username &&
+                                {item.snippet?.user.username &&
                                     <Card variant="outlined" sx={{mt: "5px", ml: 4, bgcolor: grey[50]}}>
                                         <CardContent>
                                             <Grid container>
@@ -87,11 +87,11 @@ const Timeline = () => {
                                                     <Box>
                                                         <Link
                                                             component={RouteLink}
-                                                            to={`/s/${item.snippet?.author.username}/${item.snippet?.title}`}
+                                                            to={`/s/${item.snippet?.user.username}/${item.snippet?.title}`}
                                                             color={"initial"}
                                                         >
                                                             <Typography
-                                                                fontWeight={"bold"}>{item.snippet?.author.username}/{item.snippet?.title}</Typography>
+                                                                fontWeight={"bold"}>{item.snippet?.user.username}/{item.snippet?.title}</Typography>
                                                         </Link>
 
                                                         <Typography variant="body2">

@@ -366,7 +366,7 @@ that material) supplement the terms of this License with terms:
     terms of sections 15 and 16 of this License; or
 
     b) Requiring preservation of specified reasonable legal notices or
-    author attributions in that material or in the Appropriate Legal
+    user attributions in that material or in the Appropriate Legal
     Notices displayed by works containing it; or
 
     c) Prohibiting misrepresentation of the origin of that material, or
@@ -583,7 +583,7 @@ to choose that version for the Program.
 
   Later license versions may give you additional or different
 permissions.  However, no additional obligations are imposed on any
-author or copyright holder as a result of your choosing to follow a
+user or copyright holder as a result of your choosing to follow a
 later version.
 
   15. Disclaimer of Warranty.
@@ -632,7 +632,7 @@ state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
     <one line to give the program's name and a brief idea of what it does.>
-    Copyright (C) <year>  <name of author>
+    Copyright (C) <year>  <name of user>
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -652,7 +652,7 @@ Also add information on how to contact you by electronic and paper mail.
   If the program does terminal interaction, make it output a short
 notice like this when it starts in an interactive mode:
 
-    <program>  Copyright (C) <year>  <name of author>
+    <program>  Copyright (C) <year>  <name of user>
     This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
     This is free software, and you are welcome to redistribute it
     under certain conditions; type `show c' for details.

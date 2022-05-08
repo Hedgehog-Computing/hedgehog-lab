@@ -1,16 +1,16 @@
 import {useRecoilState, useResetRecoilState} from "recoil";
-import {authActionLoadingState, authDialogState, authErrorMessageState, authState,} from "../states/RAuthStates";
+import {authActionLoadingState, authDialogState, authErrorMessageState, userState,} from "../states/RUserStates";
 import {useMatch, useNavigate} from "react-router-dom";
 import {useCallback} from "react";
 import {http} from "../network/http";
 
 export const useAuth = () => {
-    const [auth, setAuth] = useRecoilState(authState);
+    const [auth, setAuth] = useRecoilState(userState);
     const [errorMessage, setErrorMessage] = useRecoilState(authErrorMessageState);
     const [authDialogOpen, setAuthDialogOpen] = useRecoilState(authDialogState);
     const [loading, setLoading] = useRecoilState(authActionLoadingState);
-    const restAuth = useResetRecoilState(authState);
-
+    const restAuth = useResetRecoilState(userState);
+    
     const navigate = useNavigate();
 
     const isMe = !!useMatch(`u/${auth.user.username}`);
@@ -35,7 +35,8 @@ export const useAuth = () => {
             setLoading(true);
             try {
                 const res = await http.post("/auth/login", data);
-                authorize(res.data?.accessToken);
+                const token = res.data?.response?.result?.accessToken
+                authorize(token);
             } catch (error) {
                 const message = error.response.data.message;
                 setErrorMessage(message);
@@ -51,7 +52,7 @@ export const useAuth = () => {
             setLoading(true);
             try {
                 const res = await http.post("/auth/signup", data);
-                authorize(res.data?.accessToken);
+                authorize(res.data?.response?.result?.accessToken);
             } catch (error) {
                 const message = error.response.data.message;
                 setErrorMessage(message);
@@ -72,8 +73,10 @@ export const useAuth = () => {
 
     const me = async () => {
         const accessToken = localStorage.getItem("accessToken");
+        http.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+
         try {
-            const response = await http.post("/auth/me", {token: accessToken});
+            const response = await http.post("/auth/me");
             setAuth({
                 isAuthenticated: true,
                 accessToken,
