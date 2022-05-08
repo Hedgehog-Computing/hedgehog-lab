@@ -21,6 +21,8 @@ import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import AccountMenu from "../../Auth/Account/AccountMenu";
 import {editorMetaState} from "../../../states/RYourCodeStates";
+import DevModeAlert from "./DevModeAlert";
+import useApp from "../../../hooks/useApp";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -109,6 +111,7 @@ const Header = (): React.ReactElement => {
 
 const TopBar = (): React.ReactElement => {
     const sideBarOpen = useRecoilValue(sideBarOpenState);
+    const {isDevPath} = useApp()
 
     return (
         <AppBar
@@ -123,6 +126,8 @@ const TopBar = (): React.ReactElement => {
             elevation={0}
             color="inherit"
         >
+            {isDevPath && <DevModeAlert/>}
+
             <Toolbar disableGutters sx={{mr: 2}}>
                 <Box minWidth={sideBarWidth}>
                     <Brand/>

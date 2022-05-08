@@ -4,18 +4,20 @@ import Output from "./Output";
 import {useRecoilValue} from "recoil";
 import {compilerLoadingState, compilerResultState,} from "../../states/RCompilerStates";
 import EditorLoading from "../Base/Editor/Loading";
+import useApp from "../../hooks/useApp";
 
 const Results = (): React.ReactElement => {
     const compilerLoading = useRecoilValue<boolean>(compilerLoadingState);
     const compilerResult = useRecoilValue<any>(compilerResultState);
 
     const {outputString, outputItem} = compilerResult;
-
+    const {isDevPath} = useApp()
+    
     return (
         <div>
             <Card
                 sx={{
-                    height: "calc(100vh - 82px)",
+                    height: `calc(100vh - ${isDevPath ? '92px' : '82px'})`,
                     overflowY: "auto",
                     overflowX: "auto",
                     borderRadius: 0,

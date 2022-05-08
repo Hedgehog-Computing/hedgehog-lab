@@ -10,7 +10,7 @@ export const useAuth = () => {
     const [authDialogOpen, setAuthDialogOpen] = useRecoilState(authDialogState);
     const [loading, setLoading] = useRecoilState(authActionLoadingState);
     const restAuth = useResetRecoilState(userState);
-    
+
     const navigate = useNavigate();
 
     const isMe = !!useMatch(`u/${auth.user.username}`);
@@ -80,7 +80,7 @@ export const useAuth = () => {
             setAuth({
                 isAuthenticated: true,
                 accessToken,
-                user: response.data,
+                user: response.data.response.result,
             });
         } catch (error) {
             logout();
