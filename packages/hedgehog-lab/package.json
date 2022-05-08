@@ -34,6 +34,7 @@
     "react-code-blocks": "^0.0.9-0",
     "react-codemirror2": "^7.2.1",
     "react-dom": "^18.0.0",
+    "react-ga4": "^1.4.1",
     "react-hook-form": "^7.19.1",
     "react-markdown": "^6.0.2",
     "react-mathjax": "^1.0.1",
