@@ -6,6 +6,7 @@ import TopBar from "./TopBar/TopBar";
 import {sideBarWidth} from "../YourCode/Config/SideBar";
 import {useRecoilValue} from "recoil";
 import {sideBarOpenState} from "../../states/RLayoutStates";
+import useApp from "../../hooks/useApp";
 
 const MainContent = styled("main", {
     shouldForwardProp: (prop) => prop !== "open",
@@ -29,17 +30,19 @@ const MainContent = styled("main", {
 
 const Layout = (): React.ReactElement => {
     const sideBarOpen = useRecoilValue(sideBarOpenState);
+    const {isDevPath} = useApp()
 
     return (
         <Box sx={{display: "flex"}}>
             <CssBaseline/>
 
             <TopBar/>
+
             <SideBar/>
 
             <Box component="main" sx={{flexGrow: 1}}>
                 <Toolbar/>
-
+                {isDevPath && <Box mt={2}/>}
                 <MainContent open={sideBarOpen}>
                     <Box sx={{overflow: "hidden"}}>
                         <Outlet/>

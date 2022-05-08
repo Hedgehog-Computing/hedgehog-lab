@@ -37,6 +37,7 @@ import {useAuth} from "../../../hooks/useAuth";
 import AuthDialog from "../../Auth/Dialog/AuthDialog";
 import useSWR from "swr";
 import {fetcher} from "../../../network/fetcher";
+import useApp from "../../../hooks/useApp";
 
 const NewSnippet = () => {
     const theme = useTheme();
@@ -241,7 +242,7 @@ const SideBar = (): React.ReactElement => {
     const lgBreakpoint = window.matchMedia("(min-width: 1910px)");
     const lgBreakpointMatches = lgBreakpoint.matches;
     const {auth} = useAuth();
-
+    const {isDevPath} = useApp()
 
     useEffect(() => {
         setSideBarOpen(lgBreakpointMatches);
@@ -281,6 +282,7 @@ const SideBar = (): React.ReactElement => {
         >
             <Toolbar/>
 
+            {isDevPath && <Box mt={2}/>}
             <Box
                 sx={{
                     overflow: "auto",
