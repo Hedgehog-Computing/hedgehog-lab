@@ -16,7 +16,7 @@ const YourCode = (): React.ReactElement => {
 
     return (
         <div>
-            <Box sx={{height: "calc(100vh - 82px)", borderRadius: 0}}>
+            <Box sx={{height: "calc(100vh - 82px)", borderRadius: 0, pt: 1}}>
                 <ResizeObserver
                     onResize={() => {
                         if (editor) {
