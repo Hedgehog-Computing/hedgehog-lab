@@ -35,7 +35,7 @@ const Main = (): React.ReactElement => {
 
     useEffect(() => {
         setEditorCode(data?.response?.result?.content ?? DEFAULT_SOURCE)
-    }, [data?.content, setEditorCode])
+    }, [data?.response, setEditorCode])
 
     useEffect(() => {
         if (mathExamplePage) {

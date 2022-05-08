@@ -37,7 +37,7 @@ export const useEditorMeta = () => {
 
     useEffect(() => {
         !data && resetEditorMeta()
-        if (data) {
+        if (data?.response?.result) {
             const res = data.response.result
             setEditorMeta({title: res.title, id: res.id, currentFile: currentFilePath})
         }
