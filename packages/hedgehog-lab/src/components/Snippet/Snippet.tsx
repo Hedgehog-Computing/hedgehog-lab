@@ -18,7 +18,7 @@ const Snippet = () => {
 
     const q = search.text ? search.text : '*:*'
 
-    const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
+    const exploreUrl = `/snippets/all?size=${search.size}&from=${search.from}`
     const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
     const snippetMetaUrl = `/snippets/meta?token=${auth.accessToken}`
     const me = useMatch(`u/${auth.user.username}`)
@@ -30,7 +30,11 @@ const Snippet = () => {
     const isUserSnippetLike = useMatch('/u/:userId/likes')
 
     if (isUserSnippet) {
-        url = `${exploreUrl}&user=${currentName}`
+        let token = ''
+        if (auth.accessToken) {
+            token = `token=${auth.accessToken}`
+        }
+        url = `${exploreUrl}&user=${currentName}&${token}`
     }
 
     if (isUserSnippetLike) {
@@ -38,8 +42,8 @@ const Snippet = () => {
     }
 
 
-    const {data, error} = useSWR([url], fetcher, {refreshInterval: 1000});
-    const {data: snippetMeta, error: snippetMetaError} = useSWR(snippetMetaUrl, fetcher, {refreshInterval: 1000});
+    const {data, error} = useSWR([url], fetcher);
+    const {data: snippetMeta, error: snippetMetaError} = useSWR(snippetMetaUrl, fetcher);
 
     const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
         setSearch({...search, from: value})
@@ -66,13 +70,13 @@ const Snippet = () => {
 
             <Divider sx={{my: 2}}/>
 
-            {data && 'hits' in data && (
+            {data && data?.response?.result && (
                 <>
-                    <SnippetList snippets={data['hits']}/>
+                    <SnippetList snippets={data?.response?.result}/>
                     <Box sx={{display: "flex", justifyContent: "center"}}>
                         <Pagination onChange={handlePageChange}
                                     page={search.from}
-                                    count={data['total'] && Math.ceil(data['total']['value'] / search.size)}/>
+                                    count={data?.response?.meta?.count && Math.ceil(data?.response?.meta?.count / search.size)}/>
                     </Box>
                 </>
             )}

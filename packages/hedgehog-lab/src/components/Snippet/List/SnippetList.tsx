@@ -21,23 +21,20 @@ export const formatDate = (date: string) => {
 }
 
 interface ISnippetsProps {
-    _id: string;
-    _source: {
-        id: string
-        title: string;
-        description: string;
-        content: string;
-        user: {
-            username: string;
-        };
-        visibility: string[];
-        createdAt: string;
-        updatedAt: string;
-        _count: {
-            snippetLike: number
-        }
-        snippetLike: ISnippetLikeProps[]
+    id: string
+    title: string;
+    description: string;
+    content: string;
+    user: {
+        username: string;
     };
+    visibility: string[];
+    createdAt: string;
+    updatedAt: string;
+    _count: {
+        snippetLike: number
+    }
+    snippetLike: ISnippetLikeProps[]
 }
 
 interface ISnippetLikeProps {
@@ -80,10 +77,10 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={"/u/" + item._source.user.username}
+                                    to={"/u/" + item.user.username}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    {item._source.user.username}
+                                    {item.user.username}
                                 </Link>
 
                                 <span style={{margin: " 0 2px"}}>/</span>
@@ -91,10 +88,10 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={`/s/${item._source.user.username}/${item._source.title}`}
+                                    to={`/s/${item.user.username}/${item.title}`}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    {item._source.title}
+                                    {item.title}
                                 </Link>
                             </Box>
 
@@ -102,7 +99,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 {isMe ? (
                                     <Select
                                         fullWidth
-                                        value={item._source.visibility}
+                                        value={item.visibility}
                                         size="small"
                                         sx={{
                                             height: 24,
@@ -118,7 +115,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                         </MenuItem>
                                     </Select>
                                 ) : (
-                                    <Chip variant={"outlined"} label={item._source.visibility} sx={{
+                                    <Chip variant={"outlined"} label={item.visibility} sx={{
                                         height: 24,
                                         fontSize: "0.8125rem",
                                         ml: 1,
@@ -127,40 +124,40 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
 
                                 <LoadingButton
                                     loading={likeLoading}
-                                    onClick={() => handleLikeSnippet(item._source.id)}
+                                    onClick={() => handleLikeSnippet(item.id)}
                                     fullWidth
                                     size="small"
                                     sx={{color: "inherit"}}
-                                    startIcon={isCurrentUserLike(item._source.snippetLike)
+                                    startIcon={isCurrentUserLike(item.snippetLike)
                                         ? <Favorite/>
                                         : <FavoriteBorderOutlined/>}
                                 >
-                                    {item._source._count.snippetLike} liked
+                                    {item._count.snippetLike} liked
                                 </LoadingButton>
 
                                 {isMe && <RenameDialog/>}
 
                                 <SharePopup size="small"
-                                            script={`import ${item._source.user.username}/${item._source.title}`}
-                                            embed={`https://hlab.app/s/${item._source.user.username}/${item._source.title}`}
-                                            url={`https://hlab.app/s/${item._source.user.username}/${item._source.title}`}/>
+                                            script={`import ${item.user.username}/${item.title}`}
+                                            embed={`https://hlab.app/s/${item.user.username}/${item.title}`}
+                                            url={`https://hlab.app/s/${item.user.username}/${item.title}`}/>
 
                                 {isMe && <DeletePopup size="small"
-                                                      snippet={{name: item._source.title, id: item._source.id}}/>}
+                                                      snippet={{name: item.title, id: item.id}}/>}
                             </Box>
                         </Box>
 
                         <Box>
                             <Typography variant={"body2"}>
-                                {formatDate(item._source.updatedAt)} <br/>
+                                {formatDate(item.updatedAt)} <br/>
 
-                                {item._source.description}
+                                {item.description}
                             </Typography>
 
                             {showCodeBlock && (
                                 <Paper elevation={0} sx={{mt: 1}} variant={"outlined"}>
                                     <CardActionArea component={RouterLink}
-                                                    to={`/s/${item._source.user.username}/${item._source.title}`}>
+                                                    to={`/s/${item.user.username}/${item.title}`}>
                                         <Box
                                             sx={{
                                                 "& button": {
@@ -172,7 +169,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                             }}
                                         >
                                             <CopyBlock
-                                                text={item._source.content.slice(0, 200)}
+                                                text={item.content.slice(0, 200)}
                                                 language={"javascript"}
                                                 theme={atomOneLight}
                                             />

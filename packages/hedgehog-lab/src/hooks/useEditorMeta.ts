@@ -4,12 +4,13 @@ import {useMatch, useNavigate} from "react-router-dom";
 import useSWR from "swr";
 import {fetcher} from "../network/fetcher";
 import {useEffect} from "react";
+import {useAuth} from "./useAuth";
 
 export const useEditorMeta = () => {
     const [editorMeta, setEditorMeta] = useRecoilState(editorMetaState);
     const resetEditorMeta = useResetRecoilState(editorMetaState);
     const resetEditorCode = useResetRecoilState(editorCodeState)
-
+    const {auth} = useAuth()
     const isUserSnippetPage = useMatch(`/s/:userID/:snippetID`)
 
     let URL
@@ -17,7 +18,7 @@ export const useEditorMeta = () => {
 
     if (isUserSnippetPage) {
         const {userID, snippetID} = isUserSnippetPage?.params
-        URL = `/snippets?user=${userID}&title=${snippetID}`
+        URL = `/snippets?user=${userID}&title=${snippetID}&token=${auth.accessToken}`
         currentFilePath = `/s/${userID}/${snippetID}`
     }
 
