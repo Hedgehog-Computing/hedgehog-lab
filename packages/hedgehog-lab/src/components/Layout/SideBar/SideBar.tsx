@@ -152,7 +152,10 @@ const MySnippets = () => {
     const theme = useTheme();
     const [collapseOpen, setCollapseOpen] = useState(true);
     const {auth} = useAuth()
-    const {data, error} = useSWR([`/snippets/mySnippets`], fetcher, {refreshInterval: 1000});
+    const {
+        data,
+        error
+    } = useSWR([`/snippets/mySnippets`], fetcher, {refreshInterval: process.env.NODE_ENV === 'development' ? 0 : 1000})
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
     }, [collapseOpen]);
