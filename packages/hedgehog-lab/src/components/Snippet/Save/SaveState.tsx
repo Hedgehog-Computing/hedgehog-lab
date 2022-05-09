@@ -37,7 +37,7 @@ const SaveState = (): React.ReactElement => {
 
     const [updateError, setUpdateError] = React.useState<string | null>(null);
 
-    const liveMode = localStorage.getItem("liveMode") ?? "off";
+    const liveMode = localStorage.getItem("liveMode") ?? "on";
 
     useEffect(() => {
         if (liveMode === "on") {
