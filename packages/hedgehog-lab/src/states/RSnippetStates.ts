@@ -1,4 +1,5 @@
 import {atom} from "recoil";
+import {ISnippetsProps} from "../components/Snippet/List/SnippetList";
 
 export const showCodeBlockState = atom({
     key: "showCodeBlock",
@@ -31,3 +32,25 @@ export const userMetaState = atom<{ snippet: { count: number, liked: number } }>
         }
     },
 });
+
+export const snippetsState = atom<ISnippetsProps[]>({
+    key: 'snippetsData',
+    default: [{
+        id: '',
+        title: '',
+        description: '',
+        content: '',
+        user: {
+            username: '',
+        },
+        visibility: '',
+        createdAt: '',
+        updatedAt: '',
+        _count: {
+            snippetLike: 0,
+        },
+        snippetLike: [],
+        userId: '',
+    }
+    ]
+})

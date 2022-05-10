@@ -5,8 +5,8 @@ import useSWR from "swr";
 import {fetcher} from "../../network/fetcher";
 import SnippetList from "./List/SnippetList";
 import {Skeleton} from "@mui/lab";
-import {useRecoilState, useResetRecoilState} from "recoil";
-import {searchState, userMetaState} from "../../states/RSnippetStates";
+import {useRecoilState, useResetRecoilState, useSetRecoilState} from "recoil";
+import {searchState, snippetsState, userMetaState} from "../../states/RSnippetStates";
 import {useAuth} from "../../hooks/useAuth";
 import {useMatch} from "react-router-dom";
 
@@ -25,9 +25,7 @@ const Snippet = () => {
     const me = useMatch(`u/${auth.user.username}`)
     const explorePage = useMatch('/explore')
     let url = me ? mySnippetsUrl : exploreUrl
-    if (explorePage) {
-        url = searchUrl
-    }
+
     const isUserSnippet = useMatch('/u/:userId')
     const currentName = isUserSnippet?.params.userId ?? ''
 
@@ -67,7 +65,9 @@ const Snippet = () => {
         reSetSearch()
     }, [currentName])
 
+    const setSnippets = useSetRecoilState(snippetsState)
 
+    data && data?.response?.result && setSnippets(data?.response?.result)
     return (
         <>
             <SearchSnippet/>

@@ -3,9 +3,9 @@ import {Box, CardActionArea, Chip, Divider, Link, MenuItem, Paper, Select, Typog
 import React, {useCallback, useState} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink} from "react-router-dom";
-import {useRecoilValue} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {useAuth} from "../../../hooks/useAuth";
-import {showCodeBlockState} from "../../../states/RSnippetStates";
+import {showCodeBlockState, snippetsState} from "../../../states/RSnippetStates";
 import SharePopup from "../../Share/SharePopup";
 import DeletePopup from "../Delete/DeletePopup";
 import RenameDialog from "../Rename/RenameDialog";
@@ -20,7 +20,7 @@ export const formatDate = (date: string) => {
     return dayjs(date).fromNow()
 }
 
-interface ISnippetsProps {
+export interface ISnippetsProps {
     id: string
     title: string;
     description: string;
@@ -28,13 +28,14 @@ interface ISnippetsProps {
     user: {
         username: string;
     };
-    visibility: string[];
+    visibility: string;
     createdAt: string;
     updatedAt: string;
     _count: {
         snippetLike: number
     }
-    snippetLike: ISnippetLikeProps[]
+    snippetLike: ISnippetLikeProps[],
+    userId: string
 }
 
 interface ISnippetLikeProps {
@@ -49,12 +50,17 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const showCodeBlock = useRecoilValue(showCodeBlockState);
     const {isMe, auth} = useAuth();
     const [likeLoading, setLikeLoading] = useState(false)
-
+    const [snippets, setSnippets] = useRecoilState(snippetsState)
     const handleLikeSnippet = useCallback((snippetId: string) => {
         setLikeLoading(true)
         http.post('/snippets/like', {snippetId: snippetId, token: auth.accessToken})
-            .then(() => {
-                console.log('action success')
+            .then((res) => {
+                console.log(res)
+                if (res.data.message === 'Snippet liked') {
+                    setLikeButton(snippetId)
+                } else {
+                    setDislikeButton(snippetId)
+                }
             })
             .catch(err => {
                 console.log(err)
@@ -67,9 +73,35 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
         return snippetLike ? snippetLike?.find(like => like.userId === auth.user.id) : false
     }
 
+    const setLikeButton = (snippetId: string) => {
+        const newSnippets = JSON.parse(JSON.stringify(snippets));
+        const res = newSnippets.map((item: ISnippetsProps) => {
+            if (item.id === snippetId) {
+                item.snippetLike = [{userId: auth.user.id}]
+                item._count.snippetLike += 1
+            }
+            return item
+        })
+
+        setSnippets(res)
+    }
+
+    const setDislikeButton = (snippetId: string) => {
+        const newSnippets = JSON.parse(JSON.stringify(snippets));
+        const res = newSnippets.map((item: ISnippetsProps) => {
+            if (item.id === snippetId) {
+                item.snippetLike = []
+                item._count.snippetLike -= 1
+            }
+            return item
+        })
+
+        setSnippets(res)
+    }
+
     return (
         <>
-            {props.snippets.map((item, index) => {
+            {snippets.map((item: ISnippetsProps, index: number) => {
                 return (
                     <Box key={index}>
                         <Box display={"flex"} justifyContent={"space-between"}>
@@ -77,10 +109,10 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={"/u/" + item.user.username}
+                                    to={"/u/" + item.user?.username}
                                     sx={{fontWeight: "bold"}}
                                 >
-                                    {item.user.username}
+                                    {item.user?.username}
                                 </Link>
 
                                 <span style={{margin: " 0 2px"}}>/</span>
@@ -88,7 +120,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 <Link
                                     component={RouterLink}
                                     variant={"body1"}
-                                    to={`/s/${item.user.username}/${item.title}`}
+                                    to={`/s/${item.user?.username}/${item.title}`}
                                     sx={{fontWeight: "bold"}}
                                 >
                                     {item.title}
@@ -132,19 +164,19 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     fullWidth
                                     size="small"
                                     sx={{color: "inherit"}}
-                                    startIcon={isCurrentUserLike(item.snippetLike)
+                                    startIcon={isCurrentUserLike(item?.snippetLike)
                                         ? <Favorite/>
                                         : <FavoriteBorderOutlined/>}
                                 >
-                                    {item._count.snippetLike} liked
+                                    {item._count?.snippetLike} liked
                                 </LoadingButton>
 
                                 {isMe && <RenameDialog/>}
 
                                 <SharePopup size="small"
-                                            script={`import ${item.user.username}/${item.title}`}
-                                            embed={`https://hlab.app/s/${item.user.username}/${item.title}`}
-                                            url={`https://hlab.app/s/${item.user.username}/${item.title}`}/>
+                                            script={`import ${item.user?.username}/${item.title}`}
+                                            embed={`https://hlab.app/s/${item.user?.username}/${item.title}`}
+                                            url={`https://hlab.app/s/${item.user?.username}/${item.title}`}/>
 
                                 {isMe && <DeletePopup size="small"
                                                       snippet={{name: item.title, id: item.id}}/>}
@@ -161,7 +193,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                             {showCodeBlock && (
                                 <Paper elevation={0} sx={{mt: 1}} variant={"outlined"}>
                                     <CardActionArea component={RouterLink}
-                                                    to={`/s/${item.user.username}/${item.title}`}>
+                                                    to={`/s/${item.user?.username}/${item.title}`}>
                                         <Box
                                             sx={{
                                                 "& button": {
@@ -173,7 +205,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                             }}
                                         >
                                             <CopyBlock
-                                                text={item.content.slice(0, 200)}
+                                                text={item?.content && item?.content.slice(0, 200)}
                                                 language={"javascript"}
                                                 theme={atomOneLight}
                                             />
