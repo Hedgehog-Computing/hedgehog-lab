@@ -123,8 +123,12 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 )}
 
                                 <LoadingButton
+                                    disabled={!auth.user.username}
                                     loading={likeLoading}
-                                    onClick={() => handleLikeSnippet(item.id)}
+                                    onClick={() => {
+                                        handleLikeSnippet(item.id)
+
+                                    }}
                                     fullWidth
                                     size="small"
                                     sx={{color: "inherit"}}

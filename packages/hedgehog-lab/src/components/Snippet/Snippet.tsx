@@ -19,13 +19,14 @@ const Snippet = () => {
     const q = search.text ? search.text : '*:*'
 
     const exploreUrl = `/snippets/all?size=${search.size}&from=${search.from}`
+    const searchUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
     const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
     const snippetMetaUrl = `/snippets/meta?token=${auth.accessToken}`
     const me = useMatch(`u/${auth.user.username}`)
     const explorePage = useMatch('/explore')
     let url = me ? mySnippetsUrl : exploreUrl
     if (explorePage) {
-        url = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
+        url = searchUrl
     }
     const isUserSnippet = useMatch('/u/:userId')
     const currentName = isUserSnippet?.params.userId ?? ''
