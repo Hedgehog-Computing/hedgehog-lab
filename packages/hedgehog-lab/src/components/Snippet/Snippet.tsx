@@ -31,11 +31,16 @@ const Snippet = () => {
 
     const isUserSnippetLike = useMatch('/u/:userId/likes')
 
+    let token = ''
+    if (auth.accessToken) {
+        token = `token=${auth.accessToken}`
+    }
+
+    if (explorePage) {
+        url = `${exploreUrl}&${token}`
+    }
+
     if (isUserSnippet) {
-        let token = ''
-        if (auth.accessToken) {
-            token = `token=${auth.accessToken}`
-        }
         url = `${exploreUrl}&user=${currentName}&${token}`
     }
 
