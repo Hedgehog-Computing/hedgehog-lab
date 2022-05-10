@@ -38,6 +38,8 @@ yarn install
 yarn watch
 ```
 
+On each run the program compiles and it takes time. Please wait until it shows "Compiled successfully!" and an instruction about with which IP:PORT to connect.
+
 ## User Manual
 
 Hedgehog Book: [https://hedgehog-book.github.io/](https://hedgehog-book.github.io/)
