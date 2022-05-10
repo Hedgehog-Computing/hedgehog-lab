@@ -41,7 +41,7 @@ const Snippets = (): React.ReactElement => {
 
     const isFollowingUrl = `/users/isFollowing?token=${auth.accessToken}&userName=${currentUserName}`
 
-    const {data, error} = useSWR(isFollowingUrl, fetcher, {refreshInterval: 1000})
+    const {data, error} = useSWR(isFollowingUrl, fetcher)
 
     const FollowButton = (): ReactJSXElement => {
         if (name !== auth.user.username && auth.accessToken) {
