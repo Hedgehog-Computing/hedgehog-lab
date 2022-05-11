@@ -51,15 +51,14 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const {isMe, auth} = useAuth();
     const [likeLoading, setLikeLoading] = useState(false)
     const [snippets, setSnippets] = useRecoilState(snippetsState)
-    const handleLikeSnippet = useCallback((snippetId: string) => {
+    const handleLikeSnippet = useCallback((snippetId: string, count: number) => {
         setLikeLoading(true)
         http.post('/snippets/like', {snippetId: snippetId, token: auth.accessToken})
             .then((res) => {
-                console.log(res)
                 if (res.data.message === 'Snippet liked') {
-                    setLikeButton(snippetId)
+                    setLikeButton(snippetId, count)
                 } else {
-                    setDislikeButton(snippetId)
+                    setDislikeButton(snippetId, count)
                 }
             })
             .catch(err => {
@@ -73,30 +72,31 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
         return snippetLike ? snippetLike?.find(like => like.userId === auth.user.id) : false
     }
 
-    const setLikeButton = (snippetId: string) => {
+    const setLikeButton = (snippetId: string, count: number) => {
         const newSnippets = JSON.parse(JSON.stringify(snippets));
         const res = newSnippets.map((item: ISnippetsProps) => {
             if (item.id === snippetId) {
                 item.snippetLike = [{userId: auth.user.id}]
-                item._count.snippetLike += 1
+                item._count.snippetLike = count + 1
             }
             return item
         })
 
-        setSnippets(res)
+        setSnippets(snippets => res)
     }
 
-    const setDislikeButton = (snippetId: string) => {
+    const setDislikeButton = (snippetId: string, count: number) => {
         const newSnippets = JSON.parse(JSON.stringify(snippets));
         const res = newSnippets.map((item: ISnippetsProps) => {
             if (item.id === snippetId) {
                 item.snippetLike = []
-                item._count.snippetLike -= 1
+                item._count.snippetLike = count - 1
+
             }
             return item
         })
 
-        setSnippets(res)
+        setSnippets(snippets => res)
     }
 
     return (
@@ -158,8 +158,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     disabled={!auth.user.username}
                                     loading={likeLoading}
                                     onClick={() => {
-                                        handleLikeSnippet(item.id)
-
+                                        handleLikeSnippet(item.id, item._count?.snippetLike)
                                     }}
                                     fullWidth
                                     size="small"
