@@ -16,7 +16,6 @@ import EditorLoading from "../../components/Base/Editor/Loading";
 const Timeline = () => {
     const [loading, setLoading] = React.useState(false);
     const [currentPage, setCurrentPage] = React.useState(1);
-
     const {auth} = useAuth()
     const timeLineUrl = auth.accessToken && `/users/timeline?token=${auth.accessToken}&skip=0&take=10&currentPage=${currentPage}`
     const {data, error} = useSWR(timeLineUrl, fetcher, {refreshInterval: 1000})
@@ -40,7 +39,7 @@ const Timeline = () => {
 
     return (
         <>
-            {data ? data.response.data.map((item: any, index: number) => {
+            {(data && data.response.result) ? data.response.result.data.map((item: any, index: number) => {
                 return (
                     <>
                         <Box key={index}>
@@ -140,18 +139,23 @@ const Timeline = () => {
 
                         <Divider sx={{my: 2}}/>
 
-
+                        <Box sx={{display: "flex", justifyContent: "center"}}>
+                            <Pagination
+                                count={data?.response?.meta?.count && Math.ceil(data?.response?.meta?.count / 10)}
+                                page={currentPage} onChange={(e, value) => {
+                                setCurrentPage(value)
+                            }}/>
+                        </Box>
                     </>
                 );
             }) : <EditorLoading/>}
 
-
-            {data && (
-                <Box sx={{display: "flex", justifyContent: "center"}}>
-                    <Pagination count={Math.ceil(data.response.count / 10)} page={currentPage} onChange={(e, value) => {
-                        setCurrentPage(value)
-                    }}/>
-                </Box>
+            {((data && data.response.result) && data.response.result.data.length === 0) && (
+                <>
+                    <Typography variant="h6">
+                        You have not follow any user yet.
+                    </Typography>
+                </>
             )}
         </>
     );
