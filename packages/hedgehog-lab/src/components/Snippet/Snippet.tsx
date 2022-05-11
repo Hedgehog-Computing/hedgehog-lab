@@ -18,16 +18,17 @@ const Snippet = () => {
 
     const q = search.text ? search.text : '*:*'
 
+    const isUserSnippet = useMatch('/u/:userId')
+    const currentName = isUserSnippet?.params.userId ?? ''
+
     const exploreUrl = `/snippets/all?size=${search.size}&from=${search.from}`
     const searchUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
     const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
-    const snippetMetaUrl = `/snippets/meta?token=${auth.accessToken}`
+    const snippetMetaUrl = `/snippets/meta?user=${currentName}`
     const me = useMatch(`u/${auth.user.username}`)
     const explorePage = useMatch('/explore')
     let url = me ? mySnippetsUrl : exploreUrl
 
-    const isUserSnippet = useMatch('/u/:userId')
-    const currentName = isUserSnippet?.params.userId ?? ''
 
     const isUserSnippetLike = useMatch('/u/:userId/likes')
 
@@ -67,8 +68,8 @@ const Snippet = () => {
     useEffect(() => {
         snippetMeta && setUserMeta({
             snippet: {
-                count: snippetMeta['snippetCount'],
-                liked: snippetMeta['snippetLikeCount']
+                count: snippetMeta?.response?.result['snippetCount'],
+                liked: snippetMeta?.response?.result['snippetLikeCount']
             }
         })
     }, [setUserMeta, snippetMeta])

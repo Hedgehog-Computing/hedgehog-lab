@@ -5,7 +5,7 @@ import {Link as RouterLink, useMatch} from "react-router-dom";
 import {useAuth} from "../../hooks/useAuth";
 import {useRecoilValue} from "recoil";
 import {userMetaState} from "../../states/RSnippetStates";
-import useSWR from "swr";
+import useSWR, {useSWRConfig} from "swr";
 import {fetcher} from "../../network/fetcher";
 import {http} from "../../network/http";
 import {LoadingButton} from "@mui/lab";
@@ -22,13 +22,14 @@ const Snippets = (): React.ReactElement => {
 
 
     const currentUserName = currentUser?.params.userId ?? currentUserLikes?.params.userId
+    const isFollowingUrl = auth.isAuthenticated ? `/users/isFollowing?user=${currentUserName}&token=${auth.accessToken}` : null
 
     const handleFollow = useCallback((): void => {
         setFollowLoading(true)
         http.post(`users/follow`, {
             token: auth.accessToken,
             followingName: currentUserName
-        }).finally(() => setFollowLoading(false))
+        }).then(() => mutate(isFollowingUrl)).finally(() => setFollowLoading(false))
     }, [auth.accessToken, currentUserName])
 
     const handleUnFollow = useCallback((): void => {
@@ -36,16 +37,16 @@ const Snippets = (): React.ReactElement => {
         http.post(`users/unfollow`, {
             token: auth.accessToken,
             followingName: currentUserName
-        }).finally(() => setFollowLoading(false))
+        }).then(() => mutate(isFollowingUrl)).finally(() => setFollowLoading(false))
     }, [auth.accessToken, currentUserName])
 
-    const isFollowingUrl = `/users/isFollowing?token=${auth.accessToken}&userName=${currentUserName}`
 
     const {data, error} = useSWR(isFollowingUrl, fetcher)
+    const {mutate} = useSWRConfig()
 
     const FollowButton = (): ReactJSXElement => {
         if (name !== auth.user.username && auth.accessToken) {
-            if (data) {
+            if (data && data?.response?.result) {
                 return (
                     <LoadingButton loading={followLoading} variant={"contained"} color={'error'}
                                    onClick={handleUnFollow}>UnFollow</LoadingButton>
@@ -69,16 +70,20 @@ const Snippets = (): React.ReactElement => {
                                         {name}
                                     </Typography>
 
-                                    <Box sx={{mt: 1}}>
-                                        <Link component={RouterLink} to={`/u/${name}`}>
-                                            {userMeta.snippet.count} Snippets
-                                        </Link>
-                                    </Box>
-                                    <Box>
-                                        <Link component={RouterLink} to={`/u/${name}/likes`}>
-                                            {userMeta.snippet.liked} Liked Snippets
-                                        </Link>
-                                    </Box>
+                                    {userMeta && (
+                                        <>
+                                            <Box sx={{mt: 1}}>
+                                                <Link component={RouterLink} to={`/u/${name}`}>
+                                                    {userMeta.snippet.count} Snippets
+                                                </Link>
+                                            </Box>
+                                            <Box>
+                                                <Link component={RouterLink} to={`/u/${name}/likes`}>
+                                                    {userMeta.snippet.liked} Liked Snippets
+                                                </Link>
+                                            </Box>
+                                        </>
+                                    )}
                                 </Box>
 
                                 <Box>
