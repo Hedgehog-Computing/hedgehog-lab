@@ -5,7 +5,7 @@ import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink} from "react-router-dom";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {useAuth} from "../../../hooks/useAuth";
-import {showCodeBlockState, snippetsState} from "../../../states/RSnippetStates";
+import {searchState, showCodeBlockState, snippetsState} from "../../../states/RSnippetStates";
 import SharePopup from "../../Share/SharePopup";
 import DeletePopup from "../Delete/DeletePopup";
 import RenameDialog from "../Rename/RenameDialog";
@@ -49,6 +49,7 @@ interface ISnippetListProps {
 const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const showCodeBlock = useRecoilValue(showCodeBlockState);
     const {isMe, auth} = useAuth();
+    const [search, setSearch] = useRecoilState(searchState);
     const [likeLoading, setLikeLoading] = useState(false)
     const [snippets, setSnippets] = useRecoilState(snippetsState)
     const handleLikeSnippet = useCallback((snippetId: string, count: number) => {
@@ -134,7 +135,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     ml: 1,
                                 }}/>
 
-                                <LoadingButton
+                                {!search.text && (<LoadingButton
                                     disabled={!auth.user.username}
                                     loading={likeLoading}
                                     onClick={() => {
@@ -148,7 +149,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                         : <FavoriteBorderOutlined/>}
                                 >
                                     {item._count?.snippetLike} liked
-                                </LoadingButton>
+                                </LoadingButton>)}
 
                                 {isMe && <RenameDialog/>}
 

@@ -40,12 +40,19 @@ const Snippet = () => {
         url = `${exploreUrl}&${token}`
     }
 
+    const queryParams = `q=${search.text}`
     if (isUserSnippet) {
         url = `${exploreUrl}&user=${currentName}&${token}`
     }
 
     if (isUserSnippetLike) {
         url = `${exploreUrl}&likedByUser=${isUserSnippetLike?.params.userId}&${token}`
+    }
+
+    if (search.text && explorePage) {
+        url = searchUrl
+    } else if (search.text) {
+        url = url + `&${queryParams}`
     }
 
 
