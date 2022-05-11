@@ -1,5 +1,5 @@
 import {Favorite, FavoriteBorderOutlined,} from "@mui/icons-material";
-import {Box, CardActionArea, Chip, Divider, Link, MenuItem, Paper, Select, Typography,} from "@mui/material";
+import {Box, CardActionArea, Chip, Divider, Link, Paper, Typography,} from "@mui/material";
 import React, {useCallback, useState} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink} from "react-router-dom";
@@ -128,31 +128,11 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                             </Box>
 
                             <Box display={'flex'} alignItems={'center'}>
-                                {isMe ? (
-                                    <Select
-                                        fullWidth
-                                        value={item.visibility}
-                                        size="small"
-                                        sx={{
-                                            height: 24,
-                                            fontSize: "0.8125rem",
-                                            ml: 1,
-                                        }}
-                                    >
-                                        <MenuItem dense value={"public"}>
-                                            Public
-                                        </MenuItem>
-                                        <MenuItem dense value={"private"}>
-                                            Private
-                                        </MenuItem>
-                                    </Select>
-                                ) : (
-                                    <Chip variant={"outlined"} label={item.visibility} sx={{
-                                        height: 24,
-                                        fontSize: "0.8125rem",
-                                        ml: 1,
-                                    }}/>
-                                )}
+                                <Chip variant={"outlined"} label={item.visibility} sx={{
+                                    height: 24,
+                                    fontSize: "0.8125rem",
+                                    ml: 1,
+                                }}/>
 
                                 <LoadingButton
                                     disabled={!auth.user.username}
