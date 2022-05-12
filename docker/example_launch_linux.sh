@@ -1,3 +1,4 @@
 #!/bin/sh
 
-docker run -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/dri -e DISPLAY=:0 hedgehog-lab
+docker run -p 3000:3000 hedgehog-lab
+

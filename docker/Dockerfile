@@ -25,3 +25,4 @@ RUN echo "#!/bin/sh" > /opt/run.sh && \
 ENTRYPOINT ["/bin/sh"]
 CMD ["/opt/run.sh"]
 USER usr
+
