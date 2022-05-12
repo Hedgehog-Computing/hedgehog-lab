@@ -9,14 +9,32 @@ import Auth from "../pages/Auth/Auth";
 import Explore from "../pages/Explore/Explore";
 import Timeline from "../pages/Timeline/Timeline";
 
-const router: RouteObject[] = [
+export interface IAppRoutes extends RouteObject {
+    data?: {
+        label?: string;
+        icon?: React.ReactElement;
+        selected?: boolean;
+    };
+    subheader?: string;
+    children?: IAppRoutes[];
+    meta?: {
+        title?: string;
+        description?: string;
+        keywords?: string;
+    };
+}
+
+export const router: IAppRoutes[] = [
     {
-        path: "/",
+        path: "",
         element: <Layout/>,
         children: [
             {
                 path: "/",
                 element: <Main/>,
+                meta: {
+                    title: 'A powerful scientific computation environment in browser.',
+                }
             },
             {
                 path: "/u/:userID",
@@ -25,10 +43,16 @@ const router: RouteObject[] = [
                     {
                         path: "",
                         element: <Snippets/>,
+                        meta: {
+                            title: 'User snippets',
+                        }
                     },
                     {
                         path: "likes",
                         element: <Snippets/>,
+                        meta: {
+                            title: 'User likes',
+                        }
                     },
                 ],
             },
@@ -41,14 +65,24 @@ const router: RouteObject[] = [
                 element: <Main/>,
             },
             {
-                path: "/explore",
+                path: "",
                 element: <ContainerLayout/>,
-                children: [{path: "", element: <Explore/>}],
-            },
-            {
-                path: "/timeline",
-                element: <ContainerLayout/>,
-                children: [{path: "", element: <Timeline/>}],
+                children: [
+                    {
+                        path: "explore",
+                        element: <Explore/>,
+                        meta: {
+                            title: 'Explore snippets',
+                        }
+                    },
+                    {
+                        path: "timeline",
+                        element: <Timeline/>,
+                        meta: {
+                            title: 'Timeline',
+                        }
+                    }
+                ],
             },
             {
                 path: "/settings",
@@ -57,15 +91,18 @@ const router: RouteObject[] = [
                     {
                         path: "account",
                         element: <Account/>,
+                        meta: {
+                            title: 'Account',
+                        }
                     },
                 ],
             },
             {
-                path: "/auth",
+                path: "",
                 element: <ContainerLayout/>,
                 children: [
                     {
-                        path: "",
+                        path: "auth",
                         element: <Auth/>,
                     },
                 ],

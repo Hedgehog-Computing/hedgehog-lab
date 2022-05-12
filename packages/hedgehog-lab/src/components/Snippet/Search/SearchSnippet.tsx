@@ -1,7 +1,7 @@
 import {CodeOffOutlined, CodeOutlined, Favorite, FavoriteBorderOutlined,} from "@mui/icons-material";
 import {Box, IconButton, MenuItem, OutlinedInput, Select, SelectChangeEvent, Tooltip,} from "@mui/material";
 import React, {useCallback} from "react";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useResetRecoilState} from "recoil";
 import {useAuth} from "../../../hooks/useAuth";
 import {searchState, showCodeBlockState} from "../../../states/RSnippetStates";
 import {useMatch, useNavigate} from "react-router-dom";
@@ -9,6 +9,7 @@ import {useMatch, useNavigate} from "react-router-dom";
 const SearchSnippet = (): React.ReactElement => {
     const [showCodeBlock, setShowCodeBlock] = useRecoilState(showCodeBlockState);
     const [search, setSearch] = useRecoilState(searchState);
+    const resetSearch = useResetRecoilState(searchState)
     const {isMe} = useAuth();
     const navigate = useNavigate()
     const handleShowCodeBlock = useCallback(() => {

@@ -2,7 +2,7 @@ import {Favorite, FavoriteBorderOutlined,} from "@mui/icons-material";
 import {Box, CardActionArea, Chip, Divider, Link, Paper, Typography,} from "@mui/material";
 import React, {useCallback, useState} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useMatch} from "react-router-dom";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {useAuth} from "../../../hooks/useAuth";
 import {searchState, showCodeBlockState, snippetsState} from "../../../states/RSnippetStates";
@@ -52,6 +52,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const [search, setSearch] = useRecoilState(searchState);
     const [likeLoading, setLikeLoading] = useState(false)
     const [snippets, setSnippets] = useRecoilState(snippetsState)
+    const isExplorePage = useMatch('/explore')
     const handleLikeSnippet = useCallback((snippetId: string, count: number) => {
         setLikeLoading(true)
         http.post('/snippets/like', {snippetId: snippetId, token: auth.accessToken})
@@ -135,7 +136,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     ml: 1,
                                 }}/>
 
-                                {!search.text && (<LoadingButton
+                                {!isExplorePage && (<LoadingButton
                                     disabled={!auth.user.username}
                                     loading={likeLoading}
                                     onClick={() => {
