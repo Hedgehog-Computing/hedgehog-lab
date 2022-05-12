@@ -41,7 +41,7 @@ const SearchSnippet = (): React.ReactElement => {
             <Box sx={{display: "flex", alignItems: "center"}}>
                 <OutlinedInput
                     size="small"
-                    placeholder={`Search ${isMe ? "your" : "all"} snippets`}
+                    placeholder={`Search ${(isMe || isLikes) ? `your ${isLikes ? 'liked' : ''}` : "all"} snippets`}
                     value={search.text}
                     onChange={handleChange}
                 />

@@ -5,8 +5,8 @@ import useSWR from "swr";
 import {fetcher} from "../../network/fetcher";
 import SnippetList from "./List/SnippetList";
 import {Skeleton} from "@mui/lab";
-import {useRecoilState, useResetRecoilState} from "recoil";
-import {searchState, userMetaState} from "../../states/RSnippetStates";
+import {useRecoilState, useResetRecoilState, useSetRecoilState} from "recoil";
+import {searchState, snippetsState, userMetaState} from "../../states/RSnippetStates";
 import {useAuth} from "../../hooks/useAuth";
 import {useMatch} from "react-router-dom";
 
@@ -18,28 +18,47 @@ const Snippet = () => {
 
     const q = search.text ? search.text : '*:*'
 
-    const exploreUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
-    const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
-    const snippetMetaUrl = `/snippets/meta?token=${auth.accessToken}`
-    const me = useMatch(`u/${auth.user.username}`)
-    let url = me ? mySnippetsUrl : exploreUrl
-
     const isUserSnippet = useMatch('/u/:userId')
     const currentName = isUserSnippet?.params.userId ?? ''
 
+    const exploreUrl = `/snippets/all?size=${search.size}&from=${search.from}`
+    const searchUrl = `/aws-open-search?q=${q}&from=${search.from}&size=${search.size}`
+    const mySnippetsUrl = `/snippets/mySnippets?token=${auth.accessToken}`
+    const snippetMetaUrl = `/snippets/meta?user=${currentName}`
+    const me = useMatch(`u/${auth.user.username}`)
+    const explorePage = useMatch('/explore')
+    let url = me ? mySnippetsUrl : exploreUrl
+
+
     const isUserSnippetLike = useMatch('/u/:userId/likes')
 
+    let token = ''
+    if (auth.accessToken) {
+        token = `token=${auth.accessToken}`
+    }
+
+    if (explorePage) {
+        url = `${exploreUrl}&${token}`
+    }
+
+    const queryParams = `q=${search.text}`
     if (isUserSnippet) {
-        url = `${exploreUrl}&user=${currentName}`
+        url = `${exploreUrl}&user=${currentName}&${token}`
     }
 
     if (isUserSnippetLike) {
-        url = `${exploreUrl}&likedByUser=${isUserSnippetLike?.params.userId}`
+        url = `${exploreUrl}&likedByUser=${isUserSnippetLike?.params.userId}&${token}`
+    }
+
+    if (search.text && explorePage) {
+        url = searchUrl
+    } else if (search.text) {
+        url = url + `&${queryParams}`
     }
 
 
-    const {data, error} = useSWR([url], fetcher, {refreshInterval: 1000});
-    const {data: snippetMeta, error: snippetMetaError} = useSWR(snippetMetaUrl, fetcher, {refreshInterval: 1000});
+    const {data, error} = useSWR([url], fetcher);
+    const {data: snippetMeta, error: snippetMetaError} = useSWR(snippetMetaUrl, fetcher);
 
     const handlePageChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
         setSearch({...search, from: value})
@@ -49,8 +68,8 @@ const Snippet = () => {
     useEffect(() => {
         snippetMeta && setUserMeta({
             snippet: {
-                count: snippetMeta['snippetCount'],
-                liked: snippetMeta['snippetLikeCount']
+                count: snippetMeta?.response?.result['snippetCount'],
+                liked: snippetMeta?.response?.result['snippetLikeCount']
             }
         })
     }, [setUserMeta, snippetMeta])
@@ -59,20 +78,22 @@ const Snippet = () => {
         reSetSearch()
     }, [currentName])
 
+    const setSnippets = useSetRecoilState(snippetsState)
 
+    data && data?.response?.result && setSnippets(data?.response?.result)
     return (
         <>
             <SearchSnippet/>
 
             <Divider sx={{my: 2}}/>
 
-            {data && 'hits' in data && (
+            {data && data?.response?.result && (
                 <>
-                    <SnippetList snippets={data['hits']}/>
+                    <SnippetList snippets={data?.response?.result}/>
                     <Box sx={{display: "flex", justifyContent: "center"}}>
                         <Pagination onChange={handlePageChange}
                                     page={search.from}
-                                    count={data['total'] && Math.ceil(data['total']['value'] / search.size)}/>
+                                    count={data?.response?.meta?.count && Math.ceil(data?.response?.meta?.count / search.size)}/>
                     </Box>
                 </>
             )}

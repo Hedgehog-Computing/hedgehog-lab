@@ -40,19 +40,13 @@ const CreateSnippetDialog = () => {
                 title: data.title,
                 description: data.description,
                 content: editorCode,
-                token: auth.accessToken,
-                authorId: auth.user.id,
-                versions: 1,
-                visibility: 'public'
             });
 
             setCreateDialog({open: false})
-            const {title} = res.data
-
-            navigate(`/s/${auth.user.username}/${title}`)
+            
+            navigate(`/s/${auth.user.username}/${data.title}`)
         } catch (e) {
             setError(e.response.data.message)
-            console.log(e.response.data.message)
         }
     }, [auth.accessToken, auth.user.username, auth.user.id, createSnippet, editorCode, navigate, setCreateDialog])
 

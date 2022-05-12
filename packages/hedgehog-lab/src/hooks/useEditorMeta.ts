@@ -4,12 +4,13 @@ import {useMatch, useNavigate} from "react-router-dom";
 import useSWR from "swr";
 import {fetcher} from "../network/fetcher";
 import {useEffect} from "react";
+import {useAuth} from "./useAuth";
 
 export const useEditorMeta = () => {
     const [editorMeta, setEditorMeta] = useRecoilState(editorMetaState);
     const resetEditorMeta = useResetRecoilState(editorMetaState);
     const resetEditorCode = useResetRecoilState(editorCodeState)
-
+    const {auth} = useAuth()
     const isUserSnippetPage = useMatch(`/s/:userID/:snippetID`)
 
     let URL
@@ -18,13 +19,16 @@ export const useEditorMeta = () => {
     if (isUserSnippetPage) {
         const {userID, snippetID} = isUserSnippetPage?.params
         URL = `/snippets?user=${userID}&title=${snippetID}`
+        if (auth.accessToken) {
+            URL = `${URL}&token=${auth.accessToken}`
+        }
         currentFilePath = `/s/${userID}/${snippetID}`
     }
 
 
     const navigate = useNavigate()
-    const {data, error} = useSWR([URL], fetcher)
-
+    // eslint-disable-next-line prefer-const
+    let {data, error} = useSWR([URL], fetcher)
     const matchPage = useMatch('/:userID/:snippetID')
     useEffect(() => {
         if (error && matchPage) {
@@ -37,8 +41,9 @@ export const useEditorMeta = () => {
 
     useEffect(() => {
         !data && resetEditorMeta()
-        if (data) {
-            setEditorMeta({title: data.title, id: data.id, currentFile: currentFilePath})
+        if (data?.response?.result) {
+            const res = data.response.result
+            setEditorMeta({title: res.title, id: res.id, currentFile: currentFilePath})
         }
     }, [data, resetEditorMeta, setEditorMeta])
 

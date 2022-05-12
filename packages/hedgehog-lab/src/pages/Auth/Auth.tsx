@@ -20,7 +20,7 @@ const Auth = (): React.ReactElement => {
 
     return (
         <>
-            {errorMessage.length > 0 && (
+            {errorMessage && (
                 <Alert severity="error" sx={{mb: 2}}>
                     {Array.isArray(errorMessage) ? errorMessage.map((message, index) => (
                         <Box key={index} sx={{textAlign: 'left'}}>{message}</Box>
