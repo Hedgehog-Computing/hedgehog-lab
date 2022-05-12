@@ -34,7 +34,9 @@ const Main = (): React.ReactElement => {
     });
 
     useEffect(() => {
-        setEditorCode(data?.response?.result?.content ?? DEFAULT_SOURCE)
+        if (data?.response?.result?.content) {
+            setEditorCode(data?.response?.result?.content ?? DEFAULT_SOURCE)
+        }
     }, [data?.response, setEditorCode])
 
     useEffect(() => {
@@ -42,7 +44,8 @@ const Main = (): React.ReactElement => {
             const title = mathExamplePage.params.exampleName
             const currentObj = tutorials.find(o => o.description === title) ?? {'description': 'Empty', 'source': ''}
 
-            setEditorCode(currentObj?.source ?? '')
+            setEditorCode(currentObj?.source)
+
         }
     }, [mathExamplePage?.params?.exampleName])
 
