@@ -68,7 +68,7 @@ const Output = ({outputItemList}: { outputItemList: OutputItem[] }): React.React
             return <ReactECharts option={item.option}/>
         } else if (isTextItem(item)){
             return <TextareaAutosize
-            maxRows={10}
+            maxRows={20}
             aria-label="maximum height"
             placeholder=" "
             defaultValue={item.text}
