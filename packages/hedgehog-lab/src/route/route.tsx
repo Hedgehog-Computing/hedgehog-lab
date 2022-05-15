@@ -8,6 +8,7 @@ import ContainerLayout from "../components/Layout/ContainerLayout";
 import Auth from "../pages/Auth/Auth";
 import Explore from "../pages/Explore/Explore";
 import Timeline from "../pages/Timeline/Timeline";
+import EmailVerification from "../pages/Email/EmailVerification";
 
 export interface IAppRoutes extends RouteObject {
     data?: {
@@ -80,6 +81,13 @@ export const router: IAppRoutes[] = [
                         element: <Timeline/>,
                         meta: {
                             title: 'Timeline',
+                        }
+                    },
+                    {
+                        path: 'email-verification',
+                        element: <EmailVerification/>,
+                        meta: {
+                            title: 'Verify your email',
                         }
                     }
                 ],

@@ -114,39 +114,42 @@ const SaveState = (): React.ReactElement => {
                 justifyContent: "center",
             }}
         >
-            {editorMeta.title ? (
-                <Box
-                    sx={{
-                        cursor: "pointer",
-                        "&:hover": {
-                            textDecoration: "underline",
-                        },
-                    }}
-                >
-                    <BasePopupText text={editorMeta.title ? `${editorMeta.title}` : 'File Name'}>
-                        <Box sx={{display: "grid", p: 1}}>
-                            {updateError && (
-                                <Alert severity="error" sx={{mb: 2}}>
-                                    {updateError}
-                                </Alert>
-                            )}
+            {auth.isAuthenticated ? (
+                <>
+                    {editorMeta.title ? (
+                        <Box
+                            sx={{
+                                cursor: "pointer",
+                                "&:hover": {
+                                    textDecoration: "underline",
+                                },
+                            }}
+                        >
+                            <BasePopupText text={editorMeta.title ? `${editorMeta.title}` : 'File Name'}>
+                                <Box sx={{display: "grid", p: 1}}>
+                                    {updateError && (
+                                        <Alert severity="error" sx={{mb: 2}}>
+                                            {updateError}
+                                        </Alert>
+                                    )}
 
-                            <FormProvider {...useFormMethods} >
-                                <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-                                    <SnippetNameInput size={'small'} value={editorMeta.title}/>
+                                    <FormProvider {...useFormMethods} >
+                                        <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
+                                            <SnippetNameInput size={'small'} value={editorMeta.title}/>
 
-                                    <Box textAlign={'right'} mt={1}>
-                                        <LoadingButton loading={updateLoading} type={'submit'} variant={'contained'}
-                                                       size={'small'}>Submit</LoadingButton>
-                                    </Box>
-                                </form>
-                            </FormProvider>
+                                            <Box textAlign={'right'} mt={1}>
+                                                <LoadingButton loading={updateLoading} type={'submit'}
+                                                               variant={'contained'}
+                                                               size={'small'}>Submit</LoadingButton>
+                                            </Box>
+                                        </form>
+                                    </FormProvider>
+                                </Box>
+                            </BasePopupText>
                         </Box>
-                    </BasePopupText>
-
-
-                </Box>
-            ) : (<Box sx={{cursor: 'pointer'}} onClick={() => setCreateDialog({open: true})}>New File</Box>)}
+                    ) : (<Box sx={{cursor: 'pointer'}} onClick={() => setCreateDialog({open: true})}>New File</Box>)}
+                </>
+            ) : (<Box sx={{cursor: 'pointer'}} onClick={() => setAuthDialog(true)}>New File</Box>)}
 
             {codeSavingFlag ? "*" : ""}
 
