@@ -6,7 +6,7 @@ import * as monacoEditor from "monaco-editor";
 import {ControlledEditorOnChange, monaco} from "@monaco-editor/react";
 import {monacoTheme} from "../themes/monacoTheme";
 import useKeyboardJs from "react-use/lib/useKeyboardJs";
-import {useDebounce} from "react-use";
+import {useThrottle} from "react-use";
 import {useCompiler} from "./useCompilier";
 import {compilerLiveModeState} from "../states/RCompilerStates";
 import {useMatch} from "react-router-dom";
@@ -33,6 +33,7 @@ export const useEditor = (): any => {
     const theme = useTheme();
 
     const [editorCode, setEditorCode] = useRecoilState(editorCodeState);
+    const [autoSaveFlag, setAutoSaveFlag] = useState<NodeJS.Timer>()
 
     const [
         editor,
@@ -66,32 +67,60 @@ export const useEditor = (): any => {
     }, [compilerLiveMode, editorCode, setCodeSavingFlag, setCompilerReFetch]);
 
     // auto save when page close
-    window.addEventListener("beforeunload", () => {
-        autoSaveCode();
-    });
+    useEffect(() => {
+        const beforeunloadHandler = () => {
+            autoSaveCode();
+        }
+        window.addEventListener("beforeunload", beforeunloadHandler);
+        return () => {
+            window.removeEventListener("beforeunload", beforeunloadHandler)
+        }
+    }, [autoSaveCode])
 
     // auto save code each 1s
-    const [] = useDebounce(
-        () => {
+    const autoSave = useCallback(() => {
+        const timer = setTimeout(() => {
             autoSaveCode();
-        },
-        1000,
-        [editorCode]
-    );
+        }, 1000)
+        setAutoSaveFlag(timer)
+        return timer
+    }, [autoSaveCode, setAutoSaveFlag])
+
+    useEffect(() => {
+        if (autoSaveFlag) {
+            clearTimeout(autoSaveFlag)
+            autoSave()
+        }
+    }, [autoSaveCode])
+
+    useEffect(() => {
+        if (!autoSaveFlag) {
+            const timer = autoSave()
+            return () => {
+                clearTimeout(timer)
+            }
+        }
+    }, [editorCode])
 
     // override ctrl+S to save code
-    document.addEventListener(
-        "keydown",
-        function (e) {
+    useEffect(() => {
+        const keydownHandler = (e: KeyboardEvent) => {
             if (
                 e.keyCode == 83 &&
                 (navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)
             ) {
                 e.preventDefault();
             }
-        },
-        false
-    );
+        }
+        document.addEventListener(
+            "keydown",
+            keydownHandler,
+            false
+        );
+        return () => {
+            document.removeEventListener('keydown', keydownHandler)
+        }
+    }, [])
 
     const [isPressed] = useKeyboardJs("ctrl + s");
 
@@ -102,7 +131,7 @@ export const useEditor = (): any => {
     }, [isPressed]);
 
     // set code to store when editor change
-    const handleUploadSource: ControlledEditorOnChange = (e, v) => {
+    const handleUploadSource: ControlledEditorOnChange = useCallback((e, v) => {
         if (v) {
             setEditorCode(v);
         } else {
@@ -110,7 +139,7 @@ export const useEditor = (): any => {
         }
 
         setCodeSavingFlag(true);
-    };
+    }, [setEditorCode, setCodeSavingFlag]);
 
     const options = {
         wordWrap: "on" as const,
