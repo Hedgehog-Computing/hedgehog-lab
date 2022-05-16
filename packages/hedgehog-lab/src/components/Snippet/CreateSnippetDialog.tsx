@@ -43,7 +43,7 @@ const CreateSnippetDialog = () => {
             });
 
             setCreateDialog({open: false})
-            
+
             navigate(`/s/${auth.user.username}/${data.title}`)
         } catch (e) {
             setError(e.response.data.message)
@@ -112,15 +112,15 @@ const CreateSnippetDialog = () => {
                     Code Preview(excerpt)*
                 </Typography>
 
-                {!editorCode && (
-                    <Alert severity={'error'} sx={{my: 1}}>Content should not be empty</Alert>
+                {!editorCode ? (
+                    <Alert severity={'error'} sx={{my: 1}}>Your Code should not be empty</Alert>
+                ) : (
+                    <Paper variant={'outlined'}>
+                        <CodeBlock text={editorCode.slice(0, 200)}
+                                   language={"javascript"}
+                                   theme={atomOneLight}/>
+                    </Paper>
                 )}
-
-                <Paper variant={'outlined'}>
-                    <CodeBlock text={editorCode.slice(0, 200)}
-                               language={"javascript"}
-                               theme={atomOneLight}/>
-                </Paper>
             </DialogContent>
         </Dialog>
     )
