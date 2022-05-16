@@ -18,6 +18,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useEditorMeta} from "../../../hooks/useEditorMeta";
 import * as yup from "yup";
 import {LoadingButton} from "@mui/lab";
+import SnippetDescriptionInput from "../../Base/Input/Snippet/Description/SnippetDescriptionInput";
 
 interface IUpdateSnippetInput {
     title: string,
@@ -84,6 +85,7 @@ const SaveState = (): React.ReactElement => {
         updateSnippet({
             id: editorMeta?.id,
             title: data.title,
+            description: data.description,
             content: editorCode
         }).then(r => {
             setUpdateError(null)
@@ -136,6 +138,10 @@ const SaveState = (): React.ReactElement => {
                                     <FormProvider {...useFormMethods} >
                                         <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
                                             <SnippetNameInput size={'small'} value={editorMeta.title}/>
+
+                                            <Box mt={1}>
+                                                <SnippetDescriptionInput size={'small'} value={editorMeta.description}/>
+                                            </Box>
 
                                             <Box textAlign={'right'} mt={1}>
                                                 <LoadingButton loading={updateLoading} type={'submit'}
