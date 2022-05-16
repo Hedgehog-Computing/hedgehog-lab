@@ -78,7 +78,7 @@ const SaveState = (): React.ReactElement => {
                 content: editorCode
             }).then(r => console.log(r))
         }
-    }, [, auth.isAuthenticated, auth.user.username, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
+    }, [auth.isAuthenticated, auth.user.username, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
 
     const onSubmit: SubmitHandler<IUpdateSnippetInput> = useCallback(async (data) => {
         updateSnippet({
@@ -116,7 +116,7 @@ const SaveState = (): React.ReactElement => {
         >
             {auth.isAuthenticated ? (
                 <>
-                    {editorMeta.title ? (
+                    {(editorMeta.title && isAuthSnippetPage?.userID === auth?.user?.username) ? (
                         <Box
                             sx={{
                                 cursor: "pointer",
