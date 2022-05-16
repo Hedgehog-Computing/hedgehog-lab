@@ -30,14 +30,14 @@ const AuthAction: React.FC<IBaseActionProps> = (prop) => {
 
     return (
         <>
-            {authAction !== 'forget' && (
-                <Typography variant={"body2"} sx={{textAlign: 'right'}}>
-                    <Link sx={{fontWeight: 'medium', cursor: "pointer"}}
-                          onClick={() => handleSetAuthAction('forget')}>
-                        {prop.forget?.text}
-                    </Link>
-                </Typography>
-            )}
+            {/*{authAction !== 'forget' && (*/}
+            {/*    <Typography variant={"body2"} sx={{textAlign: 'right'}}>*/}
+            {/*        <Link sx={{fontWeight: 'medium', cursor: "pointer"}}*/}
+            {/*              onClick={() => handleSetAuthAction('forget')}>*/}
+            {/*            {prop.forget?.text}*/}
+            {/*        </Link>*/}
+            {/*    </Typography>*/}
+            {/*)}*/}
 
             <Typography sx={{mt: '40px', fontWeight: 'medium'}} variant={"body1"}>
                 {prop.signOrLogin?.text}
