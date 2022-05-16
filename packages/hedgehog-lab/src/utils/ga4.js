@@ -1,7 +1,21 @@
 import ReactGA from 'react-ga4'
 
+const hostname = window.location.hostname;
+
+let gaID
+switch (hostname) {
+    case "preview.hlab.app":
+        gaID = "G-FLQZFQEJBL";
+        break;
+    case "hlab.app":
+        gaID = "G-6RED8ZS8V6";
+        break;
+    default:
+        gaID = "";
+}
+
 // initialize Google Analytics
-ReactGA.initialize('G-FLQZFQEJBL')
+ReactGA.initialize(gaID)
 
 
 // custom pageview with the location from react router
