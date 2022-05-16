@@ -28,7 +28,7 @@ export const useEditorMeta = () => {
 
     const navigate = useNavigate()
     // eslint-disable-next-line prefer-const
-    let {data, error} = useSWR([URL], fetcher)
+    let {data, error} = useSWR([URL], fetcher, {revalidateOnFocus: false})
     const matchPage = useMatch('/:userID/:snippetID')
     useEffect(() => {
         if (error && matchPage) {
