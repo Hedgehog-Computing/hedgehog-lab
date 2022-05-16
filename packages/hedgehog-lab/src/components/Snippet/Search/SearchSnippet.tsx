@@ -5,7 +5,6 @@ import {useRecoilState, useResetRecoilState} from "recoil";
 import {useAuth} from "../../../hooks/useAuth";
 import {searchState, showCodeBlockState} from "../../../states/RSnippetStates";
 import {useMatch, useNavigate} from "react-router-dom";
-import {useThrottle} from 'react-use'
 
 const SearchSnippet = (): React.ReactElement => {
     const [showCodeBlock, setShowCodeBlock] = useRecoilState(showCodeBlockState);
@@ -17,17 +16,13 @@ const SearchSnippet = (): React.ReactElement => {
         setShowCodeBlock(!showCodeBlock);
     }, [setShowCodeBlock, showCodeBlock]);
 
-    const throttleSetSearch = useThrottle((s: typeof search, text: string) => {
-        setSearch({...search, text});
-    }, 200)
-
     const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-        throttleSetSearch(search, event.target.value);
-    }, [setSearch, search, throttleSetSearch]);
+        setSearch({...search, text: event.target.value});
+    }, [search]);
 
     const handleChangeSize = useCallback((event: SelectChangeEvent) => {
         setSearch({...search, size: parseInt(event.target.value)});
-    }, [setSearch, search])
+    }, [search])
 
     const isLikes = useMatch(`/u/:userID/likes`);
     const userID = useMatch(`/u/:userID`);
