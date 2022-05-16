@@ -4,9 +4,9 @@ import {LoadingButton} from "@mui/lab";
 import {http} from "../../../network/http";
 import {useAuth} from "../../../hooks/useAuth";
 import {usePopupState} from "material-ui-popup-state/hooks";
-import {useRecoilValue} from "recoil";
-import {userSnippetApiUrlState} from "../../../states/RSnippetStates";
-import {useSWRConfig} from "swr";
+import {useRecoilState} from "recoil";
+import {snippetsState} from "../../../states/RSnippetStates";
+import {ISnippetsProps} from "../List/SnippetList";
 
 export interface IDeleteAlertProps {
     snippet: {
@@ -20,8 +20,7 @@ const DeleteAlert: React.FC<IDeleteAlertProps> = (props): React.ReactElement => 
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false);
     const {auth} = useAuth()
-    const userSnippetApiUrl = useRecoilValue(userSnippetApiUrlState)
-    const {mutate} = useSWRConfig()
+    const [snippets, setSnippets] = useRecoilState(snippetsState)
 
     const popupState = usePopupState({
         variant: "popover",
@@ -31,7 +30,6 @@ const DeleteAlert: React.FC<IDeleteAlertProps> = (props): React.ReactElement => 
     const handleOnchange = useCallback((event: React.ChangeEvent<HTMLInputElement>): void => {
         setTypedName(event.target.value);
     }, [typedName])
-
 
     const handleDelete = useCallback(() => {
         !typedName && setError('Please type the name of the snippet')
@@ -46,7 +44,12 @@ const DeleteAlert: React.FC<IDeleteAlertProps> = (props): React.ReactElement => 
             token: auth.accessToken
         }).then(() => popupState.close).finally(() => {
             setLoading(false)
-            mutate(userSnippetApiUrl)
+
+            const newSnippets = JSON.parse(JSON.stringify(snippets));
+            const res = newSnippets.filter((item: ISnippetsProps) => {
+                return item.id !== props.snippet.id
+            })
+            setSnippets(snippets => res)
         })
 
     }, [typedName])
