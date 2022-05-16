@@ -8,7 +8,6 @@ import {useAuth} from "../../../hooks/useAuth";
 import {searchState, showCodeBlockState, snippetsState} from "../../../states/RSnippetStates";
 import SharePopup from "../../Share/SharePopup";
 import DeletePopup from "../Delete/DeletePopup";
-import RenameDialog from "../Rename/RenameDialog";
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {http} from "../../../network/http";
@@ -152,7 +151,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     {item._count?.snippetLike} liked
                                 </LoadingButton>)}
 
-                                {isMe && <RenameDialog/>}
+                                {/*{isMe && <UpdatedSnippet id={item.id} content={item.content}/>}*/}
 
                                 <SharePopup size="small"
                                             script={`import ${item.user?.username}/${item.title}`}

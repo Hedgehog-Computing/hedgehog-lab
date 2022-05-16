@@ -6,7 +6,7 @@ import {fetcher} from "../../network/fetcher";
 import SnippetList from "./List/SnippetList";
 import {Skeleton} from "@mui/lab";
 import {useRecoilState, useResetRecoilState, useSetRecoilState} from "recoil";
-import {searchState, snippetsState, userMetaState} from "../../states/RSnippetStates";
+import {searchState, snippetsState, userMetaState, userSnippetApiUrlState} from "../../states/RSnippetStates";
 import {useAuth} from "../../hooks/useAuth";
 import {useMatch} from "react-router-dom";
 
@@ -15,6 +15,7 @@ const Snippet = () => {
     const reSetSearch = useResetRecoilState(searchState)
     const {auth} = useAuth()
     const [userMeta, setUserMeta] = useRecoilState(userMetaState)
+    const setUserSnippetApiUrl = useSetRecoilState(userSnippetApiUrlState)
 
     const q = search.text ? search.text : '*:*'
 
@@ -56,6 +57,7 @@ const Snippet = () => {
         url = url + `&${queryParams}`
     }
 
+    setUserSnippetApiUrl(url)
 
     const {data, error} = useSWR([url], fetcher);
     const {data: snippetMeta, error: snippetMetaError} = useSWR(snippetMetaUrl, fetcher);

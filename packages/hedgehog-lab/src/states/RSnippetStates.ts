@@ -6,6 +6,10 @@ export const showCodeBlockState = atom({
     default: true,
 });
 
+export const userSnippetApiUrlState = atom({
+    key: "userSnippetApiUrl",
+    default: "",
+})
 
 export const searchState = atom<{ text: string; from: number; size: number }>({
     key: "search",

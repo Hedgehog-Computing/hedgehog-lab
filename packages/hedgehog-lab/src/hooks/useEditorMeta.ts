@@ -38,9 +38,6 @@ export const useEditorMeta = () => {
         }
     }, [error, matchPage, navigate, resetEditorCode, resetEditorMeta])
 
-    if (error) {
-        navigate('/')
-    }
 
     useEffect(() => {
         !data && resetEditorMeta()

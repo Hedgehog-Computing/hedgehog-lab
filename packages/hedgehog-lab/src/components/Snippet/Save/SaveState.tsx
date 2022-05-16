@@ -1,10 +1,9 @@
-import {Alert, Box, Checkbox, Chip, Tooltip,} from "@mui/material";
+import {Box, Checkbox, Chip, Tooltip,} from "@mui/material";
 import {CircleOutlined, MotionPhotosAuto,} from "@mui/icons-material";
 import React, {useCallback, useEffect} from "react";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {codeSavingFlagState} from "../../../states/RYourCodeStates";
 import {compilerLiveModeState} from "../../../states/RCompilerStates";
-import BasePopupText from "../../Base/Popup/BasePopupText";
 import {authDialogState} from "../../../states/RUserStates";
 import {useAuth} from "../../../hooks/useAuth";
 import {useMatch, useNavigate} from "react-router-dom";
@@ -12,34 +11,17 @@ import {useSnippet} from "../../../hooks/useSnippet";
 import CreateSnippetDialog from "../CreateSnippetDialog";
 import {useEditor} from "../../../hooks/useEditor";
 import {useDebounce} from "react-use";
-import SnippetNameInput from "../../Base/Input/Snippet/Name/SnippetNameInput";
-import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
-import {yupResolver} from "@hookform/resolvers/yup";
 import {useEditorMeta} from "../../../hooks/useEditorMeta";
-import * as yup from "yup";
-import {LoadingButton} from "@mui/lab";
-import SnippetDescriptionInput from "../../Base/Input/Snippet/Description/SnippetDescriptionInput";
+import UpdatedSnippet from "../UpdatedSnippet";
 
-interface IUpdateSnippetInput {
-    title: string,
-    description?: string,
-}
-
-const updateSnippetRule = yup.object({
-    title: yup.string().required("Title is required"),
-    description: yup.string(),
-}).required();
 
 const SaveState = (): React.ReactElement => {
     const codeSavingFlag = useRecoilValue(codeSavingFlagState);
     const [compilerLiveMode, setCompilerLiveMode] = useRecoilState(
         compilerLiveModeState
     );
-
     const [updateError, setUpdateError] = React.useState<string | null>(null);
-
     const liveMode = localStorage.getItem("liveMode") ?? "on";
-
     useEffect(() => {
         if (liveMode === "on") {
             setCompilerLiveMode("on");
@@ -55,19 +37,12 @@ const SaveState = (): React.ReactElement => {
     };
 
     const [authDialog, setAuthDialog] = useRecoilState(authDialogState);
-
     const {auth} = useAuth();
-
     const navigate = useNavigate()
-    const {editorMeta, setEditorMeta} = useEditorMeta()
-
+    const {editorMeta} = useEditorMeta()
     const isAuthSnippetPage = useMatch(`/s/:userID/:snippetID`)?.params
     const {setCreateDialog, updateSnippet, updateLoading} = useSnippet()
     const {editorCode} = useEditor()
-
-    const useFormMethods = useForm<IUpdateSnippetInput>({
-        resolver: yupResolver(updateSnippetRule)
-    })
 
 
     const update = useCallback(() => {
@@ -80,20 +55,6 @@ const SaveState = (): React.ReactElement => {
             }).then(r => console.log(r))
         }
     }, [auth.isAuthenticated, auth.user.username, editorCode, editorMeta.description, editorMeta?.id, editorMeta.title, isAuthSnippetPage?.userID, updateSnippet])
-
-    const onSubmit: SubmitHandler<IUpdateSnippetInput> = useCallback(async (data) => {
-        updateSnippet({
-            id: editorMeta?.id,
-            title: data.title,
-            description: data.description,
-            content: editorCode
-        }).then(r => {
-            setUpdateError(null)
-            setEditorMeta({...editorMeta, title: data.title})
-            navigate(`/s/${auth.user.username}/${data.title}`)
-        }).catch(e => setUpdateError(e.response.data.message))
-    }, [auth.accessToken, auth.user.username, editorCode, editorMeta, navigate, setEditorMeta, updateSnippet])
-
 
     const [] = useDebounce(
         () => {
@@ -127,31 +88,7 @@ const SaveState = (): React.ReactElement => {
                                 },
                             }}
                         >
-                            <BasePopupText text={editorMeta.title ? `${editorMeta.title}` : 'File Name'}>
-                                <Box sx={{display: "grid", p: 1}}>
-                                    {updateError && (
-                                        <Alert severity="error" sx={{mb: 2}}>
-                                            {updateError}
-                                        </Alert>
-                                    )}
-
-                                    <FormProvider {...useFormMethods} >
-                                        <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-                                            <SnippetNameInput size={'small'} value={editorMeta.title}/>
-
-                                            <Box mt={1}>
-                                                <SnippetDescriptionInput size={'small'} value={editorMeta.description}/>
-                                            </Box>
-
-                                            <Box textAlign={'right'} mt={1}>
-                                                <LoadingButton loading={updateLoading} type={'submit'}
-                                                               variant={'contained'}
-                                                               size={'small'}>Submit</LoadingButton>
-                                            </Box>
-                                        </form>
-                                    </FormProvider>
-                                </Box>
-                            </BasePopupText>
+                            <UpdatedSnippet/>
                         </Box>
                     ) : (<Box sx={{cursor: 'pointer'}} onClick={() => setCreateDialog({open: true})}>New File</Box>)}
                 </>
