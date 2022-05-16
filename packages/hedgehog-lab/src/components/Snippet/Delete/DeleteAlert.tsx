@@ -4,6 +4,9 @@ import {LoadingButton} from "@mui/lab";
 import {http} from "../../../network/http";
 import {useAuth} from "../../../hooks/useAuth";
 import {usePopupState} from "material-ui-popup-state/hooks";
+import {useRecoilValue} from "recoil";
+import {userSnippetApiUrlState} from "../../../states/RSnippetStates";
+import {useSWRConfig} from "swr";
 
 export interface IDeleteAlertProps {
     snippet: {
@@ -17,6 +20,8 @@ const DeleteAlert: React.FC<IDeleteAlertProps> = (props): React.ReactElement => 
     const [error, setError] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false);
     const {auth} = useAuth()
+    const userSnippetApiUrl = useRecoilValue(userSnippetApiUrlState)
+    const {mutate} = useSWRConfig()
 
     const popupState = usePopupState({
         variant: "popover",
@@ -41,6 +46,7 @@ const DeleteAlert: React.FC<IDeleteAlertProps> = (props): React.ReactElement => 
             token: auth.accessToken
         }).then(() => popupState.close).finally(() => {
             setLoading(false)
+            mutate(userSnippetApiUrl)
         })
 
     }, [typedName])

@@ -14,8 +14,9 @@ import BasePopupText from "../Base/Popup/BasePopupText";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {DriveFileRenameOutline} from "@mui/icons-material";
 import {useSWRConfig} from "swr";
-import {useRecoilValue} from "recoil";
-import {userSnippetApiUrlState} from "../../states/RSnippetStates";
+import {useRecoilState} from "recoil";
+import {snippetsState} from "../../states/RSnippetStates";
+import {ISnippetsProps} from "./List/SnippetList";
 
 interface IUpdateSnippetInput {
     title: string,
@@ -40,7 +41,7 @@ const UpdatedSnippet: React.FC<IUpdateSnippetProps> = (props) => {
     const navigate = useNavigate()
     const {auth} = useAuth();
     const {mutate} = useSWRConfig()
-    const userSnippetApiUrl = useRecoilValue(userSnippetApiUrlState)
+    const [snippets, setSnippets] = useRecoilState(snippetsState)
 
     const useFormMethods = useForm<IUpdateSnippetInput>({
         resolver: yupResolver(updateSnippetRule)
@@ -61,7 +62,20 @@ const UpdatedSnippet: React.FC<IUpdateSnippetProps> = (props) => {
         }).then(r => {
             setUpdateError(null)
             isSnippetDetail && setEditorMeta({...editorMeta, title: data.title})
-            !isSnippetDetail ? mutate(userSnippetApiUrl) : navigate(`/s/${auth.user.username}/${data.title}`)
+
+            if (!isSnippetDetail) {
+                const newSnippets = JSON.parse(JSON.stringify(snippets));
+                const res = newSnippets.map((item: ISnippetsProps) => {
+                    if (item.id === props.id) {
+                        item.title = data.title;
+                    }
+                    return item
+                })
+
+                setSnippets(snippets => res)
+            } else {
+                navigate(`/s/${auth.user.username}/${data.title}`)
+            }
         }).catch(e => setUpdateError(e.response.data.message))
     }, [auth.accessToken, auth.user.username, editorCode, editorMeta, navigate, setEditorMeta, updateSnippet])
 

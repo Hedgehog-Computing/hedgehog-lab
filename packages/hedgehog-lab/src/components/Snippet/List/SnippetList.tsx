@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import {http} from "../../../network/http";
 import {LoadingButton} from "@mui/lab";
+import UpdatedSnippet from "../UpdatedSnippet";
 
 dayjs.extend(relativeTime)
 
@@ -151,7 +152,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     {item._count?.snippetLike} liked
                                 </LoadingButton>)}
 
-                                {/*{isMe && <UpdatedSnippet id={item.id} content={item.content}/>}*/}
+                                {isMe && <UpdatedSnippet id={item.id} content={item.content}/>}
 
                                 <SharePopup size="small"
                                             script={`import ${item.user?.username}/${item.title}`}
