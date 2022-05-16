@@ -8,10 +8,10 @@ switch (hostname) {
         url = "https://api.preview.hlab.app";
         break;
     case "hlab.app":
-        axios.defaults.baseURL = "https://api.hlab.app";
+        url = "https://api.hlab.app";
         break;
     default:
-        axios.defaults.baseURL = "http://localhost:9000";
+        url = "http://localhost:9000";
 }
 
 axios.defaults.timeout = 100000;
