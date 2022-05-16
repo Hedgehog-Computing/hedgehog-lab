@@ -22,7 +22,7 @@ const LoginForm = () => {
 
             <AuthAction
                 action={{text: 'Log in'}}
-                signOrLogin={{text: 'Not on HHLAB yet?', actionText: 'Sign up', action: 'sign'}}
+                signOrLogin={{text: 'Not on hlab yet?', actionText: 'Sign up', action: 'sign'}}
                 forget={{text: 'Forget password?'}}
             />
         </>

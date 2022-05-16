@@ -15,7 +15,7 @@ const Header = (): React.ReactElement => (
         </Typography>
 
         <Typography variant={'h6'}>
-            Your personal information and preferences in various HHLAB services
+            Your personal information and preferences in various hlab services
         </Typography>
     </Box>
 )

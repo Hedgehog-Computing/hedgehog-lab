@@ -63,7 +63,7 @@ const DialogHeader: React.FC<DialogProps> = (props) => {
 
 const Title = () => (
     <Typography variant={"h4"} component={"p"} sx={{fontWeight: "bold"}}>
-        Welcome to HHLAB
+        Welcome to hlab
     </Typography>
 );
 
