@@ -136,7 +136,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                     ml: 1,
                                 }}/>
 
-                                {!isExplorePage && (<LoadingButton
+                                {!(isExplorePage && search.text) && (<LoadingButton
                                     disabled={!auth.user.username}
                                     loading={likeLoading}
                                     onClick={() => {
