@@ -136,19 +136,20 @@ const Timeline = () => {
                                     </Card>}
                             </>
                         </Box>
-
                         <Divider sx={{my: 2}}/>
-
-                        <Box sx={{display: "flex", justifyContent: "center"}}>
-                            <Pagination
-                                count={data?.response?.meta?.count && Math.ceil(data?.response?.meta?.count / 10)}
-                                page={currentPage} onChange={(e, value) => {
-                                setCurrentPage(value)
-                            }}/>
-                        </Box>
                     </>
                 );
             }) : <EditorLoading/>}
+
+            {(data && data.response.result) && data.response.result.length > 0 && (
+                <Box sx={{display: "flex", justifyContent: "center"}}>
+                    <Pagination
+                        count={data?.response?.meta?.count && Math.ceil(data?.response?.meta?.count / 10)}
+                        page={currentPage} onChange={(e, value) => {
+                        setCurrentPage(value)
+                    }}/>
+                </Box>
+            )}
 
             {((data && data.response.result) && data.response.result.data.length === 0) && (
                 <>
