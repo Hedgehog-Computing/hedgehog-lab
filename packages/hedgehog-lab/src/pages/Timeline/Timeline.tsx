@@ -141,7 +141,7 @@ const Timeline = () => {
                 );
             }) : <EditorLoading/>}
 
-            {(data && data.response.result) && data.response.result.length > 0 && (
+            {(data && data.response.result) && data.response.result.data.length > 0 && (
                 <Box sx={{display: "flex", justifyContent: "center"}}>
                     <Pagination
                         count={data?.response?.meta?.count && Math.ceil(data?.response?.meta?.count / 10)}
