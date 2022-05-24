@@ -48,7 +48,7 @@ const Snippet = () => {
     }
 
     if (isUserSnippetLike) {
-        url = `${exploreUrl}&likedByUser=${isUserSnippetLike?.params.userId}&${token}`
+        url = `${exploreUrl}&user=${isUserSnippetLike?.params.userId}&likedByUser=${isUserSnippetLike?.params.userId}&${token}`
     }
 
     if (search.text && explorePage) {

@@ -11,7 +11,7 @@ switch (hostname) {
         gaID = "G-6RED8ZS8V6";
         break;
     default:
-        gaID = "";
+        gaID = "G-FLQZFQEJBL";
 }
 
 // initialize Google Analytics
