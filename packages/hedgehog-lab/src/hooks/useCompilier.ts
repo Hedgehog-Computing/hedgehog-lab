@@ -32,8 +32,8 @@ export const useCompiler = (): readonly [
       // including execution runtime exception and compiling exception -Lidang
       console.log("Hedgehog Lab error: \n" + lastError.toString());
       setCompilerResult({
-        outputItem: [],
-        outputString: lastError.toString(),
+        outputItem: [{ itemType: 'TEXT', text: lastError.toString() }],
+        outputString: ""
       });
     },
   });

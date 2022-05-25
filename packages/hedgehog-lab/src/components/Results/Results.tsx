@@ -39,18 +39,7 @@ const Results = (): React.ReactElement => {
                                 <Output outputItemList={outputItem}/>
                             </div>
                         )}
-                        {outputString && (
-                            <pre
-                                style={{
-                                    fontFamily: "inherit",
-                                    fontWeight: 500,
-                                    fontSize: "1rem",
-                                    lineHeight: "1.5",
-                                }}
-                            >
-                {outputString}
-              </pre>
-                        )}
+
                     </Paper>
                 )}
             </Card>

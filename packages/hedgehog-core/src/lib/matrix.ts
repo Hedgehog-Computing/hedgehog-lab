@@ -24,13 +24,13 @@ export class Mat {
     this.val = [];
     this.rows = 0;
     this.cols = 0;
-    this.digits = -1;
+    this.digits = 5;
     this.mode = '';
     return this;
   }
   constructor(input?: number[][] | number[] | number) {
     this.mode = '';
-    this.digits = -1;
+    this.digits = 5;
     this.val = [];
     this.rows = 0;
     this.cols = 0;
@@ -304,6 +304,9 @@ export class Mat {
     if (typeof rightOperand === 'number') {
       return this.addScalar(rightOperand);
     }
+    if (rightOperand.rows === 1 && rightOperand.cols === 1) {
+      return this.addScalar(rightOperand.val[0][0]);
+    }
     //otherwise, add the right operand as a matrix
     return add(this, rightOperand);
   }
@@ -319,6 +322,9 @@ export class Mat {
     //if right operand is a number, minus the number as a scalar
     if (typeof rightOperand === 'number') {
       return this.minusScalar(rightOperand);
+    }
+    if (rightOperand.rows === 1 && rightOperand.cols === 1) {
+      return this.minusScalar(rightOperand.val[0][0]);
     }
     //otherwise, minus the right operand as a matrix
     return minus(this, rightOperand);
@@ -337,6 +343,9 @@ export class Mat {
     //if right operand is a number, mul the number as a scalar
     if (typeof rightOperand === 'number') {
       return this.multiplyScalar(rightOperand);
+    }
+    if (rightOperand.cols === 1 && rightOperand.rows === 1) {
+      return this.multiplyScalar(rightOperand.val[0][0]);
     }
     //otherwise, multiply the right operand as a matrix
     return multiply(this, rightOperand);
@@ -374,11 +383,13 @@ export class Mat {
     if (typeof rightOperand === 'number') {
       return this.divideScalar(rightOperand);
     }
-
     //if right operand is a 1D or 2D array
     if (Array.isArray(rightOperand)) {
       const rightMatrix = new Mat(rightOperand);
       return divide(this, rightMatrix);
+    }
+    if (rightOperand.cols === 1 && rightOperand.rows === 1) {
+      return this.divideScalar(rightOperand.val[0][0]);
     }
     return divide(this, rightOperand);
   }
@@ -405,7 +416,7 @@ export class Mat {
     return returnMatrix;
   }
 
-  // compare mat1 === mat2, which right operand mat2 could be a matrix object, 2D array, 1D array or a scalar number
+  // compare mat1 == mat2, which right operand mat2 could be a matrix object, 2D array, 1D array or a scalar number
   [Symbol.for('==')](
     rightOperand: Mat | number | number[] | number[][],
     EPSILON = 0.0001
@@ -429,7 +440,7 @@ export class Mat {
 
   //// compare mat1 === mat2, which right operand mat2 could be a matrix object, 2D array, 1D array or a scalar number
   [Symbol.for('===')](
-    rightOperand: Mat | number | number[] | number[][],
+    rightOperand: Mat | number | number[] | number[][] | any,
     EPSILON = 0.0001
   ): boolean {
     //if right operand is a raw array of number or 2D array, initialize the matrix first
@@ -446,7 +457,60 @@ export class Mat {
       return (this.val[0][0] - rightOperand) * (this.val[0][0] - rightOperand) < EPSILON;
     }
     //otherwise, minus the right operand as a matrix
-    return this.equals(rightOperand);
+    else if (rightOperand instanceof Mat) {
+      return this.equals(rightOperand);
+    }
+    return false;
+  }
+
+  //// compare mat1 !== mat2, which right operand mat2 could be a matrix object, 2D array, 1D array or a scalar number
+  [Symbol.for('!==')](
+    rightOperand: Mat | number | number[] | number[][],
+    EPSILON = 0.0001
+  ): boolean {
+    //if right operand is a raw array of number or 2D array, initialize the matrix first
+    if (Array.isArray(rightOperand)) {
+      const rightOperandMatrix = new Mat(rightOperand);
+      return !this.equals(rightOperandMatrix);
+    }
+
+    //if right operand is a number, mul the number as a scalar
+    else if (typeof rightOperand === 'number') {
+      if (this.rows !== 1 || this.cols !== 1) {
+        throw new Error('This matrix cannot be compared with a scalar');
+      }
+      return !((this.val[0][0] - rightOperand) * (this.val[0][0] - rightOperand) < EPSILON);
+    }
+    //otherwise, minus the right operand as a matrix
+    else if (rightOperand instanceof Mat) {
+      return !this.equals(rightOperand);
+    }
+    return false;
+  }
+
+  //// compare mat1 != mat2, which right operand mat2 could be a matrix object, 2D array, 1D array or a scalar number
+  [Symbol.for('!=')](
+    rightOperand: Mat | number | number[] | number[][],
+    EPSILON = 0.0001
+  ): boolean {
+    //if right operand is a raw array of number or 2D array, initialize the matrix first
+    if (Array.isArray(rightOperand)) {
+      const rightOperandMatrix = new Mat(rightOperand);
+      return !this.equals(rightOperandMatrix);
+    }
+
+    //if right operand is a number, mul the number as a scalar
+    else if (typeof rightOperand === 'number') {
+      if (this.rows !== 1 || this.cols !== 1) {
+        throw new Error('This matrix cannot be compared with a scalar');
+      }
+      return !((this.val[0][0] - rightOperand) * (this.val[0][0] - rightOperand) < EPSILON);
+    }
+    //otherwise, minus the right operand as a matrix
+    else if (rightOperand instanceof Mat) {
+      return !this.equals(rightOperand);
+    }
+    return false;
   }
 
   //setter and getter
@@ -607,10 +671,13 @@ export class Mat {
       return eachRow
         .map((eachValue) => {
           if (this.digits <= 0) return String(eachValue);
-          else return String(eachValue.toFixed(this.digits));
+          else
+            return Number.isInteger(eachValue)
+              ? String(eachValue)
+              : String(eachValue.toFixed(this.digits));
         })
         .reduce(
-          (rowAccumulator, currentElementString) => rowAccumulator + ',' + currentElementString
+          (rowAccumulator, currentElementString) => rowAccumulator + ', ' + currentElementString
         );
     });
 
@@ -619,7 +686,7 @@ export class Mat {
       returnString +=
         '[' + rowStringList[rowIndex] + ']' + (rowIndex === rowStringList.length - 1 ? '' : ',\n');
     }
-    return '\n[' + returnString + ']\n';
+    return '[' + returnString + ']\n';
   }
 
   /*serialize matrix to 2D Array with Tab, for example:
@@ -635,13 +702,18 @@ export class Mat {
           if (j === 0) {
             returnString += String(this.val[i][j]);
           } else {
-            returnString += '\t' + String(this.val[i][j]);
+            returnString += '\t  ' + String(this.val[i][j]);
           }
         } else {
           if (j === 0) {
-            returnString += this.val[i][j].toFixed(this.digits);
+            returnString += Number.isInteger(this.val[i][j])
+              ? String(this.val[i][j])
+              : String(this.val[i][j].toFixed(this.digits));
           } else {
-            returnString += '\t' + this.val[i][j].toFixed(this.digits);
+            returnString +=
+              '\t  ' + Number.isInteger(this.val[i][j])
+                ? String(this.val[i][j])
+                : String(this.val[i][j].toFixed(this.digits));
           }
         }
       }
@@ -666,17 +738,20 @@ export class Mat {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         // if keeps all digits
+        const strCurrentValue = Number.isInteger(this.val[i][j])
+          ? String(this.val[i][j])
+          : String(this.val[i][j].toFixed(this.digits));
         if (this.digits === -1) {
           if (j === 0) {
-            returnString += String(this.val[i][j]);
+            returnString += strCurrentValue;
           } else {
-            returnString += '  &  ' + String(this.val[i][j]);
+            returnString += '  &  ' + strCurrentValue;
           }
         } else {
           if (j === 0) {
-            returnString += this.val[i][j].toFixed(this.digits);
+            returnString += strCurrentValue;
           } else {
-            returnString += '  &  ' + this.val[i][j].toFixed(this.digits);
+            returnString += '  &  ' + strCurrentValue;
           }
         }
       }
@@ -728,6 +803,11 @@ export class Mat {
 
 //leftMatrix + rightMatrix, save the result into left matrix
 function addInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
+  if (leftMatrix.rows === 1 && leftMatrix.cols === 1) {
+    return rightMatrix.addScalar(leftMatrix.val[0][0]);
+  } else if (rightMatrix.rows === 1 && rightMatrix.cols === 1) {
+    return leftMatrix.addScalar(rightMatrix.val[0][0]);
+  }
   if (leftMatrix.rows !== rightMatrix.rows || leftMatrix.cols !== rightMatrix.cols)
     throw new Error('Dimension does not match for operation:add');
   const rows = leftMatrix.rows,
@@ -747,6 +827,11 @@ function add(leftMat: Mat, rightMat: Mat): Mat {
 
 //leftMatrix - rightMatrix, save the result into left matrix
 function minusInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
+  if (leftMatrix.rows === 1 && leftMatrix.cols === 1) {
+    return rightMatrix.minusScalar(leftMatrix.val[0][0]).multiplyScalar(-1);
+  } else if (rightMatrix.rows === 1 && rightMatrix.cols === 1) {
+    return leftMatrix.minusScalar(rightMatrix.val[0][0]);
+  }
   if (leftMatrix.rows !== rightMatrix.rows || leftMatrix.cols !== rightMatrix.cols)
     throw new Error('Dimension does not match for operation:minus');
   const rows = leftMatrix.rows,
@@ -766,6 +851,11 @@ function minus(leftMat: Mat, rightMat: Mat): Mat {
 
 // leftMat * rightMat and return a new matrix
 function multiply(leftMat: Mat, rightMat: Mat): Mat {
+  if (rightMat.rows === 1 && rightMat.cols === 1) {
+    return leftMat.multiplyScalar(rightMat.val[0][0]);
+  } else if (leftMat.rows === 1 && leftMat.cols === 1) {
+    return rightMat.multiplyScalar(leftMat.val[0][0]);
+  }
   if (leftMat.cols !== rightMat.rows)
     throw new Error('Dimension does not match for operation:muitiply');
 
@@ -957,5 +1047,38 @@ export class Scalar {
       return rightOperand.multiplyScalar(this.val);
     }
     return new Mat(rightOperand).multiplyScalar(this.val);
+  }
+
+  // operator "==="
+  [Symbol.for('===')](rightOperand: Mat | number[] | number | number[][]): boolean {
+    if (rightOperand instanceof Mat) {
+      return rightOperand.equals(new Mat(this.val));
+    }
+    return new Mat(rightOperand).equals(new Mat(this.val));
+  }
+
+  // operator "=="
+  [Symbol.for('==')](rightOperand: Mat | number[] | number | number[][]): boolean {
+    if (rightOperand instanceof Mat) {
+      return rightOperand.equals(new Mat(this.val));
+    }
+    return new Mat(rightOperand).equals(new Mat(this.val));
+  }
+
+  // operator "!=="
+  [Symbol.for('!==')](rightOperand: Mat | number[] | number | number[][]): boolean {
+    if (rightOperand instanceof Mat) {
+      return !rightOperand.equals(new Mat(this.val));
+    }
+    const reuslt = new Mat(rightOperand).equals(new Mat(this.val));
+    return !reuslt;
+  }
+
+  [Symbol.for('!=')](rightOperand: Mat | number[] | number | number[][]): boolean {
+    if (rightOperand instanceof Mat) {
+      return !rightOperand.equals(new Mat(this.val));
+    }
+    const reuslt = new Mat(rightOperand).equals(new Mat(this.val));
+    return !reuslt;
   }
 }

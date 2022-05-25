@@ -1,4 +1,5 @@
 import { Mat } from './matrix';
+import { Tensor } from './tensor';
 
 function to_matrix(A: Mat | number[][] | number[] | number): Mat {
   if (A instanceof Mat) {

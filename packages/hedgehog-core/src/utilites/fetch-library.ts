@@ -4,7 +4,7 @@ function fetchLibrary(lib_url: string) {
       return body.text();
     })
     .then(function (data) {
-      console.log('Fetch return raw string: \n' + data);
+      //console.log('Fetch return raw string: \n' + data);
       return data;
     });
 

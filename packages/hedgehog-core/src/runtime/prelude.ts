@@ -8,7 +8,6 @@ import { Tensor } from '../lib/tensor';
 import { Table } from '../lib/table';
 import _MathLib from '../lib/mathlib';
 import { Sym } from '../lib/symbolic';
-import { Chol, QR, LU } from '../lib/algebra';
 import { OutputItem } from '../output/output-item';
 import { rawInputsToTex } from '../utilites/process-raw-inputs';
 
@@ -40,7 +39,7 @@ import * as tf from '@tensorflow/tfjs';
 
 //tvm.js
 
-export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, Chol, React, d3, Tensor, Table };
+export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, React, d3, Tensor, Table };
 
 /* 
    import all mljs library and export 
@@ -132,100 +131,163 @@ export function json2tensor(A: string): Tensor {
 }
 
 //Math Lib functions
-export function sin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function sin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('sin(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.sin(A);
+  }
   return _MathLib.sin(A);
 }
-export function cos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function cos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('cos(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.cos(A);
+  }
   return _MathLib.cos(A);
 }
-export function abs(A: Mat | number[][] | number[] | number): Mat {
+export function abs(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
+  if (typeof A === 'number') {
+    return Math.abs(A);
+  }
   return _MathLib.abs(A);
 }
-export function acos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function acos(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('acos(' + A.expression + ')');
   }
+  if (typeof A === 'number') {  
+    return Math.acos(A);
+  }
   return _MathLib.acos(A);
 }
-export function acosh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function acosh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('acosh(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.acosh(A);
+  }
   return _MathLib.acosh(A);
 }
-export function sign(A: Mat | number[][] | number[] | number): Mat {
+export function sign(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
+  if (typeof A === 'number') {
+    return Math.sign(A);
+  }
   return _MathLib.sign(A);
 }
-export function sqrt(A: Mat | number[][] | number[] | number): Mat {
+export function sqrt(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
+  if (typeof A === 'number') {
+    return Math.sqrt(A);
+  }
   return _MathLib.sqrt(A);
 }
-export function trunc(A: Mat | number[][] | number[] | number): Mat {
+export function trunc(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
+  if (typeof A === 'number') {
+    return Math.trunc(A);
+  }
   return _MathLib.trunc(A);
 }
-export function floor(A: Mat | number[][] | number[] | number): Mat {
+export function floor(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
+  if (typeof A === 'number') {
+    return Math.floor(A);
+  }
   return _MathLib.floor(A);
 }
-export function ceil(A: Mat | number[][] | number[] | number): Mat {
+export function ceil(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
+  if (typeof A === 'number') {
+    return Math.ceil(A);
+  }
   return _MathLib.ceil(A);
 }
-export function exp(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function exp(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('exp(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.exp(A);
+  }
   return _MathLib.exp(A);
 }
-export function log(A: Mat | number[][] | number[] | number | Sym, base?: number): Mat | Sym {
+export function log(
+  A: Mat | number[][] | number[] | number | Sym,
+  base?: number
+): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('log(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.log(A);
+  }
   return _MathLib.log(A, base);
 }
-export function asin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function asin(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('asin(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.asin(A);
+  }
   return _MathLib.asin(A);
 }
-export function asinh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function asinh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('asinh(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.asinh(A);
+  }
   return _MathLib.asinh(A);
 }
-export function atan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function atan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('atan(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.atan(A);
+  }
   return _MathLib.atan(A);
 }
-export function atanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function atanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('atanh(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.atanh(A);
+  }
   return _MathLib.atanh(A);
 }
-export function tan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function tan(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('tan(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.tan(A);
+  }
   return _MathLib.tan(A);
 }
-export function tanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym {
+export function tanh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('tanh(' + A.expression + ')');
   }
+  if (typeof A === 'number') {
+    return Math.tanh(A);
+  }
   return _MathLib.tanh(A);
 }
-export function pow(A: Mat | number[][] | number[] | number, y: number): Mat {
+export function pow(A: Mat | number[][] | number[] | number, y: number): Mat | number | Tensor {
+  if (typeof A === 'number') {
+    return Math.pow(A, y);
+  }
   return _MathLib.pow(A, y);
 }
-export function round(A: Mat | number[][] | number[] | number): Mat {
+export function round(A: Mat | number[][] | number[] | number): Mat | number | Tensor {
+  if (typeof A === 'number') {
+    return Math.round(A);
+  }
   return _MathLib.round(A);
 }
 
@@ -252,18 +314,6 @@ export function range(start: number, end = null, step = 1): Mat {
   return mat().range(start, end, step);
 }
 
-//linear algebra
-export function chol(A: Mat): Chol {
-  return new Chol(A);
-}
-
-export function qr(A: Mat): QR {
-  return new QR(A);
-}
-
-export function lu(A: Mat): LU {
-  return new LU(A);
-}
 
 //tic and toc
 let timestamp = 0;
@@ -450,4 +500,8 @@ Output: string, text of URL
 */
 export function get(input: string): string {
   return fetch(input).text();
+}
+
+export function echart(input: any) {
+  _OUTPUT_ITEMS_LIST_.push({ itemType: 'ECHART', option: input });
 }

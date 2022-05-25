@@ -14,22 +14,22 @@ function invokedTemplate(op: any) {
     (function (LEFT_ARG, RIGHT_ARG) { 
       if (LEFT_ARG !== null && LEFT_ARG !== undefined
         && LEFT_ARG[Symbol.for("${op}")])
-        return LEFT_ARG[Symbol.for("${op}")](RIGHT_ARG);
+        {return (LEFT_ARG[Symbol.for("${op}")](RIGHT_ARG));}
       else if (RIGHT_ARG instanceof Sym)
-        return (sym(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG));
+        {return ((sym(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG)));}
       else if (Array.isArray(LEFT_ARG) && (RIGHT_ARG instanceof Mat))
-        return (mat(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG));
+        {return ((mat(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG)));}
       else if (Array.isArray(LEFT_ARG) && (Array.isArray(RIGHT_ARG)))
-        return (mat(LEFT_ARG)[Symbol.for("${op}")](mat(RIGHT_ARG)));
+        {return ((mat(LEFT_ARG)[Symbol.for("${op}")](mat(RIGHT_ARG))));}
       else if (  (!isNaN(LEFT_ARG)) && (RIGHT_ARG instanceof Mat))
-        return (scalar(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG));
+        {return ((scalar(LEFT_ARG)[Symbol.for("${op}")](RIGHT_ARG)));}
       else if (  (!isNaN(LEFT_ARG)) && (Array.isArray(RIGHT_ARG)))
-        return (scalar(LEFT_ARG)[Symbol.for("${op}")](mat(RIGHT_ARG)));
+        {return ((scalar(LEFT_ARG)[Symbol.for("${op}")](mat(RIGHT_ARG))));}
       else if (  Array.isArray(LEFT_ARG) && (!isNaN(RIGHT_ARG)) )
-        return (mat(LEFT_ARG)[Symbol.for("${op}")]((RIGHT_ARG)));
+        {return (mat(LEFT_ARG)[Symbol.for("${op}")]((RIGHT_ARG)));}
  
       else
-        return LEFT_ARG ${op} RIGHT_ARG;
+        {return (LEFT_ARG ${op} RIGHT_ARG);}
     })
   `);
 }
