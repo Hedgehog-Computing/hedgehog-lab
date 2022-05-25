@@ -81,9 +81,7 @@ async function parseRegisterdPackageWithoutPackageJsonFile(
             'Failed to fetch the dependency. \nPackage:' +
             secondPart +
             '\nMissing file location: ' +
-            currentHHSLocation +
-            '\nDependency stack: ' +
-            strCurrentCallStack
+            currentHHSLocation
           );
         } else {
           return response.text();

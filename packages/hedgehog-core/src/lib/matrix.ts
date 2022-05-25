@@ -304,6 +304,9 @@ export class Mat {
     if (typeof rightOperand === 'number') {
       return this.addScalar(rightOperand);
     }
+    if (rightOperand.rows === 1 && rightOperand.cols === 1) {
+      return this.addScalar(rightOperand.val[0][0]);
+    }
     //otherwise, add the right operand as a matrix
     return add(this, rightOperand);
   }
@@ -319,6 +322,9 @@ export class Mat {
     //if right operand is a number, minus the number as a scalar
     if (typeof rightOperand === 'number') {
       return this.minusScalar(rightOperand);
+    }
+    if (rightOperand.rows === 1 && rightOperand.cols === 1) {
+      return this.minusScalar(rightOperand.val[0][0]);
     }
     //otherwise, minus the right operand as a matrix
     return minus(this, rightOperand);
@@ -337,6 +343,9 @@ export class Mat {
     //if right operand is a number, mul the number as a scalar
     if (typeof rightOperand === 'number') {
       return this.multiplyScalar(rightOperand);
+    }
+    if (rightOperand.cols === 1 && rightOperand.rows === 1) {
+      return this.multiplyScalar(rightOperand.val[0][0]);
     }
     //otherwise, multiply the right operand as a matrix
     return multiply(this, rightOperand);
@@ -374,11 +383,13 @@ export class Mat {
     if (typeof rightOperand === 'number') {
       return this.divideScalar(rightOperand);
     }
-
     //if right operand is a 1D or 2D array
     if (Array.isArray(rightOperand)) {
       const rightMatrix = new Mat(rightOperand);
       return divide(this, rightMatrix);
+    }
+    if (rightOperand.cols === 1 && rightOperand.rows === 1) {
+      return this.divideScalar(rightOperand.val[0][0]);
     }
     return divide(this, rightOperand);
   }
@@ -727,7 +738,7 @@ export class Mat {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         // if keeps all digits
-        let strCurrentValue = Number.isInteger(this.val[i][j])
+        const strCurrentValue = Number.isInteger(this.val[i][j])
           ? String(this.val[i][j])
           : String(this.val[i][j].toFixed(this.digits));
         if (this.digits === -1) {
@@ -792,6 +803,11 @@ export class Mat {
 
 //leftMatrix + rightMatrix, save the result into left matrix
 function addInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
+  if (leftMatrix.rows === 1 && leftMatrix.cols === 1) {
+    return rightMatrix.addScalar(leftMatrix.val[0][0]);
+  } else if (rightMatrix.rows === 1 && rightMatrix.cols === 1) {
+    return leftMatrix.addScalar(rightMatrix.val[0][0]);
+  }
   if (leftMatrix.rows !== rightMatrix.rows || leftMatrix.cols !== rightMatrix.cols)
     throw new Error('Dimension does not match for operation:add');
   const rows = leftMatrix.rows,
@@ -811,6 +827,11 @@ function add(leftMat: Mat, rightMat: Mat): Mat {
 
 //leftMatrix - rightMatrix, save the result into left matrix
 function minusInPlace(leftMatrix: Mat, rightMatrix: Mat): Mat {
+  if (leftMatrix.rows === 1 && leftMatrix.cols === 1) {
+    return rightMatrix.minusScalar(leftMatrix.val[0][0]).multiplyScalar(-1);
+  } else if (rightMatrix.rows === 1 && rightMatrix.cols === 1) {
+    return leftMatrix.minusScalar(rightMatrix.val[0][0]);
+  }
   if (leftMatrix.rows !== rightMatrix.rows || leftMatrix.cols !== rightMatrix.cols)
     throw new Error('Dimension does not match for operation:minus');
   const rows = leftMatrix.rows,
@@ -830,6 +851,11 @@ function minus(leftMat: Mat, rightMat: Mat): Mat {
 
 // leftMat * rightMat and return a new matrix
 function multiply(leftMat: Mat, rightMat: Mat): Mat {
+  if (rightMat.rows === 1 && rightMat.cols === 1) {
+    return leftMat.multiplyScalar(rightMat.val[0][0]);
+  } else if (leftMat.rows === 1 && leftMat.cols === 1) {
+    return rightMat.multiplyScalar(leftMat.val[0][0]);
+  }
   if (leftMat.cols !== rightMat.rows)
     throw new Error('Dimension does not match for operation:muitiply');
 
