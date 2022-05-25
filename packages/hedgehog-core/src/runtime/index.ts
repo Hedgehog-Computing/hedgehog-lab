@@ -17,6 +17,7 @@ export function executeOutput(code: string) {
   }
 
   // eslint-disable-next-line no-new-func
+  // eslint-disable-next-line prettier/prettier
   const fn = new Function( 'prelude', 'vars', preludeImport + code + '\n return _OUTPUT_ITEMS_LIST_;');
 
   const results = fn.call({}, prelude, vars);

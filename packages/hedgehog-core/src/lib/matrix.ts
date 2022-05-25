@@ -660,7 +660,10 @@ export class Mat {
       return eachRow
         .map((eachValue) => {
           if (this.digits <= 0) return String(eachValue);
-          else return String(eachValue.toPrecision(this.digits));
+          else
+            return Number.isInteger(eachValue)
+              ? String(eachValue)
+              : String(eachValue.toFixed(this.digits));
         })
         .reduce(
           (rowAccumulator, currentElementString) => rowAccumulator + ', ' + currentElementString
@@ -688,13 +691,18 @@ export class Mat {
           if (j === 0) {
             returnString += String(this.val[i][j]);
           } else {
-            returnString += '\t' + String(this.val[i][j]);
+            returnString += '\t  ' + String(this.val[i][j]);
           }
         } else {
           if (j === 0) {
-            returnString += this.val[i][j].toFixed(this.digits);
+            returnString += Number.isInteger(this.val[i][j])
+              ? String(this.val[i][j])
+              : String(this.val[i][j].toFixed(this.digits));
           } else {
-            returnString += '\t' + this.val[i][j].toFixed(this.digits);
+            returnString +=
+              '\t  ' + Number.isInteger(this.val[i][j])
+                ? String(this.val[i][j])
+                : String(this.val[i][j].toFixed(this.digits));
           }
         }
       }
@@ -719,17 +727,20 @@ export class Mat {
     for (let i = 0; i < this.rows; i++) {
       for (let j = 0; j < this.cols; j++) {
         // if keeps all digits
+        let strCurrentValue = Number.isInteger(this.val[i][j])
+          ? String(this.val[i][j])
+          : String(this.val[i][j].toFixed(this.digits));
         if (this.digits === -1) {
           if (j === 0) {
-            returnString += String(this.val[i][j]);
+            returnString += strCurrentValue;
           } else {
-            returnString += '  &  ' + String(this.val[i][j]);
+            returnString += '  &  ' + strCurrentValue;
           }
         } else {
           if (j === 0) {
-            returnString += this.val[i][j].toFixed(this.digits);
+            returnString += strCurrentValue;
           } else {
-            returnString += '  &  ' + this.val[i][j].toFixed(this.digits);
+            returnString += '  &  ' + strCurrentValue;
           }
         }
       }

@@ -108,7 +108,9 @@ formulaTex("A=LL^{T},")
 
 
 // let's  calculate the cholesky now
-let L = chol(A).L;
+*import math:cholesky
+let L = cholesky(A);
+
 
 // and keep 5 digits
 L.digits = 5
