@@ -11,6 +11,7 @@ interface ISharePopupProps {
     embed: string;
     size?: IconButtonProps["size"];
     type?: "button" | "icon";
+    text?: string
 }
 
 interface TabPanelProps {
@@ -44,7 +45,7 @@ const SharePopup: React.FC<ISharePopupProps> = (props) => {
 
     return (
         <>
-            <BasePopupButton type={props.type} size={props.size} icon={<ShareOutlined/>}>
+            <BasePopupButton text={props.text} type={props.type} size={props.size} icon={<ShareOutlined/>}>
                 <Box>
                     <Tabs value={value} onChange={handleChange}>
                         <Tab label={"Script"}/>
