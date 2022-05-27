@@ -335,21 +335,6 @@ const SideBar = (): React.ReactElement => {
                         <AuthDialog/>
                     )}
                 </List>
-
-                <Box sx={{alignSelf: "end", m: 1}}>
-                    <Link href={'https://discord.gg/kmuBw8pRFf'} target={'_blank'} sx={{display: 'block', mb: 1}}>
-                        <Button fullWidth variant={'outlined'}>
-                            Join our Discord
-                        </Button>
-                    </Link>
-
-                    @2022 hlab ·{" "}
-                    <FooterLink
-                        href="https://github.com/Hedgehog-Computing/hedgehog-lab"
-                        text="GitHub"
-                    />{" "}
-                    · <FooterLink href="https://hedgehog-book.github.io/" text="Book"/>
-                </Box>
             </Box>
         </Drawer>
     );

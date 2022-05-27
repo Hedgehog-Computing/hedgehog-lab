@@ -1,6 +1,6 @@
 import {useAuth} from "../../../hooks/useAuth";
 import BasePopupButton from "../../Base/Popup/BasePopupButton";
-import {Avatar, IconButton, MenuItem} from "@mui/material";
+import {Avatar, Button, MenuItem} from "@mui/material";
 import React from "react";
 
 const AccountMenu = () => {
@@ -31,9 +31,10 @@ const AccountMenu = () => {
                     </MenuItem>
                 </BasePopupButton>
             ) : (
-                <IconButton onClick={() => setAuthDialogOpen(true)}>
-                    <Avatar sx={{width: 24, height: 24}}/>
-                </IconButton>
+                <Button size={"small"} color={'inherit'} variant={'contained'} onClick={() => setAuthDialogOpen(true)}
+                        endIcon={<Avatar sx={{width: 24, height: 24, color: 'inherit'}}/>}>
+                    Account
+                </Button>
             )}
         </>
 
