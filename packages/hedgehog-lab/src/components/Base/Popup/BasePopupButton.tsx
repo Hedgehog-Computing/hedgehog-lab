@@ -7,6 +7,7 @@ interface IBasePopupProps {
     icon: React.ReactNode;
     size?: IconButtonProps["size"];
     type?: "button" | "icon";
+    text?: string
 }
 
 const BasePopupButton: React.FC<IBasePopupProps> = (props) => {
@@ -20,7 +21,7 @@ const BasePopupButton: React.FC<IBasePopupProps> = (props) => {
             {props.type === "button" ? (
                 <Button variant={'contained'} color={"inherit"} size={props.size} {...bindTrigger(popupState)}
                         endIcon={props.icon}>
-                    Share
+                    {props.text}
                 </Button>) : (<IconButton size={props.size} {...bindTrigger(popupState)}> {props.icon} </IconButton>)}
 
             <Popover

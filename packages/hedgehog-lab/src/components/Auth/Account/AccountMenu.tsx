@@ -14,7 +14,9 @@ const AccountMenu = () => {
     return (
         <>
             {auth.isAuthenticated ? (
-                <BasePopupButton size={'small'} icon={<Avatar sx={{width: 24, height: 24}}/>}>
+                <BasePopupButton type={'button'} size={'small'}
+                                 text={'Account'}
+                                 icon={<Avatar sx={{width: 24, height: 24, color: 'inherit'}}/>}>
                     {/*<Link component={RouteLink} to={'/settings/account'}*/}
                     {/*      sx={{*/}
                     {/*          textDecoration: 'none !important', '& :hover': {*/}
