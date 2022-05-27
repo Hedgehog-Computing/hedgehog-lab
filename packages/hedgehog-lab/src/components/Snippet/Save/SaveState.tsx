@@ -1,5 +1,4 @@
-import {Box, Checkbox, Chip, Tooltip,} from "@mui/material";
-import {CircleOutlined, MotionPhotosAuto,} from "@mui/icons-material";
+import {Box, Chip, FormControlLabel, FormGroup, Switch,} from "@mui/material";
 import React, {useCallback, useEffect} from "react";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {codeSavingFlagState} from "../../../states/RYourCodeStates";
@@ -96,15 +95,19 @@ const SaveState = (): React.ReactElement => {
 
             {codeSavingFlag ? "*" : ""}
 
-            <Tooltip title="Live Mode" arrow>
-                <Checkbox
-                    checked={compilerLiveMode === "on"}
-                    onChange={handleChange}
-                    size="small"
-                    icon={<CircleOutlined/>}
-                    checkedIcon={<MotionPhotosAuto/>}
-                />
-            </Tooltip>
+            <Box ml={2}>
+                <FormGroup sx={{
+                    '& .MuiFormControlLabel-label': {
+                        ml: '2px'
+                    }
+                }}>
+                    <FormControlLabel control={<Switch
+                        checked={compilerLiveMode === "on"}
+                        onChange={handleChange}
+                        size="small"
+                    />} label={'LiveMode'}/>
+                </FormGroup>
+            </Box>
 
             {(!auth.isAuthenticated || isAuthSnippetPage?.userID !== auth.user.username) && (
                 <Chip

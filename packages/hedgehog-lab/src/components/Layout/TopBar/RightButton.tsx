@@ -1,10 +1,12 @@
-import React, {useCallback} from "react";
-import {IconButton} from "@mui/material";
-import {FullscreenOutlined,} from "@mui/icons-material";
+import React, {useCallback, useEffect} from "react";
+import {Box, Button} from "@mui/material";
+import {ForumOutlined, FullscreenOutlined, GitHub, LibraryBooksOutlined,} from "@mui/icons-material";
 import SharePopup from "../../Share/SharePopup";
 import {useRecoilState} from "recoil";
 import {resultFullScreenState} from "../../../states/RLayoutStates";
 import {useMatch} from "react-router-dom";
+import useSWR from "swr";
+import {fetcher} from "../../../network/fetcher";
 
 interface IRightButtonProps {
     href: string;
@@ -17,6 +19,8 @@ const RightButton = (): React.ReactElement => {
         resultFullScreenState
     );
 
+    const [githubStargazersCount, setGithubStargazersCount] = React.useState<number>(0);
+
     const handleResultFullScreen = useCallback(() => {
         setResultFullScreen(!resultFullScreen);
     }, [resultFullScreen, setResultFullScreen]);
@@ -24,17 +28,49 @@ const RightButton = (): React.ReactElement => {
     const emptyPage = useMatch('')
     const userSnippetPage = useMatch('/s/:userId/:snippetId')
 
+    const {data: githubStars} = useSWR('https://api.github.com/repos/Hedgehog-Computing/hedgehog-lab', fetcher, {revalidateOnFocus: false});
+    useEffect(() => {
+        setGithubStargazersCount(githubStars?.stargazers_count ?? 0)
+    }, [githubStars])
+
     return (
         <>
             {userSnippetPage && (
-                <SharePopup script={`import ${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
+                <SharePopup size={'small'}
+                            type={'button'}
+                            script={`import ${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
                             embed={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
                             url={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}/>
             )}
 
-            <IconButton onClick={handleResultFullScreen}>
-                <FullscreenOutlined/>
-            </IconButton>
+            <Button sx={{ml: 1}} size={'small'} color={resultFullScreen ? 'primary' : 'inherit'} variant={'contained'}
+                    onClick={handleResultFullScreen}
+                    endIcon={<FullscreenOutlined/>}>
+                Fullscreen
+            </Button>
+
+            <Button sx={{ml: 1}} size={'small'} color={'inherit'} variant={'contained'}
+                    endIcon={<ForumOutlined/>} target={'_blank'} href={'https://discord.gg/kmuBw8pRFf'}>
+                Discord
+            </Button>
+
+            <Button sx={{ml: 1}} size={'small'} color={'inherit'} variant={'contained'}
+                    endIcon={<LibraryBooksOutlined/>} target={'_blank'}
+                    href={'https://hedgehog-book.github.io/'}>
+                Book
+            </Button>
+
+            <Button sx={{ml: 1}} size={'small'} color={'inherit'} variant={'contained'}
+                    endIcon={<GitHub/>} target={'_blank'} href={'https://github.com/Hedgehog-Computing/hedgehog-lab'}>
+                Github
+
+                {githubStargazersCount > 0 && (
+                    <Box component={"span"} sx={{ml: '2px'}}>
+                        {githubStargazersCount.toLocaleString('en-US')}
+                    </Box>
+                )}
+
+            </Button>
         </>
     );
 };

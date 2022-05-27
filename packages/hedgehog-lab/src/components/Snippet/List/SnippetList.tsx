@@ -155,6 +155,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 {isMe && <UpdatedSnippet id={item.id} content={item.content}/>}
 
                                 <SharePopup size="small"
+                                            type={'icon'}
                                             script={`import ${item.user?.username}/${item.title}`}
                                             embed={`https://hlab.app/s/${item.user?.username}/${item.title}`}
                                             url={`https://hlab.app/s/${item.user?.username}/${item.title}`}/>
