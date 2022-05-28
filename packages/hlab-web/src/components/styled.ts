@@ -1,3 +1,4 @@
+import { Divider, Link } from '@mui/material';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/system';
 
@@ -15,4 +16,13 @@ const FullSizeCenteredFlexBox = styled(CenteredFlexBox)({
   height: '100%',
 });
 
-export { FlexBox, CenteredFlexBox, FullSizeCenteredFlexBox };
+const PlainLink = styled(Link)({
+  textDecoration: 'none',
+  color: 'inherit',
+});
+
+const PlainDivider = styled(Divider)({
+  borderColor: 'rgba(0, 0, 0, 0.1)',
+});
+
+export { FlexBox, CenteredFlexBox, FullSizeCenteredFlexBox, PlainLink, PlainDivider };

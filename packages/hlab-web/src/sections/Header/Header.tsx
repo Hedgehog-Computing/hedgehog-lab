@@ -1,97 +1,97 @@
-import GitHubIcon from '@mui/icons-material/GitHub';
-import ThemeIcon from '@mui/icons-material/InvertColors';
-import MenuIcon from '@mui/icons-material/Menu';
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
-import AppBar from '@mui/material/AppBar';
+import React from 'react';
+
+import { ForumOutlined, LibraryBooksOutlined, MenuOutlined } from '@mui/icons-material';
+import { List, ListItem, ListItemIcon, ListItemText, Typography, styled } from '@mui/material';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
 
-import { FlexBox } from '@/components/styled';
-import { repository, title } from '@/config';
-import useHotKeysDialog from '@/store/hotkeys';
-import useNotifications from '@/store/notifications';
+import { PlainLink } from '@/components/styled';
+import { title } from '@/config';
+import HeaderButtons, { HeaderButtonProps } from '@/sections/Header/_HeaderButtons';
 import useSidebar from '@/store/sidebar';
-import useTheme from '@/store/theme';
 
-import { HotKeysButton } from './styled';
-import { getRandomJoke } from './utils';
+
+const linkButtonData: HeaderButtonProps = {
+  data: [
+    {
+      text: 'Book',
+      link: 'https://hedgehog-book.github.io/',
+      icon: <LibraryBooksOutlined />,
+    },
+    {
+      text: 'Discord',
+      link: 'https://discord.gg/kmuBw8pRFf',
+      icon: <ForumOutlined />,
+    },
+  ],
+};
+
+interface AppBarProps extends MuiAppBarProps {
+  open?: boolean;
+}
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
 
 function Header() {
-  const [, sidebarActions] = useSidebar();
-  const [, themeActions] = useTheme();
-  const [, notificationsActions] = useNotifications();
-  const [, hotKeysDialogActions] = useHotKeysDialog();
-
-  function showNotification() {
-    notificationsActions.push({
-      options: {
-        // Show fully customized notification
-        // Usually, to show a notification, you'll use something like this:
-        // notificationsActions.push({ message: ... })
-        // `message` accepts string as well as ReactNode
-        // But you also can use:
-        // notificationsActions.push({ options: { content: ... } })
-        // to show fully customized notification
-        content: (
-          <Alert severity="info">
-            <AlertTitle>Notification demo (random IT jokes :))</AlertTitle>
-            {getRandomJoke()}
-          </Alert>
-        ),
-      },
-    });
-  }
+  const [isSidebarOpen, sidebarActions] = useSidebar();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar color="transparent" elevation={1} position="static">
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
-          <FlexBox sx={{ alignItems: 'center' }}>
-            <IconButton
-              onClick={sidebarActions.toggle}
-              size="large"
-              edge="start"
-              color="info"
-              aria-label="menu"
-              sx={{ mr: 1 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Button onClick={showNotification} color="info">
-              {title}
-            </Button>
-          </FlexBox>
-          <FlexBox>
-            <FlexBox>
-              <Tooltip title="Hot keys" arrow>
-                <HotKeysButton
-                  size="small"
-                  variant="outlined"
-                  aria-label="open hotkeys dialog"
-                  onClick={hotKeysDialogActions.open}
-                >
-                  alt + /
-                </HotKeysButton>
-              </Tooltip>
-            </FlexBox>
-            <Divider orientation="vertical" flexItem />
-            <Tooltip title="It's open source" arrow>
-              <IconButton color="info" size="large" component="a" href={repository} target="_blank">
-                <GitHubIcon />
-              </IconButton>
-            </Tooltip>
-            <Divider orientation="vertical" flexItem />
-            <Tooltip title="Switch theme" arrow>
-              <IconButton color="info" edge="end" size="large" onClick={themeActions.toggle}>
-                <ThemeIcon />
-              </IconButton>
-            </Tooltip>
-          </FlexBox>
+      <AppBar
+        open={isSidebarOpen}
+        position="fixed"
+        elevation={0}
+        color="inherit"
+        sx={{
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          backdropFilter: 'blur(20px)',
+          background: 'rgba(255, 255, 255, 0.7)',
+          transition: 'width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+          borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+        }}
+      >
+        <Toolbar sx={{ justifyContent: 'space-between' }} disableGutters>
+          <List>
+            <ListItem>
+              <ListItemIcon onClick={sidebarActions.toggle} sx={{ cursor: 'pointer' }}>
+                <MenuOutlined />
+              </ListItemIcon>
+
+              <PlainLink sx={{ display: 'block' }}>
+                <ListItemText sx={{ display: { xs: 'none', md: 'block' } }}>
+                  <Typography
+                    variant="h6"
+                    noWrap
+                    sx={{
+                      fontWeight: 'bold',
+                      letterSpacing: 0,
+                      width: '100%',
+                    }}
+                  >
+                    {title}
+                  </Typography>
+                </ListItemText>
+              </PlainLink>
+            </ListItem>
+          </List>
+
+          <Box>
+            <HeaderButtons {...linkButtonData} />
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>

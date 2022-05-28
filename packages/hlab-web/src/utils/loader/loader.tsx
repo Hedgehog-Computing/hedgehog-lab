@@ -1,8 +1,14 @@
 import { FC, Suspense, lazy, useEffect, useState } from 'react';
+import React from 'react';
+
+
 
 import sleep from '@/utils/sleep';
 
+
+
 import { AnyProps, LoadComponent, LoaderDefaultOptions } from './types';
+
 
 // a little bit complex staff is going on here
 // let me explain it

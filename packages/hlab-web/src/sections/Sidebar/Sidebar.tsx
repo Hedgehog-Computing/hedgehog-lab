@@ -1,41 +1,57 @@
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-import DefaultIcon from '@mui/icons-material/Deblur';
+import { TimelineOutlined, TravelExploreOutlined } from '@mui/icons-material';
+import { Box, Drawer, Toolbar } from '@mui/material';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 
-import routes from '@/routes';
+import HeaderListItem, { HeaderListItemProps } from '@/sections/Header/_HeaderListItem';
 import useSidebar from '@/store/sidebar';
 
+export const sideBarWidth = '240px';
+
+const plainLinkData: HeaderListItemProps = {
+  data: [
+    { icon: <TravelExploreOutlined />, text: 'Explore', link: '/' },
+    { icon: <TimelineOutlined />, text: 'Timeline', link: '/' },
+  ],
+};
+
 function Sidebar() {
-  const [isSidebarOpen, sidebarActions] = useSidebar();
+  const [isSidebarOpen] = useSidebar();
 
   return (
-    <SwipeableDrawer
+    <Drawer
+      variant="persistent"
       anchor="left"
       open={isSidebarOpen}
-      onClose={sidebarActions.close}
-      onOpen={sidebarActions.open}
-      disableBackdropTransition={false}
-      swipeAreaWidth={30}
+      sx={{
+        width: sideBarWidth,
+        flexShrink: 0,
+        [`& .MuiDrawer-paper`]: {
+          width: sideBarWidth,
+          boxSizing: 'border-box',
+        },
+        borderRight: isSidebarOpen ? '1px solid rgba(0, 0, 0, 0.12)' : '',
+      }}
     >
-      <List sx={{ width: 250, pt: (theme) => `${theme.mixins.toolbar.minHeight}px` }}>
-        {Object.values(routes)
-          .filter((route) => route.title)
-          .map(({ path, title, icon: Icon }) => (
-            <ListItem sx={{ p: 0 }} key={path}>
-              <ListItemButton onClick={sidebarActions.close} component={Link} to={path}>
-                <ListItemIcon>{Icon ? <Icon /> : <DefaultIcon />}</ListItemIcon>
-                <ListItemText>{title}</ListItemText>
-              </ListItemButton>
-            </ListItem>
-          ))}
-      </List>
-    </SwipeableDrawer>
+      <Toolbar />
+
+      <Box
+        sx={{
+          overflow: 'auto',
+          display: 'grid',
+          height: '100%',
+          [`& .MuiListItemText-root span`]: {
+            fontWeight: 'bold',
+          },
+          mt: '5px',
+        }}
+      >
+        <List disablePadding>
+          <HeaderListItem {...plainLinkData} />
+        </List>
+      </Box>
+    </Drawer>
   );
 }
 

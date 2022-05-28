@@ -12,12 +12,11 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "init": "lerna add @hedgehog/core --scope @hedgehog/lib ",
-    "dev:web": "lerna exec --scope @hedgehog/lab yarn start",
+    "init": "lerna add @hedgehog/core --scope @hedgehog/web",
+    "dev:web": "lerna exec --scope @hedgehog/web yarn dev",
     "build:core": "lerna exec --scope @hedgehog/core yarn build",
-    "watch": "lerna run --parallel watch",
+    "dev": "lerna run --parallel dev",
     "build": "lerna run build --stream",
-    "postinstall": "patch-package",
-    "vercel-build": "yarn global add gl node-gyp-build node-gyp"
+    "postinstall": "patch-package"
   }
 }

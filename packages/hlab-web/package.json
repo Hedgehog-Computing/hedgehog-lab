@@ -1,17 +1,19 @@
 {
   "name": "@hedgehog/web",
-  "version": "0.7.0",
+  "version": "0.1.0",
   "license": "Apache-2.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "https-preview": "serve dist",
-    "prepare": "husky install"
+    "lint": "eslint src"
   },
   "dependencies": {
+    "@hedgehog/core": "0.7.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
+    "@monaco-editor/react": "^4.4.5",
     "@mui/icons-material": "^5.6.1",
     "@mui/lab": "^5.0.0-alpha.83",
     "@mui/material": "^5.8.1",
@@ -45,13 +47,5 @@
     "typescript": "^4.5.4",
     "vite": "^2.9.1",
     "vite-plugin-pwa": "^0.11.3"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
-      "prettier --write"
-    ],
-    "src/**/*.{js,jsx,ts,tsx,json}": [
-      "eslint --max-warnings=0"
-    ]
   }
 }

@@ -1,3 +1,4 @@
+import { ArrowDropDownRounded } from '@mui/icons-material';
 import { ThemeOptions } from '@mui/material/styles';
 import { deepmerge } from '@mui/utils';
 
@@ -9,31 +10,150 @@ const sharedTheme = {
       default: '#fafafa',
       paper: '#fff',
     },
-  },
-  components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
+    shape: {
+      borderRadius: 10,
+    },
+    components: {
+      MuiButtonBase: {
+        defaultProps: {
+          disableTouchRipple: true,
+        },
+      },
+      MuiButton: {
+        defaultProps: {
+          disableElevation: true,
+        },
+        styleOverrides: {
+          sizeLarge: {
+            padding: '1rem 1.25rem',
+            lineHeight: 21 / 16,
+            fontWeight: 700,
+          },
+          containedPrimary: {
+            color: '#fff',
+          },
+        },
+        variants: [
+          {
+            props: { variant: 'code' },
+            style: {
+              border: '1px solid',
+              fontWeight: 600,
+              WebkitFontSmoothing: 'subpixel-antialiased',
+            },
+          },
+        ],
+      },
+      MuiLink: {
+        defaultProps: {
+          underline: 'none',
+        },
+        styleOverrides: {
+          root: {
+            color: 'initial !important',
+            display: 'inline-flex',
+            alignItems: 'center',
+            '&.MuiTypography-body1 > svg': {
+              marginTop: 2,
+            },
+            '& svg:last-child': {
+              marginLeft: 2,
+            },
+          },
+        },
+      },
+      MuiListItemButton: {
+        styleOverrides: {
+          root: {
+            borderRadius: 5,
+          },
+        },
+      },
+      MuiSelect: {
+        defaultProps: {
+          IconComponent: ArrowDropDownRounded,
+        },
+        styleOverrides: {
+          iconFilled: {
+            top: 'calc(50% - .25em)',
+          },
+        },
+      },
+      MuiTab: {
+        defaultProps: {
+          disableTouchRipple: true,
+        },
+        styleOverrides: {
+          root: {
+            minHeight: '48px',
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            '&[href]': {
+              textDecorationLine: 'none',
+            },
+          },
+        },
+        outlined: {
+          'a&, button&': {
+            '&:hover': {
+              boxShadow: '1px 1px 20px 0 rgb(90 105 120 / 20%)',
+            },
+          },
+        },
       },
     },
-    MuiDivider: {
+    MuiDialog: {
       styleOverrides: {
-        vertical: {
-          marginRight: 10,
-          marginLeft: 10,
+        root: {
+          backgroundColor: 'rgba(32, 38, 45, 0.2)',
+          backdropFilter: 'blur(2px)',
+          opacity: 1,
         },
-        // TODO: open issue for missing "horizontal" CSS rule
-        // in Divider API - https://mui.com/material-ui/api/divider/#css
-        middle: {
-          marginTop: 10,
-          marginBottom: 10,
-          width: '80%',
+      },
+    },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          paddingTop: 7,
+          paddingBottom: 7,
+        },
+      },
+    },
+    MuiSwitch: {
+      styleOverrides: {
+        root: {
+          width: 32,
+          height: 20,
+          padding: 0,
+          '& .MuiSwitch-switchBase': {
+            '&.Mui-checked': {
+              transform: 'translateX(11px)',
+              color: '#fff',
+            },
+          },
+        },
+        switchBase: {
+          height: 20,
+          width: 20,
+          padding: 0,
+          color: '#fff',
+          '&.Mui-checked + .MuiSwitch-track': {
+            opacity: 1,
+          },
+        },
+        thumb: {
+          flexShrink: 0,
+          width: '14px',
+          height: '14px',
         },
       },
     },
   },
-} as ThemeOptions; // the reason for this casting is deepmerge return type
-// TODO (Suren): replace mui-utils-deepmerge with lodash or ramda deepmerge
+} as ThemeOptions;
 
 const themes: Record<Themes, ThemeOptions> = {
   light: deepmerge(sharedTheme, {
@@ -57,7 +177,7 @@ const themes: Record<Themes, ThemeOptions> = {
         paper: '#171717',
       },
       primary: {
-        main: '#333',
+        main: '#007FFF',
       },
     },
   }),

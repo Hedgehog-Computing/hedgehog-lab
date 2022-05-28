@@ -1,15 +1,14 @@
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-
-import useTheme from '@/store/theme';
-
-import themes from './themes';
-import type {CustomThemeProviderProps} from './types';
 import React from 'react';
 
-function CustomThemeProvider({children}: CustomThemeProviderProps) {
-    const [theme] = useTheme();
+import { ThemeProvider } from '@mui/material/styles';
 
-    return <ThemeProvider theme={createTheme(themes[theme])}>{children}</ThemeProvider>;
+import { labTheme } from '@/theme/labTheme';
+
+import type { CustomThemeProviderProps } from './types';
+
+
+function CustomThemeProvider({ children }: CustomThemeProviderProps) {
+  return <ThemeProvider theme={labTheme('light')}>{children}</ThemeProvider>;
 }
 
 export default CustomThemeProvider;

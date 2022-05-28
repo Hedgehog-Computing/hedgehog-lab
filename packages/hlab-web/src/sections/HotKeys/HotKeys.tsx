@@ -1,4 +1,7 @@
+import React from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+
+
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -6,10 +9,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Typography from '@mui/material/Typography';
 
+
+
 import { FlexBox } from '@/components/styled';
 import useHotKeysDialog from '@/store/hotkeys';
 import useSidebar from '@/store/sidebar';
 import useTheme from '@/store/theme';
+
 
 function HotKeys() {
   const [, themeActions] = useTheme();
