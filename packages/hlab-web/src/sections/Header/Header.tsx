@@ -8,6 +8,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 import { PlainLink } from '@/components/styled';
 import { title } from '@/config';
+import CompilerRunButton from '@/sections/Header/_CompilerRunButton';
 import HeaderButtons, { HeaderButtonProps } from '@/sections/Header/_HeaderButtons';
 import useSidebar from '@/store/sidebar';
 
@@ -91,6 +92,7 @@ function Header() {
 
           <Box>
             <HeaderButtons {...linkButtonData} />
+            <CompilerRunButton />
           </Box>
         </Toolbar>
       </AppBar>
