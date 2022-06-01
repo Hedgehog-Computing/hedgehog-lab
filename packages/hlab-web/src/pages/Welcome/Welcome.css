@@ -1,0 +1,63 @@
+.container {
+    display: flex;
+
+    /* Misc */
+    border: 1px solid #cbd5e0;
+    height: 32rem;
+    width: 100%;
+}
+
+.resizer[data-direction='horizontal'] {
+    background-color: #cbd5e0;
+    cursor: ew-resize;
+    height: 100%;
+    width: 2px;
+}
+
+.resizer[data-direction='vertical'] {
+    background-color: #cbd5e0;
+    cursor: ns-resize;
+    height: 2px;
+    width: 100%;
+}
+
+.container__left {
+    /* Initially, the left takes 1/4 width */
+    width: 25%;
+
+    /* Misc */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.container__right {
+    /* Take the remaining width */
+    flex: 1;
+
+    /* Misc */
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container__top {
+    /* Initial height */
+    height: 12rem;
+
+    /* Misc */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.container__bottom {
+    /* Take the remaining height */
+    flex: 1;
+
+    /* Misc */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}

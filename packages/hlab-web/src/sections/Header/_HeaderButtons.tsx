@@ -19,7 +19,7 @@ const HeaderButtons: React.FC<HeaderButtonProps> = (props) => {
         <Button
           key={item.text}
           disableElevation
-          sx={{ mx: 1 }}
+          sx={{ mr: 1 }}
           size={'small'}
           color={'inherit'}
           endIcon={item.icon}
