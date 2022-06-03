@@ -112,7 +112,7 @@ function containsURL(code: string): boolean {
 // code is the string of code, and strCurrentCallStack is the full call stack
 async function preprocessDFS(code: string, strCurrentCallStack: string): Promise<string> {
   //1. split the codes into lines
-  const vecSplittedString = code.split(/\r?\n/);
+  const vecSplittedString = code?.split(/\r?\n/) ?? [];
 
   //2. initialize the the chunk of string to return
   let returnCode = '';
