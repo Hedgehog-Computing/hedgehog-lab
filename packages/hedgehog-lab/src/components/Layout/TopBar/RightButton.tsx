@@ -39,7 +39,7 @@ const RightButton = (): React.ReactElement => {
                 <SharePopup size={'small'}
                             type={'button'}
                             text={'Share'}
-                            script={`import ${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
+                            script={`import @${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
                             embed={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
                             url={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}/>
             )}
