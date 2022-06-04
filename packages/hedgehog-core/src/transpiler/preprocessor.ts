@@ -7,11 +7,12 @@ a. *import YOUR_FULL_URL, for example *import http://website.com/mylib/myfunctio
 b. *import Package_Name: Function_1, Function_2, Function_3 ... the package name must be registered at https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json
 c. let my_Function_A = *import MY_PACKAGE: Function_A
 d. *github: Hedgehog-Computing/math/main/myFunction ( which will automatically convert to -> https://raw.githubusercontent.com/Hedgehog-Computing/math/main/myFunction.hhs)
-e. (TODO) using @username/filename 
+e. *import @username/filename 
 */
 
 import { githubDependency } from './GithubDependency/githubDependency';
 import { fetchURL } from './FetchURL/fetchURL';
+import { fetchApi } from './FetchURL/fetchApi';
 
 async function preprocessor(source: string): Promise<string> {
   //console.log('The source code after preprocessing');
@@ -123,7 +124,7 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
       returnCode += '\n';
       if (vecSplittedString[i].includes('*import ')) {
         //3.1 otherwise, split the string by "*import ", keep the first part (if it exists), then download
-        //    and fetch the second part recursively (which should be and must be a valid URL or a registered package)
+        //and fetch the second part recursively (which should be and must be a valid URL, @username/filename or a registered package)
         const currentString = vecSplittedString[i];
         const splittedResult = currentString.split('*import ');
         if (splittedResult.length < 2) {
@@ -138,24 +139,40 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
         }
         //3.1.1 add the first part
         returnCode += splittedResult[0];
-        //3.1.2 Is it imported from URL or from a registered package?
+        //3.1.2 Is it imported from URL, @username/filename, or from a registered package?
         if (containsURL(splittedResult[1])) {
-          //3.2.2.1 download the library from URL
-
+          //3.1.2.1.1 download the library from URL
           const libraryFromUrl = await fetchURL(splittedResult[1]);
 
-          //3.1.3 get the current file information (get "FunctionABC.js" from URL string http://mywebsite/FunctionABC.js)
+          //3.1.2.1.2 get the current file information (get "FunctionABC.js" from URL string http://mywebsite/FunctionABC.js)
           const splittedURLResult = splittedResult[1].split('/');
           const strCallStack =
-            strCurrentCallStack + ' -> ' + splittedURLResult[splittedResult.length - 1];
-
-          //3.1.4 process the big chunk of code
+            strCurrentCallStack + ' -> ' + splittedURLResult[splittedURLResult.length - 1];
+          console.log(strCallStack);
+          //3.1.2.1.3 process the big chunk of code
           const currentResult = await preprocessDFS(libraryFromUrl, strCallStack);
 
-          //3.1.5 append it to the end of returnCode
+          //3.1.2.1.4 append it to the end of returnCode
           returnCode += currentResult + '\n';
+        } else if (splittedResult[1].charAt(0) === '@') {
+          //3.1.2.2.1 remove "@" symbol and split username and filename by "/"
+          const resultWithoutAt = splittedResult[1].slice(1);
+          const userAndFile = resultWithoutAt.split('/');
+
+          //3.1.2.2.2 get the library from api
+          const libraryFromApi = await fetchApi(userAndFile[0], userAndFile[1]);
+
+          //3.1.2.2.3 get the current file information (For example, storage '@lidang/sound_of_May' as 'root -> lidang -> sound_of_May')
+          const strCallStack = strCurrentCallStack + ' -> ' + userAndFile[0] + ' -> ' + userAndFile[1];
+
+          //3.1.2.2.4 process the big chunk of code
+          const currentResult = await preprocessDFS(libraryFromApi, strCallStack);
+
+          //3.1.2.2.5 append it to the end of returnCode
+          returnCode += currentResult + '\n';
+
         } else {
-          // otherwise, try to split with colon and comma and fetch the registered packages
+          ////3.1.2.3 otherwise, try to split with colon and comma and fetch the registered packages
           const result = await parseRegisterdPackageWithoutPackageJsonFile(
             splittedResult[1],
             strCurrentCallStack
