@@ -20,10 +20,6 @@ git clone https://github.com/Hedgehog-Computing/hedgehog-lab.git
 git clone git@github.com:Hedgehog-Computing/hedgehog-lab.git
 ```
 
-### Docker
-We recommend you start the project by docker, it is easily and cheerful.
-step: run the `docker/Dockerfile`
-
 ### Common install
 
 Before the developing, Pleases make sure you are already install and enabled the [`yarn`](https://yarnpkg.com/)  
