@@ -75,7 +75,7 @@ const Snippets = (): React.ReactElement => {
         setUpdateUserDescLoading(true)
         try {
             await http.post('users/update-description', {description: data.description})
-            
+
             const currentName = isUserSnippet?.params.userId ?? isUserSnippetLike?.params.userId ?? ''
             const snippetMetaUrl = `/snippets/meta?user=${currentName}`
             await mutate(snippetMetaUrl)
@@ -108,7 +108,7 @@ const Snippets = (): React.ReactElement => {
                                                 <Box p={1}>
                                                     <FormProvider {...useFormMethods} >
                                                         <form onSubmit={useFormMethods.handleSubmit(onSubmit)}>
-                                                            <UserDescriptionInput size={'small'}/>
+                                                            <UserDescriptionInput multiline size={'small'}/>
 
                                                             <Box textAlign={'right'} mt={1}>
                                                                 <LoadingButton loading={updateUserDescLoading}
