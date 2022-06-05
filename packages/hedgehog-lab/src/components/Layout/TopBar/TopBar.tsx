@@ -60,7 +60,7 @@ const Brand = (): React.ReactElement => {
                     </IconButton>
                 </ListItemIcon>
 
-                <Link component={RouteLink} to={`${editorMeta.currentFile ?? '/'}`} sx={{display: "block"}}>
+                <Link component={RouteLink} to={`/`} sx={{display: "block"}}>
                     <ListItemText sx={{display: {xs: "none", md: "block"}}}>
                         <Typography
                             variant="h6"
@@ -91,7 +91,6 @@ const Header = (): React.ReactElement => {
 
 
     if (
-        isHomePath ||
         isTutorialsPath ||
         isSnippetsPath ||
         snippetID !== undefined ||
