@@ -14,8 +14,10 @@ const GridItem: React.FC<GridItemProps> = (props) => {
 
     return (
         <Grid xs={12} md={6} lg={3} xl={2} item>
-            <Link component={RouterLink} to={link} sx={{width: '100%', height: '100%'}}>
-                <Paper sx={{p: 2, width: '100%', height: '100%'}}>
+            <Link component={RouterLink} to={link} sx={{
+                width: '100%', height: '100%',
+            }}>
+                <Paper variant={'outlined'} sx={{p: 2, width: '100%', height: '100%'}}>
                     <NowrapTypography variant={'subtitle2'}>
                         {title}
                     </NowrapTypography>

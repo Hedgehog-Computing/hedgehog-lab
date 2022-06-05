@@ -369,9 +369,11 @@ export function getThemedComponents(theme: Theme) {
                 styleOverrides: {
                     root: {
                         "&:hover": {
-                            textDecoration: "underline",
+                            textDecoration: "none",
                             cursor: "pointer",
-                            color: `${theme.palette.primary.main} !important`,
+                            '& .MuiTypography-root': {
+                                color: `${blue[500]} !important`,
+                            }
                         },
                         color: "initial !important",
                         display: "inline-flex",
@@ -413,6 +415,9 @@ export function getThemedComponents(theme: Theme) {
                 },
             },
             MuiPaper: {
+                elevation: {
+                    boxShadow: '0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);'
+                },
                 styleOverrides: {
                     root: {
                         "&[href]": {
@@ -556,5 +561,5 @@ export function getThemedComponents(theme: Theme) {
 
 let darkTheme = createTheme(getDesignTokens('light'));
 darkTheme = responsiveFontSizes(darkTheme);
-export const labTheme = (mode: string) =>
+export const labTheme = () =>
     deepmerge(darkTheme, getThemedComponents(darkTheme));

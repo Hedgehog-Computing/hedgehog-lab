@@ -6,7 +6,6 @@ import {labTheme} from "./themes/labTheme";
 import {BrowserRouter, useLocation} from "react-router-dom";
 import {RoutePage} from "./route/route";
 import {RecoilRoot, useResetRecoilState} from "recoil";
-import {Box} from "@mui/material";
 import {useAuth} from "./hooks/useAuth";
 import {useEffectOnce} from "react-use";
 import {pageView} from "./utils/ga4";
@@ -20,7 +19,7 @@ const ThemePage = () => {
         me()
     })
 
-    const {meta, children} = useCurrentRoute();
+    const {meta} = useCurrentRoute();
 
     const title = meta?.title ?? 'HLab';
     useEffect(() => {
@@ -49,9 +48,7 @@ const App = (): React.ReactElement => {
                     <BrowserRouter>
                         <SnackbarProvider maxSnack={3}>
                             <StyledEngineProvider injectFirst>
-                                <Box sx={{pb: 1}}>
-                                    <ThemePage/>
-                                </Box>
+                                <ThemePage/>
                             </StyledEngineProvider>
                         </SnackbarProvider>
                     </BrowserRouter>
