@@ -36,6 +36,7 @@ import AuthDialog from "../../Auth/Dialog/AuthDialog";
 import useSWR from "swr";
 import {fetcher} from "../../../network/fetcher";
 import useApp from "../../../hooks/useApp";
+import {blue} from "@mui/material/colors";
 
 const NewSnippet = () => {
     const theme = useTheme();
@@ -127,7 +128,7 @@ const CurrentSnippets = () => {
                                 color={collapseOpen ? "primary" : "inherit"}
                             />
                         </ListItemIcon>
-                        <ListItemText>Current Snippets</ListItemText>
+                        <ListItemText>Current</ListItemText>
                         {collapseOpen ? (
                             <ExpandLessOutlined color={"primary"}/>
                         ) : (
@@ -136,14 +137,13 @@ const CurrentSnippets = () => {
                     </ListItemButton>
                     <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
                         <List
-                            component="div"
+                            dense
                             disablePadding
+                            component="div"
                             sx={{
                                 borderLeft: "solid 1px",
                                 ml: "27px",
-                                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                                // @ts-ignore
-                                borderColor: theme.palette.primary[500]
+                                borderColor: blue[500]
                             }}
                         >
                             {data && data.response.result.map((item: { title: any; }, index: string | number | null | undefined) => {
@@ -243,10 +243,14 @@ const SideBar = (): React.ReactElement => {
                     height: "100%",
                     [`& .MuiListItemText-root span`]: {
                         fontWeight: "bold"
-                    }
+                    },
                 }}
             >
-                <List disablePadding>
+                <List dense sx={{
+                    px: '5px', '& .MuiListItemButton-root': {
+                        my: '2px'
+                    }
+                }}>
                     <Link
                         to="/"
                         component={RouteLink}
@@ -267,11 +271,9 @@ const SideBar = (): React.ReactElement => {
                         </ListItemButton>
                     </Link>
 
-                    <Divider/>
 
                     <NewSnippet/>
 
-                    <Divider/>
 
                     <ExploreSnippet/>
 
@@ -299,7 +301,6 @@ const SideBar = (): React.ReactElement => {
                                 </ListItemButton>
                             </Link>
 
-                            <Divider/>
 
                             <CurrentSnippets/>
 
