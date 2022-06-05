@@ -10,7 +10,7 @@ const Title: React.FC<TitleProps> = (props) => {
 
     return (
         <>
-            <Typography variant={"h4"}>
+            <Typography variant={"h6"}>
                 {title}
             </Typography>
 
