@@ -27,9 +27,15 @@ export const dialogState = atom<{ open: boolean }>({
     },
 })
 
-export const userMetaState = atom<{ snippet: { count: number, liked: number } }>({
+export const userMetaState = atom<{
+    userInfo: { description: string };
+    snippet: { count: number, liked: number }
+}>({
     key: "userMeta",
     default: {
+        userInfo: {
+            description: ''
+        },
         snippet: {
             count: 0,
             liked: 0,

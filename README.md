@@ -1,4 +1,4 @@
-<h1 align="center">Hedgehog Lab</h1>
+# Hedgehog Lab
 
 [Hedgehog Lab](https://hlab.app/) is an open source scientific computation tool in the browser.
 
@@ -8,8 +8,7 @@ Join our community at [**Discord server**](https://discord.gg/kmuBw8pRFf)
 
 ## Installation
 
-[Master channel for stable branch](https://github.com/Hedgehog-Computing/hedgehog-lab/tree/master)  
-[Dev channel for development branch](https://github.com/Hedgehog-Computing/hedgehog-lab/tree/master)
+[Dev channel for development branch](https://github.com/Hedgehog-Computing/hedgehog-lab/tree/dev)
 
 ```bash
 # Clone the repo
@@ -21,14 +20,13 @@ git clone https://github.com/Hedgehog-Computing/hedgehog-lab.git
 git clone git@github.com:Hedgehog-Computing/hedgehog-lab.git
 ```
 
+### Common install
+
 Before the developing, Pleases make sure you are already install and enabled the [`yarn`](https://yarnpkg.com/)  
-Once cloned, switch to the master branch and navigate to the folder by typing `cd hedgehog-lab` and then running the
+Once cloned, switch to the dev branch and navigate to the folder by typing `cd hedgehog-lab` and then running the
 following commands:
 
 ```bash
-# Switch to the master branch
-git checkout master
-
 # If you are the developer, pls switch to the dev branch
 git checkout dev
 

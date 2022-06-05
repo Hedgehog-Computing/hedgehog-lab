@@ -60,7 +60,7 @@ const Brand = (): React.ReactElement => {
                     </IconButton>
                 </ListItemIcon>
 
-                <Link component={RouteLink} to={`${editorMeta.currentFile ?? '/'}`} sx={{display: "block"}}>
+                <Link component={RouteLink} to={`/`} sx={{display: "block"}}>
                     <ListItemText sx={{display: {xs: "none", md: "block"}}}>
                         <Typography
                             variant="h6"
@@ -88,10 +88,10 @@ const Header = (): React.ReactElement => {
     const isTutorialsPath = matchPath("tutorial/*", pathname);
     const isHomePath = matchPath("", pathname);
     const matchExamplePage = useMatch('/example/:exampleName')
-
+    const isDraftPage = matchPath("draft/", pathname);
 
     if (
-        isHomePath ||
+        isDraftPage ||
         isTutorialsPath ||
         isSnippetsPath ||
         snippetID !== undefined ||

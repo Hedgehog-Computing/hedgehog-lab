@@ -6,7 +6,6 @@ import * as monacoEditor from "monaco-editor";
 import {ControlledEditorOnChange, monaco} from "@monaco-editor/react";
 import {monacoTheme} from "../themes/monacoTheme";
 import useKeyboardJs from "react-use/lib/useKeyboardJs";
-import {useThrottle} from "react-use";
 import {useCompiler} from "./useCompilier";
 import {compilerLiveModeState} from "../states/RCompilerStates";
 import {useMatch} from "react-router-dom";
@@ -59,7 +58,9 @@ export const useEditor = (): any => {
 
     // save code to local storage
     const autoSaveCode = useCallback(() => {
-        localStorage.setItem("lastRunningCode", editorCode as string);
+        if (editorCode) {
+            localStorage.setItem("lastRunningCode", editorCode as string);
+        }
         setCodeSavingFlag(false);
         // live mode
         compilerLiveMode === "on" ? setCompilerReFetch(true) : null;

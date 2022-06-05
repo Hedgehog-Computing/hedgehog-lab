@@ -141,3 +141,6 @@ dist
 
 
 .DS_Store
+
+# asdf
+.tool-versions

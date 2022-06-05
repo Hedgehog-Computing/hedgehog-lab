@@ -32,7 +32,7 @@ const Snippet = () => {
     const isUserSnippetLike = useMatch('/u/:userId/likes')
     const currentName = isUserSnippet?.params.userId ?? isUserSnippetLike?.params.userId ?? ''
     const snippetMetaUrl = `/snippets/meta?user=${currentName}`
-    
+
     let token = ''
     if (auth.accessToken) {
         token = `token=${auth.accessToken}`
@@ -69,6 +69,7 @@ const Snippet = () => {
 
     useEffect(() => {
         snippetMeta && setUserMeta({
+            userInfo: snippetMeta?.response?.result['userInfo'],
             snippet: {
                 count: snippetMeta?.response?.result['snippetCount'],
                 liked: snippetMeta?.response?.result['snippetLikeCount']

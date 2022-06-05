@@ -5,13 +5,12 @@ import YourCode from "../../components/YourCode/YourCode";
 import {useRecoilState} from "recoil";
 import {resultFullScreenState} from "../../states/RLayoutStates";
 import {useEditor} from "../../hooks/useEditor";
-import {useMatch, useNavigate} from "react-router-dom";
+import {useMatch} from "react-router-dom";
 import {useEditorMeta} from "../../hooks/useEditorMeta";
-import {useEffectOnce} from "react-use";
 import EditorLoading from "../../components/Base/Editor/Loading";
 import {tutorials} from "../../tutorials";
 
-const DEFAULT_SOURCE = ``;
+const DEFAULT_SOURCE = localStorage.getItem('lastRunningCode') ?? '';
 
 const Main = (): React.ReactElement => {
     const [resultFullScreen, setResultFullScreen] = useRecoilState<boolean>(
@@ -23,16 +22,6 @@ const Main = (): React.ReactElement => {
     const mathExamplePage = useMatch('/example/:exampleName')
 
 
-    const navigate = useNavigate()
-    useEffectOnce(() => {
-        if (!isUserSnippetPage) {
-            const lastRunningCode = localStorage.getItem("lastRunningCode");
-            if (editorCode === "") {
-                setEditorCode(lastRunningCode);
-            }
-        }
-    });
-
     useEffect(() => {
         if (data?.response?.result?.content) {
             setEditorCode(data?.response?.result?.content ?? DEFAULT_SOURCE)
@@ -42,7 +31,10 @@ const Main = (): React.ReactElement => {
     useEffect(() => {
         if (mathExamplePage) {
             const title = mathExamplePage.params.exampleName
-            const currentObj = tutorials.find(o => o.description === title) ?? {'description': 'Empty', 'source': ''}
+            const currentObj = tutorials.find(o => o.description === title) ?? {
+                'description': 'Empty',
+                'source': DEFAULT_SOURCE
+            }
 
             setEditorCode(currentObj?.source)
 

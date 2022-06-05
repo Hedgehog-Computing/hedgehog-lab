@@ -9,6 +9,8 @@ import Auth from "../pages/Auth/Auth";
 import Explore from "../pages/Explore/Explore";
 import Timeline from "../pages/Timeline/Timeline";
 import EmailVerification from "../pages/Email/EmailVerification";
+import Home from "../pages/Home/Home";
+import Draft from "../pages/Draft/Draft";
 
 export interface IAppRoutes extends RouteObject {
     data?: {
@@ -32,10 +34,17 @@ export const router: IAppRoutes[] = [
         children: [
             {
                 path: "/",
-                element: <Main/>,
-                meta: {
-                    title: 'A powerful scientific computation environment in browser.',
-                }
+                element: <ContainerLayout/>,
+                children: [
+                    {
+                        path: '/',
+                        element: <Home/>,
+                    }
+                ]
+            },
+            {
+                path: "/draft",
+                element: <Draft/>
             },
             {
                 path: "/u/:userID",

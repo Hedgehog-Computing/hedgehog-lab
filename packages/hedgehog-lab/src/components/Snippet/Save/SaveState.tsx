@@ -89,7 +89,8 @@ const SaveState = (): React.ReactElement => {
                         >
                             <UpdatedSnippet/>
                         </Box>
-                    ) : (<Box sx={{cursor: 'pointer'}} onClick={() => setCreateDialog({open: true})}>New File</Box>)}
+                    ) : (<Box sx={{cursor: 'pointer', fontSize: '12px'}} onClick={() => setCreateDialog({open: true})}>New
+                        File</Box>)}
                 </>
             ) : (<Box sx={{cursor: 'pointer'}} onClick={() => setAuthDialog(true)}>New File</Box>)}
 
@@ -98,7 +99,8 @@ const SaveState = (): React.ReactElement => {
             <Box ml={2}>
                 <FormGroup sx={{
                     '& .MuiFormControlLabel-label': {
-                        ml: '2px'
+                        ml: '3px',
+                        fontSize: '12px',
                     }
                 }}>
                     <FormControlLabel control={<Switch
@@ -114,7 +116,11 @@ const SaveState = (): React.ReactElement => {
                     label={!auth.isAuthenticated ? `Login to get sync` : `Save to your cloud`}
                     size="small"
                     color="warning"
-                    sx={{cursor: "pointer"}}
+                    sx={{
+                        cursor: "pointer", fontSize: "12px", '& .MuiChip-label': {
+                            padding: '2px 5px'
+                        }
+                    }}
                     onClick={() => !auth.isAuthenticated ? setAuthDialog(true) : setCreateDialog({open: true})}
                 />
             )}
