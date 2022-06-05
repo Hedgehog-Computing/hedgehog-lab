@@ -88,9 +88,10 @@ const Header = (): React.ReactElement => {
     const isTutorialsPath = matchPath("tutorial/*", pathname);
     const isHomePath = matchPath("", pathname);
     const matchExamplePage = useMatch('/example/:exampleName')
-
+    const isDraftPage = matchPath("draft/", pathname);
 
     if (
+        isDraftPage ||
         isTutorialsPath ||
         isSnippetsPath ||
         snippetID !== undefined ||
