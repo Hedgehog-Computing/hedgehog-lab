@@ -44,7 +44,9 @@ const RightButton = (): React.ReactElement => {
                             url={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}/>
             )}
 
-            <Button sx={{ml: 1}} size={'small'} color={resultFullScreen ? 'primary' : 'inherit'} variant={'contained'}
+            <Button sx={{ml: 1}} size={'small'}
+                    color={resultFullScreen ? 'primary' : 'inherit'}
+                    variant={'contained'}
                     onClick={handleResultFullScreen}
                     endIcon={<FullscreenOutlined/>}>
                 Fullscreen
