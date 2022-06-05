@@ -2,7 +2,6 @@ import {useTheme} from "@mui/material";
 import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import {codeSavingFlagState, editorCodeState, editorMetaState,} from "../states/RYourCodeStates";
 import {useCallback, useEffect, useState} from "react";
-import * as monacoEditor from "monaco-editor";
 import {ControlledEditorOnChange, monaco} from "@monaco-editor/react";
 import {monacoTheme} from "../themes/monacoTheme";
 import useKeyboardJs from "react-use/lib/useKeyboardJs";
@@ -37,7 +36,7 @@ export const useEditor = (): any => {
     const [
         editor,
         setEditor,
-    ] = useState<monacoEditor.editor.IStandaloneCodeEditor | null>(null);
+    ] = useState(null);
 
     const [editorTheme, setEditorTheme] = useState<"monacoDarkTheme" | "vs">(
         "vs"
@@ -148,7 +147,7 @@ export const useEditor = (): any => {
 
     const handleEditorDidMount = (
         _: () => string,
-        editor: monacoEditor.editor.IStandaloneCodeEditor
+        editor: any
     ) => {
         editor.addAction({
             id: COMPILE_AND_RUN_BUTTON_ID,
