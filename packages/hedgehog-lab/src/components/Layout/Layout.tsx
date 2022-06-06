@@ -43,8 +43,8 @@ const Layout = (): React.ReactElement => {
             <Box component="main" sx={{flexGrow: 1}}>
                 <Toolbar/>
                 {isDevPath && <Box mt={2}/>}
-                <MainContent open={sideBarOpen}>
-                    <Box sx={{overflow: "hidden"}}>
+                <MainContent open={sideBarOpen} sx={{maxWidth: '100vw'}}>
+                    <Box sx={{overflow: "hidden", mt: 1}}>
                         <Outlet/>
                     </Box>
                 </MainContent>

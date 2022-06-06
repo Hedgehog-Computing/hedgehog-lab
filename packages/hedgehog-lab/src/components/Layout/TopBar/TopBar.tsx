@@ -20,9 +20,9 @@ import {Link as RouteLink, matchPath, useLocation, useMatch, useParams,} from "r
 import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import AccountMenu from "../../Auth/Account/AccountMenu";
-import {editorMetaState} from "../../../states/RYourCodeStates";
 import DevModeAlert from "./DevModeAlert";
 import useApp from "../../../hooks/useApp";
+import {grey} from "@mui/material/colors";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -46,7 +46,6 @@ const AppBar = styled(MuiAppBar, {
 const Brand = (): React.ReactElement => {
     const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
     const theme = useTheme();
-    const editorMeta = useRecoilValue(editorMetaState)
     const handleSideBarOpen = useCallback(() => {
         setSideBarOpen(!sideBarOpen);
     }, [setSideBarOpen, sideBarOpen]);
@@ -86,7 +85,6 @@ const Header = (): React.ReactElement => {
     const {pathname} = useLocation();
     const isSnippetsPath = matchPath("snippets/new", pathname);
     const isTutorialsPath = matchPath("tutorial/*", pathname);
-    const isHomePath = matchPath("", pathname);
     const matchExamplePage = useMatch('/example/:exampleName')
     const isDraftPage = matchPath("draft/", pathname);
 
@@ -120,7 +118,7 @@ const TopBar = (): React.ReactElement => {
             sx={{
                 zIndex: (theme) => theme.zIndex.drawer + 1,
                 backdropFilter: "blur(20px)",
-                background: "rgba(255, 255, 255, 0.7)",
+                background: grey[100],
                 transition: "width 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
             }}
             elevation={0}

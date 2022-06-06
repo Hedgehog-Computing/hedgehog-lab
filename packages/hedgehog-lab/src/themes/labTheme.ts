@@ -369,9 +369,11 @@ export function getThemedComponents(theme: Theme) {
                 styleOverrides: {
                     root: {
                         "&:hover": {
-                            textDecoration: "underline",
+                            textDecoration: "none",
                             cursor: "pointer",
-                            color: `${theme.palette.primary.main} !important`,
+                            '& .MuiTypography-root': {
+                                color: `${blue[500]} !important`,
+                            }
                         },
                         color: "initial !important",
                         display: "inline-flex",
@@ -413,6 +415,9 @@ export function getThemedComponents(theme: Theme) {
                 },
             },
             MuiPaper: {
+                elevation: {
+                    boxShadow: '0 0 0 0 rgb(0 0 0 / 20%), 0 0 0 0 rgb(0 0 0 / 14%), 0 0 0 0 rgb(0 0 0 / 12%);'
+                },
                 styleOverrides: {
                     root: {
                         "&[href]": {
@@ -471,14 +476,7 @@ export function getThemedComponents(theme: Theme) {
             },
             MuiToggleButtonGroup: {
                 styleOverrides: {
-                    root: {
-                        backgroundColor:
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                            theme.palette.mode === "dark"
-                                ? theme.palette.primaryDark[900]
-                                : "#fff",
-                    },
+                    root: {},
                 },
             },
             MuiToggleButton: {
@@ -500,12 +498,6 @@ export function getThemedComponents(theme: Theme) {
                             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                             // @ts-ignore
                             borderColor: `${theme.palette.primary[500]} !important`,
-                            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                            // @ts-ignore
-                            color:
-                                theme.palette.mode === "dark"
-                                    ? "#fff"
-                                    : theme.palette.primary[500],
                             backgroundColor:
                                 theme.palette.mode === "dark"
                                     ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -569,5 +561,5 @@ export function getThemedComponents(theme: Theme) {
 
 let darkTheme = createTheme(getDesignTokens('light'));
 darkTheme = responsiveFontSizes(darkTheme);
-export const labTheme = (mode: string) =>
+export const labTheme = () =>
     deepmerge(darkTheme, getThemedComponents(darkTheme));

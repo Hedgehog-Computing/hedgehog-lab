@@ -4,7 +4,6 @@ import {
     Box,
     Collapse,
     Divider,
-    Drawer,
     Link,
     List,
     ListItemButton,
@@ -18,92 +17,24 @@ import {
     CreateOutlined,
     ExpandLessOutlined,
     ExpandMoreOutlined,
+    ExploreOutlined,
     FiberManualRecord,
     HomeOutlined,
     PersonOutline,
     TextSnippetOutlined,
-    TimelineOutlined,
-    TravelExploreOutlined
+    TimelineOutlined
 } from "@mui/icons-material";
 import {useRecoilState} from "recoil";
-import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import {sideBarOpenState} from "../../../states/RLayoutStates";
-import {Link as RouteLink, useNavigate} from "react-router-dom";
-import {usePopupState} from "material-ui-popup-state/hooks";
-import {useEditor} from "../../../hooks/useEditor";
+import {Link as RouteLink} from "react-router-dom";
 import {useAuth} from "../../../hooks/useAuth";
 import AuthDialog from "../../Auth/Dialog/AuthDialog";
 import useSWR from "swr";
 import {fetcher} from "../../../network/fetcher";
 import useApp from "../../../hooks/useApp";
-import {blue} from "@mui/material/colors";
-
-const NewSnippet = () => {
-    const theme = useTheme();
-    const popupState = usePopupState({
-        variant: "popover",
-        popupId: "newSnippetPopup"
-    });
-
-    const navigate = useNavigate();
-    const {setEditorCode} = useEditor();
-
-    const handleSetEditorCode = useCallback(
-        (description: any) => {
-            navigate(`/example/${description}`);
-            popupState.close();
-        },
-        [navigate, popupState, setEditorCode]
-    );
-
-    return (
-        <>
-            <Link
-                to="/example/Empty"
-                component={RouteLink}
-                sx={{
-                    display: "block",
-                    color: "initial",
-                    "&:hover": {
-                        textDecoration: "none"
-                    }
-                }}
-            >
-                <ListItemButton>
-                    <ListItemIcon>
-                        <CreateOutlined/>
-                    </ListItemIcon>
-
-                    <ListItemText>New Snippet</ListItemText>
-                </ListItemButton>
-            </Link>
-        </>
-    );
-};
-
-const ExploreSnippet = () => {
-    return (
-        <Link
-            to="/explore"
-            component={RouteLink}
-            sx={{
-                display: "block",
-                color: "initial",
-                "&:hover": {
-                    textDecoration: "none"
-                }
-            }}
-        >
-            <ListItemButton>
-                <ListItemIcon>
-                    <TravelExploreOutlined/>
-                </ListItemIcon>
-
-                <ListItemText>Explore</ListItemText>
-            </ListItemButton>
-        </Link>
-    );
-};
+import {blue, grey} from "@mui/material/colors";
+import SideList from "./_sideList";
+import {ResponseDrawer} from "../../styled";
 
 const CurrentSnippets = () => {
 
@@ -111,8 +42,7 @@ const CurrentSnippets = () => {
     const [collapseOpen, setCollapseOpen] = useState(true);
     const {auth} = useAuth();
     const {
-        data,
-        error
+        data
     } = useSWR([`/snippets/mySnippets`], fetcher, {refreshInterval: process.env.NODE_ENV === "development" ? 0 : 1000});
     const handleCollapseClick = useCallback(() => {
         setCollapseOpen(!collapseOpen);
@@ -188,11 +118,10 @@ const CurrentSnippets = () => {
     );
 };
 
+
 const SideBar = (): React.ReactElement => {
     const [sideBarOpen, setSideBarOpen] = useRecoilState(sideBarOpenState);
-
-
-    const lgBreakpoint = window.matchMedia("(min-width: 1910px)");
+    const lgBreakpoint = window.matchMedia("(min-width: 1600px)");
     const lgBreakpointMatches = lgBreakpoint.matches;
     const {auth} = useAuth();
     const {isDevPath} = useApp();
@@ -201,35 +130,18 @@ const SideBar = (): React.ReactElement => {
         setSideBarOpen(lgBreakpointMatches);
     }, [lgBreakpointMatches, setSideBarOpen]);
 
-    interface IFooterLink {
-        text: string;
-        href: string;
-    }
+    const publicList = [
+        {link: '/', icon: <HomeOutlined/>, text: 'Home'},
+        {link: '/example/Empty', icon: <CreateOutlined/>, text: 'New Snippets'},
+        {link: '/explore', icon: <ExploreOutlined/>, text: 'Explore'},
+    ]
 
-    const FooterLink: React.FC<IFooterLink> = (props) => {
-        return (
-            <Link
-                underline="hover"
-                sx={{cursor: "pointer"}}
-                href={props.href}
-                target="_blank"
-            >
-                {props.text}
-            </Link>
-        );
-    };
     return (
-        <Drawer
+        <ResponseDrawer
             variant="persistent"
             anchor="left"
             open={sideBarOpen}
             sx={{
-                width: sideBarWidth,
-                flexShrink: 0,
-                [`& .MuiDrawer-paper`]: {
-                    width: sideBarWidth,
-                    boxSizing: "border-box"
-                },
                 borderRight: sideBarOpen ? "1px solid rgba(0, 0, 0, 0.12)" : ""
             }}
         >
@@ -244,92 +156,33 @@ const SideBar = (): React.ReactElement => {
                     [`& .MuiListItemText-root span`]: {
                         fontWeight: "bold"
                     },
+                    bgcolor: grey[100],
                 }}
             >
                 <List dense sx={{
-                    px: '5px', '& .MuiListItemButton-root': {
+                    px: '5px',
+                    '& .MuiListItemButton-root': {
                         my: '2px'
                     }
                 }}>
-                    <Link
-                        to="/"
-                        component={RouteLink}
-                        sx={{
-                            display: "block",
-                            color: "initial",
-                            "&:hover": {
-                                textDecoration: "none"
-                            }
-                        }}
-                    >
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <HomeOutlined/>
-                            </ListItemIcon>
-
-                            <ListItemText>Home</ListItemText>
-                        </ListItemButton>
-                    </Link>
-
-
-                    <NewSnippet/>
-
-
-                    <ExploreSnippet/>
-
+                    <SideList data={publicList}/>
                     <Divider/>
-
                     {auth.isAuthenticated ? (
                         <>
-                            <Link
-                                to="/timeline"
-                                component={RouteLink}
-                                sx={{
-                                    display: "block",
-                                    color: "initial",
-                                    "&:hover": {
-                                        textDecoration: "none"
-                                    }
-                                }}
-                            >
-                                {" "}
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <TimelineOutlined/>
-                                    </ListItemIcon>
-                                    <ListItemText>Timeline</ListItemText>
-                                </ListItemButton>
-                            </Link>
-
-
+                            <SideList data={[{text: 'Timeline', icon: <TimelineOutlined/>, link: '/timeline'}]}/>
                             <CurrentSnippets/>
-
-                            <Link
-                                to={`/u/${auth.user.username}`}
-                                component={RouteLink}
-                                sx={{
-                                    display: "block",
-                                    color: "initial",
-                                    "&:hover": {
-                                        textDecoration: "none"
-                                    }
-                                }}
-                            >
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <PersonOutline/>
-                                    </ListItemIcon>
-
-                                    <ListItemText>My Profile</ListItemText>
-                                </ListItemButton>
-                            </Link>
+                            <SideList data={[{
+                                text: 'My Profile',
+                                icon: <PersonOutline/>,
+                                link: `/u/${auth.user.username}`
+                            }]}/>
                         </>
                     ) : (
                         <AuthDialog/>
                     )}
                 </List>
             </Box>
-        </Drawer>
+        </ResponseDrawer>
     );
 };
 
