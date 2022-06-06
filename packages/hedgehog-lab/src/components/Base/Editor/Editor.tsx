@@ -1,5 +1,5 @@
-import {useRecoilState} from "recoil";
-import {resultFullScreenState} from "../../../states/RLayoutStates";
+import {useRecoilValue} from "recoil";
+import {resultFullScreenState, sideBarOpenState} from "../../../states/RLayoutStates";
 import React, {useState} from "react";
 import YourCode from "../../YourCode/YourCode";
 import Results from "../../Results/Results";
@@ -7,22 +7,25 @@ import {ResizableColumn} from "../../Layout/ResizableColumn/ResizableColumn";
 import {useWindowSize} from "react-use";
 import {Box, Fab, useMediaQuery, useTheme} from "@mui/material";
 import {CodeOutlined} from "@mui/icons-material";
+import {sideBarWidth} from "../../YourCode/Config/SideBar";
 
 const Editor = () => {
-    const [resultFullScreen, setResultFullScreen] = useRecoilState<boolean>(
+    const resultFullScreen = useRecoilValue<boolean>(
         resultFullScreenState
     );
+    const sideBarOpen = useRecoilValue(sideBarOpenState);
     const theme = useTheme();
     const {width} = useWindowSize();
     const isPhoneMedia = useMediaQuery(theme.breakpoints.up("sm"));
     const [showEditor, setShowEditor] = useState<boolean>(false);
+    const editorWidth = sideBarOpen ? (width - sideBarWidth) / 2 : width / 2;
 
     return (
         <>
             {isPhoneMedia ? (
                 <Box display={'flex'}>
                     {!resultFullScreen &&
-                        (<ResizableColumn maxWidth={1000} minWidth={200} width={width / 2}>
+                        (<ResizableColumn maxWidth={1000} minWidth={200} width={editorWidth}>
                             <YourCode/>
                         </ResizableColumn>)}
 
