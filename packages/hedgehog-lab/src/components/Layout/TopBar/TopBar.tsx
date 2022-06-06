@@ -28,6 +28,7 @@ import SaveState from "../../Snippet/Save/SaveState";
 import AccountMenu from "../../Auth/Account/AccountMenu";
 import {useEditor} from "../../../hooks/useEditor";
 import FullScreenButton from "./_fullScreenButton";
+import CompilerButton from "./_compilerButton";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -111,6 +112,8 @@ const Header = () => {
                         <AccountMenu/>
                     </Stack>
                 )}
+
+                {(isEditorPage && !isPhoneMedia) && (<CompilerButton/>)}
             </Stack>
         </>
     );
