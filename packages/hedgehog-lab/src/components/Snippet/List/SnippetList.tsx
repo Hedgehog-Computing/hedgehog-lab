@@ -132,7 +132,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                             </Box>
 
                             <Stack spacing={1} direction={'row'} display={'flex'} alignItems={'center'}>
-                                <Chip variant={'outlined'} label={`${item.loadingTimes * 14} heat`}
+                                <Chip variant={'outlined'} label={`${item.loadingTimes * 14} hot`}
                                       icon={<LocalFireDepartmentOutlined fontSize={'small'}/>}
                                       sx={{
                                           height: 24,
