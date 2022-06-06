@@ -1,6 +1,6 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useEffect} from "react";
 import {Box, Button} from "@mui/material";
-import {ForumOutlined, FullscreenOutlined, GitHub, LibraryBooksOutlined,} from "@mui/icons-material";
+import {ForumOutlined, GitHub, LibraryBooksOutlined,} from "@mui/icons-material";
 import SharePopup from "../../Share/SharePopup";
 import {useRecoilState} from "recoil";
 import {resultFullScreenState} from "../../../states/RLayoutStates";
@@ -20,11 +20,6 @@ const RightButton = (): React.ReactElement => {
     );
 
     const [githubStargazersCount, setGithubStargazersCount] = React.useState<number>(0);
-
-    const handleResultFullScreen = useCallback(() => {
-        setResultFullScreen(!resultFullScreen);
-    }, [resultFullScreen, setResultFullScreen]);
-
     const emptyPage = useMatch('')
     const userSnippetPage = useMatch('/s/:userId/:snippetId')
 
@@ -36,21 +31,15 @@ const RightButton = (): React.ReactElement => {
     return (
         <>
             {userSnippetPage && (
-                <SharePopup size={'small'}
-                            type={'button'}
-                            text={'Share'}
-                            script={`import @${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
-                            embed={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
-                            url={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}/>
+                <Box ml={1}>
+                    <SharePopup size={'small'}
+                                type={'button'}
+                                text={'Share'}
+                                script={`import @${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
+                                embed={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}
+                                url={`https://hlab.app/s/${userSnippetPage.params.userId}/${userSnippetPage.params.snippetId}`}/>
+                </Box>
             )}
-
-            <Button sx={{ml: 1}} size={'small'}
-                    color={resultFullScreen ? 'primary' : 'inherit'}
-                    variant={'contained'}
-                    onClick={handleResultFullScreen}
-                    endIcon={<FullscreenOutlined/>}>
-                Fullscreen
-            </Button>
 
             <Button sx={{ml: 1}} size={'small'} color={'inherit'} variant={'contained'}
                     endIcon={<ForumOutlined/>} target={'_blank'} href={'https://discord.gg/kmuBw8pRFf'}>

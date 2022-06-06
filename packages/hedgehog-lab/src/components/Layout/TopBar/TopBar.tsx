@@ -23,6 +23,7 @@ import AccountMenu from "../../Auth/Account/AccountMenu";
 import DevModeAlert from "./DevModeAlert";
 import useApp from "../../../hooks/useApp";
 import {grey} from "@mui/material/colors";
+import RightButton from "./RightButton";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -101,7 +102,11 @@ const Header = (): React.ReactElement => {
     return (
         <>
             <Box sx={{display: 'flex', ml: 'auto'}}>
-                <AccountMenu/>
+                <RightButton/>
+
+                <Box ml={1}>
+                    <AccountMenu/>
+                </Box>
             </Box>
         </>
     );

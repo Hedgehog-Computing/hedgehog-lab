@@ -1,5 +1,5 @@
 import {Box, Button} from "@mui/material";
-import {PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
+import {FullscreenOutlined, PlayCircleOutline, StopCircleOutlined} from "@mui/icons-material";
 import {queryCache} from "react-query";
 import React, {useCallback} from "react";
 import {compiler} from "../../../compiler";
@@ -8,15 +8,20 @@ import {useCompiler} from "../../../hooks/useCompilier";
 import {COMPILE_AND_RUN_BUTTON_ID, useEditor} from "../../../hooks/useEditor";
 import RightButton from "../../Layout/TopBar/RightButton";
 import AccountMenu from "../../Auth/Account/AccountMenu";
+import {useRecoilState} from "recoil";
+import {resultFullScreenState} from "../../../states/RLayoutStates";
 
 const YourCodeHeader = (): React.ReactElement => {
     const {editorCode} = useEditor();
     const [setCompilerReFetch, isLoading] = useCompiler();
 
-
     const handleRunCode = useCallback(() => {
         setCompilerReFetch(true);
     }, [setCompilerReFetch]);
+
+    const [resultFullScreen, setResultFullScreen] = useRecoilState<boolean>(
+        resultFullScreenState
+    );
 
     return (
         <Box
@@ -30,10 +35,16 @@ const YourCodeHeader = (): React.ReactElement => {
         >
             <SaveState/>
             <Box sx={{
-                display: "flex", alignItems: "center", '& .MuiButton-root': {
-                    padding: '2px 5px', fontSize: '12px'
-                },
+                display: "flex", alignItems: "center"
             }}>
+                <Button sx={{ml: 1}} size={'small'}
+                        color={resultFullScreen ? 'primary' : 'inherit'}
+                        variant={'contained'}
+                        onClick={() => setResultFullScreen(!resultFullScreen)}
+                        endIcon={<FullscreenOutlined/>}>
+                    Fullscreen
+                </Button>
+
                 <RightButton/>
 
                 <Box ml={1}>
