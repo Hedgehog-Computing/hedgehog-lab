@@ -28,6 +28,7 @@ import SaveState from "../../Snippet/Save/SaveState";
 import AccountMenu from "../../Auth/Account/AccountMenu";
 import {useEditor} from "../../../hooks/useEditor";
 import CompilerButton from "./_compilerButton";
+import FullScreenButton from "./_fullScreenButton";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -96,6 +97,8 @@ const Header = () => {
     return (
         <>
             <Stack direction={'row'} spacing={1} width={'100%'}>
+                {isEditorPage && <FullScreenButton/>}
+                
                 {!isPhoneMedia && (
                     <>
                         <Stack direction={'row'} spacing={1}>
