@@ -27,7 +27,6 @@ import CommunityButtons from "./_communityButtons";
 import SaveState from "../../Snippet/Save/SaveState";
 import AccountMenu from "../../Auth/Account/AccountMenu";
 import {useEditor} from "../../../hooks/useEditor";
-import CompilerButton from "./_compilerButton";
 import FullScreenButton from "./_fullScreenButton";
 
 interface AppBarProps extends MuiAppBarProps {
@@ -97,10 +96,9 @@ const Header = () => {
     return (
         <>
             <Stack direction={'row'} spacing={1} width={'100%'}>
-                {isEditorPage && <FullScreenButton/>}
-                
                 {!isPhoneMedia && (
                     <>
+                        {isEditorPage && <FullScreenButton/>}
                         <Stack direction={'row'} spacing={1}>
                             <CommunityButtons/>
                         </Stack>
@@ -108,11 +106,11 @@ const Header = () => {
                 )}
 
 
-                {!isEditorPage ? (
+                {!isEditorPage && (
                     <Stack direction={'row'} spacing={1} sx={{ml: 'auto'}}>
                         <AccountMenu/>
                     </Stack>
-                ) : (<CompilerButton/>)}
+                )}
             </Stack>
         </>
     );
@@ -153,7 +151,6 @@ const TopBar = (): React.ReactElement => {
                     <Header/>
                 </Box>
             </Toolbar>
-
             <Divider/>
         </AppBar>
     );
