@@ -12,7 +12,7 @@ interface CommunityButtonsProps {
 const CommunityButtons = () => {
     const data: CommunityButtonsProps[] = [
         {
-            text: 'book',
+            text: 'Book',
             icon: <LibraryBooksOutlined/>,
             link: 'https://hedgehog-computing.github.io/hedgehog-lab/'
         },
