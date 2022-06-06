@@ -19,13 +19,13 @@ import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {sideBarOpenState} from "../../../states/RLayoutStates";
 import {Link as RouteLink, matchPath, useLocation, useMatch, useParams,} from "react-router-dom";
-import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import DevModeAlert from "./DevModeAlert";
 import useApp from "../../../hooks/useApp";
 import {grey} from "@mui/material/colors";
 import CommunityButtons from "./_communityButtons";
 import SaveState from "../../Snippet/Save/SaveState";
+import AccountMenu from "../../Auth/Account/AccountMenu";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -104,11 +104,11 @@ const Header = () => {
     return (
         <>
             <Stack direction={'row'} spacing={1} width={'100%'}>
+                {isEditorPage && (
+                    <SaveState/>
+                )}
                 {!isPhoneMedia && (
                     <>
-                        {isEditorPage && (
-                            <YourCodeHeader/>
-                        )}
                         <Stack direction={'row'} spacing={1}>
                             <CommunityButtons/>
                         </Stack>
@@ -116,9 +116,11 @@ const Header = () => {
                 )}
 
 
-                <Stack direction={'row'} spacing={1} sx={{ml: 'auto'}}>
-                    {isEditorPage && (<SaveState/>)}
-                </Stack>
+                {!isEditorPage && (
+                    <Stack direction={'row'} spacing={1} sx={{ml: 'auto'}}>
+                        <AccountMenu/>
+                    </Stack>
+                )}
             </Stack>
         </>
     );
