@@ -1,5 +1,5 @@
-import {Favorite, FavoriteBorderOutlined,} from "@mui/icons-material";
-import {Box, CardActionArea, Chip, Divider, Link, Paper, Typography,} from "@mui/material";
+import {Favorite, FavoriteBorderOutlined, LocalFireDepartmentOutlined,} from "@mui/icons-material";
+import {Box, CardActionArea, Chip, Divider, Link, Paper, Stack, Typography,} from "@mui/material";
 import React, {useCallback, useState} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink, useMatch} from "react-router-dom";
@@ -13,6 +13,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import {http} from "../../../network/http";
 import {LoadingButton} from "@mui/lab";
 import UpdatedSnippet from "../UpdatedSnippet";
+import {grey, red} from "@mui/material/colors";
 
 dayjs.extend(relativeTime)
 
@@ -25,6 +26,7 @@ export interface ISnippetsProps {
     title: string;
     description: string;
     content: string;
+    loadingTimes: number;
     user: {
         username: string;
     };
@@ -129,22 +131,33 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                 </Link>
                             </Box>
 
-                            <Box display={'flex'} alignItems={'center'}>
+                            <Stack spacing={1} direction={'row'} display={'flex'} alignItems={'center'}>
+                                <Chip variant={'outlined'} label={`${item.loadingTimes * 14} heat`}
+                                      icon={<LocalFireDepartmentOutlined fontSize={'small'}/>}
+                                      sx={{
+                                          height: 24,
+                                          '& .MuiChip-icon': {
+                                              color: red[500]
+                                          }
+                                      }}/>
                                 <Chip variant={"outlined"} label={item.visibility} sx={{
                                     height: 24,
                                     fontSize: "0.8125rem",
-                                    ml: 1,
                                 }}/>
-
                                 {!(isExplorePage && search.text) && (<LoadingButton
                                     disabled={!auth.user.username}
                                     loading={likeLoading}
                                     onClick={() => {
                                         handleLikeSnippet(item.id, item._count?.snippetLike)
                                     }}
-                                    fullWidth
+                                    variant={'contained'}
                                     size="small"
-                                    sx={{color: "inherit"}}
+                                    sx={{
+                                        bgcolor: grey[300], height: 24, color: '#000',
+                                        '&:hover': {
+                                            bgcolor: grey[400]
+                                        }
+                                    }}
                                     startIcon={isCurrentUserLike(item?.snippetLike)
                                         ? <Favorite/>
                                         : <FavoriteBorderOutlined/>}
@@ -162,7 +175,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
 
                                 {isMe && <DeletePopup size="small"
                                                       snippet={{name: item.title, id: item.id}}/>}
-                            </Box>
+                            </Stack>
                         </Box>
 
                         <Box>

@@ -32,7 +32,7 @@ const ThemePage = () => {
     pageView(location.pathname)
 
     return (
-        <ThemeProvider theme={labTheme('light')}>
+        <ThemeProvider theme={labTheme()}>
             <RoutePage/>
         </ThemeProvider>
     );

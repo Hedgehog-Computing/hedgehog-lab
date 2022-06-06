@@ -282,6 +282,10 @@ export function getThemedComponents(theme: Theme) {
                         backgroundColor: theme.palette.primary[500],
                         color: "#fff",
                     },
+                    root: {
+                        padding: '2px 5px',
+                        fontSize: '12px'
+                    }
                 },
                 variants: [
                     {
