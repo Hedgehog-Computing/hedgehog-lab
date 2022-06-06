@@ -18,7 +18,7 @@ import Box from "@mui/material/Box";
 import {MenuOutlined} from "@mui/icons-material";
 import {useRecoilState, useRecoilValue} from "recoil";
 import {sideBarOpenState} from "../../../states/RLayoutStates";
-import {Link as RouteLink, matchPath, useLocation, useMatch, useParams,} from "react-router-dom";
+import {Link as RouteLink,} from "react-router-dom";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
 import DevModeAlert from "./DevModeAlert";
 import useApp from "../../../hooks/useApp";
@@ -26,6 +26,8 @@ import {grey} from "@mui/material/colors";
 import CommunityButtons from "./_communityButtons";
 import SaveState from "../../Snippet/Save/SaveState";
 import AccountMenu from "../../Auth/Account/AccountMenu";
+import {useEditor} from "../../../hooks/useEditor";
+import CompilerButton from "./_compilerButton";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -87,26 +89,13 @@ const Brand = (): React.ReactElement => {
 };
 
 const Header = () => {
-    const {snippetID} = useParams();
-    const {pathname} = useLocation();
-    const isSnippetsPath = matchPath("snippets/new", pathname);
-    const isTutorialsPath = matchPath("tutorial/*", pathname);
-    const matchExamplePage = useMatch('/example/:exampleName')
-    const isDraftPage = matchPath("draft/", pathname);
     const theme = useTheme()
     const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
-    const isEditorPage = (isDraftPage ||
-        isTutorialsPath ||
-        isSnippetsPath ||
-        snippetID !== undefined ||
-        matchExamplePage)
+    const {isEditorPage} = useEditor();
 
     return (
         <>
             <Stack direction={'row'} spacing={1} width={'100%'}>
-                {isEditorPage && (
-                    <SaveState/>
-                )}
                 {!isPhoneMedia && (
                     <>
                         <Stack direction={'row'} spacing={1}>
@@ -116,11 +105,11 @@ const Header = () => {
                 )}
 
 
-                {!isEditorPage && (
+                {!isEditorPage ? (
                     <Stack direction={'row'} spacing={1} sx={{ml: 'auto'}}>
                         <AccountMenu/>
                     </Stack>
-                )}
+                ) : (<CompilerButton/>)}
             </Stack>
         </>
     );
@@ -131,6 +120,7 @@ const TopBar = (): React.ReactElement => {
     const {isDevPath} = useApp()
     const theme = useTheme()
     const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
+    const {isEditorPage} = useEditor();
 
     return (
         <AppBar
@@ -151,6 +141,10 @@ const TopBar = (): React.ReactElement => {
                 <Box minWidth={isPhoneMedia ? '60px' : sideBarWidth}>
                     <Brand/>
                 </Box>
+
+                {isEditorPage && (
+                    <SaveState/>
+                )}
 
                 <Box display={'flex'} ml={"auto"}>
                     <Header/>

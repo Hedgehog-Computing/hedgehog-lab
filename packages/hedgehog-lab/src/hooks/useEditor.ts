@@ -7,7 +7,7 @@ import {monacoTheme} from "../themes/monacoTheme";
 import useKeyboardJs from "react-use/lib/useKeyboardJs";
 import {useCompiler} from "./useCompilier";
 import {compilerLiveModeState} from "../states/RCompilerStates";
-import {useMatch} from "react-router-dom";
+import {matchPath, useLocation, useMatch, useParams} from "react-router-dom";
 import {useSnippet} from "./useSnippet";
 import {useAuth} from "./useAuth";
 
@@ -166,6 +166,18 @@ export const useEditor = (): any => {
             : setEditorTheme("vs");
     }, [theme.palette.mode]);
 
+    const {snippetID} = useParams();
+    const {pathname} = useLocation();
+    const isSnippetsPath = matchPath("snippets/new", pathname);
+    const isTutorialsPath = matchPath("tutorial/*", pathname);
+    const matchExamplePage = useMatch('/example/:exampleName')
+    const isDraftPage = matchPath("draft/", pathname);
+    const isEditorPage = (isDraftPage ||
+        isTutorialsPath ||
+        isSnippetsPath ||
+        snippetID !== undefined ||
+        matchExamplePage)
+
     return {
         editorCode,
         setEditorCode,
@@ -175,6 +187,7 @@ export const useEditor = (): any => {
         editorTheme,
         options,
         autoSaveCode,
+        isEditorPage
     };
 };
 
