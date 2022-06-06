@@ -43,7 +43,8 @@ const Editor = () => {
                         </Box>
                     )}
 
-                    <Fab variant="extended" sx={{position: 'absolute', bottom: 10, right: 2}}
+                    <Fab color={showEditor ? "primary" : 'inherit'} variant="extended"
+                         sx={{position: 'absolute', bottom: 10, right: 2}}
                          onClick={() => setShowEditor(!showEditor)}>
                         <CodeOutlined sx={{mr: 1}}/>
                         Code
