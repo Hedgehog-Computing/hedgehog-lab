@@ -5,9 +5,10 @@ import YourCode from "../../YourCode/YourCode";
 import Results from "../../Results/Results";
 import {ResizableColumn} from "../../Layout/ResizableColumn/ResizableColumn";
 import {useWindowSize} from "react-use";
-import {Box, Fab, useMediaQuery, useTheme} from "@mui/material";
+import {Box, Button, Stack, useMediaQuery, useTheme} from "@mui/material";
 import {CodeOutlined} from "@mui/icons-material";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
+import CompilerButton from "../../Layout/TopBar/_compilerButton";
 
 const Editor = () => {
     const resultFullScreen = useRecoilValue<boolean>(
@@ -16,13 +17,13 @@ const Editor = () => {
     const sideBarOpen = useRecoilValue(sideBarOpenState);
     const theme = useTheme();
     const {width} = useWindowSize();
-    const isPhoneMedia = useMediaQuery(theme.breakpoints.up("sm"));
+    const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
     const [showEditor, setShowEditor] = useState<boolean>(false);
     const editorWidth = sideBarOpen ? (width - sideBarWidth) / 2 : width / 2;
 
     return (
         <>
-            {isPhoneMedia ? (
+            {!isPhoneMedia ? (
                 <Box display={'flex'}>
                     {!resultFullScreen &&
                         (<ResizableColumn maxWidth={1000} minWidth={200} width={editorWidth}>
@@ -43,12 +44,15 @@ const Editor = () => {
                         </Box>
                     )}
 
-                    <Fab color={showEditor ? "primary" : 'inherit'} variant="extended"
-                         sx={{position: 'absolute', bottom: 10, right: 2}}
-                         onClick={() => setShowEditor(!showEditor)}>
-                        <CodeOutlined sx={{mr: 1}}/>
-                        Code
-                    </Fab>
+                    <Stack sx={{position: 'absolute', bottom: 10, right: 10}} spacing={1}>
+                        <CompilerButton/>
+
+                        <Button endIcon={<CodeOutlined/>} color={showEditor ? "primary" : 'inherit'}
+                                variant={'contained'}
+                                onClick={() => setShowEditor(!showEditor)}>
+                            Code
+                        </Button>
+                    </Stack>
                 </>
             )}
         </>

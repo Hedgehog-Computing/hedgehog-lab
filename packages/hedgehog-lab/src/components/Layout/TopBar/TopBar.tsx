@@ -6,9 +6,11 @@ import {
     ListItem,
     ListItemIcon,
     ListItemText,
+    Stack,
     styled,
     Toolbar,
     Typography,
+    useMediaQuery,
     useTheme,
 } from "@mui/material";
 import MuiAppBar, {AppBarProps as MuiAppBarProps} from "@mui/material/AppBar";
@@ -19,11 +21,11 @@ import {sideBarOpenState} from "../../../states/RLayoutStates";
 import {Link as RouteLink, matchPath, useLocation, useMatch, useParams,} from "react-router-dom";
 import YourCodeHeader from "../../YourCode/Header/YourCodeHeader";
 import {sideBarWidth} from "../../YourCode/Config/SideBar";
-import AccountMenu from "../../Auth/Account/AccountMenu";
 import DevModeAlert from "./DevModeAlert";
 import useApp from "../../../hooks/useApp";
 import {grey} from "@mui/material/colors";
-import RightButton from "./RightButton";
+import CommunityButtons from "./_communityButtons";
+import SaveState from "../../Snippet/Save/SaveState";
 
 interface AppBarProps extends MuiAppBarProps {
     open?: boolean;
@@ -50,6 +52,7 @@ const Brand = (): React.ReactElement => {
     const handleSideBarOpen = useCallback(() => {
         setSideBarOpen(!sideBarOpen);
     }, [setSideBarOpen, sideBarOpen]);
+    const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
         <Box width={"100%"}>
@@ -60,54 +63,63 @@ const Brand = (): React.ReactElement => {
                     </IconButton>
                 </ListItemIcon>
 
-                <Link component={RouteLink} to={`/`} sx={{display: "block"}}>
-                    <ListItemText sx={{display: {xs: "none", md: "block"}}}>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            color={theme.palette.text.primary}
-                            sx={{
-                                fontWeight: "bold",
-                                letterSpacing: 0,
-                                width: "100%",
-                            }}
-                        >
-                            Hedgehog Lab
-                        </Typography>
-                    </ListItemText>
-                </Link>
+                {!isPhoneMedia && (
+                    <Link component={RouteLink} to={`/`} sx={{display: "block"}}>
+                        <ListItemText sx={{display: {xs: "none", md: "block"}}}>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                color={theme.palette.text.primary}
+                                sx={{
+                                    fontWeight: "bold",
+                                    letterSpacing: 0,
+                                    width: "100%",
+                                }}
+                            >
+                                Hedgehog Lab
+                            </Typography>
+                        </ListItemText>
+                    </Link>
+                )}
             </ListItem>
         </Box>
     );
 };
 
-const Header = (): React.ReactElement => {
+const Header = () => {
     const {snippetID} = useParams();
     const {pathname} = useLocation();
     const isSnippetsPath = matchPath("snippets/new", pathname);
     const isTutorialsPath = matchPath("tutorial/*", pathname);
     const matchExamplePage = useMatch('/example/:exampleName')
     const isDraftPage = matchPath("draft/", pathname);
-
-    if (
-        isDraftPage ||
+    const theme = useTheme()
+    const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
+    const isEditorPage = (isDraftPage ||
         isTutorialsPath ||
         isSnippetsPath ||
         snippetID !== undefined ||
-        matchExamplePage
-    ) {
-        return <YourCodeHeader/>;
-    }
+        matchExamplePage)
 
     return (
         <>
-            <Box sx={{display: 'flex', ml: 'auto'}}>
-                <RightButton/>
+            <Stack direction={'row'} spacing={1} width={'100%'}>
+                {!isPhoneMedia && (
+                    <>
+                        {isEditorPage && (
+                            <YourCodeHeader/>
+                        )}
+                        <Stack direction={'row'} spacing={1}>
+                            <CommunityButtons/>
+                        </Stack>
+                    </>
+                )}
 
-                <Box ml={1}>
-                    <AccountMenu/>
-                </Box>
-            </Box>
+
+                <Stack direction={'row'} spacing={1} sx={{ml: 'auto'}}>
+                    {isEditorPage && (<SaveState/>)}
+                </Stack>
+            </Stack>
         </>
     );
 };
@@ -115,6 +127,8 @@ const Header = (): React.ReactElement => {
 const TopBar = (): React.ReactElement => {
     const sideBarOpen = useRecoilValue(sideBarOpenState);
     const {isDevPath} = useApp()
+    const theme = useTheme()
+    const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
 
     return (
         <AppBar
@@ -132,11 +146,13 @@ const TopBar = (): React.ReactElement => {
             {isDevPath && <DevModeAlert/>}
 
             <Toolbar disableGutters sx={{mr: 2}}>
-                <Box minWidth={sideBarWidth}>
+                <Box minWidth={isPhoneMedia ? '60px' : sideBarWidth}>
                     <Brand/>
                 </Box>
 
-                <Header/>
+                <Box display={'flex'} ml={"auto"}>
+                    <Header/>
+                </Box>
             </Toolbar>
 
             <Divider/>
