@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Card, Paper,} from "@mui/material";
+import {Box, Card, Paper, Typography,} from "@mui/material";
 import Output from "./Output";
 import {useRecoilValue} from "recoil";
 import {compilerLoadingState, compilerResultState,} from "../../states/RCompilerStates";
@@ -12,7 +12,7 @@ const Results = (): React.ReactElement => {
 
     const {outputString, outputItem} = compilerResult;
     const {isDevPath} = useApp()
-    
+
     return (
         <div>
             <Card
@@ -26,10 +26,14 @@ const Results = (): React.ReactElement => {
             >
                 {outputItem.length === 0 && outputString === "" ? (
                     <Box>
-                        {compilerLoading && (
+                        {compilerLoading ? (
                             <>
                                 <EditorLoading/>
                             </>
+                        ) : (
+                            <Typography variant={'body2'}>
+                                👀 Write some code to see the output.
+                            </Typography>
                         )}
                     </Box>
                 ) : (
