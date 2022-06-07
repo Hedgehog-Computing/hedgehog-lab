@@ -11,6 +11,7 @@ import Timeline from "../pages/Timeline/Timeline";
 import EmailVerification from "../pages/Email/EmailVerification";
 import Home from "../pages/Home/Home";
 import Draft from "../pages/Draft/Draft";
+import Example from "../pages/Example/Example";
 
 export interface IAppRoutes extends RouteObject {
     data?: {
@@ -72,7 +73,7 @@ export const router: IAppRoutes[] = [
             },
             {
                 path: "/example/:exampleName",
-                element: <Main/>,
+                element: <Example/>,
             },
             {
                 path: "",
