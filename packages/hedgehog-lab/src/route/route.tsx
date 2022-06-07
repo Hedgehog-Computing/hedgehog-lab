@@ -2,7 +2,6 @@ import {RouteObject, useLocation, useRoutes} from "react-router-dom";
 import * as React from "react";
 import Account from "../pages/Settings/Account";
 import Layout from "../components/Layout/Layout";
-import Main from "../pages/Main/Main";
 import Snippets from "../pages/Snippets/Snippets";
 import ContainerLayout from "../components/Layout/ContainerLayout";
 import Auth from "../pages/Auth/Auth";
@@ -12,6 +11,7 @@ import EmailVerification from "../pages/Email/EmailVerification";
 import Home from "../pages/Home/Home";
 import Draft from "../pages/Draft/Draft";
 import Example from "../pages/Example/Example";
+import SnippetEditor from "../pages/Snippets/Editor";
 
 export interface IAppRoutes extends RouteObject {
     data?: {
@@ -69,7 +69,7 @@ export const router: IAppRoutes[] = [
             },
             {
                 path: "/s/:userID/:snippetID",
-                element: <Main/>,
+                element: <SnippetEditor/>,
             },
             {
                 path: "/example/:exampleName",
