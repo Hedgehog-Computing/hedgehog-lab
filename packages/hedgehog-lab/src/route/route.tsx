@@ -72,7 +72,7 @@ export const router: IAppRoutes[] = [
                 element: <SnippetEditor/>,
             },
             {
-                path: "/example/:exampleName",
+                path: "/e/example/:exampleName",
                 element: <Example/>,
             },
             {

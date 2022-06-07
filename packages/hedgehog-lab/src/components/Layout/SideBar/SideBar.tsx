@@ -132,7 +132,7 @@ const SideBar = (): React.ReactElement => {
 
     const publicList = [
         {link: '/', icon: <HomeOutlined/>, text: 'Home'},
-        {link: '/example/Empty', icon: <CreateOutlined/>, text: 'New Snippets'},
+        {link: '/e/example/Empty', icon: <CreateOutlined/>, text: 'New Snippets'},
         {link: '/explore', icon: <ExploreOutlined/>, text: 'Explore'},
     ]
 

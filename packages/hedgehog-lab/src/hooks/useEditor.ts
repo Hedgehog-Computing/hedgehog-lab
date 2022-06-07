@@ -168,15 +168,11 @@ export const useEditor = (): any => {
 
     const {snippetID} = useParams();
     const {pathname} = useLocation();
-    const isSnippetsPath = matchPath("snippets/new", pathname);
-    const isTutorialsPath = matchPath("tutorial/*", pathname);
-    const matchExamplePage = useMatch('/example/:exampleName')
+    const isExamplePage = matchPath('/e/example/*', pathname)
     const isDraftPage = matchPath("draft/", pathname);
     const isEditorPage = (isDraftPage ||
-        isTutorialsPath ||
-        isSnippetsPath ||
-        snippetID !== undefined ||
-        matchExamplePage)
+        isExamplePage ||
+        snippetID !== undefined)
 
     return {
         editorCode,

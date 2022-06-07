@@ -7,7 +7,7 @@ import {useEffectOnce} from "react-use";
 
 const Example = () => {
     const {setEditorCode} = useEditor();
-    const mathExamplePage = useMatch('/example/:exampleName')
+    const mathExamplePage = useMatch('/e/example/:exampleName')
 
     useEffectOnce(() => {
         const title = mathExamplePage?.params.exampleName
