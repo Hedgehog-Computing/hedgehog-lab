@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {useEditor} from "../../hooks/useEditor";
 import {useEditorMeta} from "../../hooks/useEditorMeta";
 import Editor from "../../components/Base/Editor/Editor";
+import EditorLoading from "../../components/Base/Editor/Loading";
 
 const SnippetEditor = (): React.ReactElement => {
     const {data} = useEditorMeta()
@@ -15,7 +16,7 @@ const SnippetEditor = (): React.ReactElement => {
 
     return (
         <>
-            <Editor/>
+            {data ? <Editor/> : <EditorLoading/>}
         </>
     );
 };
