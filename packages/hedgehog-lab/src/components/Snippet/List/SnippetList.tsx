@@ -1,5 +1,17 @@
 import {Favorite, FavoriteBorderOutlined, LocalFireDepartmentOutlined,} from "@mui/icons-material";
-import {Box, CardActionArea, Chip, Divider, Link, Paper, Stack, Typography,} from "@mui/material";
+import {
+    Box,
+    CardActionArea,
+    Chip,
+    Divider,
+    Grid,
+    Link,
+    Paper,
+    Stack,
+    Typography,
+    useMediaQuery,
+    useTheme,
+} from "@mui/material";
 import React, {useCallback, useState} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink, useMatch} from "react-router-dom";
@@ -56,6 +68,8 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const [likeLoading, setLikeLoading] = useState(false)
     const [snippets, setSnippets] = useRecoilState(snippetsState)
     const isExplorePage = useMatch('/explore')
+    const theme = useTheme()
+    const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
     const handleLikeSnippet = useCallback((snippetId: string, count: number) => {
         setLikeLoading(true)
         http.post('/snippets/like', {snippetId: snippetId, token: auth.accessToken})
@@ -109,75 +123,90 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
             {snippets.map((item: ISnippetsProps, index: number) => {
                 return (
                     <Box key={index}>
-                        <Box display={"flex"} justifyContent={"space-between"}>
-                            <Box alignItems={"center"} display={"flex"}>
-                                <Link
-                                    component={RouterLink}
-                                    variant={"body1"}
-                                    to={"/u/" + item.user?.username}
-                                    sx={{fontWeight: "bold"}}
-                                >
-                                    {item.user?.username}
-                                </Link>
+                        <Grid container display={"flex"} justifyContent={"space-between"}
+                              spacing={isExplorePage ? 0 : 1}>
+                            <Grid item>
+                                <Box alignItems={"center"} display={"flex"} sx={{
+                                    textOverflow: 'ellipsis',
+                                    overflow: 'hidden',
+                                    whiteSpace: 'nowrap',
+                                }}>
+                                    <Link
+                                        component={RouterLink}
+                                        variant={"body1"}
+                                        to={"/u/" + item.user?.username}
+                                        sx={{fontWeight: "bold"}}
+                                    >
+                                        {item.user?.username}
+                                    </Link>
 
-                                <span style={{margin: " 0 2px"}}>/</span>
+                                    <span style={{margin: " 0 2px"}}>/</span>
 
-                                <Link
-                                    component={RouterLink}
-                                    variant={"body1"}
-                                    to={`/s/${item.user?.username}/${item.title}`}
-                                    sx={{fontWeight: "bold"}}
-                                >
-                                    {item.title}
-                                </Link>
-                            </Box>
+                                    <Link
+                                        component={RouterLink}
+                                        variant={"body1"}
+                                        to={`/s/${item.user?.username}/${item.title}`}
+                                        sx={{
+                                            fontWeight: "bold",
+                                        }}
+                                    >
+                                        {item.title}
+                                    </Link>
+                                </Box>
+                            </Grid>
 
-                            <Stack spacing={1} direction={'row'} display={'flex'} alignItems={'center'}>
-                                <Chip variant={'outlined'} label={`${kFormatter(item.loadingTimes * 14)} hot`}
-                                      icon={<LocalFireDepartmentOutlined fontSize={'small'}/>}
-                                      sx={{
-                                          height: 24,
-                                          '& .MuiChip-icon': {
-                                              color: red[500]
-                                          }
-                                      }}/>
-                                <Chip variant={"outlined"} label={item.visibility} sx={{
-                                    height: 24,
-                                    fontSize: "0.8125rem",
-                                }}/>
-                                {!(isExplorePage && search.text) && (<LoadingButton
-                                    disabled={!auth.user.username}
-                                    loading={likeLoading}
-                                    onClick={() => {
-                                        handleLikeSnippet(item.id, item._count?.snippetLike)
-                                    }}
-                                    variant={'contained'}
-                                    size="small"
-                                    sx={{
-                                        bgcolor: grey[300], height: 24, color: '#000',
-                                        '&:hover': {
-                                            bgcolor: grey[400]
-                                        }
-                                    }}
-                                    startIcon={isCurrentUserLike(item?.snippetLike)
-                                        ? <Favorite/>
-                                        : <FavoriteBorderOutlined/>}
-                                >
-                                    {item._count?.snippetLike} liked
-                                </LoadingButton>)}
+                            <Grid item>
+                                <Stack direction={(isPhoneMedia && !isExplorePage) ? 'column' : 'row'} spacing={1}>
+                                    <Stack spacing={1} direction={'row'} display={'flex'} alignItems={'center'}>
+                                        <Chip variant={'outlined'} label={`${kFormatter(item.loadingTimes * 14)} hot`}
+                                              icon={<LocalFireDepartmentOutlined fontSize={'small'}/>}
+                                              sx={{
+                                                  height: 24,
+                                                  '& .MuiChip-icon': {
+                                                      color: red[500]
+                                                  }
+                                              }}/>
+                                        <Chip variant={"outlined"} label={item.visibility} sx={{
+                                            height: 24,
+                                            fontSize: "0.8125rem",
+                                        }}/>
+                                        {!(isExplorePage && search.text) && (<LoadingButton
+                                            disabled={!auth.user.username}
+                                            loading={likeLoading}
+                                            onClick={() => {
+                                                handleLikeSnippet(item.id, item._count?.snippetLike)
+                                            }}
+                                            variant={'contained'}
+                                            size="small"
+                                            sx={{
+                                                bgcolor: grey[300], height: 24, color: '#000',
+                                                '&:hover': {
+                                                    bgcolor: grey[400]
+                                                }
+                                            }}
+                                            startIcon={isCurrentUserLike(item?.snippetLike)
+                                                ? <Favorite/>
+                                                : <FavoriteBorderOutlined/>}
+                                        >
+                                            {item._count?.snippetLike} liked
+                                        </LoadingButton>)}
+                                    </Stack>
 
-                                {isMe && <UpdatedSnippet id={item.id} content={item.content}/>}
+                                    <Stack spacing={1} direction={'row'}>
+                                        {isMe && <UpdatedSnippet id={item.id} content={item.content}/>}
 
-                                <SharePopup size="small"
-                                            type={'icon'}
-                                            script={`import @${item.user?.username}/${item.title}`}
-                                            embed={`https://hlab.app/s/${item.user?.username}/${item.title}`}
-                                            url={`https://hlab.app/s/${item.user?.username}/${item.title}`}/>
+                                        <SharePopup size="small"
+                                                    type={'icon'}
+                                                    script={`import @${item.user?.username}/${item.title}`}
+                                                    embed={`https://hlab.app/s/${item.user?.username}/${item.title}`}
+                                                    url={`https://hlab.app/s/${item.user?.username}/${item.title}`}/>
 
-                                {isMe && <DeletePopup size="small"
-                                                      snippet={{name: item.title, id: item.id}}/>}
-                            </Stack>
-                        </Box>
+                                        {isMe && <DeletePopup size="small"
+                                                              snippet={{name: item.title, id: item.id}}/>}
+                                    </Stack>
+                                </Stack>
+                            </Grid>
+                        </Grid>
 
                         <Box>
                             <Typography variant={"body2"}>
