@@ -14,6 +14,7 @@ import {http} from "../../../network/http";
 import {LoadingButton} from "@mui/lab";
 import UpdatedSnippet from "../UpdatedSnippet";
 import {grey, red} from "@mui/material/colors";
+import {kFormatter} from "../../../utils/kFormatter";
 
 dayjs.extend(relativeTime)
 
@@ -132,7 +133,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                             </Box>
 
                             <Stack spacing={1} direction={'row'} display={'flex'} alignItems={'center'}>
-                                <Chip variant={'outlined'} label={`${item.loadingTimes * 14} hot`}
+                                <Chip variant={'outlined'} label={`${kFormatter(item.loadingTimes * 14)} hot`}
                                       icon={<LocalFireDepartmentOutlined fontSize={'small'}/>}
                                       sx={{
                                           height: 24,
