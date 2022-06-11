@@ -146,7 +146,7 @@ const TopBar = (): React.ReactElement => {
                     <Brand/>
                 </Box>
 
-                {isEditorPage && (
+                {(isEditorPage) && (
                     <SaveState/>
                 )}
 

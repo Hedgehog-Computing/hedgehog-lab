@@ -26,7 +26,7 @@ const Editor = () => {
             {!isPhoneMedia ? (
                 <Box display={'flex'}>
                     {!resultFullScreen &&
-                        (<ResizableColumn maxWidth={1000} minWidth={200} width={editorWidth}>
+                        (<ResizableColumn maxWidth={editorWidth} minWidth={200} width={editorWidth}>
                             <YourCode/>
                         </ResizableColumn>)}
 

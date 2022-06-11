@@ -12,7 +12,7 @@ const GettingStarted = () => {
             <Grid container spacing={1}>
                 {tutorials.map((tutorial, index) => {
                     return (
-                        <GridItem key={index} link={`example/${tutorial.description}`} title={tutorial.description}/>
+                        <GridItem key={index} link={`/e/example/${tutorial.description}`} title={tutorial.description}/>
                     );
                 })}
             </Grid>
