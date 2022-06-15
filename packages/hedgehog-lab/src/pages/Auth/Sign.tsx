@@ -14,7 +14,7 @@ import {useAuth} from "../../hooks/useAuth";
 const SignAction = () =>
     (
         <AuthAction
-            action={{text: 'Sign In'}}
+            action={{text: 'Sign Up'}}
             signOrLogin={{text: 'Already a member?', actionText: 'Log in', action: 'login'}}
         />
     )
