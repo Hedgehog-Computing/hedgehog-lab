@@ -57,11 +57,11 @@ const SharePopup: React.FC<ISharePopupProps> = (props) => {
                         <CopyInput url={`*${props.script}`}/>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        <CopyInput url={props.url}/>
+                        <CopyInput url={encodeURIComponent(props.url)}/>
                     </TabPanel>
                     <TabPanel value={value} index={2}>
                         <CopyInput
-                            url={`<iframe src='${props.embed}' width='100%' height='100%' />`}/>
+                            url={`<iframe src='${encodeURIComponent(props.embed)}' width='100%' height='100%' />`}/>
                     </TabPanel>
                 </Box>
             </BasePopupButton>
