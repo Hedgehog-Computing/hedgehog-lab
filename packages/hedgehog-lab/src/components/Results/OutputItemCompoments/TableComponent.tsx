@@ -83,7 +83,7 @@ const TableComponent: React.FC<TableComponentProps> = (
         })
 
         setTableCells(res)
-        // console.log(tableHeader)
+        console.log(tableHeader)
         console.log(tableCells)
     }, [cells])
 
