@@ -12,6 +12,7 @@
     "@mui/lab": "^5.0.0-alpha.84",
     "@mui/material": "^5.8.2",
     "@mui/styles": "^5.8.0",
+    "@mui/x-data-grid": "^5.12.2",
     "@tensorflow/tfjs": "^2.7.0",
     "@types/react-syntax-highlighter": "^13.5.2",
     "axios": "^0.26.1",
