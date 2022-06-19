@@ -17,6 +17,7 @@ const TableComponent: React.FC<TableComponentProps> = (
     const [order, setOrder] = React.useState<"asc" | "desc">("asc");
     const [orderBy, setOrderBy] = React.useState("");
     const [page, setPage] = useState<number>(0);
+    const [pageSize, setPageSize] = React.useState<number>(20);
 
     const currentTableExtend = currentTable as any
     const currentTableOptions = currentTableExtend?.options;
@@ -108,7 +109,9 @@ const TableComponent: React.FC<TableComponentProps> = (
                     getRowId={(row) => row.id}
                     columns={tableHeader}
                     rowsPerPageOptions={[20, 50, 100]}
-                    pageSize={20}
+                    pageSize={pageSize}
+                    onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+                    pagination
                     rows={tableCells}/>)}
             </Card>
         </>
