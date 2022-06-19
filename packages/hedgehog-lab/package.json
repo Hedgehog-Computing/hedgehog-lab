@@ -1,11 +1,11 @@
 {
-  "name": "@hedgehog/lab",
+  "name": "@hedgehogcomputing/lab",
   "version": "0.7.0",
   "license": "Apache-2.0",
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
-    "@hedgehog/core": "0.7.0",
+    "@hedgehogcomputing/core": "0.7.0",
     "@hookform/resolvers": "^2.8.3",
     "@monaco-editor/react": "^3.4.2",
     "@mui/icons-material": "^5.8.2",

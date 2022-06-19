@@ -1,5 +1,5 @@
 import * as Comlink from 'comlink';
-import { executeOutput } from '@hedgehog/core';
+import { executeOutput } from '@hedgehogcomputing/core';
 
 const outputWorker = {
   output: async (e: any) => executeOutput(e)

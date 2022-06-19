@@ -1,4 +1,4 @@
-import {isTableItem, OutputItem} from "@hedgehog/core";
+import {isTableItem, OutputItem} from "@hedgehogcomputing/core";
 
 import React, {useCallback, useEffect, useState} from "react";
 import Table from "@mui/material/Table";

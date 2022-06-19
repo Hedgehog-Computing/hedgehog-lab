@@ -4,7 +4,7 @@ import Plot from 'react-plotly.js';
 import MathJax from 'react-mathjax';
 import Markdown from 'react-markdown';
 import TableComponent from './OutputItemCompoments/TableComponent';
-import {isDrawingItem, isFormulaItem, isMarkdownItem, isTableItem, isTeXItem, isEChartItem, OutputItem, isTextItem} from '@hedgehog/core';
+import {isDrawingItem, isFormulaItem, isMarkdownItem, isTableItem, isTeXItem, isEChartItem, OutputItem, isTextItem} from '@hedgehogcomputing/core';
 import type {CodeComponent} from 'react-markdown/src/ast-to-react'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {useRecoilValue} from "recoil";

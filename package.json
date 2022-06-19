@@ -1,5 +1,5 @@
 {
-  "name": "@hedgehog/root",
+  "name": "@hedgehogcomputing/root",
   "private": true,
   "version": "0.0.0",
   "license": "Apache-2.0",
@@ -12,9 +12,9 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "init": "lerna add @hedgehog/core --scope @hedgehog/lab",
-    "dev:web": "lerna exec --scope @hedgehog/lab yarn start",
-    "build:core": "lerna exec --scope @hedgehog/core yarn build",
+    "init": "lerna add @hedgehogcomputing/core --scope @hedgehogcomputing/lab",
+    "dev:web": "lerna exec --scope @hedgehogcomputing/lab yarn start",
+    "build:core": "lerna exec --scope @hedgehogcomputing/core yarn build",
     "watch": "lerna run --parallel watch",
     "build": "lerna run build --stream",
     "postinstall": "patch-package",
