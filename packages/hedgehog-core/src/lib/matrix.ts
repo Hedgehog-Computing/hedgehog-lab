@@ -907,13 +907,13 @@ function multiply_gpu(leftMat: Mat, rightMat: Mat): Mat {
   const mulfunction_string = mulfunction_part_1 + n.toString() + mulfunction_part_2;
 
   // FIXME: evil as any
-  const multiplyMatrix = gpu.createKernel(mulfunction_string as any).setOutput([m, p]);
+  const multiplyMatrix = gpu.createKernel(mulfunction_string as any).setOutput([p, m]);
 
   const c = multiplyMatrix(leftMat.val, rightMat.val);
   const returnMat = new Mat();
   returnMat.val = c as number[][];
-  returnMat.rows = m;
-  returnMat.cols = p;
+  returnMat.rows = p;
+  returnMat.cols = m;
   return returnMat;
 }
 
