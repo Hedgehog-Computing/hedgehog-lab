@@ -13,7 +13,7 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "@hedgehog/*": ["packages/*/src"]
+      "@hedgehogcomputing/*": ["packages/*/src"]
     }
   }
 }

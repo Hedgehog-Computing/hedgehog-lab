@@ -1,5 +1,5 @@
 /*
-  Table is the data tructure that's designed for tabular data 
+  Table is the data tructure that's designed for tabular data
   such as CSV file or matrix in CSV format as data frame
 */
 
@@ -19,18 +19,14 @@ export class Table {
   headers: string[];
 
   // containsHeaders is true if this table contains headers
-  containsHeaders: boolean;
+  containsHeaders: boolean | any[];
 
-  /* The constructor contains three parameters: 
-                    1. input a. raw csv string or b. 2-D string array as the raw data
-                    2. boolean header? if it contains headers
-                  */
+  /* The constructor contains three parameters:
+                          1. input a. raw csv string or b. 2-D string array as the raw data
+                          2. boolean header? if it contains headers
+                        */
   constructor(input?: string | string[][] | Table, header?: boolean) {
-    if (header === undefined) {
-      this.containsHeaders = false;
-    } else {
-      this.containsHeaders = header;
-    }
+    this.containsHeaders = header ?? [];
     this.cells = new Array(0);
     this.rows = 0;
     this.cols = 0;

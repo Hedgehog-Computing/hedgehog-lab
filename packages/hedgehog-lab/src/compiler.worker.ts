@@ -1,5 +1,5 @@
 import * as Comlink from 'comlink';
-import { transpile } from '@hedgehog/core';
+import { transpile } from '@hedgehogcomputing/core';
 
 const compilerWorker = {
   compile: (e: any) => transpile(e)
