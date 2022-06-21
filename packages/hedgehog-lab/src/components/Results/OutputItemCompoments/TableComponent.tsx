@@ -1,4 +1,4 @@
-import {isTableItem, OutputItem} from "@hedgehog/core";
+import {isTableItem, OutputItem} from "@hedgehogcomputing/core";
 
 import React, {useCallback, useEffect, useState} from "react";
 import {DataGrid} from "@mui/x-data-grid";

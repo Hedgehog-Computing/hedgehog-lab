@@ -1,6 +1,6 @@
 import CompilerWorker from "./compiler.worker.ts"
 import OutputWorker from "./output.worker.ts"
-import {isTextItem, OutputItem} from "@hedgehog/core"
+import {isTextItem, OutputItem} from "@hedgehogcomputing/core"
 import * as Comlink from "comlink"
 
 export interface OutputResult {
