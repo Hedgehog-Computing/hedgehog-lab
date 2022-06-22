@@ -14,7 +14,7 @@ const CommunityButtons = () => {
         {
             text: 'Book',
             icon: <LibraryBooksOutlined/>,
-            link: 'https://hedgehog-computing.github.io/hedgehog-lab/'
+            link: 'https://hedgehog-computing.github.io/'
         },
         {
             text: 'Discord',
