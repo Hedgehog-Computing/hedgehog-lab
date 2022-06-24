@@ -12,7 +12,7 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import React, {useCallback, useState} from "react";
+import React, {useCallback, useState, useEffect} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink, useMatch} from "react-router-dom";
 import {useRecoilState, useRecoilValue} from "recoil";
@@ -70,6 +70,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
     const isExplorePage = useMatch('/explore')
     const theme = useTheme()
     const isPhoneMedia = useMediaQuery(theme.breakpoints.down("md"));
+    const [hostname, setHostname] = useState('https://hlab.app');
     const handleLikeSnippet = useCallback((snippetId: string, count: number) => {
         setLikeLoading(true)
         http.post('/snippets/like', {snippetId: snippetId, token: auth.accessToken})
@@ -86,6 +87,10 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
             setLikeLoading(false)
         })
     }, [auth.accessToken])
+
+    useEffect( () => {
+        setHostname('https://' + window.location.hostname);
+    }, [])
 
     const isCurrentUserLike = (snippetLike?: ISnippetLikeProps[]) => {
         return snippetLike ? snippetLike?.find(like => like.userId === auth.user.id) : false
@@ -198,8 +203,8 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                         <SharePopup size="small"
                                                     type={'icon'}
                                                     script={`import @${item.user?.username}/${item.title}`}
-                                                    embed={`https://hlab.app/s/${item.user?.username}/${item.title}`}
-                                                    url={`https://hlab.app/s/${item.user?.username}/${item.title}`}/>
+                                                    embed={`${hostname}/s/${item.user?.username}/${item.title}`}
+                                                    url={`${hostname}/s/${item.user?.username}/${item.title}`}/>
 
                                         {isMe && <DeletePopup size="small"
                                                               snippet={{name: item.title, id: item.id}}/>}
