@@ -56,30 +56,6 @@ function pow(x: Mat | number[][] | number[] | number, y: number): Mat {
   return to_matrix(x).each((eachElement) => Math.pow(eachElement, y));
 }
 
-function round(A: Mat | number[][] | number[] | number): Mat {
-  return to_matrix(A).each(Math.round);
-}
-
-function sign(A: Mat | number[][] | number[] | number): Mat {
-  return to_matrix(A).each(Math.sign);
-}
-
-function sqrt(A: Mat | number[][] | number[] | number): Mat {
-  return to_matrix(A).each(Math.sqrt);
-}
-
-function trunc(A: Mat | number[][] | number[] | number): Mat {
-  return to_matrix(A).each(Math.trunc);
-}
-
-function floor(A: Mat | number[][] | number[] | number): Mat {
-  return to_matrix(A).each(Math.floor);
-}
-
-function ceil(A: Mat | number[][] | number[] | number): Mat {
-  return to_matrix(A).each(Math.ceil);
-}
-
 function exp(A: Mat | number[][] | number[] | number): Mat {
   return to_matrix(A).each(Math.exp);
 }
@@ -97,11 +73,6 @@ export default {
   abs,
   acos,
   acosh,
-  sign,
-  sqrt,
-  trunc,
-  floor,
-  ceil,
   exp,
   log,
   asin,
@@ -110,6 +81,5 @@ export default {
   atanh,
   tan,
   tanh,
-  pow,
-  round
+  pow
 };

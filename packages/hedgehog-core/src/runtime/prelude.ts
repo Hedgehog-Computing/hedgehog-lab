@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import nerdamer from 'nerdamer/all';
 
@@ -173,36 +174,6 @@ export function acosh(A: Mat | number[][] | number[] | number | Sym): Mat | Sym 
   }
   return _MathLib.acosh(A);
 }
-export function sign(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
-  if (typeof A === 'number') {
-    return Math.sign(A);
-  }
-  return _MathLib.sign(A);
-}
-export function sqrt(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
-  if (typeof A === 'number') {
-    return Math.sqrt(A);
-  }
-  return _MathLib.sqrt(A);
-}
-export function trunc(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
-  if (typeof A === 'number') {
-    return Math.trunc(A);
-  }
-  return _MathLib.trunc(A);
-}
-export function floor(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
-  if (typeof A === 'number') {
-    return Math.floor(A);
-  }
-  return _MathLib.floor(A);
-}
-export function ceil(A: Mat | number[][] | number[] | number): Mat | Tensor | number {
-  if (typeof A === 'number') {
-    return Math.ceil(A);
-  }
-  return _MathLib.ceil(A);
-}
 export function exp(A: Mat | number[][] | number[] | number | Sym): Mat | Sym | number | Tensor {
   if (A instanceof Sym) {
     return sym('exp(' + A.expression + ')');
@@ -284,13 +255,6 @@ export function pow(A: Mat | number[][] | number[] | number, y: number): Mat | n
   }
   return _MathLib.pow(A, y);
 }
-export function round(A: Mat | number[][] | number[] | number): Mat | number | Tensor {
-  if (typeof A === 'number') {
-    return Math.round(A);
-  }
-  return _MathLib.round(A);
-}
-
 //matrix constructors
 export function Ns(row: number, col: number, N: number): Mat {
   return mat().Ns(row, col, N);
@@ -313,7 +277,6 @@ export function random(row: number, col?: number): Mat {
 export function range(start: number, end = null, step = 1): Mat {
   return mat().range(start, end, step);
 }
-
 
 //tic and toc
 let timestamp = 0;
@@ -502,6 +465,7 @@ export function get(input: string): string {
   return fetch(input).text();
 }
 
-export function echart(input: any) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function echart(input: any): void {
   _OUTPUT_ITEMS_LIST_.push({ itemType: 'ECHART', option: input });
 }

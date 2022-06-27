@@ -119,6 +119,7 @@ export class Tensor {
     for (let i = 0; i < 16; i++) {
       // eslint-disable-next-line prefer-rest-params
       if (arguments[i] !== undefined) {
+        // eslint-disable-next-line prefer-rest-params
         if (arguments[i] === 0) {
           throw 'The dimension of the initialized zeros tensor cannot be zero.';
         }
