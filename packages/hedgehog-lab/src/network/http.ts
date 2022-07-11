@@ -11,7 +11,7 @@ switch (hostname) {
         url = "https://api.hlab.app";
         break;
     default:
-        url = "http://localhost:9000";
+        url = "https://api.hlab.app";
 }
 
 axios.defaults.timeout = 100000;
