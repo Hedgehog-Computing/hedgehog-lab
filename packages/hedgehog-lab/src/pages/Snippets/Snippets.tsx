@@ -14,6 +14,7 @@ import {EditOutlined} from "@mui/icons-material";
 import BasePopupButton from "../../components/Base/Popup/BasePopupButton";
 import UserDescriptionInput from "../../components/Base/Input/Description/UserDescriptionInput";
 import {FormProvider, SubmitHandler, useForm} from "react-hook-form";
+import Meta from '../../components/Meta/Meta';
 
 interface IUpdateUserDescription {
     description: string
@@ -89,6 +90,7 @@ const Snippets = (): React.ReactElement => {
 
     return (
         <>
+            <Meta title='Snippets' />
             <Grid container spacing={3}>
                 <Grid item xs={12} md={3}>
                     <Card elevation={0} variant="outlined">

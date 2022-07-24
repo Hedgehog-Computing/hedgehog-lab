@@ -4,6 +4,7 @@ import {tutorials} from "../../tutorials";
 import {useEditor} from "../../hooks/useEditor";
 import {useMatch} from "react-router-dom";
 import {useEffectOnce} from "react-use";
+import Meta from '../../components/Meta/Meta';
 
 const Example = () => {
     const {setEditorCode} = useEditor();
@@ -21,6 +22,7 @@ const Example = () => {
 
     return (
         <>
+            <Meta title='Demo'/>
             <Editor/>
         </>
     );

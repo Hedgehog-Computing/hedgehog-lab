@@ -11,7 +11,7 @@ import {fetcher} from "../../network/fetcher";
 import {formatDate} from "../../components/Snippet/List/SnippetList";
 import {http} from "../../network/http";
 import EditorLoading from "../../components/Base/Editor/Loading";
-
+import Meta from '../../components/Meta/Meta';
 
 const Timeline = () => {
     const [loading, setLoading] = React.useState(false);
@@ -39,6 +39,7 @@ const Timeline = () => {
 
     return (
         <>
+            <Meta title='Timeline'/>
             {(data && data.response.result) ? data.response.result.data.map((item: any, index: number) => {
                 return (
                     <>

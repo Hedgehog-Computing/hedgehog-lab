@@ -6,7 +6,7 @@ import {IFormInput} from "../../interfaces/IFormInput";
 import {accountRule} from "../../models/account/accountModal";
 import {useAuth} from "../../hooks/useAuth";
 import {useNavigate} from "react-router-dom";
-
+import Meta from '../../components/Meta/Meta';
 
 const Header = (): React.ReactElement => (
     <Box textAlign={"center"} mb={'30px'}>
@@ -36,30 +36,31 @@ const AccountForm = () => {
     }, [auth])
 
     return (
-
-        <Card variant={"outlined"}>
-            <Box m={'20px'}>
-                <Grid container spacing={2}>
-                    <Grid item xs={2} alignSelf={'center'}>
-                        <Typography variant={'body1'}>
-                            Email {auth.user?.email}
-                        </Typography>
+        <>
+            <Meta title='Account'/>
+            <Card variant={"outlined"}>
+                <Box m={'20px'}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={2} alignSelf={'center'}>
+                            <Typography variant={'body1'}>
+                                Email {auth.user?.email}
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={10}>
+                            <OutlinedInput value={auth.user?.email} disabled fullWidth/>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={10}>
-                        <OutlinedInput value={auth.user?.email} disabled fullWidth/>
-                    </Grid>
-                </Grid>
 
 
-                <Box textAlign={'end'}>
-                    <Button variant={"contained"} sx={{mt: '20px'}}
-                            onClick={changePassword}>
-                        Rest Password
-                    </Button>
+                    <Box textAlign={'end'}>
+                        <Button variant={"contained"} sx={{mt: '20px'}}
+                                onClick={changePassword}>
+                            Rest Password
+                        </Button>
+                    </Box>
                 </Box>
-            </Box>
-        </Card>
-
+            </Card>
+        </>
     )
 }
 
