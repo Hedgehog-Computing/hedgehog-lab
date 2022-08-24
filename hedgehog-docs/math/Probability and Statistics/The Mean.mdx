@@ -1,0 +1,16 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `mean(input: any[] | Mat | Tensor) : Number`
+
+**param** `input` a JS array, matrix or tensor, or a series of numbers, that contains the data for finding the mean
+
+**returns** - `Number` - a number representing the mean (average) of `input`
+
+This function simply finds the mean of the data given in `input`. The mean or sometimes called the average, is simply the sum of all elements, divided by the number of elements. It can be thought of as the 'center' of the data, as it accounts all values, high and low and tries to go in the middle. 
+
+Note that the mean is prone to abuse by data that is very extreme. Suppose you have a data set of [2,3,4,2,3,100,2]. The 100 is clearly extreme, or an 'outlier', and this will affect the mean dramatically. There are methods that reduce this inconsistency by removing or performing other operations on outliers. 
+
+<iframe src="https://hlab.app/s/LinJianan/mean_book"
+    width="100%"
+    height="500px">
+</iframe>

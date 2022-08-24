@@ -1,0 +1,20 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `is_local_max(input: any[] | Mat | Tensor, dim: Number) : Mat | Tensor`
+
+
+**param** `input` a JS array, matrix or tensor, the construct to find the local maximum value of the input
+
+**param** `dim` - '0' (row) or '1' (column) - the direction to go across in finding the local maxima
+
+**returns** `Mat | Tensor` - a matrix or tensor with 1 denoting the local max value was there and 0 denoting that it wasn't.
+
+Notice if `dim` is 1, then `input` must be a 2-d matrix
+
+This function simply finds all the local maximum value **locations** of the input.
+
+<iframe src="https://hlab.app/s/LinJianan/is_local_max_book"
+    width="100%"
+    height="500px">
+</iframe>

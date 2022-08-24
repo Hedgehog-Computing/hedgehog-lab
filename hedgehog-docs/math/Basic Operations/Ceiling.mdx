@@ -1,0 +1,17 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `ceil(input: any[] | Mat | Tensor) : Number | any[] | Mat | Tensor`
+
+**param** `input` a number, or an array, matrix, tensor to get the ceiling. 
+
+**returns** `Number | any[] | Mat | Tensor` - the ceiling value of the element or elements, element-wise
+
+This function simply finds the ceiling of numbers. For example ceil(1.5) = 2, ceil(-1.5) = -1. This can also find the ceiling of numbers element-wise, given a 1d array, 2d array, Mat object, Tensor or just a list of numbers such as this:
+ceil(1.5,-1.5) = 2,-1.
+
+
+<iframe src="https://hlab.app/s/LinJianan/ceil_book"
+    width="100%"
+    height="500px">
+</iframe>

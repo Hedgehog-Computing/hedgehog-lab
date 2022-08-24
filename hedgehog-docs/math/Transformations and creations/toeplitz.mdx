@@ -1,0 +1,26 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+##this isnt working correctly, fix toeplitz (toeplitzsquare is not a constructor)
+
+#### `name(c: any[], r: any[]) : Mat`
+
+**param** `c` - OPTIONAL PARAMETER - a 1xn matrix that defines the first column of the final matrix. This is not necessary 
+
+**param** `r` - a 1xn matrix that defines the first row of the final matrix. This is necessary and defines the structure of the Toeplitz matrix. 
+
+**returns:** `Mat` - a matrix, namely the Toeplitz matrix, of size n x n, where n is the size of the parameter matrix, or rather, the length of it. 
+
+Toeplitz matrices are matrices with entries on the diagonals all being equal (every diagonal, not just the main diagonal) Example:
+  1 2 3 4 5
+  6 1 2 3 4
+  7 6 1 2 3 is a Toeplitz matrix. 
+  
+  This function constructs or creates a toeplitz matrix **given** a 1 x n matrix, that is the first row of the final matrix. Optionally you can give another parameter, `c`, the first column of the final matrix. It also needs to be given as a 1 x n matrix. These given matrices define the creation of the toeplitz matrix and its structure. 
+
+
+
+<iframe src="https://hlab.app/s/docs/hbook_toeplitz"
+    width="100%"
+    height="500px">
+</iframe>

@@ -1,0 +1,18 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `shape(input: any[] | Mat | Tensor) : any[]`
+
+**param** `input` - The construct you want to find the shape of. Can be a 1d array/list, 2d matrix, higher dimension JS array or Mat object or Tensor. 
+ 
+
+**returns:** `any[]` - A row vector specifying the shape. Namely, the numbers in each index represent the length of each dimension. For example a return value of [3,4] means the shape of the construct was a 3x4 matrix. It had 3 rows and 4 columns. A return value of [10] is the length of the list, i.e. the shape of the 1d array. It has 1 dimension, and that dimension has length 10.
+
+This function gives us the shape of various constructs whether they are 1d, 2d, or higher dimensional JS arrays, Mat objects or Tensors. The shape is a row vector that informs us of the lengths of each dimension of said construct. For example, if you were to have a large matrix with 100 rows and 50 columns, I would tell you the shape is [100,50]. If it was a list with 20 elements, it would be a shape of [20]. If it was a tensor with 5 dimensions, where dimension 1 had 3 rows, dimension 2 had 4 columns, dimension 3 had height 3, dimension 4 had length 2, and dimension 5 had length 4, we would have a shape of [3,4,3,2,4].
+
+
+
+<iframe src="https://hlab.app/s/docs/hbook_shape"
+    width="100%"
+    height="500px">
+</iframe>

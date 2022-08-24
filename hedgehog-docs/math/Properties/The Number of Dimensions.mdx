@@ -1,0 +1,15 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `ndim(input: any[] | Mat | Tensor | number) : Number`
+
+**param** `input` - Any JavaScript array, Mat, Tensor or even a number
+
+**returns:** `Number` - The dimension of the structure. 
+
+This function, while small, is quite useful. It determines the dimension of a structure. For example, a vector is 1-dimensional. A 2-d array is 2-dimensional. A 3-d array or 3d tensor is of dimension 3 and so on. A number has dimension 0. Very useful for splitting cases based on dimension type.
+
+<iframe src="https://hlab.app/s/docs/ndim_hbook"
+    width="100%"
+    height="500px">
+  </iframe>

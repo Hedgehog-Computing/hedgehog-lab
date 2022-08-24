@@ -1,0 +1,47 @@
+---
+sidebar_position: 7
+---
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# The Mat Object
+
+The `Mat` Object is unique to Hedgehog Lab and represents a matrice. It can be 1 dimensional, 2d, 3d and so on. 
+
+To declare one, it's like declaring an instance of a JavaScript object (by using the `new` keyword): 
+
+
+  <iframe src="https://hlab.app/s/docs/mat1_hbook"
+    width="100%"
+    height="500px"
+  ></iframe>
+
+
+Don't forget to use `( )` to construct it!
+
+### We support many functions for matrices ...
+
+from basic summation, multiplication, cross products, decomposition, filtering for preprocessing data and more. All built in, easy to use. We will cover some
+over the course of this book and in the back there will be a reference for all current stable functions. 
+
+The fundamental properties of the `Mat` object are these:
+
+`row`, `cols`, `val`. And from `val` stems `val.length`, `val[0].length`. These are vital for matrices. `val` is especially important as it allows one to transform a Mat
+object into a JavaScript array whenever necessary. 
+
+
+  <iframe src="https://hlab.app/s/docs/mat2_hbook"
+    width="100%"
+    height="500px"
+  ></iframe>
+
+
+All built in functions for Hedgehog lab work for both JavaScript arrays, `Tensor` objects and `Mat` objects. However, if you only have a JavaScript array you are limited to JavaScript's libraries. Here are some examples of using `Mat` or its counterpart in a function:
+
+
+  <iframe src="https://hlab.app/s/docs/mat3_hbook"
+        width="100%"
+    height="500px"
+  ></iframe>
+
+
+
