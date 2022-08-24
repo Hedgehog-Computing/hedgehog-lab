@@ -1,0 +1,22 @@
+/**
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function thats a unit test for the lu function/wrapper
+ */
+
+
+
+function lu_test() {
+
+    *import math: lu
+
+    let a = [[1, 2], [4, 5]];
+    if (!(lu(a).L === [[1, 0], [0.25, 1]]) ||
+        !(lu(a).U === [[4, 5], [0, 0.75]]) ||
+        !(lu(a).p === [[1, 0]])) {
+        throw new Error('LU unit test failed.Note there may be multiple answers to 1 solution by different factors.');
+    }
+
+}

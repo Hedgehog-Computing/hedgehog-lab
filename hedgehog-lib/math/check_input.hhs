@@ -1,0 +1,50 @@
+/**
+ * @author Jing Stone
+ * @param input input must be a JS array
+ * @return true if input is 2d matrix of 1d list
+ *  check the input array if it is a matrix or a vector(1d list)
+ *  
+ */
+
+function check_input(input)
+{
+  if(!Array.isArray(input)) return false;
+
+  let inputLength = input.length;
+  // empty array [] 
+  if(inputLength === 0) return true;
+  // check if it is a vector
+  if(typeof input[0] === 'number')
+  {
+    for(let i = 0; i < inputLength; i++)
+    {
+      if(!(typeof input[i] === 'number'))
+      {
+        return false;
+      }
+    }
+  }
+  // check if it is a matrix
+  else
+  {
+    let col = input.length;
+    let row = input[0].length;
+    // not allowed [[]]
+    if(row === 0) return false;
+    // a matrix should have the same length of column and row
+    // while the column can not equal to row
+    for(let i = 0; i < col; i++)
+    {
+      if(!Array.isArray(input[i])) return false;
+      if(!input[i].length === row) return false;
+      for(let j = 0; j < row; j++)
+      {
+        if(!(typeof input[i][j] === 'number'))
+        {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}

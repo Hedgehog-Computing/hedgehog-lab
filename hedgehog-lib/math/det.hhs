@@ -1,0 +1,64 @@
+/**
+ * @author Jason Reynolds
+ * @param input the square matrix to take in and find the determinant of
+ * @returns the determinant of the matrix, as a number
+ * 
+ * functions finds determinant of a matrix, wrapper functions from mathjs
+ */
+
+
+
+function det(input) {
+
+    *import math: ndim
+
+    // wrong argument number
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in det - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in det - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in det - input is not a Mat, Tensor or JS Array');
+    }
+
+    // dimension check
+    if (ndim(input) !== 2) {
+        throw new Error('Exception occurred in det - input is not 2-dimensional');
+    }
+
+    //set raw_in to be either a clone of Mat or input itself if JS array
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = (in_type) ? input.clone() : input;
+
+    //in the case that it's an input of Mat
+    if (input instanceof Mat) {
+
+        //check the dimensions: are rows, cols 0? is it not square? if so, throw error 
+        if (input.rows === 0 || input.cols === 0 || !(input.rows === input.cols)) {
+            throw new Error('Exception occurred in det - wrong dimensions for input');
+        }
+        //since it's Mat, degrade to JS array
+        raw_in = raw_in.val;
+        //plug it into mathjs.det and return 
+        return mathjs.det(raw_in);
+
+    }
+
+    //in the case that it's a JS array or Tensor
+    else {
+        //again check the input. is any dim 0? is it not square? if so, throw error.
+        if (in_type) {
+            input = raw_in.val;
+        }
+        if (input.length === 0 || input[0].length === 0 || !(input.length === input[0].length)) {
+            throw new Error('Exception occurred in det - wrong dimensions for input');
+        }
+        //plug in input clone into mathjs.det and return. Technically since det doesn't modify you could use parameter 'input'
+        return mathjs.det(input);
+    }
+}
+

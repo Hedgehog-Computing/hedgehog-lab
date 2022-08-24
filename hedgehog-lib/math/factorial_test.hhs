@@ -1,0 +1,36 @@
+/**
+ * @author Jason Reynolds
+ * @param 
+ * @returns
+ * 
+ * Function for testing factorial.hhs
+ */
+
+
+function factorial_test() {
+
+    *import math: factorial
+
+    let a = 5;
+    if (factorial(a) !== 120) {
+        throw new Error('Unit test failed for number for factorial');
+    }
+
+    let b = [1, 2, 3];
+    if (!(factorial(b) === [1, 2, 6])) {
+        throw new Error('Unit test failed for array for factorial');
+    }
+
+    let c = mat([[1, 2], [3, 4]]);
+    if (!(factorial(c) === mat([[1, 2], [6, 24]]))) {
+        throw new Error('Unit test failed for matrix for factorial');
+    }
+
+    let d = new Tensor([[[1, 2], [3, 4]], [[5, 6], [7, 8]]]);
+    let e = factorial(d).val;
+    if (!(e[0] === [[1, 2], [6, 24]]) || !(e[1] === [[120, 720], [5040, 40320]])) {
+        throw new Error('Unit test failed for tensor for factorial');
+    }
+
+    //print('factorial test pass');
+} 

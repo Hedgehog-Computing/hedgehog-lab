@@ -1,0 +1,153 @@
+/** 
+* @author Blake Wang
+* @params 2 integers, 2 js 2d-arrays/Mat objects of the same dimensions, 2 js 1d-arrays of the same dimensions
+* Or input an array to find the gcd of all the elements
+* @returns an integer representing greatest common divisor of 2 input integers 
+*  or a mat object holds greatest common divisors of the elements of A and B
+*
+*
+*
+*/
+
+
+
+
+function gcd(A, B = 1) {
+
+    *import math: deep_copy
+    *import math: ndim
+    *import math: is_number
+    *import math: flatten
+
+    //helper function for 1 argument / list version. could probably combine with integer version for compactness
+
+    function find_gcd(a, b) {
+
+        a = a < 0 ? -a : a;
+        b = b < 0 ? -b : b;
+
+        if (parseInt(a) !== a || parseInt(b) !== b) {
+            throw new Error('Exception occurred in gcd - number must be integer');
+        }
+
+        if (a * b === 0) {
+            return 0;
+        }
+
+        if (a === 1 || b === 1) {
+            return 1;
+        }
+
+        if (a < b) {
+            let temp = a;
+            a = b;
+            b = temp;
+        }
+
+        // looping
+        while (b > 0) {
+            let temp = a % b;
+            a = b;
+            b = temp;
+        }
+        return a;
+    }
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in gcd - no argument given');
+    }
+
+    if (arguments.length > 2) {
+        throw new Error('Exception occurred in gcd - wrong argument number');
+    }
+
+    // the case input is [1, 2, 3, 4, 5]
+    if (arguments.length === 1) {
+        if (is_number(A)) {
+            return A;
+        }
+            if (!(Array.isArray(A)) && !(A instanceof Mat) && !(A instanceof Tensor)) {
+            throw new Error('Exception occurred in gcd - input must be number, array, matrix or tensor');
+        }
+
+        let in_type = A instanceof Mat || A instanceof Tensor;
+        let raw_in = in_type ? A.clone().val : deep_copy(A);
+        // in this way we guarantee A is 1-dimensional JS array
+        raw_in = flatten(raw_in);
+        if (raw_in.length === 1) {
+            return raw_in[0];
+        }
+        let result = find_gcd(raw_in[0], raw_in[1]);
+        for (let i = 2; i < raw_in.length; i++) {
+            result = find_gcd(result, raw_in[i]);
+        }
+        return result;
+    }
+
+    if (is_number(A) && is_number(B)) {
+        return find_gcd(A, B);
+    }
+
+    if (!(Array.isArray(A)) && !(A instanceof Mat) && !(A instanceof Tensor)) {
+        throw new Error('Exception occurred in gcd - input must be number, array, matrix or tensor');
+    }
+    if (!(Array.isArray(B)) && !(B instanceof Mat) && !(B instanceof Tensor)) {
+        throw new Error('Exception occurred in gcd - input must be number, array, matrix or tensor');
+    }
+
+    let in_type_a = (A instanceof Mat) || (A instanceof Tensor);
+    let in_type_b = (B instanceof Mat) || (B instanceof Tensor);
+    let raw_in_a = in_type_a ? A.clone().val : deep_copy(A);
+    let raw_in_b = in_type_b ? B.clone().val : deep_copy(B);
+
+    // in case raw_in_a = [[[1, 2, 3]]]
+    while (Array.isArray(raw_in_a) && raw_in_a.length === 1) {
+        raw_in_a = raw_in_a[0];
+    }
+    while (Array.isArray(raw_in_b) && raw_in_b.length === 1) {
+        raw_in_b = raw_in_b[0];
+    }
+
+    // in case A = [[1]], B = [[2]]
+    if (is_number(raw_in_a) && is_number(raw_in_b)) {
+        return find_gcd(A, B);
+    }
+
+    let result = gcd_helper(raw_in_a, raw_in_b);
+    let dim = ndim(result);
+    if (dim === 1) {
+        return result;
+    }
+    else if (dim === 2) {
+        return mat(result);
+    }
+    else {
+        return new Tensor(result);
+    }
+
+    function gcd_helper(A, B) {
+
+        let dimA = ndim(A);
+        let dimB = ndim(B);
+        if (dimA !== dimB || A.length !== B.length) {
+            throw new Error('Exception occurred in gcd - A and B must have the same sizes');
+        }
+
+        if (dimA === 1) {
+            let result = deep_copy(A);
+            for (let i = 0; i < A.length; i++) {
+                result[i] = find_gcd(A[i], B[i]);
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < A.length; i++) {
+                let temp = gcd_helper(A[i], B[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+}

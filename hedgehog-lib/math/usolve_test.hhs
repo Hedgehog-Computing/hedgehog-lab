@@ -1,0 +1,21 @@
+/**
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function unit test for usolve - solves upper triangular matrix Ax=b cases
+ * 
+ */
+
+
+
+function usolve_test() {
+
+    *import math: usolve
+
+    let a = new Mat([[3, 2, 1], [0, 1, 3], [0, 0, 2]]);
+    let b = new Mat([[3], [4], [5]]);
+    if (!(usolve(a, b) === mat([[2.5], [-3.5], [2.5]]))) {
+        throw new Error('Unit test failed for usolve_test')
+    }
+}

@@ -1,0 +1,42 @@
+/**
+ * @author Jing Stone
+ * Unit test for check_input function
+ */
+
+function check_input_test()
+{
+  *import math: check_input
+  let A1 = [];
+  let A2 = [1];
+  let A3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  let A4 = [[1], [2], [3], [4]];
+  let A5 = [[1], []];
+  let A6 = [[]];
+  let A7 = [1, [2], 3, 4];
+  let A8 = [[1, 2], [2, 3], [3, 4], [[2, 2], [2, 2]]];
+  let A9 = [[1, ], 4];
+  let A10 = [[1], [, 2], [2]];
+  let A11= [[1, 2, 3], [2, 3, 4], [4, 5, 6]];
+  let A12 = [[3, 4, 5], [4, 5, 6]];
+
+  function test(input, output)
+  {
+    if(!(check_input(input) === output))
+    {
+      throw new Error('Unit test failed for check_input.')
+    }
+  }
+
+  test(A1, true);
+  test(A2, true);
+  test(A3, true);
+  test(A4, true);
+  test(A5, false);
+  test(A6, false);
+  test(A7, false);
+  test(A8, false);
+  test(A9, false);
+  test(A10, false);
+  test(A11, true);
+  test(A12, true);
+}

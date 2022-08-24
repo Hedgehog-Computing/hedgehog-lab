@@ -1,0 +1,141 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input - a series of number, or an array, matrix, tensor to get the interquartile range
+ * calculate the quartile of the data and get three borderline points q1, q2, q3
+ * Use this formula: https://www.statisticshowto.com/probability-and-statistics/interquartile-range/
+ * @returns - a number = q3 - q1
+ * 
+ */
+
+
+function iqr(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    let sort_array = [];
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in iqr - no argument given');
+    }
+
+    // bounds(1, 2, 3, 4, 5, 6)
+    if (typeof arguments[0] === 'number') {
+        for (let i = 0; i < arguments.length; i++) {
+            if (!(typeof arguments[i] === 'number')) {
+                throw new Error('Exception occurred in iqr - argument must be number');
+            }
+            else {
+                sort_array.push(arguments[i]);
+            }
+        }
+        sort_array = private_quick_sort(sort_array);
+    }
+
+    else {
+        // iqr([1, 2, 3], 0)
+        if (arguments.length > 1) {
+            throw new Error('Exception occurred in iqr - wrong argument number');
+        }
+
+        if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+            throw new Error('Exception occurred in iqr - input must be an array, matrix or tensor');
+        }
+
+        let in_type = (input instanceof Mat) || (input instanceof Tensor);
+        let raw_in = in_type ? input.clone().val : deep_copy(input);
+        if (ndim(raw_in) > 1) {
+            raw_in = flatten(raw_in);
+        }
+        sort_array = private_quick_sort(raw_in);
+    }
+
+    let length = sort_array.length;
+    if (length === 0) {
+        throw new Error('Exception occurred in iqr - input cannot be empty');
+    }
+
+    // even even
+    else if (length % 2 === 0) {
+        let borderline = length / 2;
+        if (borderline % 2 === 1) {
+            return sort_array[(3 * borderline - 1) / 2] - sort_array[(borderline - 1) / 2];
+        }
+        else {
+            return 0.5 * (sort_array[3 * borderline / 2] + sort_array[3 * borderline / 2 - 1] - sort_array[borderline / 2] - sort_array[borderline / 2 - 1]);
+        }
+    }
+
+    // odd length
+    else {
+        let borderline = (length - 1) / 2;
+        if (borderline % 2 === 1) {
+            return sort_array[(3 * borderline + 1) / 2] - sort_array[(borderline - 1) / 2];
+        }
+        else {
+            return 0.5 * (sort_array[3 * borderline / 2] + sort_array[3 * borderline / 2 + 1] - sort_array[borderline / 2] - sort_array[borderline / 2 - 1]);
+        }
+    }
+    
+
+    // when we use this function, we have ensured that input is an array
+    function private_quick_sort(input) {
+
+        // if the length is less than 10, then use insert sort
+        if (input.length < 10) {
+            return private_insert_sort(input);
+        }
+
+        let borderline = (input[0] + input[input.length - 1]) / 2;
+        let L = [], M = [], R = [];
+
+        // divide the elements into left and right
+        for (let i = 0; i < input.length; i++) {
+            if (input[i] < borderline) {
+                L.push(input[i]);
+            }
+            else if (input[i] == borderline) {
+                M.push(input[i]);
+            }
+            else {
+                R.push(input[i]);
+            }
+        }
+
+        // recursion
+        L = private_quick_sort(L);
+        R = private_quick_sort(R);
+
+        let result = L.concat(M).concat(R);
+        return result;
+    }
+
+    // when we use this function, we have ensured that input is an array
+    function private_insert_sort(input) {
+
+        // if the length is 0 or 1
+        if (input.length <= 1) {
+            return input;
+        }
+
+        // insert part
+        for (let i = 1; i < input.length; i++) {
+
+            // find the position to insert
+            let j = 0;
+            while (input[j] <= input[i] && j < i) {
+                j++;
+            }
+
+            // move the element
+            let temp = input[i];
+            for (let k = i; k > j; k--) {
+                input[k] = input[k - 1];
+            }
+            input[j] = temp;
+        }
+
+        return input;
+    }
+}

@@ -1,0 +1,75 @@
+/**
+ * @author Jason Reynolds
+ * @param - input - the matrix or tensor or list to enter to verify the dimension of 
+ * @returns a number, that is the dimension of the structure. for example a 2d array is 2 dimensions. a list is 1 dim, a 3d array (tensor) is 3 dim, etc
+ * 
+ * Function that takes in a structure namely a list, matrix, or tensor and returns the dimension of said structure
+ */
+
+
+
+
+function ndim(input) {
+
+    *import math: is_number
+    *import math: shape
+    *import math: deep_copy
+
+    if (arguments.length !== 1) {
+        throw new Error('Exception occurred in ndim - wrong argument number');
+    }
+
+    //declare raw_in to be a clone of input or input itself depending on whether its a Mat/Tensor or not, respectively
+    let in_type = (input instanceof Mat || input instanceof Tensor)
+    let raw_in = (in_type) ? input.clone() : deep_copy(input);
+
+    //if the input is... an array OR an instance of Mat OR an instance of Tensor (covers all grounds here) then do the algorithm
+    if (Array.isArray(input) || (input instanceof Mat) || (input instanceof Tensor)) {
+
+        //degrade to JS array if Tensor or Mat object 
+
+        /***not even this is necessary since shape() handles it***/
+
+        if (input instanceof Mat || input instanceof Tensor) {
+            raw_in = raw_in.val;
+        }
+
+        return (shape(raw_in).length);
+        /********* I think this is all unnecessary and we can simply have shape() which gives us the length of each dimension, and then find the
+         * length of shape aka THE #dimensions. 
+        
+        //initalize dims empty
+        let dims = [];
+        let max_i = max(shape(raw_in));
+        if (input instanceof Tensor) {
+            max_i = max(raw_in.shape)
+        }
+        //do this for the number of loops necessary
+        for (let i = 0; i < max_i; i++) {
+            //push an item into dims to increase the size, reflecting that its a higher dimension
+            dims.push(raw_in.length);
+            //decrease the dimension of the array/Mat/Tensor by 1 by assigning it to the first row of the array (ex; [[2,3],[4,5]] --> [2,3])
+            if (Array.isArray(raw_in[0])) {
+                raw_in = raw_in[0];
+            }
+            //if the loop has reached its limit and its no longer an array but a number, break
+            else {
+                break;
+            }
+        } */
+
+        //return the size of dims, i.e. the number of elements pushed or the number of times we decreased the dimension + 1
+        //return dims.length;
+    }
+
+
+    //if its a number just return 0;
+    else if (is_number(input)) {
+        return 0;
+    }
+
+    //should it be null? nothing? throw error? NaN?
+    else {
+        throw new Error('Exception occurred in ndim - incorrect structure provided as input');
+    }
+}

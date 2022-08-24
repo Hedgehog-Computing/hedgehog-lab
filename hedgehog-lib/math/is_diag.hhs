@@ -1,0 +1,48 @@
+/**
+ * @author Jing Stone
+ * @param input - 1d list or 2d matrix
+ * @returns - 
+ *        Determine if matrix is diagonal, matrix could be rectangular.
+ */
+
+function is_diag(input) {
+  *import math: ndim
+  *import math: deep_copy
+  
+  // now we're dealing with non-numbers and matrix-like structures:
+  // declare raw_in, set it to a input clone if its a Matrix / Tensor otherwise input itself
+  let in_type = (input instanceof Mat) || (input instanceof Tensor);
+  // here we always maintain raw_in to be an array
+  let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+  // declare dimension of raw_in
+  let dims = ndim(raw_in);
+
+  // true for []
+  if (raw_in.length === 0) return true;
+
+  // for 1d list, checkt if the element is 0 exclude raw_in[0]
+  if (dims === 1) {
+    for (let i = 1; i < raw_in.length; i++) {
+      if (raw_in[i] !== 0) {
+        return false;
+      }
+    }
+    return true;
+  }
+  // check other elements except main diagonal are zero or not.
+  else if(dims === 2) {
+    let row = raw_in.length;
+    let col = raw_in[0].length;
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < col; j++) {
+        if (i !== j && raw_in[i][j] !== 0)
+          return false;
+      }
+    }
+    return true;
+  }
+  else
+  {
+    throw new Error("Error in is_diag - input parameter dimension should be 1 or 2");
+  }
+}

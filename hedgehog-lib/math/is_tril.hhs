@@ -1,0 +1,57 @@
+/**
+ * @author Jason Reynolds
+ * 
+ * @param input - the matrix to be check if its lower triangular or not
+ * @returns - boolean value true or false depending on if its determined to be lower triangular or not 
+ * 
+ * Function : is_tril - a boolean function to determine if a square matrix is lower triangular or not. Counter part to is_triu (upper triangular)
+ * 
+ * 
+ */
+
+
+
+function is_tril(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in is_tril - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in is_tril - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in is_tril - input must be a 2-dimensional JS array, matrix or tensor');
+    }
+
+    //declare raw_in to be input.clone() if Mat otherwise input itself
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = (in_type) ? input.clone() : deep_copy(input);
+
+    //degrade raw_in to JS array for generalized code
+    if (in_type) {
+        raw_in = raw_in.val;
+    }
+    //check: any dimension 0? square matrix? 2d? if so, throw error 
+    if (!(ndim(raw_in) === 2) || raw_in.length === 0 || raw_in[0].length === 0 || !(raw_in.length === raw_in[0].length)) {
+        throw new Error('Exception occurred in is_tril - wrong dimensions, need a square 2d, non empty matrix as input');
+    }
+
+    //iterate through array and if you spot a non-zero entry in a spot in the lower triangular region, return false
+    //cut a sub matrix in the lower triangular region
+    for (let k = 1; k < raw_in.length; k++) {
+        for (let h = 0; h < raw_in.length - 1; h++) {
+            //when in the tringaular zone exactly
+            if (h < k) {
+                if (!(raw_in[h][k] === 0)) {
+                    return false;
+                }
+            }
+        }
+    }
+    //if it goes through the whole loop just fine then all the lower triangular entries are zero
+    return true;
+}

@@ -1,0 +1,53 @@
+/**
+ * @author Jianan Lin (林家南)
+ * Function for unit test for median
+ */
+
+
+
+function median_test() {
+
+    *import math: median
+
+    let b = [5, 34, 3];
+    let c = [[3, 2, 3], [3, 4, 3]];
+    let d = new Mat([3, 4, 2]);
+    let e = new Mat([[3, 4], [4, 3], [4, 3]]);
+    let f = [[[2, 2], [3, 3], [4, 4]], [[2, 2], [3, 3], [4, 4]], [[4, 4], [3, 3], [2, 2]]];
+    let g = [[1, 2], [3], [4, 5, 6]];
+    let h = new Tensor([[[1, 2], [3, 4]], [[5, 6], [7, 8]]]);
+
+    if (!median(1, 2) === 1.5) {
+        throw new Error('Failed unit test for numbers for median.');
+    }
+
+    if (!median(b) === 5) {
+        throw new Error('Failed unit test for Array for median.');
+    }
+
+    if (!median(c) === 3) {
+        throw new Error('Failed unit test for Array for median.');
+    }
+
+    if (!median(d) === 3) {
+        throw new Error('Failed unit test for Matrix for median.');
+    }
+
+    if (!median(e) === 3.5) {
+        throw new Error('Failed unit test for Matrix for median.');
+    }
+
+    if (!median(f) === 3) {
+        throw new Error('Failed unit test for Array for median.');
+    }
+
+    if (!median(g) === 3.5) {
+        throw new Error('Failed unit test for Array for median.');
+    }
+
+    if (!median(h) === 4.5) {
+        throw new Error('Failed unit test for Tensor for median.');
+    }
+
+    //print("Median test pass!");
+}

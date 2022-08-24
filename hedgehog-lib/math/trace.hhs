@@ -1,0 +1,50 @@
+/**
+ * @author Jason Reynolds
+ * @param input - the matrix to evaluate the trace on (sum of diagonal values), has to be square
+ * @returns - a number which is the sum of the diagonal entries on the matrix, the trace
+ * 
+ * Simple function for determining the trace of a matrix (recall trace is the sum of diagonal entries on a square 2d matrix)
+ */
+
+
+
+
+function trace(input) {
+
+    *import math: ndim
+
+    if (arguments.length !== 1) {
+        throw new Error('Exception occurred in trace - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in trace - input must be a JS array, matrix or tensor');
+    }
+
+    //declare raw_in to be an input clone if Mat or input itself otherwise
+    let in_type = (input instanceof Mat) || (input instanceof Tensor)
+    let raw_in = (in_type) ? input.clone() : input;
+
+    //when input is Mat, degrade to JS array
+    if (in_type) {
+        raw_in = raw_in.val;
+    }
+
+    //check: is it square? 0 dims? ndim not equal to 2?
+    if ((!(ndim(raw_in) === 2)) || !(raw_in.length === raw_in[0].length) || raw_in.length === 0 || raw_in[0].length === 0) {
+        throw 'Exception occurred in trace - not a square, 2d, non-empty matrix, so trace is undefined.';
+    }
+    //declare trace_val the value we will sum up and return
+    let trace_val = 0;
+
+    //loop through twice, since its a 2d matrix
+    for (let i = 0; i < input.length; i++) {
+        for (let j = 0; j < input[0].length; j++) {
+            //when i===j i.e. it's a trace value, sum up that value
+            if (i === j) {
+                trace_val += raw_in[i][j];
+            }
+        }
+    }
+    return trace_val;
+}

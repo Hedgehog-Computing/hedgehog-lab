@@ -1,0 +1,15 @@
+/*
+ * @Author Jianan Lin
+ * test for iqr function
+ */
+
+function vander_test() {
+
+    *import math: vander
+    
+    if (!(vander([1, 2], 2) === mat([[1, 1, 1], [1, 2, 4]]))) {
+        throw new Error('Unit test failed for vander');
+    }
+
+    print('vander test pass');
+}

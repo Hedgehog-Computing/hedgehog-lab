@@ -1,0 +1,69 @@
+
+
+
+function floor_test() {
+
+  *import math: floor
+
+  // test scenario 1: integer test
+  // testset setup
+  let testSet1 = [1, -1, 0, -0, 1.1, -1.1, 1.0, -1.0];
+  let expectedVal1 = [1, -1, 0, 0, 1, -2, 1, -1];
+  // test process
+  for (let i = 0; i < testSet1.length; i++) {
+    if (floor(testSet1[i]) !== expectedVal1[i]) {
+      throw new Error("floor integer test has failed on testcase: " + testSet1[i] +
+        "\noutput " + floor(testSet1[i]) + " while " + expectedVal1[i] + " is expected.");
+    }
+  }
+
+  // test scenario 2: 1d array test
+  // testset setup
+  let testSet2 = [1, -1, 0, -0, 1.1, -1.1, 1.0, -1.0];
+  let expectedVal2 = mat([[1, -1, 0, 0, 1, -2, 1, -1]]);
+  // test process
+  if (!(floor(testSet2) === expectedVal2)) {
+    throw new Error("floor 1d array test has failed");
+  }
+
+  // test scenario 3: 2d array test
+  // testset setup
+  let testSet3 = [[1, -1, 0, -0], [1.1, -1.1, 1.0, -1.0]];
+  let expectedVal3 = mat([[1, -1, 0, 0], [1, -2, 1, -1]]);
+  // test process
+  if (!(floor(testSet3) === expectedVal3)) {
+    throw new Error("floor 2d array test has failed");
+  }
+
+  // test scenario 4: Mat test
+  // testset setup
+  let testSet4 = mat([[1, -1, 0, -0], [1.1, -1.1, 1.0, -1.0]]);
+  let expectedVal4 = mat([[1, -1, 0, 0], [1, -2, 1, -1]]);
+  // test process
+  if (!(floor(testSet4) === expectedVal4)) {
+    throw new Error("floor Mat test has failed");
+  }
+  
+    if (floor(1.5) !== 1) {
+        throw new Error('Unit test failed for number for floor');
+    }
+
+    let a = [1.5, 2.5, -1.5];
+    if (!(floor(a) === [1, 2, -2])) {
+        throw new Error('Unit test failed for array for floor');
+    }
+
+    let b = mat([[1.5, 2.5], [-1.5, -2.5]]);
+    if (!(floor(b) === mat([[1, 2], [-2, -3]]))) {
+        throw new Error('Unit test failed for matrix for floor');
+    }
+
+    let c = new Tensor([[[1.5, 2.5], [-1.5, -2.5]], [[1.5, 2.5], [-1.5, -2.5]]]);
+    let d = floor(c).val;
+    if (!(d[0] === [[1, 2], [-2, -3]]) || !(d[1] === [[1, 2], [-2, -3]])) {
+        throw new Error('Unit test failed for tensor for floor');
+    }
+
+    //print('floor test pass');
+
+}

@@ -1,0 +1,183 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input: a JS array / matrix / tensor
+ * @param content: use this to fill the missing part, should be a constant / array / matrix / tensor
+ * @param method: 1. 'constant' means use constant from content, 2. 'previous' means use the previous value in input and if no previous, then use constant
+ * @returns - input with missing value filled
+ * 
+ */
+
+
+
+function fillmissing(input, content = 0, method = "constant") {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in fillmissing - no argument given');
+    }
+    if (arguments.length > 3) {
+        throw new Error('Exception occurred in fillmissing - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in fillmissing - argument[0] must be JS array, matrix or tensor');
+    }
+    if (!(method === 'constant') && !(method === 'previous')) {
+        throw new Error('Exception occurred in fillmissing - argument[2] must be constant or previous');
+    }
+    // we do not check content because we should allow users to use anything they like, even class / array. However, they should fix the errors when facing such problems.
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    let flag = false; // flag means content is array / constant
+    let index = 0; // the index of content
+    
+    if (Array.isArray(content) || content instanceof Mat || content instanceof Tensor) {
+        content = flatten(content);
+        flag = true;
+        if (content.length === 0) {
+            throw new Error('Exception occurred in fillmissing - argument[1] should not be empty');
+        }
+    }
+
+    let result = [];
+
+    if (flag === true && method === 'constant') {
+        result = fill_constant_true(raw_in);
+    }
+
+    else if (flag === false && method === 'constant') {
+        result = fill_constant_false(raw_in);
+    }
+
+    else if (flag === true && method === 'previous') {
+        result = fill_previous_true(raw_in);
+    }
+
+    else {
+        result = fill_previous_false(raw_in);
+    }
+
+    if (ndim(result) <= 2) {
+        return mat(result);
+    }
+    else {
+        return new Tensor(result);
+    }
+    
+
+    function fill_constant_true(data) {
+        if (ndim(data) === 1) {
+            let result = deep_copy(data);
+            for (let i = 0; i < data.length; i++) {
+                if (is_miss(data[i])) {
+                    result[i] = content[index];
+                    if (index < content.length - 1) {
+                        index += 1;
+                    }
+                }
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < data.length; i++) {
+                let temp = fill_constant_true(data[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+    
+    function fill_constant_false(data) {
+        if (ndim(data) === 1) {
+            let result = deep_copy(data);
+            for (let i = 0; i < data.length; i++) {
+                if (is_miss(data[i])) {
+                    result[i] = content;
+                }
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < data.length; i++) {
+                let temp = fill_constant_false(data[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+
+    function fill_previous_true(data) {
+        if (ndim(data) === 1) {
+            let result = deep_copy(data);
+            for (let i = 0; i < data.length; i++) {
+                if (is_miss(data[i])) {
+                    if (i > 0) {
+                        result[i] = result[i - 1];
+                    }
+                    else {
+                        result[i] = content[index];
+                        if (index < content.length - 1) {
+                            index += 1;
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < data.length; i++) {
+                let temp = fill_previous_true(data[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+
+    function fill_previous_false(data) {
+        if (ndim(data) === 1) {
+            let result = deep_copy(data);
+            for (let i = 0; i < data.length; i++) {
+                if (is_miss(data[i])) {
+                    if (i > 0) {
+                        result[i] = result[i - 1];
+                    }
+                    else {
+                        result[i] = content;
+                    }
+                }
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < data.length; i++) {
+                let temp = fill_previous_false(data[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+
+    function is_miss(x) {
+        if (x || x === 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+}

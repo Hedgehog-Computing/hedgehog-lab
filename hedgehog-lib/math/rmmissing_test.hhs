@@ -1,0 +1,39 @@
+/**
+ * @author Jianan Lin
+ * Unit test for ismissing
+ * 
+ */
+
+
+
+function rmmissing_test() {
+
+    *import math: rmmissing
+
+    let a = [1, 2, NaN];
+    let b = rmmissing(a);
+
+    if (!(b === mat([1, 2]))) {
+        throw new Error('Unit test failed for rmmissing_test');
+    }
+
+    let c = [[1], [2], [NaN]];
+    let d = rmmissing(c);
+    if (!(d === mat([[1], [2]]))) {
+        throw new Error('Unit test failed for rmmissing_test');
+    }
+
+    let e = mat([[1, 2, 3], [NaN, null, 4]]);
+    let f = rmmissing(e, 0);
+    if (!(f === mat([[3], [4]]))) {
+        throw new Error('Unit test failed for rmmissing_test');
+    }
+
+    let g = mat([[1, NaN], [2, null], [3, 4]]);
+    let h = rmmissing(g, 1);
+    if (!(h === mat([[3, 4]]))) {
+        throw new Error('Unit test failed for rmmissing_test');
+    }
+
+    //print('rmmissing test pass');
+}

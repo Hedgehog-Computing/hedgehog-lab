@@ -1,0 +1,41 @@
+/**
+ * @author 
+ * @param input - the input to make a deep copy of 
+ * @returns - a new copy of the original input with a different reference
+ * 
+ *  This recursive function is made for cloning arrays in a deep manner since javascript doesn't have a way to do it. All common ways to copy is shallow and that
+ *  causes a lot of issues for functions that modify the input or a reference to the input 
+ */
+
+ function deep_copy(items) {
+
+    *import math:is_number 
+
+    // wrong argument number
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in deep_copy - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in deep_copy - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(items)) && !(items instanceof Mat) && !(items instanceof Tensor) && !(is_number(items))) {
+        throw new Error('Exception occurred in deep_copy - input is not a Mat, Tensor or JS Array');
+    }
+    
+    // for loop is faster, will replace with it later
+    //below is causing items.map is not a function issue again?
+    //return items.map(item => Array.isArray(item) ? deep_copy(item) : item);
+
+    //support for numbers in case we're deep copying numbers in general cases 
+    if (is_number(items)) {
+        return items;
+    }
+
+    else {
+
+        return items.map(item => Array.isArray(item) ? deep_copy(item) : item);
+
+    }
+}

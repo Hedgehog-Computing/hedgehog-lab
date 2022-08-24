@@ -1,0 +1,101 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - the list, matrix, tensor or structure that you want to get the mean(average) of
+ * @returns - a number representing the mean of all the elements of a list, matrix, tensor or other structure
+ * 
+ */
+
+
+function mean(input) {
+
+    *import math: is_number
+    *import math: flatten
+    *import math: ndim
+    *import math: deep_copy
+
+    // if there are no arguments, there is an error
+    if (arguments.length === 0) {
+        throw new Error('No argument given');
+    }
+
+    // if the first argument is a number, then we should get the mean of a list of numbers
+    if (is_number(arguments[0])) {
+
+        // determine whether there is invalid element
+        for (let i = 0; i < arguments.length; i++) {
+            if (!is_number(arguments[i])) {
+                throw new Error('First argument suggests a list, but there is a non number element in arguments.');
+            }
+        }
+
+        // sum_array is the sum, n is the number, result is sum / n
+        let sum_array = 0, n = 0;
+        for (let i = 0; i < arguments.length; i++) {
+            sum_array += arguments[i];
+            n++;
+        }
+
+        let result = sum_array / n;
+        return result;
+    }
+
+    // at this time, we do not accept arguments = [matrix, axis]
+    // we will add this function in the future
+    if (!arguments.length === 1) {
+        throw new Error('Wrong arguments');
+    }
+
+    // now we're dealing with non-numbers and matrix-like structures:
+    // declare raw_in, set it to a input clone if its a Matrix / Tensor otherwise input itself
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    // here we always maintain raw_in to be an array
+    let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+    // declare dimension of raw_in
+    let dims = ndim(raw_in);
+
+    // if the input is 1 or 2 dimension
+    if (dims < 3) {
+
+        // in the case dimension = 1, e.g. [1, 2, 3, 4]
+        if (dims === 1) {
+            let sum_array = 0, n = 0;
+            for (let i = 0; i < raw_in.length; i++) {
+                sum_array += raw_in[i];
+                n++;
+            }
+            let result = sum_array / n;
+            return result;
+        }
+
+        // in the case dimension = 2, e.g. [[1, 2], [3, 4]]
+        // also consider this: [[1, 2], [3], [4, 5, 6]]
+        else if (dims === 2) {
+            let sum_array = 0, n = 0;
+            for (let i = 0; i < raw_in.length; i++) {
+                for (let j = 0; j < raw_in[i].length; j++) {
+                    sum_array += raw_in[i][j];
+                    n++;
+                }
+            }
+            let result = sum_array / n;
+            return result;
+        }
+    }
+
+    // in the case dimension > 2, e.g. [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]
+    else if (dims > 2 && is_number(dims)) {
+        raw_in = flatten(raw_in);
+        let sum_array = 0, n = 0;
+        for (let i = 0; i < raw_in.length; i++) {
+            sum_array += raw_in[i];
+            n++;
+        }
+        let result = sum_array / n;
+        return result;
+    }
+
+    else {
+        throw new Error('Invalid dimension of the first argument');
+    }
+
+}

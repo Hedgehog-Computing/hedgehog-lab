@@ -1,0 +1,29 @@
+/**
+ * @author Jianan Lin
+ * Unit test for anymissing
+ * 
+ */
+
+
+function any_missing_test() {
+  
+    *import math: any_missing
+
+    let a = [NaN, 1, 0, 0, 1];
+    let b = mat([a, a]);
+    let c = new Tensor([[a, a], [a, a]]);
+
+    if (!(any_missing(a) === true)) {
+        throw new Error('Unit test failed for any_missing for array');
+    }
+
+    if (!(any_missing(b) === true)) {
+        throw new Error('Unit test failed for any_missing for matrix');
+    }
+
+    if (!(any_missing(c) === true)) {
+        throw new Error('Unit test failed for any_missing for tensor');
+    }
+
+    //print('any_missing test pass');
+}

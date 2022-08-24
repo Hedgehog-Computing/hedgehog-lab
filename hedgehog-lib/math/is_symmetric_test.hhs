@@ -1,0 +1,31 @@
+/**
+ * @author Jason Reynolds
+ * @param 
+ * @returns 
+ * 
+ * Function that is a simple test for checking symmetricity of a matrix, raw or Mat object
+ */
+
+
+
+function is_symmetric_test() {
+
+    *import math: is_symmetric
+
+    if (is_symmetric([[1, 2, 3], [1, 2, 3], [1, 2, 3]])) {
+        throw 'is_symmetric has failed the unit test'
+    }
+
+    if (!is_symmetric([[1, 2, 3], [2, 1, 4], [3, 4, 1]])) {
+        throw 'is_symmetric has failed the unit test'
+    }
+
+    if (!is_symmetric(new Mat([[2, 1], [1, 2]]))) {
+        throw 'is_symmetric has failed unit test for mat obj'
+    }
+
+    if (is_symmetric(new Mat([[1, 2, 3], [1, 2, 3], [1, 2, 3]]))) {
+        throw 'is_symmetric has failed unit test for mat obj'
+    }
+
+}

@@ -1,0 +1,61 @@
+/**
+ * @author Jason Reynolds
+ * 
+ * @param input - matrix to determine if its upper triangular or not
+ * @returns - a boolean value true or false depending if its upper triangular or not 
+ * 
+ * Function : is_triu - a boolean function to determine if a square matrix is upper triangular or not. Counter part to is_tril (lower triangular)
+ * Done by cutting a square portion of the upper triangular matrix and then checking the upper triangular explicit entries
+ * 
+ */
+
+
+
+
+function is_triu(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in is_triu - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in is_triu - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in is_triu - input must be a 2-dimensional JS array, matrix or tensor');
+    }
+
+    //declare raw_in to be input.clone() if Mat otherwise input itself
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = (in_type) ? input.clone() : deep_copy(input);
+
+    //degrade raw_in to JS array for generalized code
+    if (in_type) {
+        raw_in = raw_in.val;
+    }
+
+    //check: any dimension 0? square matrix? 2d? if so, throw error 
+    if (!(ndim(raw_in) === 2) || raw_in.length === 0 || raw_in[0].length === 0 || !(raw_in.length === raw_in[0].length)) {
+        throw new Error('Exception occurred in is_triu - wrong dimensions and need a square matrix as input');
+    }
+
+    //iterate through array and if you spot a non-zero entry in a spot in the upper triangular region, return false
+    //cut a sub matrix in the upper triangular region
+
+    //reason being dont want to copy the whole array if its large, theres definitely more efficient ways to do it 
+    for (let k = 0; k < raw_in.length - 1; k++) {
+        for (let h = 1; h < raw_in.length; h++) {
+            //when in the tringaular zone exactly
+            if (h > k) {
+                if (!(raw_in[h][k] === 0)) {
+                    return false;
+                }
+            }
+        }
+    }
+    //if it goes through the whole loop just fine then all the upper triangular entries are zero
+    return true;
+}

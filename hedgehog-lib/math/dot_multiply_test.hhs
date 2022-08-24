@@ -1,0 +1,34 @@
+/**
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function for testing dot_divide.hhs
+ */
+
+
+function dot_multiply_test() {
+
+    *import math: dot_multiply
+
+    let a = [1, 3, 9];
+    let b = [9, 3, 1];
+    if (!(dot_multiply(a, b) === mat([9, 9, 9]))) {
+        throw new Error('Unit test failed for array for dot_multiply');
+    }
+
+    let c = mat([[1, 3, 9], [9, 3, 1]]);
+    let d = mat([[9, 3, 1], [1, 3, 9]]);
+    if (!(dot_multiply(d, c) === mat([[9, 9, 9], [9, 9, 9]]))) {
+        throw new Error('Unit test failed for matrix for dot_multiply');
+    }
+
+    let e = new Tensor([[[1, 3, 9], [9, 3, 1]], [[1, 3, 9], [9, 3, 1]]]);
+    let f = new Tensor([[[9, 3, 1], [1, 3, 9]], [[9, 3, 1], [1, 3, 9]]]);
+    let g = dot_multiply(e, f).val;
+    if (!(g[0] === [[9, 9, 9], [9, 9, 9]]) || !(g[1] === [[9, 9, 9], [9, 9, 9]])) {
+        throw new Error('Unit test failed for tensor for dot_multiply');
+    }
+    
+    //print('dot_multiply test pass')
+}

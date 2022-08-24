@@ -1,0 +1,112 @@
+/**
+* @author Alan Liang
+* @param c - Array | 1*n (optional) matrix, first column of final matrix
+* @param r - Array | 1*n matrix, first row of final matrix
+* @returns - Mat object matrix
+*
+* if both c and r is given, use them to calculate the toeplitz matrix.
+* in this case, if c[0] and r[0] are different, use c[0].
+*
+* if only r is given, use it to calculate the toeplitz matrix.
+* in this case, the final matrix would be symmetric.
+*
+* Toeplitz matrices are matrices with identical elements on diagonals.
+* 
+* For example,
+*  1 2 3 4 5
+*  6 1 2 3 4
+*  7 6 1 2 3
+* is a Toeplitz matrix.
+*
+*/
+
+function toeplitz()
+{
+  // wrong argument number
+  if (arguments.length === 0) {
+    throw new Error('Exception occurred in pascal - no argument given');
+  }
+  else if (arguments.length > 2) {
+    throw new Error('Exception occurred in pascal - wrong argument number');
+  }
+
+  if (arguments.length === 1) {
+    return toeplitz_r(arguments[0]);
+  } else {
+    return toeplitz_cr(arguments[0], arguments[1]);
+  }
+
+  function toeplitz_r(r) {
+    // Input must be Array, Mat or Tensor
+    if (!(Array.isArray(r)) && !(r instanceof Mat) && !(r instanceof Tensor)) {
+      throw new Error('Exception occurred in toeplitz - input must be an array, matrix or tensor');
+    }
+
+    // Get the first row of input matrix
+    if ((r instanceof Mat) || (r instanceof Tensor)) {
+      r = r.val[0];
+    }
+
+    let n = r.length;
+
+    let toeplitzSquare = Array(n).fill(0).map(x => Array(n).fill(0));
+
+    // Fill the first row
+    for (let j = 0; j < n; j++) {
+      toeplitzSquare[0][j] = r[j];
+    }
+
+    // Fill other rows
+    for (let i = 1; i < n; i++) {
+      for (let j = 0; j < n; j++) {
+        toeplitzSquare[i][j] = r[Math.abs(i - j)]
+      }
+    }
+
+    return new toeplitzSquare;
+  }
+
+  function toeplitz_cr(c, r) {
+    // Input must be Array, Mat or Tensor
+    if (!(Array.isArray(c)) && !(c instanceof Mat) && !(c instanceof Tensor)) {
+      throw new Error('Exception occurred in toeplitz - input must be an array, matrix or tensor');
+    }
+
+    if (!(Array.isArray(r)) && !(r instanceof Mat) && !(r instanceof Tensor)) {
+      throw new Error('Exception occurred in toeplitz - input must be an array, matrix or tensor');
+    }
+
+    // Get the first row of input matrices
+    if ((c instanceof Mat) || (c instanceof Tensor)) {
+      c = c.val[0];
+    }
+
+    if ((r instanceof Mat) || (r instanceof Tensor)) {
+      r = r.val[0];
+    }
+
+    let m = c.length
+    let n = r.length;
+
+    let toeplitzMatrix = Array(m).fill(0).map(x => Array(n).fill(0));
+
+    // Fill the first row
+    for (let j = 0; j < n; j++) {
+      toeplitzMatrix[0][j] = r[j];
+    }
+
+    // Fill the first column
+    for (let i = 0; i < m; i++) {
+      toeplitzMatrix[i][0] = c[i];
+    }
+
+    // Fill other rows
+    for (let i = 1; i < m; i++) {
+      for (let j = 1; j < n; j++) {
+        toeplitzMatrix[i][j] = toeplitzMatrix[i-1][j-1]
+      }
+    }
+
+    return toeplitzMatrix;
+  }
+}

@@ -1,0 +1,21 @@
+/**
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function for testing the is_tril.hhs function
+ */
+
+
+
+
+
+function is_tril_test() {
+
+    *import math: is_tril
+
+    let a = new Mat([[3, 0, 0], [3, 2, 0], [1, 4, 1]]);
+    if (!is_tril(a)) {
+        throw new Error('Unit test failed for is_tril');
+    }
+}

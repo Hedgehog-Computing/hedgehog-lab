@@ -1,0 +1,27 @@
+/**
+ * @author Jianan Lin
+ * Unit test for missing
+ * 
+ */
+
+
+
+function missing_test() {
+
+    *import math: missing
+
+    let a = [1, 2, 3, NaN];
+    let b = missing(a);
+    // b = [1, 2, 3, NaN, NaN]
+    if (b.val[0][4] === b.val[0][4]) {
+        throw new Error('Unit test failed for missing');
+    }
+
+    let c = ['1', '2', '3'];
+    let d = missing(c, 0, 2);
+    if (!(d === mat([['1', '2', '3'], ['', '', ''], ['', '', '']]))) {
+        throw new Error('Unit test failed for missing');
+    }
+
+    //print('missing test pass');
+}

@@ -1,0 +1,47 @@
+
+
+
+function ceil_test() {
+
+  *import math: ceil
+
+  // test scenario 1: integer test
+  // testset setup
+  let testSet1 = [1, -1, 0, -0, 1.1, -1.1, 1.0, -1.0];
+  let expectedVal1 = [1, -1, 0, -0, 2, -1, 1, -1];
+  // test process
+  for (let i = 0; i < testSet1.length; i++) {
+    if (floor(testSet1[i]) !== expectedVal1[i]) {
+      throw new Error("ceil integer test has failed on testcase: " + testSet1[i] +
+        "\noutput " + floor(testSet1[i]) + " while " + expectedVal1[i] + " is expected.");
+    }
+  }
+
+  // test scenario 2: 1d array test
+  // testset setup
+  let testSet2 = [1, -1, 0, -0, 1.1, -1.1, 1.0, -1.0];
+  let expectedVal2 = mat([[1, -1, 0, -0, 2, -1, 1, -1]]);
+  // test process
+  if (!(floor(testSet2) === expectedVal2)) {
+    throw new Error("ceil 1d array test has failed");
+  }
+
+  // test scenario 3: 2d array test
+  // testset setup
+  let testSet3 = [[1, -1, 0, -0], [1.1, -1.1, 1.0, -1.0]];
+  let expectedVal3 = mat([[1, -1, 0, -0], [2, -1, 1, -1]]);
+  // test process
+  if (!(floor(testSet3) === expectedVal3)) {
+    throw new Error("ceil 2d array test has failed");
+  }
+
+  // test scenario 4: Mat test
+  // testset setup
+  let testSet4 = mat([[1, -1, 0, -0], [1.1, -1.1, 1.0, -1.0]]);
+  let expectedVal4 = mat([[1, -1, 0, -0], [2, -1, 1, -1]]);
+  // test process
+  if (!(floor(testSet4) === expectedVal4)) {
+    throw new Error("ceil Mat test has failed");
+  }
+
+}

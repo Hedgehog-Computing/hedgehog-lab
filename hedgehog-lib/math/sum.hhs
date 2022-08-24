@@ -1,0 +1,104 @@
+/**
+ * @author Jason Reynolds
+ * @param input - the list, matrix, tensor or structure that you want to sum up the values of
+ * @returns - a number representing all the elements added in the structure element wise.
+ * 
+ * Function that takes in a list or matrix/submatrix or tensor/subtensor and returns the sum of all entries, using mathjs.sum
+ * 
+ * 
+ *   !!!consider pulling functions from here for basic use since javascript doesnt use scalars as 1d arrays!!!!
+ * 
+ * 
+ */
+
+
+
+function sum(input) {
+
+    *import math: is_number
+    *import math: flatten
+    *import math: ndim
+    *import math: deep_copy
+
+    //if there are no arguments, there is an error
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in sum - no argument given');
+    }
+
+    //if the first argument is a number, that means the user is inputting a list of numbers to add
+    if (is_number(arguments[0])) {
+        //loop through the arguments and for each one ...
+        for (let i = 0; i < arguments.length; i++) {
+            //first make sure it's a number! otherwise throw an error
+            if (!(is_number(arguments[i]))) {
+                throw new Error('Exception occurred in sum - first argument suggests a list, but there is a non number element in arguments.');
+            }
+        }
+        //initialize 0 and add up all the arguments .... !! could probably combine with above !! 
+        let result = 0;
+        for (let j = 0; j < arguments.length; j++) {
+            result += arguments[j];
+        }
+        //return the sum
+        return result;
+    }
+    //now we're dealing with non-numbers and matrix-like structures:
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in sum - input must be a JS array, matrix or tensor');
+    }
+
+    //declare raw_in, set it to a input clone if its a Mat otherwise input itself
+    let in_type = (input instanceof Mat);
+    let raw_in = (in_type) ? input.clone() : deep_copy(input);
+
+    //check case: make sure there's only 1 arguments (1 matrix like structure) and the argument is an array or Mat
+    if (arguments.length === 1 && (Array.isArray(arguments[0]) || arguments[0] instanceof Mat)) {
+        //if its a Mat, as usual, degrade to JS array for generalized code
+        if (arguments[0] instanceof Mat) {
+            raw_in = raw_in.val;
+        }
+
+        //useful for later possibly, number of wrapped arrays in array
+        //let num_wrap = arguments[0].filter(Array.isArray).length
+
+        /*let num_wrap = (arguments[0].map(e=>e[0]))
+        num_wrap = num_wrap.length;
+        print(num_wrap)*/
+
+        //declare dims to be ndim(raw_in)
+        let dims = ndim(raw_in)
+
+        //in the case dims === 1 i.e. the Mat or JS array is a LIST, loop through ONE time and sum up the arguments
+        if (dims === 1) {
+            let result2 = 0;
+            for (let k = 0; k < arguments[0].length; k++) {
+                //sum up the arguments in arguments 0, add to result2 and return it (can name it result but whatever)
+                result2 = result2 + arguments[0][k];
+            }
+
+            return result2;
+        }
+        //in the case dims === 2 i.e. the Mat or JS is a 2d matrix, loop through TWICE and sum up arguments as usual.
+        else if (dims === 2) {
+            let result3 = 0;
+            for (let h = 0; h < arguments[0].length; h++) {
+                for (let g = 0; g < arguments[0][0].length; g++) {
+                    result3 += arguments[0][h][g];
+                }
+            }
+            return result3;
+        }
+
+        //last but not least if we have a Tensor (and dims > 2 and is finite):
+        else if (input instanceof Tensor || (dims > 2 && is_number(dims))) {
+            //use the raw_in (Mat object) and put it into flatten(raw_in) to get a LIST
+            raw_in = flatten(raw_in);
+            //is now in a 1d raw format, sum up the list's elements
+            let result4 = 0;
+            for (let n = 0; n < raw_in.length; n++) {
+                result4 += raw_in[n];
+            }
+            return result4;
+        }
+    }
+}

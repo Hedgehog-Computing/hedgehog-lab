@@ -1,0 +1,35 @@
+/**
+ * @author Jing Stone
+ * Unit test for is_diag function
+ */
+
+ function is_diag_test()
+ {
+   *import math: is_diag
+   
+   let A1 = [1, 2, 3, 4];
+   let A2 = [];
+   let A3 = [1, 0, 0, 0];
+   let A4 = [1, 0, 0, 1];
+   let A5 = [[1, 0, 0], [0, 2, 0], [0, 0, 3]];
+   let A6 = [[0, 0, 0], [0, 1, 0], [0, 0, 0]];
+   let A7 = [[1, 0, 0], [0, 1, 0], [0, 0, 0], [0, 0, 0]];
+   let A8 = [[1, 0, 0], [0, 1, 0], [0, 0, 3], [0, 0, 1]];
+ 
+   function test(input, output)
+   {
+     if(!(is_diag(input) === output))
+     {
+       throw new Error('Unit test failed for is_diag.');
+     }
+   }
+ 
+   test(A1, false);
+   test(A2, true);
+   test(A3, true);
+   test(A4, false);
+   test(A5, true);
+   test(A6, true);
+   test(A7, true);
+   test(A8, false);
+ }

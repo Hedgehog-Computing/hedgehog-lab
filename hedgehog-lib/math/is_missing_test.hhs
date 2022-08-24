@@ -1,0 +1,33 @@
+/**
+ * @author Jianan Lin
+ * Unit test for ismissing
+ * 
+ */
+
+
+
+
+function is_missing_test() {
+
+    *import math: is_missing
+
+    let a = [NaN, 1, 0, 0, 1];
+    let b = mat([a, a]);
+    let c = new Tensor([[a, a], [a, a]]);
+    let d = [1, 0, 0, 0, 0];
+
+    if (!(is_missing(a) === mat(d))) {
+        throw new Error('Unit test failed for is_missing for matrix');
+    }
+
+    if (!(is_missing(b) === mat([d, d]))) {
+        throw new Error('Unit test failed for is_missing for matrix');
+    }
+
+    let e = is_missing(c).val;
+    if (!(e[0] === [d, d]) || !(e[1] === [d, d])) {
+        throw new Error('Unit test failed for is_missing for tensor');
+    }
+
+    //print('is_missing test pass');
+}

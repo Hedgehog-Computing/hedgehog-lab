@@ -1,0 +1,25 @@
+/**
+ * @author Jianan Lin
+ * Unit test for hankel
+ * 
+ */
+
+
+
+function hankel_test() {
+
+    *import math: hankel
+
+    let a = [1, 2, 3, 4, 5];
+    b = hankel(a);
+    if (!(b === mat([[1, 2, 3], [2, 3, 4], [3, 4, 5]]))) {
+        throw new Error('Unit test failed for hankel');
+    }
+    
+    let c = hankel(1, 2, 3, 4, 5);
+    if (!(c === mat([[1, 2, 3], [2, 3, 4], [3, 4, 5]]))) {
+        throw new Error('Unit test failed for hankel');
+    }
+
+    print('hankel test pass');
+}

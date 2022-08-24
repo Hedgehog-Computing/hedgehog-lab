@@ -1,0 +1,70 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param a, b, c - ax^2 + bx + c = 0
+ * @param flag - true: provide complex solution; false: only real solution
+ * @returns - solution in 2-element array, NaN allowed if flag = false
+ * Tips: if b = c = 0, then there is only real solution
+ * 
+ */
+
+
+
+function quadratic_equation(a, b = 0, c = 0, flag = true) {
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in quadratic_equation - no argument given');
+    }
+
+    if (arguments.length > 4) {
+        throw new Error('Exception occurred in quadratic_equation - wrong argument number');
+    }
+
+    if (!(typeof a === 'number') || !(typeof b === 'number') || !(typeof c === 'number') || !(typeof flag === 'boolean')) {
+        throw new Error('Exception occurred in quadratic_equation - a, b, c, must be numbers and flag must be boolean');
+    }
+
+    // bx + c = 0
+    if (a === 0) {
+        if (b === 0) {
+            return [NaN, NaN];
+        }
+        else {
+            let result = b / c;
+            result = result.toFixed(5);
+            return [mathjs.complex(-result, 0), mathjs.complex(result, 0)];
+        }
+    }
+
+    let delta = b * b - 4 * a * c;
+
+    // if |delta| < 1E-10, we can believe it is 0
+    if (delta > 0.0000000001) {
+        // remember to use mathjs.sqrt, otherwise sqrt returns matrix
+        let diff = mathjs.sqrt(delta);
+        let x1 = (-b - diff) / (2 * a);
+        let x2 = (-b + diff) / (2 * a);
+        x1 = x1.toFixed(5);
+        x2 = x2.toFixed(5);
+        return [mathjs.complex(x1, 0), mathjs.complex(x2, 0)];
+    }
+
+    else if (delta < -0.0000000001) {
+        let diff = mathjs.sqrt(-delta);
+        if (flag === true) {
+            let real_part = -b / (2 * a);
+            real_part = real_part.toFixed(5);
+            let imag_part = diff / (2 * a);
+            imag_part = imag_part.toFixed(5);
+            return [mathjs.complex(real_part, -imag_part), mathjs.complex(real_part, imag_part)];
+        }
+        else {
+            return [NaN, NaN];
+        }
+    }
+
+    else {
+        let result = -b / (2 * a);
+        result = result.toFixed(5);
+        return [mathjs.complex(result, 0), mathjs.complex(result, 0)];
+    }
+}

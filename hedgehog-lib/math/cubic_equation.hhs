@@ -1,0 +1,76 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param a, b, c, d - ax^3 + bx^2 + cx + d = 0
+ * @returns - solution in 2-element array, including compelx solution
+ * Theory comes from: https://jerkwin.github.io/2012/10/30/%E4%B8%80%E5%85%83%E4%B8%89%E6%AC%A1%E6%96%B9%E7%A8%8B%E6%B1%82%E6%A0%B9%E5%85%AC%E5%BC%8F%E5%8F%8A%E5%85%B6Fortran%E4%BB%A3%E7%A0%81/
+ * 
+ */
+
+
+
+function cubic_equation(a, b = 0, c = 0, d = 0) {
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in cubic_equation - no argument given');
+    }
+    if (arguments.length > 4) {
+        throw new Error('Exception occurred in cubic_equation - wrong argument number');
+    }
+
+    if (!(typeof a === 'number') || !(typeof b === 'number') || !(typeof c === 'number') || !(typeof d === 'number')) {
+        throw new Error('Exception occurred in cubic_equation - a, b, c, d must be numbers');
+    }
+
+    // we do not allowed a = 0, different from quadratic equation
+    if (a === 0) {
+        throw new Error('Exception occurred in cubic_equation - a cannot be 0');
+    }
+
+    b = b / a / 3;
+    c = c / a / 6;
+    d = d / a / 2;
+    a = 1;
+
+    let alpha = -mathjs.pow(b, 3) + 3 * b * c - d;
+    let beta = mathjs.pow(b, 2) - 2 * c;
+    let delta = mathjs.pow(alpha, 2) - mathjs.pow(beta, 3);
+    
+    // one real root and two complex root
+    if (delta > 0.0000000001) {
+        let r1 = mathjs.cbrt(alpha + mathjs.sqrt(delta));
+        let r2 = beta / r1;
+        let x1 = -b + r1 + r2;
+        let temp_real = -b - (r1 + r2) / 2;
+        let temp_imag = mathjs.sqrt(3) / 2 * (r1 - r2);
+        temp_real = temp_real.toFixed(5);
+        temp_imag = temp_imag.toFixed(5);
+        x1 = x1.toFixed(5);
+        return [mathjs.complex(x1, 0), mathjs.complex(temp_real, -temp_imag), mathjs.complex(temp_real, temp_imag)];
+    }
+
+    // three real roots
+    else if (delta < -0.0000000001) {
+        let theta = mathj.acos(alpha / mathjs.cbrt(mathjs.pow(beta, 2)));
+        let x1 = -b + 2 * mathjs.sqrt(beta) * mathjs.cos(theta / 3);
+        let x2 = -b + 2 * mathjs.sqrt(beta) * mathjs.cos((theta + 2 * math.pi) / 3);
+        let x3 = -b + 2 * mathjs.sqrt(beta) * mathjs.cos((theta - 2 * math.pi) / 3);
+        x1 = x1.toFixed(5);
+        x2 = x2.toFixed(5);
+        x3 = x3.toFixed(5);
+        return [mathjs.complex(x1, 0), mathjs.complex(x2, 0), mathjs.complex(x3, 0)];
+    }
+
+    else {
+        let r = mathjs.cbrt(alpha);
+        r = r.toFixed(5);
+        b = b.toFixed(5);
+        // one real root, two double real root
+        if (r > 0.0000000001 || r < -0.0000000001) {
+            return [mathjs.complex(-b + 2 * r, 0), mathjs.complex(-b - r, 0), mathjs.complex(-b - r, 0)];
+        }
+        // one triple real root
+        else {
+            return [mathjs.complex(-b, 0), mathjs.complex(-b, 0), mathjs.complex(-b, 0)];
+        }
+    }  
+}

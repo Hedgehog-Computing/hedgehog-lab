@@ -1,0 +1,62 @@
+/** 
+* 
+* @author Jason Reynolds 
+* @param - inputM the matrix in the equation Ax=b, namely A
+* @param - input_col the column vector in the equation Ax = b, namely b
+* @returns - the matrix answer , x, to the equation Ax=b using lu decomposition
+*
+* Function that uniquely solves the equation Ax = b for a square matrix/Mat A and column vector b
+*/
+
+
+function lusolve(inputM, input_col) {
+
+    *import math: deep_copy
+    *import math: ndim
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in lusolve - no argument given');
+    }
+    else if (arguments.length !== 2) {
+        throw new Error('Exception occurred in lusolve - wrong argument number');
+    }
+
+    if (!(Array.isArray(inputM)) && !(inputM instanceof Mat) && !(inputM instanceof Tensor)) {
+        throw new Error('Exception occurred in lusolve - argument[0] must be a 2-dimensional JS array, matrix or tensor');
+    }
+    
+    if (!(Array.isArray(input_col)) && !(input_col instanceof Mat) && !(input_col instanceof Tensor)) {
+        throw new Error('Exception occurred in lusolve - argument[1] must be a 2-dimensional JS array, matrix or tensor');
+    }
+
+
+    //declare raw_in, raw_in_col as input.clone() if Mat otherwise, inputM, input_col themselves 
+    let in_type_M = (inputM instanceof Mat) || (inputM instanceof Tensor);
+    let raw_in = (in_type_M) ? inputM.clone() : deep_copy(inputM);
+    let in_type_col = (input_col instanceof Mat) || (input_col instanceof Tensor);
+    let raw_in_col = (in_type_col) ? input_col.clone() : deep_copy(input_col);
+
+    //if any input is Mat, degrade to JS array
+    if (in_type_M) {
+        raw_in = raw_in.val;
+    }
+    if (in_type_col) {
+        raw_in_col = raw_in_col.val;
+    }
+
+    if (ndim(raw_in) !== 2) {
+        throw new Error('Exception occurred in lusolve - argument[0] must be 2-dimensional');
+    }
+    if (ndim(raw_in_col) !== 2) {
+        throw new Error('Exception occurred in lusolve - argument[1] must be 2-dimensional');
+    }
+
+    //check: 0 dims? not square? column vector not equal to length of matrix row length? (if input is m x n, b is m x 1, while solution is n x 1 
+    if (raw_in.length === 0 || raw_in[0].length === 0 || !(raw_in.length === raw_in[0].length) || !(raw_in_col.length === raw_in.length)) {
+        throw new Error('Exception occurred in lusolve - wrong dimensions and need nxn matrix, may want to try lusolveAll or check column vector');
+    }
+    //define the result to be the lusolve output ie the solution
+    let result = mathjs.lusolve(raw_in, raw_in_col);
+    //return it as a Mat object
+    return new Mat(result);
+}

@@ -1,0 +1,60 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input - some numbers, an array, matrix, tensor to get the root mean square
+ * @returns - a number = sqrt((a1^2 + a2^2 + ...) / n)
+ * 
+ */
+
+
+function rms(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    let sort_array = [];
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in rms - no argument given');
+    }
+
+    // rmf(1, 2, 3)
+    if (typeof arguments[0] === 'number') {
+        let result = 0;
+        for (let i = 0; i < arguments.length; i++) {
+            if (typeof arguments[i] === 'number') {
+                result = result + arguments[i] * arguments[i];
+            }
+            else {
+                throw new Error('Exception occurred in rms - you should input some numbers');
+            }
+        }
+        // sqrt
+        return mathjs.sqrt(result / arguments.length);
+    }
+
+     // rms([1, 2, 3], 0)
+    if (arguments.length > 1) {
+        throw new Error('Exception occurred in rms - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in rms - input must be an array, matrix or tensor');
+    }
+
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    if (ndim(raw_in) > 1) {
+        raw_in = flatten(raw_in);
+    }
+    
+    if (raw_in.length === 0) {
+        throw new Error('Exception occurred in rms - input cannot be empty');
+        // return[0]
+    }
+
+    let result = 0;
+    for (let i = 0; i < raw_in.length; i++) {
+        result = result + raw_in[i] * raw_in[i];
+    }
+    return mathjs.sqrt(result / raw_in.length);
+}

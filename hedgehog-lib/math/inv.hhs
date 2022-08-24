@@ -1,0 +1,53 @@
+/**
+ * @author Jason Reynolds
+ * @param input - the matrix to be inverted, Mat or JS array
+ * @returns - the inverted matrix
+ * 
+ * Function that given a square invertible matrice, it will return the inverted matrix
+ */
+
+
+
+
+function inv(input) {
+
+    *import math: ndim
+    *import math: det
+    *import math: deep_copy
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in inv - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in inv - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in inv - input must be a 2-dimensional JS array, matrix or tensor');
+    }
+
+    //declare raw_in to be a clone of input if Mat otherwise input itself 
+    let in_type = (input instanceof Mat) || (input instanceof Tensor)
+    let raw_in = (in_type) ? input.clone() : deep_copy(input);
+
+    //when an instance of Mat degrade to JS array to generalize preceeding code
+    if (in_type) {
+        raw_in = raw_in.val;
+    }
+    //if the ndim is not 2 i.e. not a 2d matrix, throw an error 
+    if (!(ndim(input) === 2)) {
+        throw new Error('Exception occurred in inv - not a 2d matrix, either wrong formatting or wrong dimensions')
+    }
+    //if row length =/= col length throw error
+    if (!(raw_in.length === raw_in[0].length)) {
+        throw new Error('Exception occurred in inv - not a square matrix');
+    }
+    //if det === 0 it's not invertible, throw error
+    if (det(raw_in) === 0) {
+        throw new Error('Exception occurred in inv - det is zero, not invertible');
+    }
+    //if it is ndim 2 or input is of instance Mat (not necessary?), finally return the inverse as a Mat object
+    if (ndim(raw_in) === 2 || input instanceof Mat) {
+        return new Mat(mathjs.inv(raw_in));
+    }
+}

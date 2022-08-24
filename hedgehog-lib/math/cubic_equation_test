@@ -1,0 +1,18 @@
+/**
+ * @author Jianan Lin
+ * Unit test for quadratic_equation function
+ */
+
+
+function cubic_equation_test() {
+
+    *import math: cubic_equation
+    
+    // x^3 = 0
+    if (!(cubic_equation(1) === [0, 0, 0])) {
+        throw new Error('Unit test for cubic_equation failed');
+    }
+
+    print("cubic_equation test pass");
+
+}

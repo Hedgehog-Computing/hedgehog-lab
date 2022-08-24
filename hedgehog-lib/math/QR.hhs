@@ -1,0 +1,45 @@
+/**
+ * @author Jason Reynolds
+ * @param input - the matrix to be decomposed via the QR method
+ * @returns - 2 object values of type Mat, Q and R, the matrices it decomposes input into, and input = Q*R
+ * 
+ * simple js wrapper for QR function
+ * function that takes in a raw or object matrix, decomposes it using QR method, and return the Q and R as objects
+ */
+
+
+
+
+function QR(input) {
+
+    *import math: deep_copy
+
+    // argument number
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in QR - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in QR - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in QR - input is not a Mat, Tensor or JS Array');
+    }
+
+    //declare raw_in as input.clone() if Mat type otherwise, input itself
+    let in_type = (input instanceof Mat) || (input instanceof Tensor)
+    let raw_in = (in_type) ? input.clone() : deep_copy(input);
+
+    //in the case of input being a Mat, degrade to JS array for 'raw_in' to apply for both JS arrays and Mat objects 
+    if (in_type) {
+        raw_in = raw_in.val;
+    }
+    //assign result the object/values obtained from mathjs.qr
+    let result = mathjs.qr(raw_in);
+    //return said values from object
+    return {
+        Q: mat(result.Q),
+        R: mat(result.R)
+    }
+}

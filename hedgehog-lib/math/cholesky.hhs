@@ -1,0 +1,102 @@
+/**
+ * 
+ * Function for decomposing a matrix via cholesky method, returning the L in the L*L^T part. 
+ * @author Xinran Wang, Jason Reynolds
+ * @param inputMatrix the matrix to be decomposed into L 
+ * @returns the cholesky decomposition's L part
+ */
+
+
+
+
+function cholesky(inputMatrix) {
+
+    *import math: transpose
+    *import math: is_symmetric
+
+    // argument number
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in cholesky - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in cholesky - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(inputMatrix)) && !(inputMatrix instanceof Mat) && !(inputMatrix instanceof Tensor)) {
+        throw new Error('Exception occurred in cholesky - inputMatrix is not a Mat, Tensor or JS Array');
+    }
+    
+  //Cholesky: if the input is Mat, check rows/cols and symmetricity 
+  if (inputMatrix instanceof Mat) {
+    L: Mat;
+    if (!(inputMatrix.rows === inputMatrix.cols) || inputMatrix.rows === 0 || inputMatrix.cols === 0) {
+      throw new Error('Wrong dimension for' + inputMatrix);
+    }
+
+    if (!(inputMatrix === transpose(inputMatrix))) {
+      throw new Error('Matrix is not symmetric:' + inputMatrix)
+    }
+
+    if (!is_symmetric(inputMatrix)) {
+      throw new Error('Not symmetric')
+    }
+
+    //dimension n
+    const n = inputMatrix.rows;
+
+    //matrix L
+    const L = new Mat().zeros(n, n);
+
+    //iteration
+    for (let i = 0; i < n; i++) {
+      for (let k = 0; k < i + 1; k++) {
+        let sum = 0;
+        for (let j = 0; j < k; j++) {
+          sum += L.val[i][j] * L.val[k][j];
+        }
+
+        if (i === k) {
+          L.val[i][k] = Math.sqrt(inputMatrix.val[i][i] - sum);
+        } else {
+          L.val[i][k] = (1.0 / L.val[k][k]) * (inputMatrix.val[i][k] - sum);
+        }
+      }
+    }
+    return L;
+  }
+
+  //in the case the array is raw
+  //consider the tensor
+  if (inputMatrix instanceof Tensor) {
+    inputMatrix = inputMatrix.val;
+  }
+
+  if (!(inputMatrix.length === inputMatrix[0].length) || inputMatrix.length === 0 || inputMatrix[0].length === 0) {
+    throw new Error('Wrong dimensions for ' + inputMatrix);
+  }
+  if (!(is_symmetric(inputMatrix))) {
+    throw new Error('Not symmetric');
+  }
+
+  const n_2 = inputMatrix.length;
+  const L_2 = zeros(n_2).val;
+  //const L_2 = Array(n_2).fill(0).map(() => Array(n_2).fill(0));
+
+  for (let x = 0; x < n_2; x++) {
+    for (let y = 0; y < x + 1; y++) {
+      let sum2 = 0;
+      for (let z = 0; z < y; z++) {
+        sum2 += L_2[x][z] * L_2[y][z];
+      }
+
+      if (x === y) {
+        L_2[x][y] = Math.sqrt(inputMatrix[x][x] - sum2);
+      } else {
+        L_2[x][y] = (1.0 / L_2[y][y]) * (inputMatrix[x][y] - sum2);
+      }
+    }
+  }
+  return (mat(L_2));
+
+}

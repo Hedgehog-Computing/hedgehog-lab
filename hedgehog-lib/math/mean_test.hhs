@@ -1,0 +1,53 @@
+/**
+ * @author Jianan Lin (林家南)
+ * Function of test unit for mean
+ */
+
+
+
+function mean_test() {
+
+    *import math: mean
+
+    let b = [5, 34, 3];
+    let c = [[3, 2, 3], [3, 4, 3]];
+    let d = new Mat([3, 4, 2]);
+    let e = new Mat([[3, 4], [4, 3], [4, 3]]);
+    let f = [[[2, 2], [3, 3], [4, 4]], [[2, 2], [3, 3], [4, 4]], [[4, 4], [3, 3], [2, 2]]];
+    let g = [[1, 2], [3], [4, 5, 6]];
+    let h = new Tensor([[[1, 2], [3, 4]], [[5, 6], [7, 8]]]);
+
+    if (!mean(1, 2) === 1.5) {
+        throw new Error('Failed unit test for numbers for mean.');
+    }
+
+    if (!mean(b) === 14) {
+        throw new Error('Failed unit test for Array for mean.');
+    }
+
+    if (!mean(c) === 3) {
+        throw new Error('Failed unit test for Array for mean.');
+    }
+
+    if (!mean(d) === 3) {
+        throw new Error('Failed unit test for Matrix for mean.');
+    }
+
+    if (!mean(e) === 3.5) {
+        throw new Error('Failed unit test for Matrix for mean.');
+    }
+
+    if (!mean(f) === 3) {
+        throw new Error('Failed unit test for Array for mean.');
+    }
+
+    if (!mean(g) === 3.5) {
+        throw new Error('Failed unit test for Array for mean.');
+    }
+
+    if (!mean(h) === 4.5) {
+        throw new Error('Failed unit test for Tensor for mean.');
+    }
+
+    //print("Mean test pass!");
+}

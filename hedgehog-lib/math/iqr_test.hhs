@@ -1,0 +1,52 @@
+/*
+ * @Author Jianan Lin
+ * test for iqr function
+ */
+
+
+function iqr_test() {
+
+    *import math: iqr
+    
+    // length = 11, borderline = 5
+    if (iqr(1, 2, 5, 6, 7, 9, 12, 15, 18, 19, 27) !== 13) {
+        throw new Error('Unit test failed for iqr for number');
+    }
+
+    // length = 9, borderline = 4
+    if (iqr(2, 5, 11, 13, 19, 26, 32, 40, 50) !== 28) {
+        throw new Error('Unit test failed for iqr for number');
+    }
+
+    // length = 10, borderline = 5
+    if (iqr(3, 5, 7, 8, 9, 11, 15, 16, 20, 21) !== 9) {
+        throw new Error('Unit test failed for iqr for number');
+    }
+
+    // length = 8, borderline = 4
+    if (iqr(1, 2, 4, 7, 11, 18, 30, 55) !== 21) {
+        throw new Error('Unit test failed for iqr for number');
+    }
+
+    // length = 11, borderline = 5
+    if (iqr([1, 2, 5, 6, 7, 9, 12, 15, 18, 19, 27]) !== 13) {
+        throw new Error('Unit test failed for iqr for array');
+    }
+
+    // length = 9, borderline = 4
+    if (iqr([2, 5, 11, 13, 19, 26, 32, 40, 50]) !== 28) {
+        throw new Error('Unit test failed for iqr for array');
+    }
+
+    // length = 10, borderline = 5
+    if (iqr([3, 5, 7, 8, 9, 11, 15, 16, 20, 21]) !== 9) {
+        throw new Error('Unit test failed for iqr for array');
+    }
+
+    // length = 8, borderline = 4
+    if (iqr([1, 2, 4, 7, 11, 18, 30, 55]) !== 21) {
+        throw new Error('Unit test failed for iqr for array');
+    }
+    
+    //print('iqr test pass');
+}

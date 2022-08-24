@@ -1,0 +1,111 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - an array, matrix, tensor that you want to get local min
+ * @param dim - 0 or 1: 0 is local min of each row, 1 is each column. 
+ * dim only supports 2-d matrix. For tensor or array, this para is ignored.
+ * @returns - a matrix / tensor with elements 0 or 1 denoting whether it is local min.
+ * 
+ */
+
+
+function is_local_min(input, dim = 0) {
+
+    *import math: deep_copy
+    *import math: ndim
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in is_local_min - no argument given');
+    }
+
+    if (arguments.length > 2) {
+        throw new Error('Exception occurred in is_local_min - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in is_local_min - input must be an array, matrix or tensor');
+    }
+
+    if (dim !== 0 && dim !== 1) {
+        throw new Error('Exception occurred in is_local_min - dim must be 0 or 1');
+    }
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    let result = deep_copy(raw_in);
+
+    // row local min
+    if (dim === 0) {
+        is_local_min_helper_row(raw_in, result);
+        if (ndim(result) <= 2) {
+            return mat(result);
+        }
+        else {
+            return new Tensor(result);
+        }
+    }
+
+    // column local min, require m * n matrix
+    else {
+        if (ndim(raw_in) !== 2) {
+            throw new Error('Exception occurred in is_local_min - if dim = 1, then input must be a m * n matrix');
+        }
+        else if (is_normal_matrix(raw_in) === false) {
+            throw new Error('Exception occurred in is_local_min - if dim = 1, then input must be a m * n matrix');
+        }
+
+        else {
+            for (let i = 0; i < raw_in.length; i++) {
+                for (let j = 0; j < raw_in[i].length; j++) {
+                    if (i === 0 || i === raw_in.length - 1) {
+                        result[i][j] = 0;
+                    }
+                    else if (raw_in[i][j] > raw_in[i - 1][j] || raw_in[i][j] > raw_in[i + 1][j]) {
+                        result[i][j] = 0;
+                    }
+                    else {
+                        result[i][j] = 1;
+                    }
+                }
+            }
+
+            return mat(result);
+        }
+    }
+
+    function is_normal_matrix(input) {
+        let m = input.length;
+        let n = input[0].length;
+        for (let i = 0; i < m; i++) {
+            if (input[i].length !== n) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function judge_row(array, index) {
+        if (index === 0 || index === array.length - 1) {
+            return 0;
+        }
+        else if (array[index] > array[index + 1] || array[index] > array[index - 1]) {
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
+
+    function is_local_min_helper_row(array1, array2) {
+        if (ndim(array1) === 1) {
+            for (let i = 0; i < array1.length; i++) {
+                array2[i] = judge_row(array1, i);
+            }
+        }
+        else {
+            for (let i = 0; i < array1.length; i++) {
+                is_local_min_helper_row(array1[i], array2[i]);
+            }
+        }
+    }
+}

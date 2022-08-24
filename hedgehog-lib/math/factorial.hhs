@@ -1,0 +1,76 @@
+/**
+ * @author Jason Reynolds
+ * @param input - The number, array or Mat to find the factorial of
+ * @returns - The same type as the input but with factorial operated on it. If it wasn't a number, factorial was applied in an element-wise fashion
+ * 
+ * This function takes a number, array or Mat and finds the factorial of it, where the factorial is the element-wise factorial for matrix like structures
+ * and the normal factorial for numbers. Recall factorial for a number is num! = (num)*(num-1)*(num-2)*...*2*1 . Ex: 5! = 5*4*3*2*1 = 120.
+ */
+
+
+
+
+function factorial(input) {
+
+    *import math: is_number
+    *import math: ndim
+    *import math: deep_copy 
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in factorial - no argument given');
+    }
+    else if (arguments.length !== 1) {
+        throw new Error('Exception occurred in factorial - wrong argument number');
+    }
+
+    if(!(is_number(input)) && !(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in factorial - input must be a number, array, matrix or tensor');
+    }
+
+    if (is_number(input)) {
+        if (input < 0 || parseInt(input) !== input) {
+            throw new Error('Exception occurred in factorial - input number must be a non-negative integer');
+        }
+        return mathjs.factorial(input);
+    }
+
+    //declare raw_in to be a clone of Mat if input is Mat, or input itself otherwise
+    let in_type = (input instanceof Mat || input instanceof Tensor)
+    let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+
+    let result = factorial_helper(raw_in);
+    let dim = ndim(result);
+    if (dim === 1) {
+        return result;
+    }
+    else if (dim === 2) {
+        return mat(result);
+    }
+    else {
+        return new Tensor(result);
+    }
+
+    function factorial_helper(input) {
+        let dim = ndim(input);
+
+        if (dim === 1) {
+            let result = deep_copy(input);
+            for (let i = 0; i < input.length; i++) {
+                if (input[i] < 0 || input[i] !== parseInt(input[i])) {
+                    throw new Error('Exception occurred in factorial - input number must be a non-negative integer');
+                }
+                result[i] = mathjs.factorial(input[i]);
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < input.length; i++) {
+                let temp = factorial_helper(input[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+}
