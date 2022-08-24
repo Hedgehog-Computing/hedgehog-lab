@@ -1,0 +1,46 @@
+/**
+ * @author Jing Stone
+ * Unit test for mink function
+ */
+
+function mink_test()
+{
+  *import math: mink
+
+  let A = [[3, 2, 1, 4, 7], [2, 7, 0, 5, 2], [1, 9, 4, 3, 0], [2, 3, 4, 5, 6]];
+  // A-num-num means the 3 parameters of mink
+  const A_3_1 = [[1, 2, 0, 3, 0], 
+                  [2, 3, 1, 4, 2], 
+                  [2, 7, 4, 5, 6]];
+  const A_3_2 = [[1, 2, 3], 
+                  [0, 2, 2], 
+                  [0, 1, 3], 
+                  [2, 3, 4]];
+  const A_4_1 = [[1, 2, 0, 3, 0], 
+                  [2, 3, 1, 4, 2], 
+                  [2, 7, 4, 5, 6], 
+                  [3, 9, 4, 5, 7]];
+  const A_4_2 = [[1, 2, 3, 4], 
+                  [0, 2, 2, 5],
+                  [0, 1, 3, 4], 
+                  [2, 3, 4, 5]];
+
+  function test(input, k, dim, result)
+  {
+    let output = mink(input, k, dim);
+    if(output instanceof Mat)
+    {
+      output = output.clone().val;
+    }
+    if(!(output.join("") === result.join("")))
+    {
+      throw new Error('Unit test failed for mink.')
+    }
+  }
+
+  test(A, 3, 1, A_3_1);
+  test(A, 3, 2, A_3_2);
+  test(A, 4, 1, A_4_1);
+  test(A, 4, 2, A_4_2);
+  //print("mink test passed!");
+}

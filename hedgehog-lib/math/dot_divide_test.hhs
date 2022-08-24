@@ -1,0 +1,49 @@
+/**
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function for testing dot_divide.hhs
+ */
+
+
+
+function dot_divide_test() {
+
+    *import math: dot_divide
+
+    let a = [4, 6, 8];
+    let b = [2, 3, 4];
+    let c = dot_divide(a, b).val[0];
+    for (let i = 0; i < 3; i++) {
+        if (c[i] !== 2) {
+            throw new Error('Unit test failed for array for dot_divide');
+        }
+    }
+
+    let d = mat([[4, 6, 8], [4, 6, 8]]);
+    let e = mat([[2, 3, 4], [2, 3, 4]]);
+    let f = dot_divide(d, e).val;
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (f[i][j] !== 2) {
+                throw new Error('Unit test failed for matrix for dot_divide');
+            }
+        }
+    }
+
+    let g = new Tensor([[[4, 6, 8], [4, 6, 8]], [[4, 6, 8], [4, 6, 8]]]);
+    let h = new Tensor([[[2, 3, 4], [2, 3, 4]], [[2, 3, 4], [2, 3, 4]]]);
+    let m = dot_divide(g, h).val;
+    for (let i = 0; i < 2; i++) {
+        for (let j = 0; j < 2; j++) {
+            for (let k = 0; k < 3; k++) {
+                if (m[i][j][k] !== 2) {
+                    throw new Error('Unit test failed for tensor for dot_divide');
+                }
+            }
+        }
+    }
+
+    //print('dot_divide test pass');
+}

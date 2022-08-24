@@ -1,0 +1,74 @@
+/**
+ * @author Jason Reynolds
+ * 
+ * @param inputM - the matrix part of the equation Ax=b to be solved for x. Is strictly lower triangular in lsolve (see lusolve for other). Note lower triangular
+ * implies it is also square
+ * @param input_col - the column part, b, of the equation Ax = b, to be solved for x. Has to be of size inputM[0].length
+ * @returns - Matrix that has dimensions A.length x 1 (column vector) with the answers to the linear equation systems ie it is unknown x in Ax=b
+ * 
+ * Function similar to lusolve and usolve - it solves an nxn matrix exquation Ax = b for x. May work faster but only allows lower triangular matrices as input
+ */
+
+
+function lsolve(inputM, input_col) {
+
+    *import math: is_tril
+    *import math: ndim
+    *import math: deep_copy
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in lsolve - no argument given');
+    }
+    else if (arguments.length !== 2) {
+        throw new Error('Exception occurred in lsolve - wrong argument number');
+    }
+
+    if (!(Array.isArray(inputM)) && !(inputM instanceof Mat) && !(inputM instanceof Tensor)) {
+        throw new Error('Exception occurred in lsolve - argument[0] must be a 2-dimensional JS array, matrix or tensor');
+    }
+    
+    if (!(Array.isArray(input_col)) && !(input_col instanceof Mat) && !(input_col instanceof Tensor)) {
+        throw new Error('Exception occurred in lsolve - argument[1] must be a 2-dimensional JS array, matrix or tensor');
+    }
+
+    //declare raw_in and raw_in_col : they are either clones of inputM and input_col respectively if Mat objects or inputM, input_col themselves otherwise
+    let in_type_M = (inputM instanceof Mat) || (inputM instanceof Tensor);
+    let raw_in = (in_type_M) ? inputM.clone() : deep_copy(inputM);
+    let in_type_col = (input_col instanceof Mat) || (input_col instanceof Tensor);
+    let raw_in_col = (in_type_col) ? input_col.clone() : deep_copy(input_col);
+
+    //if any input is Mat, degrade to JS array for generalized code
+    if (in_type_M) {
+        raw_in = raw_in.val;
+    }
+    if (in_type_col instanceof Mat) {
+        raw_in_col = raw_in_col.val;
+    }
+
+    if (ndim(raw_in) !== 2) {
+        throw new Error('Exception occurred in lsolve - argument[0] must be 2-dimensional');
+    }
+    if (ndim(raw_in_col) !== 2) {
+        throw new Error('Exception occurred in lsolve - argument[1] must be 2-dimensional');
+    }
+
+    //make sure that the input array is lower triangular (this checks: 2d, 0 length dims, square)
+    if (!(is_tril(raw_in))) {
+        throw new Error('Exception occurred in lsolve - non lower triangular matrix in argument[0]');
+    }
+    //Double check. Not sure if this is good practice or not? Technically only need the last check for column vector check
+    //check: 0 dims? square? column length === row/col length of matrix? if not throw error 
+    if (raw_in.length === 0 || raw_in[0].length === 0 || !(raw_in.length === raw_in[0].length) || !(raw_in_col.length === raw_in.length)) {
+        throw new Error('Exception occurred in lsolve - wrong dimensions and need nxn matrix, may want to try lusolveAll or check column vector');
+    }
+
+    //check: is column not 2d? (still is 2d when its nx1) is it not a -column- vector? that is, does row have more than 1 entry? if so, throw error
+    if (!(ndim(raw_in_col) === 2) || !(raw_in_col[0].length === 1)) {
+        throw new Error('Exception occurred in lsolve - column vector is not of correct input and make sure it is a column and not row vector, of the form, [[n1],[n2],...,[n]]');
+    }
+
+    //declare the result to be the output of lsolve 
+    let result = mathjs.lsolve(raw_in, raw_in_col);
+    //return it as a Mat object
+    return new Mat(result);
+}

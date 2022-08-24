@@ -1,0 +1,50 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - an array with numbers, can be [1, 2, 3], [[1, 2, 3]] or [[1], [2], [3]]
+ * @param dim - a number denoting the largest exponential, i.e. x^dim
+ * @returns - a matrix with size = input.length * (dim + 1) in the form of
+ * [[1, x1, x1^2, ..., x1^dim], ..., [1, xm, xm^2, ..., xm^dim]]
+ * 
+ */
+
+
+function vander(input, dim = 0) {
+
+    *import math: flatten
+    *import math: ndim
+    *import math: deep_copy
+
+    // wrong argument number
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in vander - no argument given');
+    }
+    else if (arguments.length > 2) {
+        throw new Error('Exception occurred in vander - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in vander - argument[0] is not a Mat, Tensor or JS Array');
+    }
+
+    if (!(typeof dim === 'number') || dim < 0 || parseInt(dim) !== dim) {
+        throw new Error('Exception occurred in vander - argument[1] must be a non-negative integer');
+    }
+
+    // process the input
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+    raw_in = flatten(raw_in);
+    let length = raw_in.length;
+
+    let result = [];
+    for (let i = 0; i < length; i++) {
+        let temp = [1];
+        for (let j = 1; j <= dim; j++) {
+            temp.push(temp[j - 1] * raw_in[i]);
+        }
+        result.push(temp)
+    }
+
+    return mat(result);
+}

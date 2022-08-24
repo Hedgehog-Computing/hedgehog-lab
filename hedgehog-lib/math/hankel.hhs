@@ -1,0 +1,70 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input: an array or some numbers, must be odd length
+ * @returns - a hankel matrix
+ * definition: https://en.wikipedia.org/wiki/Hankel_matrix
+ * 
+ */
+
+
+
+function hankel(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in hankel - no argument given');
+    }
+
+    // hankel(1, 2, 3)
+    if (typeof input === 'number') {
+        if (arguments.length % 2 === 0) {
+            throw new Error('Exception occurred in hankel - length of input must be odd');
+        }
+        let raw_in = [];
+        for (let i = 0; i < arguments.length; i++) {
+            raw_in.push(arguments[i]);
+        }
+        let mid = parseInt(raw_in.length / 2);
+        let result = new Array();
+        for (let i = 0; i <= mid; i++) {
+            result[i] = new Array();
+            for (let j = 0; j <= mid; j++) {
+                result[i][j] = 0;
+            }
+        }
+        for (let i = 0; i <= mid; i++) {
+            for (j = 0; j <= i; j++) {
+                result[i - j][j] = raw_in[i];
+                result[mid - i + j][mid - j] = raw_in[raw_in.length - i - 1];
+            }
+        }
+        return mat(result);
+    }
+
+    // hankel([1, 2, 3])
+    else {
+        let raw_in = flatten(input);
+        if (raw_in.length % 2 === 0) {
+            throw new Error('Exception occurred in hankel - length of input must be odd');
+        }
+        let mid = parseInt(raw_in.length / 2);
+        let result = new Array();
+        for (let i = 0; i <= mid; i++) {
+            result[i] = new Array();
+            for (let j = 0; j <= mid; j++) {
+                result[i][j] = 0;
+            }
+        }
+        for (let i = 0; i <= mid; i++) {
+            for (j = 0; j <= i; j++) {
+                result[i - j][j] = raw_in[i];
+                result[mid - i + j][mid - j] = raw_in[raw_in.length - i - 1];
+            }
+        }
+        return mat(result);
+    }
+}

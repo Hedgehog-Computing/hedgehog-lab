@@ -1,0 +1,116 @@
+/**
+ * @author Jason Reynolds, ...
+ * 
+ * Function for testing all unit tests 
+ */
+
+
+function test() {
+
+
+*import math:cholesky_test
+*import math:det_test
+*import math:dot_divide_test
+*import math:dot_multiply_test
+*import math:factorial_test
+*import math:is_symmetric_test
+*import math:is_tril_test
+*import math:is_triu_test
+*import math:lsolve_test
+*import math:lu_test
+*import math:lusolve_test
+*import math:QR_test
+*import math:trace_test
+*import math:transpose_test
+*import math:usolve_test
+*import math:gcd_test
+//import math:floor_test --> UNCOMMENT WHEN REMOVED FROM BASE
+//import math:ceil_test --> UNCOMMENT WHEN REMOVED FROM BASE
+*import math:mean_test 
+*import math:median_test
+*import math:multinomial_test
+*import math:reshape_test
+*import math:mink_test
+*import math:check_input_test
+*import math:is_diag_test
+*import math:magic_test
+*import math:bounds_test
+*import math:iqr_test
+*import math:quantile_test
+*import math:percentile_test
+*import math:rms_test
+*import math:correcoef_test
+*import math:cov_test
+*import math:quadratic_equation_test
+*import math:cubic_equation_test
+*import math:quartic_equation_test
+*import math:vander_test
+*import math:resize_test
+*import math:normalize_test
+*import math:is_local_min_test
+*import math:is_local_max_test
+*import math:smooth_test
+*import math:any_missing_test
+*import math:is_missing_test
+*import math:rmmissing_test
+*import math:fillmissing_test
+*import math:missing_test
+*import math:hankel_test
+*import math:standard_missing_test
+*import math:pascal_test
+
+
+
+  cholesky_test();
+  det_test();
+  dot_divide_test();
+  dot_multiply_test();
+  factorial_test();
+  is_symmetric_test();
+  is_tril_test();
+  is_triu_test();
+  lsolve_test();
+  lu_test();
+  lusolve_test();
+  QR_test();
+  trace_test();
+  transpose_test();
+  usolve_test();
+  gcd_test();
+  //floor_test();
+  //ceil_test();
+  mean_test();
+  median_test();
+  multinomial_test();
+  reshape_test();
+  mink_test();
+  check_input_test();
+  is_diag_test();
+  magic_test();
+  bounds_test();
+  iqr_test();
+  quantile_test();
+  percentile_test();
+  rms_test();
+  correcoef_test();
+  cov_test();
+  quadratic_equation_test();
+  cubic_equation_test();
+  quartic_equation_test();
+  resize_test();
+  vander_test();
+  normalize_test();
+  is_local_min_test();
+  is_local_max_test();
+  any_missing_test();
+  smooth_test();
+  is_missing_test();
+  rmmissing_test();
+  fillmissing_test();
+  missing_test();
+  hankel_test();
+  standard_missing_test();
+  pascal_test();
+
+  print("All test cases passed!")
+}

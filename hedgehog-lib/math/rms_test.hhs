@@ -1,0 +1,22 @@
+/*
+ * @Author Jianan Lin
+ * test for rms function
+ */
+
+
+function rms_test() {
+
+    *import math: rms
+    
+    let a = [1, 1, 1, 1, 1];
+
+    if (!(rms(1, 1, 1) === 1)) {
+        throw new Error('Unit test failed for rms for number');
+    }
+
+    if (!(rms(a) === 1)) {
+        throw new Error('Unit test failed for rms for array');
+    }
+    
+    //print('rms test pass');
+}

@@ -1,0 +1,26 @@
+/**
+ * @author Jason Reynolds
+ * @param - none
+ * @returns - none
+ * 
+ *  Simple unit test for cholesky. Tests both JS arrays and Mat objects. 
+ */
+
+
+function cholesky_test() {
+
+    *import math: cholesky
+
+    //see if the cholesky value returns the correct results for a raw array
+    if ((!(cholesky([[2, 1], [1, 2]]) === [[1.414, 0], [0.707, 1.225]]))) {
+        throw new Error('Cholesky unit test has failed for raw array.');
+    }
+    //check for mat object 
+    if ((!(cholesky(new Mat([[2, 1], [1, 2]])) === [[1.414, 0], [0.707, 1.225]]))) {
+        throw new Error('Cholesky unit test has failed for Mat object.');
+    }
+    // already throws an error within cholesky.hhs?
+    /*if (cholesky([2,1],[0,0])... is not null?) {
+        throw new Error('Cholesky unit test failed for symmetric check.');
+    }*/
+}

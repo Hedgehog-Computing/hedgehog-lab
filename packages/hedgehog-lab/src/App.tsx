@@ -9,8 +9,9 @@ import {RecoilRoot, useResetRecoilState} from "recoil";
 import {useAuth} from "./hooks/useAuth";
 import {useEffectOnce} from "react-use";
 import {pageView} from "./utils/ga4";
-import useCurrentRoute from "./hooks/useCurrentRoute";
 import {searchState} from "./states/RSnippetStates";
+import { HelmetProvider } from 'react-helmet-async';
+import Meta from './components/Meta/Meta';
 
 const ThemePage = () => {
     const resetSearch = useResetRecoilState(searchState)
@@ -18,14 +19,6 @@ const ThemePage = () => {
     useEffectOnce(() => {
         me()
     })
-
-    const {meta} = useCurrentRoute();
-
-    const title = meta?.title ?? 'HLab';
-    useEffect(() => {
-        document.title = `${title} - Hedgehog Lab`;
-        resetSearch()
-    }, [meta]);
 
     // and use it like
     const location = useLocation()
@@ -44,15 +37,18 @@ const App = (): React.ReactElement => {
         <div className="App">
             {/*// @ts-ignore */}
             <RecoilRoot>
-                <React.Suspense fallback={'loading...'}>
-                    <BrowserRouter>
-                        <SnackbarProvider maxSnack={3}>
-                            <StyledEngineProvider injectFirst>
-                                <ThemePage/>
-                            </StyledEngineProvider>
-                        </SnackbarProvider>
-                    </BrowserRouter>
-                </React.Suspense>
+                <HelmetProvider>
+                    <React.Suspense fallback={'loading...'}>
+                        <BrowserRouter>
+                            <SnackbarProvider maxSnack={3}>
+                                <StyledEngineProvider injectFirst>
+                                    <Meta title='Hlab'/>
+                                    <ThemePage/>
+                                </StyledEngineProvider>
+                            </SnackbarProvider>
+                        </BrowserRouter>
+                    </React.Suspense>
+                </HelmetProvider>
             </RecoilRoot>
         </div>
     );

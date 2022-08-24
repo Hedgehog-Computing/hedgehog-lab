@@ -1,0 +1,30 @@
+/**
+ * @author Jianan Lin
+ * Unit test for standard_missing
+ * 
+ */
+
+
+
+function standard_missing_test() {
+
+    *import math: standard_missing
+
+    let a = [1, 2, 3, 4, 5];
+    let b = standard_missing(a, [1, 2]);
+    if (b.val[0][0] === b.val[0][0]) {
+        throw new Error('Unit test failed for standard_missing');
+    }
+
+    let c = mat([[1, 2, 3], [4, 5, 6]]);
+    let d = standard_missing(c, 1);
+    if (d.val[0][0] === d.val[0][0]) {
+        throw new Error('Unit test failed for standard_missing');
+    }
+
+    let e = standard_missing(c, [1, 2]);
+    if (e.val[0][0] === e.val[0][0]) {
+        throw new Error('Unit test failed for standard_missing');
+    }
+    print('standard_missing test pass');
+}

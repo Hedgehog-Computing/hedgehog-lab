@@ -1,0 +1,26 @@
+/**
+ * @author Jianan Lin
+ * Unit test for smooth
+ * 
+ */
+
+
+function smooth_test() {
+  
+    *import math: smooth
+
+    let a = mat([[0, 2, 1, 2, 0], [0, 2, 1, 2, 0]]);
+    let b = mat([[0, 1, 1, 1, 0], [0, 1, 1, 1, 0]]);
+
+    if (!(smooth(a) === b)) {
+        throw new Error('Unit test failed for smooth for numbers');
+    }
+
+    let c = mat([[0, 0], [2, 2], [1, 1], [2, 2], [0, 0]]);
+    let d = mat([[0, 0], [1, 1], [1, 1], [1, 1], [0, 0]]);
+    if (!(smooth(c, 1) === d)) {
+        throw new Error('Unit test failed for smooth for numbers');
+    }
+
+    //print('smooth test pass');
+}

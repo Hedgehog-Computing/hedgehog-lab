@@ -1,0 +1,146 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input: a 1-2d JS array / matrix / tensor
+ * @param dim - 0 means row and 1 means column
+ * @param times - how many rows / columns created
+ * @returns - input with extra blank (missing) rows / columns
+ * According to the previous value, number - NaN, string - "",
+ * boolean - false, others - undefined (maybe null is also OK)
+ * 
+ */
+
+
+
+function missing(input, dim = 1, times = 1) {
+
+    *import math: ndim
+    *import math: deep_copy
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in missing - no argument given');
+    }
+    if (arguments.length > 3) {
+        throw new Error('Exception occurred in missing - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in missing - argument[0] must be JS array, matrix or tensor');
+    }
+    if (!(typeof times === 'number') || times <= 0 || parseInt(times) !== times) {
+        throw new Error('Exception occurred in missing - argument[2] must be a positive integer');
+    }
+    if (dim !== 0 && dim !== 1) {
+        throw new Error('Exception occurred in missing - argument[1] must be 0 or 1');
+    }
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    let size = ndim(raw_in);
+    if (size > 2) {
+        throw new Error('Exception occurred in missing - argument[0] must be no more than 2-dimensional');
+    }
+
+    if (size === 1) {
+        if (dim === 1) {
+            if (raw_in.length === 0) {
+                for (let i = 0; i < times; i++) {
+                    raw_in.push(NaN);
+                }
+            }
+            else {
+                let temp = raw_in[raw_in.length - 1];
+                for (let i = 0; i < times; i++) {
+                    let result = getMiss(temp);
+                    raw_in.push(result);
+                }
+            }
+        }
+
+        else {
+            if (raw_in.length === 0) {
+                for (let i = 0; i < times; i++) {
+                    raw_in.push([NaN]);
+                }
+            }
+            else {
+                let temp = deep_copy(raw_in);
+                for (let i = 0; i < raw_in.length; i++) {
+                    temp[i] = getMiss(raw_in[i]);
+                }
+                raw_in = [raw_in];
+                for (let i = 0; i < times; i++) {
+                    raw_in.push(temp);
+                }
+            }
+        }
+    }
+
+    // size == 2
+    else {
+        if (dim === 1) {
+            if (raw_in[0].length === 0) {
+                for (let i = 0; i < raw_in.length; i++) {
+                    for (let j = 0; j < times; j++) {
+                        raw_in[i].push(NaN);
+                    }
+                }
+            }
+            
+            else {
+                for (let i = 0; i < raw_in.length; i++) {
+                    let temp = raw_in[i][raw_in[i].length - 1];
+                    let result = getMiss(temp);
+                    for (let j = 0; j < times; j++) {
+                        raw_in[i].push(result);
+                    }
+                }
+            }
+        }
+
+        // dim === 0
+        else {
+            if (raw_in[0].length === 0) {
+                for (let j = 0; j < times; j++) {
+                    raw_in.push([]);
+                }
+            }
+
+            else {
+                let temp = [];
+                let result = [];
+                for (let j = 0; j < raw_in[raw_in.length - 1].length; j++) {
+                    temp.push(raw_in[raw_in.length - 1][j]);
+                    result.push(getMiss(temp[j]));
+                }
+                for (let i = 0; i < times; i++) {
+                    raw_in.push(result);
+                }
+            }
+        }
+    }
+    return mat(raw_in);
+
+    function getMiss(x) {
+        if (x || x === 0) {
+            if (typeof x === 'number') {
+                return NaN;
+            }
+            else if (typeof x === 'string') {
+                return "";
+            }
+            else if (typeof x === 'boolean') {
+                return false;
+            }
+            else {
+                return undefined;
+            }
+        }
+        // there is a bug, typeof NaN will case an error
+        else {
+            return x;
+        }
+    }
+    
+}

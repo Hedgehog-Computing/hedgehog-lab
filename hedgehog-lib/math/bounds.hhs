@@ -1,0 +1,146 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input - a series of number, or an array, matrix, tensor to get the min and max
+ * @param dim - 0 (bound of all), 1 (bound of column), 2(bound of row)
+ * @returns - 1-d array or 2-d matrix [min, max], [[min1, min2], [max1, max2]], [[min1, max1], [min2, max2]]
+ * 
+ */
+
+
+function bounds(input, dim = 0) {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in bounds - no argument given');
+    }
+
+    // bounds(1, 2, 3, 4, 5, 6)
+    if (typeof arguments[0] === 'number') {
+        let result = [arguments[0], arguments[0]];
+
+        for (let i = 1; i < arguments.length; i++) {
+            if (typeof arguments[i] === 'number') {
+                if (arguments[i] > result[1]) {
+                    result[1] = arguments[i];
+                }
+                else if (arguments[i] < result[0]) {
+                    result[0] = arguments[i];
+                }
+            }
+
+            else {
+                throw new Error('Exception occurred in bounds - argument must be number');
+            }
+        }
+        return result;
+    }
+
+    // bounds([1, 2, 3], 0)
+    if (arguments.length > 2) {
+        throw new Error('Exception occurred in bounds - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in bounds - input must be an array, matrix or tensor');
+    }
+
+    if (dim !== 0 && dim !== 1 && dim !== 2) {
+        throw new Error('Exception occurred in bounds - dim must be 0, 1 or 2');
+    }
+
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+
+    // find bounds of all
+    if (dim === 0) {
+        raw_in = flatten(raw_in);
+        if (raw_in.length === 0) {
+            return [0, 0];
+        }
+
+        let result = [raw_in[0], raw_in[0]];
+        for (let i = 1; i < raw_in.length; i++) {
+            if (raw_in[i] > result[1]) {
+                result[1] = raw_in[i];
+            }
+            else if (raw_in[i] < result[0]) {
+                result[0] = raw_in[i];
+            }
+        }
+        return result;
+    }
+
+    // dim = 1, get the bound of each column
+    else if (dim === 1) {
+        if (ndim(raw_in) !== 2) {
+            throw new Error('Exception occurred in bounds - input must be 2-dimensional');
+        }
+
+        let m = raw_in.length;
+        let n = raw_in[0].length;
+
+        if (m * n === 0) {
+            throw new Error('Exception occurred in bounds - wrong size of input');
+        }
+        // raw_in = [[1, 2, 3, 4, 5, 6]]
+        else if (m === 1) {
+            return mat([raw_in[0], raw_in[0]]);
+        }
+
+        let result = [];
+        let min_result = [];
+        let max_result = [];
+
+        for (let j = 0; j < n; j++) {
+            let min_temp = raw_in[0][j];
+            let max_temp = raw_in[0][j];
+
+            for (let i = 1; i < m; i++) {
+                if (raw_in[i][j] > max_temp) {
+                    max_temp = raw_in[i][j];
+                }
+                else if (raw_in[i][j] < min_temp) {
+                    min_temp = raw_in[i][j];
+                }
+            }
+            min_result.push(min_temp);
+            max_result.push(max_temp);
+        }
+        result = [min_result, max_result];
+        return mat(result);
+    }
+
+    // dim = 2, get the bound of each row
+    else {
+        if (ndim(raw_in) !== 2) {
+            throw new Error('Exception occurred in bounds - input must be 2-dimensional');
+        }
+
+        let m = raw_in.length;
+        let n = raw_in[0].length;
+
+        if (m * n === 0) {
+            throw new Error('Exception occurred in bounds - wrong size of input');
+        }
+        
+        let result = [];
+        for (let i = 0; i < m; i++) {
+            let min_temp = raw_in[i][0];
+            let max_temp = raw_in[i][0];
+
+            for (let j = 1; j < n; j++) {
+                if (raw_in[i][j] > max_temp) {
+                    max_temp = raw_in[i][j];
+                }
+                else if (raw_in[i][j] < min_temp) {
+                    min_temp = raw_in[i][j];
+                }
+            }
+            result.push([min_temp, max_temp]);
+        }
+        return mat(result);
+    }
+}

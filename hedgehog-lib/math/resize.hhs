@@ -1,0 +1,136 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - an array / matrix / tensor
+ * @param sizes - an array such as [2, 3, 2] or [2, -1]
+ * @param defaultValue - a number filling the remained space
+ * @returns - an 1-d array, 2-d matrix or more-d tensor with specified size
+ * Notice if sizes = [..., -1], then defaultValue will be never used
+ * 
+ */
+
+
+function resize(input, sizes = [-1], defaultValue = 0) {
+
+    *import math: flatten
+    *import math: ndim
+    *import math: deep_copy
+
+    // wrong argument number
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in resize - no argument given');
+    }
+    else if (arguments.length > 3) {
+        throw new Error('Exception occurred in resize - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in resize - argument[0] is not a Mat, Tensor or JS Array');
+    }
+
+    if (!(Array.isArray(sizes)) && !(sizes instanceof Mat) && !(sizes instanceof Tensor)) {
+        throw new Error('Exception occurred in resize - argument[1] is not a Mat, Tensor or JS Array');
+    }
+
+    // dimension check
+    if (ndim(sizes) !== 1) {
+        throw new Error('Exception occurred in resize - argument[1] is not 1-dimensional');
+    }
+
+    // size check
+    let dimension = sizes.length;
+
+    // the last element can be -1, others must be positive integers
+    for (let i = 0; i < dimension - 1; i++) {
+        if (sizes[i] <= 0 || parseInt(sizes[i]) !== sizes[i]) {
+            throw new Error('Exception occurred in resize - elements in sizes must be positive integers');
+        }
+    }
+
+    if ((sizes[dimension - 1] <= 0 && sizes[dimension - 1] !== -1) || (parseInt(sizes[dimension - 1]) !== sizes[dimension - 1])) {
+        throw new Error('Exception occurred in resize - the last element in sizes must be positive integer or -1');
+    }
+
+    // process the input
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+    raw_in = flatten(raw_in);
+    let length = raw_in.length;
+
+    // determine whether we can resize
+    let product = 1;
+    for (let i = 0; i < dimension - 1; i++) {
+        product = product * sizes[i];
+    }
+    // if (length % product !== 0) {
+    //     throw new Error('Exception occurred in resize - the product of array sizes must be a divisor');
+    // }
+
+    // if (sizes[dimension - 1] === -1 && product * sizes[dimension - 1] !== length) {
+    //     throw new Error('Exception occurred in resize - the product of array sizes must be a divisor');
+    // }
+
+    if (sizes[dimension - 1] === -1) {
+        if (length % product !== 0) {
+            throw new Error('Exception occurred in resize - the product of array sizes must be a divisor');
+        }
+        else {
+            sizes[dimension - 1] = length / product;
+        }
+    }
+    else {
+        product = product * sizes[dimension - 1];
+        if (product > length) {
+            for (let i = 0; i < product - length; i++) {
+                raw_in.push(defaultValue);
+            }
+        }
+        else if (product < length) {
+            for (let i = 0; i < length - product; i++) {
+                raw_in.pop();
+            }
+        }
+        length = product;
+    }
+
+    // next we resize the array
+    if (dimension === 1) {
+        return raw_in;
+    }
+    else {
+        let result = [];
+        for (let i = 0; i < sizes[0]; i++) {
+            let temp = resize_helper(raw_in, length / sizes[0] * i, length / sizes[0] * (i + 1), sizes, 1);
+            result.push(temp);
+        }
+        if (ndim(result) == 2) {
+            return mat(result);
+        }
+        else {
+            return new Tensor(result);
+        }
+    }
+
+    // use this recursive function
+    function resize_helper(input, start, end, sizes, index) {
+        // the end case
+        if (index === sizes.length - 1) {
+            let result = [];
+            for (let i = 0; i < end - start; i++) {
+                result.push(input[i + start]);
+            }
+            return result
+        }
+
+        // the recursion
+        else {
+            let result = [];
+            let distance = end - start;
+            for (let i = 0; i < sizes[index]; i++) {
+                let temp = resize_helper(input, start + distance / sizes[index] * i, start + distance / sizes[index] * (i + 1), sizes, index + 1);
+                result.push(temp)
+            }
+            return result;
+        }
+    }
+}

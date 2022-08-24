@@ -1,0 +1,67 @@
+/**
+ * @author Jason Reynolds
+ * @modifiedBy Jing Stone
+ * @param input - the matrix to transpose, aka make columns->rows and rows->columns. Support list and 2d matrix.
+ * @returns - the transposed matrix, 2d matrix
+ * 
+ * Simple function that transposes a matrix and returns it. This does NOT modify the input 
+ */
+
+
+function transpose(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+
+    if (arguments.length !== 1) {
+        throw new Error('Exception occurred in transpose - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in transpose - input must be a JS array, matrix or tensor');
+    }
+
+    //declare raw_in to be input clone if Mat and input deep copy otherwise
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    //if input is Mat degrade to JS array to have the below code work for both JS arrays and Mat objects
+    /**
+     * the speed the mat.clone() is a little slow, need some optimization.
+     */
+    let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+
+
+    //checks: 0 dims, not square, ndim not === 2? 
+    if (raw_in.length === 0 || raw_in[0].length === 0 || (ndim(raw_in) > 2)) {
+        throw new Error('Exception occured in transpose - parameter must be non-empty and 1d list or 2d matrix');
+    } 
+
+    //loop through twice as it's a 2d array
+    //support for arbitrary two-dimensional arrays
+    let result = [];
+    // for one dimensional matrix: [1, 2, 3] --> [[1], [2], [3]]
+    if(ndim(raw_in) === 1)
+    {
+        if(raw_in.length === 1)
+        {
+            return (new Mat(raw_in));
+        }
+        for(let i = 0; i < raw_in.length; i++)
+        {
+            let temp = [];
+            temp.push(raw_in[i]);
+            result.push(temp);
+        }
+    }
+    // for two dimensional matrix: [[1, 2, 3], [4, 5, 6]] --> [[1, 4], [2, 5], [3, 6]]
+    if(ndim(raw_in) === 2)
+    {
+        for (let i = 0; i < raw_in[0].length; i++) {
+            let temp = [];
+            for (let j = 0; j < raw_in.length; j++) {
+                temp.push(raw_in[j][i]);
+            }
+            result.push(temp);
+        }
+    }
+    return (new Mat(result));
+}

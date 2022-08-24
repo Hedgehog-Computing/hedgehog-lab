@@ -1,0 +1,240 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param a, b, c, d, e - ax^4 + bx^3 + cx^2 + dx + e = 0
+ * @returns - solution in 4-element array
+ * Theory comes from: Tianheng formula (天珩公式)
+ * url: https://baike.baidu.com/item/%E4%B8%80%E5%85%83%E5%9B%9B%E6%AC%A1%E6%96%B9%E7%A8%8B%E6%B1%82%E6%A0%B9%E5%85%AC%E5%BC%8F/10721996?fr=aladdin
+ */
+
+
+
+function quartic_equation(a, b = 0, c = 0, d = 0, e = 0) {
+
+    function isZero(a) {
+        if (mathjs.abs(a) < 0.000000001) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function sign(x) {
+        if (isZero(x)) {
+            return 0;
+        }
+        else if (x > 0) {
+            return 1;
+        }
+        else {
+            return -1;
+        }
+    }
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in quartic_equation - no argument given');
+    }
+
+    if (arguments.length > 5) {
+        throw new Error('Exception occurred in quartic_equation - wrong argument number');
+    }
+
+    if (!(typeof a === 'number') || !(typeof b === 'number') || !(typeof c === 'number') || !(typeof d === 'number') || !(typeof e === 'number')) {
+        throw new Error('Exception occurred in quartic_equation - a, b, c, d, e must be numbers');
+    }
+
+   if (a === 0) {
+       throw new Error('Exception occurred in quartic_equation - a cannot be 0');
+   }
+
+    let D = 3 * b * b - 8 * a * c;
+    let E = -mathjs.pow(b, 3) + 4 * a * b * c - 8 * a * a * d;
+    let F = 3 * mathjs.pow(b, 4) + 16 * a * a * c * c - 16 * a * b * b * c + 16 * a * a * b * d - 64 * mathjs.pow(a, 3) * e;
+    let A = D * D - 3 * F;
+    let B = D * F - 9 * E * E;
+    let C = F * F - 3 * D * E * E;
+    let delta = B * B - 4 * A * C;
+    // print(A);
+    // print(B);
+    // print(C);
+    // print(D);
+    // print(E);
+    // print(F);
+    // print(delta);
+
+    // if D = E = F = 0, then return 4 same
+    if (isZero(D) && isZero(E) && isZero(F)) {
+        let result = -b / (4 * a);
+        result = result.toFixed(5);
+        result = mathjs.complex(result, 0);
+        return [result, result, result, result];
+    }
+
+    // if DEF != 0 and A = B = C = 0, then return 1 + 3 same
+    else if (!isZero(D) && !isZero(E) && !isZero(F) && isZero(A) && isZero(B) && isZero(C)) {
+        let x1 = (-b * D + 9 * E) / (4 * a * D);
+        let x2 = (-b * D - 3 * E) / (4 * a * D);
+        x1 = x1.toFixed(5);
+        x2 = x2.toFixed(5);
+        x1 = mathjs.complex(x1, 0);
+        x2 = mathjs.complex(x2, 0);
+        return [x1, x2, x2, x2];
+    }
+
+    // if E = F = 0, D != 0, then return 2 + 2 same
+    else if (isZero(E) && isZero(F) && !isZero(D)) {
+        let temp1 = -b / (4 * a);
+        temp1 = temp1.toFixed(5);
+        let temp2 = mathjs.sqrt(mathjs.abs(D)) / (4 * a);
+        temp2 = temp2.toFixed(5);
+        if (D > 0) {
+            let x1 = mathjs.complex(temp1 + temp2, 0);
+            let x2 = mathjs.complex(temp1 - temp2, 0);
+            return [x2, x2, x1, x1];
+        }
+        else {
+            let x1 = mathjs.complex(temp1, temp2);
+            let x2 = mathjs.complex(temp1, -temp2);
+            return [x2, x2, x1, x1];
+        }
+    }
+
+    // if ABC != 0 and delta == 0, then return 1 + 1 + 2 same
+    else if (!isZero(A) && !isZero(B) && !isZero(C) && isZero(delta)) {
+        let x1 = (-b - 2 * A * E / B) / (4 * a);
+        x1 = x1.toFixed(5);
+        x1 = mathjs.complex(x1, 0);
+        let temp1 = (-b + 2 * A * E / B) / (4 * a);
+        temp1 = temp1.toFixed(5);
+        let temp2 = mathjs.sqrt(2 * B / A) / (4 * a); 
+        temp2 = temp2.toFixed(5);
+        if (A * B > 0) {
+            let x2 = mathjs.complex(temp1 - temp2, 0);
+            let x3 = mathjs.complex(temp1 + temp2, 0);
+            return [x1, x1, x2, x3];
+        }
+        else {
+            let x2 = mathjs.complex(temp1, -temp2);
+            let x3 = mathjs.complex(temp1, temp1);
+            return [x1, x1, x2, x3];
+        }
+    }
+
+    // if delta > 0, then return 4 * 1
+    else if (delta > 0) {
+        let z1 = A * D + 1.5 * (-B - mathjs.sqrt(delta));
+        let z2 = A * D + 1.5 * (-B + mathjs.sqrt(delta));
+        let z13 = mathjs.cbrt(z1);
+        let z23 = mathjs.cbrt(z2);
+        let z = D * D - D * (z13 + z23) + (z13 + z23) * (z13 + z23) - 3 * A;
+        let x1_temp = (-b + sign(E) * mathjs.sqrt((D + z13 + z23) / 3)) / (4 * a);
+        let x2_temp = (mathjs.sqrt((2 * D - (z13 + z23) + 2 * mathjs.sqrt(z)) / 3)) / (4 * a);
+        let x1 = x1_temp - x2_temp;
+        let x2 = x1_temp + x2_temp;
+        x1 = x1.toFixed(5);
+        x2 = x2.toFixed(5);
+        x1 = mathjs.complex(x1, 0);
+        x2 = mathjs.complex(x2, 0);
+
+        let x3_temp = (-b - sign(E) * mathjs.sqrt((D + z13 + z23) / 3)) / (4 * a);
+        let x4_temp = (mathjs.sqrt((-2 * D + (z13 + z23) + 2 * mathjs.sqrt(z)) / 3)) / (4 * a);
+        x3_temp = x3_temp.toFixed(5);
+        x4_temp = x4_temp.toFixed(5);
+        let x3 = mathjs.complex(x3_temp, -x4_temp);
+        let x4 = mathjs.complex(x3_temp, x4_temp);
+        return [x1, x2, x3, x4];
+    }
+
+    // in fact this is delta < 0, and return 4 * 1
+    else {
+        let theta = mathjs.acos((3 * B - 2 * A * D) / (2 * A * mathjs.sqrt(A)));
+        let y1 = (D - 2 * mathjs.sqrt(A) * mathjs.cos(theta / 3)) / 3;
+        let y2 = (D + mathjs.sqrt(A) * (mathjs.cos(theta / 3) + mathjs.sqrt(3) * mathjs.sin(theta / 3))) / 3;
+        let y3 = (D + mathjs.sqrt(A) * (mathjs.cos(theta / 3) - mathjs.sqrt(3) * mathjs.sin(theta / 3))) / 3;
+
+        // case 1
+        if (isZero(E)) {
+            
+            if (F > 0) {
+
+                if (D > 0) {
+                    let x1 = (-b - mathjs.sqrt(D - 2 * mathjs.sqrt(F))) / (4 * a);
+                    x1 = x1.toFixed(5);
+                    x1 = mathjs.complex(x1, 0);
+                    let x2 = (-b + mathjs.sqrt(D - 2 * mathjs.sqrt(F))) / (4 * a);
+                    x2 = x2.toFixed(5);
+                    x2 = mathjs.complex(x2, 0);
+                    let x3 = (-b - mathjs.sqrt(D + 2 * mathjs.sqrt(F))) / (4 * a);
+                    x3 = x3.toFixed(5);
+                    x3 = mathjs.complex(x3, 0);
+                    let x4 = (-b + mathjs.sqrt(D + 2 * mathjs.sqrt(F))) / (4 * a);
+                    x4 = x4.toFixed(5);
+                    x4 = mathjs.complex(x4, 0);
+                    return [x1, x2, x3, x4];
+                }
+
+                else {
+                    let real_temp = (-b) / (4 * a);
+                    let imag_temp1 = mathjs.sqrt(-D + mathjs.sqrt(F)) / (4 * a);
+                    let imag_temp2 = mathjs.sqrt(-D - mathjs.sqrt(F)) / (4 * a);
+                    real_temp = real_temp.toFixed(5);
+                    imag_temp1 = imag_temp1.toFixed(5);
+                    imag_temp2 = imag_temp2.toFixed(5);
+                    let x1 = mathjs.complex(real_temp, -imag_temp1);
+                    let x2 = mathjs.complex(real_temp, imag_temp1);
+                    let x3 = mathjs.complex(real_temp, -imag_temp2);
+                    let x4 = mathjs.complex(real_temp, imag_temp2);
+                    return [x1, x2, x3, x4];
+                }
+            }
+
+            else {
+                let real_temp1 = (-2 * b + mathjs.sqrt(2 * D + 2 * mathjs.sqrt(A - F))) / (8 * a);
+                let real_temp2 = (-2 * b - mathjs.sqrt(2 * D + 2 * mathjs.sqrt(A - F))) / (8 * a);
+                let imag_temp = mathjs.sqrt(-2 * D + 2 * mathjs.sqrt(A - F)) / (8 * a);
+                real_temp1 = real_temp1.toFixed(5);
+                real_temp2 = real_temp2.toFixed(5);
+                imag_temp = imag_temp.toFixed(5);
+                let x1 = mathjs.complex(-real_temp1, imag_temp);
+                let x2 = mathjs.complex(real_temp1, imag_temp);
+                let x3 = mathjs.complex(-real_temp2, imag_temp);
+                let x4 = mathjs.complex(real_temp2, imag_temp);
+                return [x1, x2, x3, x4];
+            }
+        }
+
+        else {
+            if (D > 0 && F > 0) {
+                let x1 = (-b + sign(E) * mathjs.sqrt(y1) + (mathjs.sqrt(y2) + mathjs.sqrt(y3))) / (4 * a);
+                let x2 = (-b + sign(E) * mathjs.sqrt(y1) - (mathjs.sqrt(y2) + mathjs.sqrt(y3))) / (4 * a);
+                let x3 = (-b - sign(E) * mathjs.sqrt(y1) + (mathjs.sqrt(y2) - mathjs.sqrt(y3))) / (4 * a);
+                let x4 = (-b - sign(E) * mathjs.sqrt(y1) - (mathjs.sqrt(y2) - mathjs.sqrt(y3))) / (4 * a);
+                x1 = x1.toFixed(5);
+                x2 = x2.toFixed(5);
+                x3 = x3.toFixed(5);
+                x4 = x4.toFixed(5);
+                x1 = mathjs.complex(x1, 0);
+                x2 = mathjs.complex(x2, 0);
+                x3 = mathjs.complex(x3, 0);
+                x4 = mathjs.complex(x4, 0);
+                return [x1, x2, x3, x4];
+            }
+
+            else {
+                let real_temp1 = (-b - mathjs.sqrt(y2)) / (4 * a);
+                let real_temp2 = (-b + mathjs.sqrt(y2)) / (4 * a);
+                let imag_temp1 = (sign(E) * mathjs.sqrt(-y1) + mathjs.sqrt(-y3)) / (4 * a);
+                let imag_temp2 = (sign(E) * mathjs.sqrt(-y1) - mathjs.sqrt(-y3)) / (4 * a);
+                real_temp1 = real_temp1.toFixed(5);
+                real_temp2 = real_temp2.toFixed(5);
+                imag_temp1 = imag_temp1.toFixed(5);
+                imag_temp2 = imag_temp2.toFixed(5);
+                let x1 = mathjs.complex(real_temp1, -imag_temp1);
+                let x2 = mathjs.complex(real_temp1, imag_temp1);
+                let x3 = mathjs.complex(real_temp2, -imag_temp2);
+                let x4 = mathjs.complex(real_temp2, imag_temp2);
+                return [x1, x2, x3, x4];
+            }
+        }
+    }
+}

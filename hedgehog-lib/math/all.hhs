@@ -1,0 +1,74 @@
+/** 
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function for importing all math routines/functions, done by calling star import math:all
+ */
+
+ *import math:cholesky
+ *import math:det
+ //import math:diagn --> base
+ *import math:dot_divide
+ *import math:dot_multiply
+ *import math:factorial
+ *import math:flatten 
+ *import math:inv 
+ *import math:is_number 
+ *import math:is_symmetric
+ *import math:is_tril
+ *import math:is_triu
+ *import math:lsolve
+ *import math:lu
+ *import math:lusolve
+ *import math:max 
+ *import math:min
+ *import math:ndim 
+ //import math:ones --> base
+ //import math:power --> base
+ //import math:floor UNCOMMENT WHEN REMOVED FROM BASE
+ //import math:ceil UNCOMMENT WHEN REMOVED FROM BASE 
+ *import math:QR
+ *import math:shape 
+ *import math:sum
+ *import math:test
+ *import math:trace
+ *import math:transpose
+ *import math:usolve
+ *import math:mink
+
+ *import math:gcd
+ *import math:mean 
+ *import math:median 
+ *import math:multinomial
+ *import math:reshape
+ *import math:is_diag
+ *import math:magic
+ 
+ *import math:check_input
+ *import math:bounds
+ *import math:iqr
+ *import math:quantile
+ *import math:percentile
+ *import math:rms
+ *import math:correcoef
+ *import math:cov
+ *import math:quadratic_equation
+ *import math:cubic_equation
+ *import math:quartic_equation
+ *import math:vander
+ *import math:resize
+ *import math:normalize
+ *import math:is_local_min
+ *import math:is_local_max
+ *import math:smooth
+ *import math:any_missing
+ *import math:is_missing
+ *import math:rmmissing
+ *import math:fillmissing
+ *import math:missing
+ *import math:hankel
+ *import math:standard_missing
+ *import math:toeplitz
+ *import math:pascal
+ 

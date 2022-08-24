@@ -1,0 +1,18 @@
+/*
+ * @Author Jianan Lin
+ * test for correcoef function
+ */
+
+
+function correcoef_test() {
+
+    *import math: correcoef
+    
+    let a = [0, 1, 2, 3];
+
+    if (!(correcoef(a, a) === 1)) {
+        throw new Error('Unit test failed for correcoef for number');
+    }
+    
+    //print('correcoef test pass');
+}

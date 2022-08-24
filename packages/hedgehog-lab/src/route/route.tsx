@@ -54,16 +54,10 @@ export const router: IAppRoutes[] = [
                     {
                         path: "",
                         element: <Snippets/>,
-                        meta: {
-                            title: 'User snippets',
-                        }
                     },
                     {
                         path: "likes",
                         element: <Snippets/>,
-                        meta: {
-                            title: 'User likes',
-                        }
                     },
                 ],
             },
@@ -82,23 +76,14 @@ export const router: IAppRoutes[] = [
                     {
                         path: "explore",
                         element: <Explore/>,
-                        meta: {
-                            title: 'Explore snippets',
-                        }
                     },
                     {
                         path: "timeline",
                         element: <Timeline/>,
-                        meta: {
-                            title: 'Timeline',
-                        }
                     },
                     {
                         path: 'email-verification',
                         element: <EmailVerification/>,
-                        meta: {
-                            title: 'Verify your email',
-                        }
                     }
                 ],
             },
@@ -109,9 +94,6 @@ export const router: IAppRoutes[] = [
                     {
                         path: "account",
                         element: <Account/>,
-                        meta: {
-                            title: 'Account',
-                        }
                     },
                 ],
             },

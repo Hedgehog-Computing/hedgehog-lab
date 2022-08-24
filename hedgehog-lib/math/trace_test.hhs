@@ -1,0 +1,22 @@
+/**
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function unit test for trace, determines if it's adding up the diagonal entries correctly
+ */
+
+
+
+
+function trace_test() {
+
+    *import math: trace
+
+    if (!(trace([[2.1, 3], [3, 6.11]]) === 8.21)) {
+        throw "Trace unit test has failed."
+    }
+
+    //check for boundaries? no done in trace
+}
+

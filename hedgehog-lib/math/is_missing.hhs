@@ -1,0 +1,60 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - an array, matrix, tensor that you want to find missing element
+ * @returns - a matrix or tensor with same size, element is 1 or 0 depending on missing or not
+ * A missing element is NaN, null, '', or undefined. Notice [] and {} are not missing.
+ * 
+ */
+
+
+
+function is_missing(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in is_missing - no argument given');
+    }
+
+    if (arguments.length > 1) {
+        throw new Error('Exception occurred in is_missing - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in is_missing - input must be an array, matrix or tensor');
+    }
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    let result = deep_copy(raw_in);
+    ismissing_helper(raw_in, result);
+    if (ndim(result) <= 2) {
+        return mat(result);
+    }
+    else {
+        return new Tensor(result);
+    }
+
+    function ismissing_helper(raw_in, result) {
+        if (ndim(raw_in) === 1) {
+            for (let i = 0; i < raw_in.length; i++) {
+                if (raw_in[i] || raw_in[i] === 0) {
+                    result[i] = 0;
+                }
+                else {
+                    result[i] = 1
+                }
+            }
+            return;
+        }
+
+        else {
+            for (let i = 0; i < raw_in.length; i++) {
+                ismissing_helper(raw_in[i], result[i]);
+            }
+            return;
+        }
+    }
+}

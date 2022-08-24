@@ -1,0 +1,38 @@
+/**
+ * @author Mudroad White
+ * @param input - a positive integer denoting the size of the expected matrix.
+ * @returns - a Mat object representing a 2D identity matrix.
+ */
+
+function identity(input) {
+
+	*import math: is_number
+
+	// Corner cases for input
+	// Argument length should be only one
+	if ( !(arguments.length === 1) ) {
+    	throw new Error('Identity expects only one argument');
+	}
+	// Input should be a positive integer
+	if (!Number.isInteger(input) || input < 0) {
+		throw new Error('Excepted positive integer input');
+	}
+
+	// Then we return special Mat value when input is 0 or 1
+	if (input === 0) {
+		return new Mat([]);
+	}
+
+	if (input === 1) {
+		return new Mat([[1]]);
+	}
+
+	// Now we can start on creating the Id matrix
+	let result = new Mat().zeros(input, input);
+	for (let i = 0; i < input; i++){
+		result.val[i][i] = 1;
+	}	
+
+	// return as a Mat object
+	return result;
+}

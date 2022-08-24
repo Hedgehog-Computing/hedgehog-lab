@@ -1,0 +1,71 @@
+/**
+ * @author Jason Reynolds
+ * @modifiedBy Jing Stone
+ * @param
+ * @returns
+ * 
+ * Function for checking transpose.hhs and making sure it doesnt modify original input
+ */
+
+function transpose_test() {
+
+    *import math: transpose
+
+    //check basic transpose 
+    if (!((transpose([[1, 1, 4], [4, 3, 12], [5, 6, 7]]) === ([[1, 4, 5], [1, 3, 6], [4, 12, 7]])))) {
+        throw new Error('Unit test failed for transpose.')
+    }
+    
+    let test_1 = [[1, 2], [3, 4]];
+    let test_1_result = [[1, 3], [2, 4]];
+
+    let test_2 = [1, 2];
+    let test_2_result = [[1], [2]];
+
+    let test_3 = [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]];
+    let test_3_result = [[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]];
+
+    let test_4 = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [9, 10, 11], [11, 12, 13]];
+    let test_4_result = [[1, 4, 7, 9, 11], [2, 5, 8, 10, 12], [3, 6, 9, 11, 13]];
+
+    let test_5 = [1];
+    let test_5_result = [1];
+    function test(input, result)
+    {
+        if(!(transpose(input) === result))
+        {
+            throw new Error('Unit test failed for transpose.')
+        }
+    }
+
+    test(test_1, test_1_result);
+    test(test_2, test_2_result);
+    test(test_3, test_3_result);
+    test(test_4, test_4_result);
+    test(test_5, test_5_result);
+    // print("transpose test passed!");
+
+    //check input matrix is not modified after the execution of the transpose 
+
+    let a = [[2, 3], [1, 2]];
+
+    //if (!(inputM === null)) {. //// not working plus it asks for user input which is dumb of me
+    //make a copy before the transpose
+    let copy_input = zeros(a.length, a.length).val;
+    for (i = 0; i < a.length; i++) {
+        for (j = 0; j < a[0].length; j++) {
+            copy_input[i][j] = a[i][j];
+        }
+    }
+    //tranpose the matrix in question
+    transpose(a);
+
+    //verify that the copy still matches inputM entry by entry
+    for (h = 0; h < a.length; h++) {
+        for (k = 0; k < a[0].length; k++) {
+            if (!(copy_input[h][k] === a[h][k])) {
+                throw new Error('Unit test for transpose has failed, input was modified');
+            }
+        }
+    }
+}

@@ -1,0 +1,98 @@
+/**
+ * Function - dot_multiply : multiplies two matrices element-wise, as in multiplies A[0][0] * B[0][0] = result[0][0], and so on..
+ * 
+ * @author Jason Reynolds
+ * @param A - left hand multiplicand matrix
+ * @param B - right hand multiplicand matrix (they are reversible)
+ * @returns a matrix of the same dimension with the element wise multiplied results
+ * 
+ *  This function multiplies 2 matrices element-wise. Since multiplication in the reals is commutative, A*B = B*A in this case. 
+ * 
+ */
+
+
+
+function dot_multiply(A, B) {
+
+    *import math: deep_copy
+    *import math: ndim
+    *import math: is_number
+
+    // wrong argument number
+    if (arguments.length !== 2) {
+        throw new Error('Exception occurred in dot_multiply - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(A)) && !(A instanceof Mat) && !(A instanceof Tensor)) {
+        throw new Error('Exception occurred in dot_multiply - argument[0] is not a Mat, Tensor or JS Array');
+    }
+    if (!(Array.isArray(B)) && !(B instanceof Mat) && !(B instanceof Tensor)) {
+        throw new Error('Exception occurred in dot_multiply - argument[1] is not a Mat, Tensor or JS Array');
+    }
+
+    //declare raw_in_a and raw_in_b to be either clones of respective inputs or deep copy inputs themselves depending on if Mat or not
+    let in_type_A = (A instanceof Mat) || (A instanceof Tensor);
+    let in_type_B = (B instanceof Mat) || (B instanceof Tensor);
+    let raw_in_a = (in_type_A) ? A.clone().val : deep_copy(A);
+    let raw_in_b = (in_type_B) ? B.clone().val : deep_copy(B);
+
+    // in case a = [[1, 2, 3]]
+    while (Array.isArray(raw_in_a) && raw_in_a.length === 1) {
+        raw_in_a = raw_in_a[0];
+    }
+    while (Array.isArray(raw_in_b) && raw_in_b.length === 1) {
+        raw_in_b = raw_in_b[0];
+    }
+
+    // dimension check in case A and B are both number
+    if (is_number(raw_in_a) && is_number(raw_in_b)) {
+        return mat(raw_in_a * raw_in_b);
+    }
+
+    if (ndim(raw_in_a) !== ndim(raw_in_b) || ndim(raw_in_a) < 1) {
+        throw new Error('Exception occurred in dot_multiply - A and B must have the same dimensions');
+    }
+    
+    let result = dot_multiply_helper(raw_in_a, raw_in_b);
+    let dim = ndim(result);
+
+    if (dim <= 2) {
+        return mat(result);
+    }
+    else {
+        return new Tensor(result);
+    }
+
+    function dot_multiply_helper(A, B) {
+        let dimA = ndim(A), dimB = ndim(B);
+        if (dimA !== dimB) {
+            throw new Error('Exception occurred in dot_multiply - A and B must have the same dimensions');
+        }
+
+        if (dimA === 1) {
+            if (A.length !== B.length) {
+                throw new Error('Exception occurred in dot_multiply - A and B must have the same lengths');
+            }
+
+            let result = deep_copy(A);
+            for (let i = 0; i < A.length; i++) {
+                result[i] = A[i] * B[i];
+            }
+            return result;
+        }
+
+        else {
+            if (A.length !== B.length) {
+                throw new Error('Exception occurred in dot_multiply - A and B must have the same lengths');
+            }
+
+            let result = [];
+            for (let i = 0; i < A.length; i++) {
+                let temp = dot_multiply_helper(A[i], B[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+}

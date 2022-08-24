@@ -1,0 +1,26 @@
+/**
+ * @author Mudroad White
+ * @param 
+ * @returns 
+ *
+ * Functions for testing the identity function.
+ */
+
+function identity_test(){
+	*import math: identity
+
+	// Corner cases
+	if (!(identity(0) === new Mat([]))){
+		throw 'identity unit test failed on identity(0)';
+	}
+
+	if (!(identity(1) === new Mat([[1]]) )){
+		throw 'identity unit test failed on identity(1)';
+	}
+
+	// Ordinary case
+	const test1 = new Mat([[1, 0], [0, 1]]);
+	if (!(identity(2)) === test1){
+		throw 'identity unit test failed on identity(2)';
+	}
+}

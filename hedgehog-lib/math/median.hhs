@@ -1,0 +1,183 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - the list, matrix, tensor or structure that you want to get the median of
+ * @returns - a number representing the median of all the elements of a list, matrix, tensor or other structure
+ * 
+ * write two sort functions in median: quick sort and insert sort
+ */
+
+
+function median(input) {
+
+    *import math: is_number
+    *import math: flatten
+    *import math: ndim
+    *import math: deep_copy
+
+    // if there are no arguments, there is an error
+    if (arguments.length === 0) {
+        throw new Error('No argument given');
+    }
+
+    // if the first argument is a number, then we should get the mean of a list of numbers
+    if (is_number(arguments[0])) {
+
+        // determine whether there is invalid element
+        let length = arguments.length;
+        for (let i = 0; i < length; i++) {
+            if (!is_number(arguments[i])) {
+                throw new Error('First argument suggests a list, but there is a non number element in arguments.');
+            }
+        }
+
+        // sort the array and find the median
+        let array_sort = [];
+        for (let i = 0; i < length; i++) {
+            array_sort.push(arguments[i]);
+        }
+        array_sort = private_quick_sort(array_sort);
+
+        // depend on odd or even length
+        if (length % 2 == 0) {
+            let v1 = array_sort[length / 2], v2 = array_sort[length / 2 - 1];
+            let result = (v1 + v2) / 2;
+            return result;
+        }
+
+        else {
+            let result = array_sort[(length - 1) / 2];
+            return result;
+        }
+
+    }
+
+    // we will add function median(matrix, axis) in the future
+    if (!arguments.length === 1) {
+        throw new Error('Invalid argument');
+    }
+
+    //now we're dealing with non-numbers and matrix-like structures:
+    //declare raw_in, set it to a input clone if its a Mat / Tensor otherwise input itself
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+    // declare dimension of raw_in
+    let dims = ndim(raw_in);
+
+    // dimension = 1 or 2
+    if (dims < 3) {
+
+        // in the case dimension = 1, e.g. [1, 2, 3, 4]
+        if (dims === 1) {
+            raw_in = private_quick_sort(raw_in);
+            let length = raw_in.length;
+            if (length % 2 == 0) {
+                let v1 = raw_in[length / 2], v2 = raw_in[length / 2 - 1];
+                let result = (v1 + v2) / 2;
+                return result;
+            }
+            else {
+                let result = raw_in[(length - 1) / 2];
+                return result;
+            }
+        }
+
+        // in the case dimension = 2, e.g. [[1, 2], [3, 4]]
+        else if (dims === 2) {
+            let array_sort = [];
+            for (let i = 0; i < raw_in.length; i++) {
+                array_sort = array_sort.concat(raw_in[i]);
+            }
+            array_sort = private_quick_sort(array_sort);
+            let length = array_sort.length;
+            if (length % 2 == 0) {
+                let v1 = array_sort[length / 2], v2 = array_sort[length / 2 - 1];
+                let result = (v1 + v2) / 2;
+                return result;
+            }
+            else {
+                let result = array_sort[(length - 1) / 2];
+                return result;
+            }
+        }
+    }
+
+    // in the case dimension > 2, e.g. [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]
+    else if (dims > 2 && is_number(dims)) {
+        raw_in = flatten(raw_in);
+        raw_in = private_quick_sort(raw_in);
+        let length = raw_in.length;
+        if (length % 2 == 0) {
+            let v1 = raw_in[length / 2], v2 = raw_in[length / 2 - 1];
+            let result = (v1 + v2) / 2;
+            return result;
+        }
+        else {
+            let result = raw_in[(length - 1) / 2];
+            return result;
+        }
+    }
+
+    else {
+        throw new Error('Invalid dimension of the first argument');
+    }
+
+    // when we use this function, we have ensured that input is an array
+    function private_quick_sort(input) {
+
+        // if the length is less than 10, then use insert sort
+        if (input.length < 10) {
+            return private_insert_sort(input);
+        }
+
+        let borderline = (input[0] + input[input.length - 1]) / 2;
+        let L = [], M = [], R = [];
+
+        // divide the elements into left and right
+        for (let i = 0; i < input.length; i++) {
+            if (input[i] < borderline) {
+                L.push(input[i]);
+            }
+            else if (input[i] == borderline) {
+                M.push(input[i]);
+            }
+            else {
+                R.push(input[i]);
+            }
+        }
+
+        // recursion
+        L = private_quick_sort(L);
+        R = private_quick_sort(R);
+
+        let result = L.concat(M).concat(R);
+        return result;
+    }
+
+    // when we use this function, we have ensured that input is an array
+    function private_insert_sort(input) {
+
+        // if the length is 0 or 1
+        if (input.length <= 1) {
+            return input;
+        }
+
+        // insert part
+        for (let i = 1; i < input.length; i++) {
+
+            // find the position to insert
+            let j = 0;
+            while (input[j] <= input[i] && j < i) {
+                j++;
+            }
+
+            // move the element
+            let temp = input[i];
+            for (let k = i; k > j; k--) {
+                input[k] = input[k - 1];
+            }
+            input[j] = temp;
+        }
+
+        return input;
+    }
+}

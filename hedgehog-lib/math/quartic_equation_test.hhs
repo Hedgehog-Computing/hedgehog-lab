@@ -1,0 +1,17 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * test function for quartic_equation
+ */
+
+
+
+function quartic_equation_test() {
+
+    *import math: quartic_equation
+
+    if (!(quartic_equation(3, 6, -123, -126, 1080) === [-4, 3, -6, 5])) {
+        throw new Error('quartic_equation test failed');
+    }
+
+    //print('quartic_equation test pass');
+}

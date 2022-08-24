@@ -1,0 +1,66 @@
+/**
+ * @author Jason Reynolds
+ * @param input - the structure to find the maximum value of. Can be a list, 1d array, 2d array, Mat, Tensor, number, etc
+ * max(1, 2, 3) or max([1, 2, 3])
+ * @returns - a number that is the maximum value in the structure
+ * 
+ * Function that finds the maximum value of a list, matrix or general matrix like structure
+ * 
+ */
+
+
+
+function max(input) {
+
+    *import math: is_number
+    *import math: flatten
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in max - no argument given');
+    }
+
+    // max(1, 2, 3)
+    if (arguments.length > 1) {
+        let result = arguments[0];
+        for (let i = 0; i < arguments.length; i++) {
+            if (!is_number(arguments[i])) {
+                throw new Error('Exception occurred in max - only numbers can be compared');
+            }
+
+            if (result < arguments[i]) {
+                result = arguments[i];
+            }
+        }
+        return result;
+    }
+
+    if (is_number(input)) {
+        return input;
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in max - input can only be number, JS array, matrix or tensor');
+    }
+
+    //declare raw_in as the clone of input if a Mat/Tensor otherwise, input itself
+    let in_type = (input instanceof Mat || input instanceof Tensor);
+    let raw_in = (in_type) ? input.clone().val : input;
+    // let raw_in be a 1-d array
+    raw_in = flatten(raw_in);
+    
+    // in case raw_in === []
+    if (raw_in.length === 0) {
+        return 0;
+    }
+    let result = raw_in[0];
+    for (let i = 0; i < raw_in.length; i++) {
+        if (!is_number(raw_in[i])) {
+            throw new Error('Exception occurred in max - only numbers can be compared');
+        }
+
+        if (result < raw_in[i]) {
+            result = raw_in[i];
+        }
+    }
+    return result;
+}

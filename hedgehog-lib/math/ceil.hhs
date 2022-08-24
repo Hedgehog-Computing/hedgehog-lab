@@ -1,0 +1,81 @@
+/**
+* @author Blake Wang
+* @params input - The structure with elements to be rounded toward positive infinity. Can be a number, 1d array, 2d array, Mat, Tensor.
+* @returns a number rounded to positive infinity if input is a number, a Mat with all elements rounded to positive infinity if input is a 1d array, 2d array, Mat or Tensor.
+*
+*
+*
+*/
+
+
+
+function ceil(input) {
+
+  *import math: is_number
+
+  // arguments length
+  if (arguments.length === 0) {
+    throw new Error('Exception occurred in ceil - no argument given');
+  }
+  else if (arguments.length > 1) {
+    throw new Error('Exception occurred in ceil - wrong arguments number');
+  }
+
+  // type check
+  if (!is_number(input) && !(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+    throw new Error('Exception occurred in ceil - input is not a number, Mat, Tensor or JS Array');
+  }
+  
+  // if input is a Mat, Tensor or 2d array
+  let in_type = ((input instanceof Mat || input instanceof Tensor))
+  if (in_type || (input instanceof Array && input[0] instanceof Array)) {
+    // matrix & tensor to js array
+    if (in_type) {
+      input = input.val;
+    }
+    // loop through all elements to round element toward negative infinity
+    for (let i = 0; i < input.length; i++) {
+      for (let j = 0; j < input[i].length; j++) {
+        if (is_number(input[i][j])) {
+          if (input[i][j] >= 0) {
+            input[i][j] = (input[i][j] % 1 === 0 ? parseInt(input[i][j]) : parseInt(input[i][j]) + 1);
+          } else {
+            input[i][j] = parseInt(input[i][j]);
+          }
+        } else {
+          input[i][j] = NaN;
+        }
+      }
+    }
+    return mat(input);
+  }
+
+  // when input is a 1d array
+  if (input instanceof Array && !Array.isArray(input[0])) {
+    for (let i = 0; i < input.length; i++) {
+      if (is_number(input[i])) {
+        if (input[i] >= 0) {
+          input[i] = (input[i] % 1 === 0 ? parseInt(input[i]) : parseInt(input[i]) + 1);
+        } else {
+          input[i] = parseInt(input[i]);
+        }
+      } else {
+        input[i] = NaN;
+      }
+    }
+    return mat(input);
+  }
+
+  // when input is a number
+  if (is_number(input)) {
+    if (input >= 0) {
+      return (input % 1 === 0 ? parseInt(input) : parseInt(input) + 1);
+    } else {
+      return parseInt(input);
+    }
+  } else {
+    return NaN;
+  }
+}
+
+

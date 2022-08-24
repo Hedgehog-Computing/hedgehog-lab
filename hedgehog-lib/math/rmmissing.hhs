@@ -1,0 +1,112 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input: a 1-2d JS array / matrix / tensor
+ * @param dim: 0 means delete the whole column, 1 means delete row
+ * @returns - input without missing value
+ * 
+ */
+
+
+
+function rmmissing(input, dim = 0) {
+
+    *import math: ndim
+    *import math: deep_copy
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in rmmissing - no argument given');
+    }
+    if (arguments.length > 2) {
+        throw new Error('Exception occurred in rmmissing - wrong argument number');
+    }
+
+    if (dim !== 0 && dim !== 1) {
+        throw new Error('Exception occurred in rmmissing - argument[1] must be 0 or 1');
+    }
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in rmmissing - argument[0] must be JS array, matrix or tensor');
+    }
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    if (ndim(raw_in) > 2) {
+        throw new Error('Exception occurred in rmmissing - input can only be 1-2 dimensional');
+    }
+
+    // [1, 2, 3, NaN]
+    if (ndim(raw_in) === 1) {
+        let result = [];
+        for (let i = 0; i < raw_in.length; i++) {
+            if (isMiss(raw_in[i]) === false) {
+                result.push(raw_in[i]);
+            }
+        }
+        return mat(result);
+    }
+
+    // [[1], [2], [3]]
+    if (raw_in[0].length === 1) {
+        let result = [];
+        for (let i = 0; i < raw_in.length; i++) {
+            if (isMiss(raw_in[i][0]) === false) {
+                result.push([raw_in[i][0]]);
+            }
+        }
+        return mat(result);
+    }
+
+    // ndim = 2
+    if (dim === 0) {
+        // myset includes all the index of column that should be deleted
+        let myset = new Set();
+        for (let i = 0; i < raw_in.length; i++) {
+            for (let j = 0; j < raw_in[i].length; j++) {
+                if (isMiss(raw_in[i][j])) {
+                    myset.add(j);
+                }
+            }
+        }
+        // then we construct the result matrix
+        let result = []
+        for (let i = 0; i < raw_in.length; i++) {
+            let temp = []
+            for (let j = 0; j < raw_in[i].length; j++) {
+                if (myset.has(j) === false) {
+                    temp.push(raw_in[i][j]);
+                }
+            }
+            result.push(temp);
+        }
+        return mat(result);
+    }
+
+    // dim === 1
+    else {
+        let myset = new Set();
+        for (let i = 0; i < raw_in.length; i++) {
+            for (let j = 0; j < raw_in[i].length; j++) {
+                if (isMiss(raw_in[i][j])) {
+                    myset.add(i);
+                }
+            }
+        }
+        let result = [];
+        for (let i = 0; i < raw_in.length; i++) {
+            if (myset.has(i) === false) {
+                let temp = deep_copy(raw_in[i]);
+                result.push(temp);
+            }
+        }
+        return mat(result);
+    }
+
+    // x is missing: NaN, "", null
+    function isMiss(x) {
+        if (x === 0 || x) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+}

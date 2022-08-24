@@ -65,6 +65,7 @@ export const useAuth = () => {
 
     const logout = useCallback(() => {
         restAuth();
+        http.defaults.headers.common["Authorization"] = "";
 
         if (!!mathAccountPage) {
             navigate("/");

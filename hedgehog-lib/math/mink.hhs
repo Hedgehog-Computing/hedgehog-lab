@@ -1,0 +1,112 @@
+/**
+ * @author Jing Stone
+ * @param input - list or two dimensional matrix, the smallest k numbers that you want, the direction of matrix(column or row)
+ * @returns - if A is a list, return a list contain the k smallest elements of a
+ *            if A is a matrix, return a matrix whose columns or rows contain the k smallest elements of each columns or rows of A.
+ *            return a Mat object
+ *            dim = 1, column; dim = 2, row
+ *
+ */
+
+
+function mink(input, k = 1, dim = 1)
+{
+  *import math: ndim
+  *import math: deep_copy
+  *import math: transpose
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in mink - no argument given');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in mink - argument[0] must be an array, matrix or tensor');
+    }
+
+    if (arguments.length >= 2) {
+        if (!(typeof k === 'number') || k <= 0 || parseInt(k) !== k) {
+            throw new Error('Exception occurred in mink - argument[1] must be a positive integer');
+        }
+    }
+
+    if (arguments.length > 3) {
+        throw new Error('Exception occurred in mink - wrong argument given');
+    }
+  
+  //declare raw_in to be input clone if Mat and input deep copy otherwise
+  let in_type = (input instanceof Mat || input instanceof Tensor);
+  //if input is Mat degrade to JS array to have the below code work for both JS arrays and Mat objects
+  let raw_in = (in_type) ? input.clone().val : deep_copy(input);
+  //only support 1dim and 2dims
+  let dims = ndim(raw_in);
+
+  // if is list, use built-in sort function to get the k smallest elements
+  if(dims === 1) 
+  {
+    raw_in.sort((a, b) => a - b);
+    let result = [];
+
+    k = k > raw_in.length ? raw_in.length : k;
+
+    for(let i = 0; i < k; i++)
+    {
+      result.push(raw_in[i]);
+    }
+    return (new Mat(result));
+  }
+  // for 2 dims, the direction determined by dim parameter
+  else if(dims === 2)
+  {
+    //get k smallest elements of every row
+    if(dim === 2)
+    {
+      let result = [];
+      //in case k is larger than the column or row of the matrix
+      k = k < raw_in[0].length ? k : raw_in[0].length;
+      //sort every row and get the k smallest elements 
+      for(let i = 0; i < raw_in.length; i++)
+      {
+        let temp = [];
+        raw_in[i].sort((a, b) => a - b);
+        for(let j = 0; j < k; j++)
+        {
+          temp.push(raw_in[i][j]);
+        }
+        result[i] = temp;
+      }
+      return (new Mat(result));
+    }
+    else if(dim === 1)
+    {
+      let result = [];
+      k = k < raw_in.length ? k : raw_in.length;
+      for(let i = 0; i < raw_in[0].length; i++)
+      {
+        // store every column of matrix
+        let temp_1 = [];
+        // store the k smallest elements
+        let temp_2 = [];
+        for(let j = 0; j < raw_in.length; j++)
+        {
+          temp_1.push(raw_in[j][i]);
+        }
+        temp_1.sort((a, b) => a-b);
+        for(let p = 0; p < k; p++)
+        {
+          temp_2.push(temp_1[p]);
+        }
+        result.push(temp_2);
+      }
+      return transpose(result);
+    }
+    else
+    {
+      throw new Error('Exception occured in mink - dim can only be 1 or 2');
+    }
+  }
+  else
+  {
+    throw new Error('Exception occured in mink - only support 1d list or 2d matrix');
+  }
+  return null;
+}

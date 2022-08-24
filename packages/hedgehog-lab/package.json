@@ -29,6 +29,7 @@
     "react-code-blocks": "^0.0.9-0",
     "react-dom": "^18.0.0",
     "react-ga4": "^1.4.1",
+    "react-helmet-async": "^1.3.0",
     "react-hook-form": "^7.19.1",
     "react-markdown": "^6.0.2",
     "react-mathjax": "^1.0.1",
@@ -42,7 +43,19 @@
     "swr": "^1.2.2",
     "typescript": "^3.9.7",
     "worker-loader": "^2.0.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "workbox-background-sync": "^6.5.3",
+    "workbox-broadcast-update": "^6.5.3",
+    "workbox-cacheable-response": "^6.5.3",
+    "workbox-core": "^6.5.3",
+    "workbox-expiration": "^6.5.3",
+    "workbox-google-analytics": "^6.5.3",
+    "workbox-navigation-preload": "^6.5.3",
+    "workbox-precaching": "^6.5.3",
+    "workbox-range-requests": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3",
+    "workbox-streams": "^6.5.3"
   },
   "devDependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.3.3",

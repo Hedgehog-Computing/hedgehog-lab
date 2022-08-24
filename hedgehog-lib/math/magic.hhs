@@ -1,0 +1,198 @@
+/**
+ * @author Jing Stone
+ * @param input number
+ * @returns  Mat object matrix
+ * 
+ * The magic function generates a matrix that the sums of the numbers in each row, each column, 
+ *   and both main diagonals are the same. 
+ * The introduction: https://en.wikipedia.org/wiki/Magic_square
+ */
+
+
+function magic(input)
+{
+  // wrong argument number
+  if (arguments.length === 0) {
+    throw new Error('Exception occurred in magic - no argument given');
+  }
+  else if (arguments.length > 1) {
+    throw new Error('Exception occurred in magic - wrong argument number');
+  }
+  // the input shoule be an integer
+  if(!Number.isInteger(input)) {
+    throw new Error("Exception occurred in magic - the paramter must be an integer.");
+  }
+  // 1x1 magic square is called trivial
+  if(input === 1) return (new Mat([1]));
+  // 2x2 magic square do not exist, return a default matrix
+  if(input === 2) return (new Mat([[1, 2], [3, 4]]));
+
+  /* 
+    The method of generating magic matrix depends on the order
+    it should be consider as odd, 4M+2, 4M, M is an integer greater than 1
+    mode = 0 : the input is 4M, use generate_square_doubly_even
+    mode = 2 : the input is 4M+2, use generate_square_even
+    mode = 1 or 3 : the input is odd, use generate_square_odd
+  */
+  let mode = input % 4;
+
+  switch(mode) {
+    case 0:
+      let result_doubly_even = generate_square_doubly_even(input);
+      return new Mat(result_doubly_even);
+    case 2:
+      let result_even = generate_square_even(input);
+      return new Mat(result_even);
+    case 1:
+    case 3:
+      let result_odd = generate_square_odd(input);
+      return new Mat(result_odd);
+    default:
+        throw new Error("Exception occurred in magic - something wrong happened");
+  }
+
+  /*
+    https://en.wikipedia.org/wiki/Magic_square#A_method_for_constructing_a_magic_square_of_odd_order
+    the detail of how to generate a magic matrix of odd order
+  */
+  function generate_square_odd(n) {
+
+    let magicSquare = Array(n).fill(0).map(x => Array(n).fill(0));
+
+    let i = 0;
+    let j = (n - 1) / 2;
+
+    magicSquare[i][j] = 1;
+
+    for(let num = 2; num <= n * n; num++)
+    {
+      let row = (i - 1 < 0) ? (n - 1) : (i - 1);
+      let col = (j - 1 < 0) ? (n - 1) : (j - 1);
+
+      if(magicSquare[row][col] === 0)
+      {
+        i = row;
+        j = col;
+      } else {
+        i = (i + 1) % n;
+      }
+      magicSquare[i][j] = num;
+    }
+    return magicSquare;
+  }
+
+  /*
+    https://en.wikipedia.org/wiki/Magic_square#A_method_of_constructing_a_magic_square_of_doubly_even_order
+    the detail of how to generate a magic matrix of doubly even order(4M)
+  */
+  function generate_square_doubly_even(n)
+  {
+    let magicSquare = [];
+    let num = 1;
+    let diametrical_number = n * n + 1;
+    for(let i = 0; i < n; i++)
+    {
+      let temp = [];
+      for(let j = 0; j < n; j++)
+      {
+        temp.push(num);
+        num++;
+      }
+      magicSquare.push(temp);
+    }
+    
+    // for each 4x4 block, change the value that is not in the diagonal
+    for(let i = 0; i < n; i += 4)
+    {
+      for(let j = 0; j < n; j += 4)
+      {
+        magicSquare[i][j + 1] = diametrical_number - magicSquare[i][j + 1]; 
+        magicSquare[i + 3][j + 2] = diametrical_number - magicSquare[i + 3][j + 2]; 
+  
+        magicSquare[i][j + 2] = diametrical_number - magicSquare[i][j + 2];  
+        magicSquare[i + 3][j + 1] = diametrical_number - magicSquare[i + 3][j + 1]; 
+  
+        magicSquare[i + 1][j] = diametrical_number - magicSquare[i + 1][j]; 
+        magicSquare[i + 2][j + 3] = diametrical_number - magicSquare[i + 2][j + 3]; 
+  
+        magicSquare[i + 2][j] = diametrical_number - magicSquare[i + 2][j]; 
+        magicSquare[i + 1][j + 3] = diametrical_number - magicSquare[i + 1][j + 3]; 
+      }
+    }
+
+    return magicSquare;
+  }
+
+  /*
+    https://en.wikipedia.org/wiki/Conway%27s_LUX_method_for_magic_squares
+    the detail of LUX method to generate 4M + 2 magic matrix
+  */
+  function generate_square_even(n)
+  {
+    // initialize matrix with size n and set all values to 0 
+    let magicSquare = [];
+    for(let i = 0; i < n; i++)
+    {
+      let temp = [];
+      for(let j = 0; j < n; j++)
+      {
+        temp.push(0);
+      }
+      magicSquare.push(temp);
+    }
+
+    // use LUX method to calculate magic matrix
+    let M = (n - 2) / 4;
+    let L = M;
+    let U = M + 1;
+    let X = M + 2;
+
+    let odd_two_M = generate_square_odd(2*M+1);
+
+    // compute the L row
+    for(let i = 0; i <= L; i++)
+    {
+      for(let j = 0; j < 2 * M + 1 ; j++)
+      {
+        magicSquare[2*i][2*j] = 4 * odd_two_M[i][j];
+        magicSquare[2*i][2*j+1] = 4 * odd_two_M[i][j] - 3;
+        magicSquare[2*i+1][2*j] = 4 * odd_two_M[i][j] - 2;
+        magicSquare[2*i+1][2*j+1] = 4 * odd_two_M[i][j] - 1; 
+      }
+    }
+
+    // compute the U row
+    for(let j = 0; j < 2 * M + 1; j++)
+    {
+      magicSquare[2*U][2*j] = 4 * odd_two_M[U][j] - 3;
+      magicSquare[2*U][2*j+1] = 4 * odd_two_M[U][j];
+      magicSquare[2*U+1][2*j] = 4 * odd_two_M[U][j] - 2;
+      magicSquare[2*U+1][2*j+1] = 4 * odd_two_M[U][j] - 1;
+    }
+
+    // compute the X row
+    for(let i = X; i < 2 * M + 1; i++)
+    {
+      for(let j = 0; j < 2 * M + 1; j++)
+      {
+        magicSquare[2*i][2*j] = 4 * odd_two_M[i][j] - 3;
+        magicSquare[2*i][2*j+1] = 4 * odd_two_M[i][j];
+        magicSquare[2*i+1][2*j] = 4 * odd_two_M[i][j] - 1;
+        magicSquare[2*i+1][2*j+1] = 4 * odd_two_M[i][j] - 2; 
+      }
+    }
+
+    // handle the special case
+    magicSquare[2*L][2*M] = 4 * odd_two_M[L][M] - 3;
+    magicSquare[2*L][2*M+1] = 4 * odd_two_M[L][M];
+    magicSquare[2*L+1][2*M] = 4 * odd_two_M[L][M] - 2;
+    magicSquare[2*L+1][2*M+1] = 4 * odd_two_M[L][M] - 1;
+
+    magicSquare[2*U][2*M] = 4 * odd_two_M[U][M];
+    magicSquare[2*U][2*M+1] = 4 * odd_two_M[U][M] - 3;
+    magicSquare[2*U+1][2*M] = 4 * odd_two_M[U][M] - 2;
+    magicSquare[2*U+1][2*M+1] = 4 * odd_two_M[U][M] - 1;
+
+    return magicSquare;
+  }
+}

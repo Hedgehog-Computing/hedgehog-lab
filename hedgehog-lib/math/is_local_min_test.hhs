@@ -1,0 +1,26 @@
+/**
+ * @author Jianan Lin
+ * Unit test for is_local_min
+ * 
+ */
+
+
+function is_local_min_test() {
+  
+    *import math: is_local_min
+
+    let a = mat([[2, 1, 3], [2, 1, 3]]);
+    let b = mat([[0, 1, 0], [0, 1, 0]])
+
+    if (!(is_local_min(a) === b)) {
+        throw new Error('Unit test failed for is_local_min for numbers');
+    }
+
+    let c = mat([[2, 2], [1, 1], [3, 3]]);
+    let d = mat([[0, 0], [1, 1], [0, 0]]);
+    if (!(is_local_min(c, 1) === d)) {
+        throw new Error('Unit test failed for is_local_min for numbers');
+    }
+
+    //print('is_local_min test pass');
+}

@@ -1,0 +1,115 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input - an array, matrix, tensor to get the percentile
+ * @param x - percentage probability from interval [0, 100]
+ * @returns - 1-d array from the input[0] to input[(0.01 * probability * length)]
+ * 
+ */
+
+
+function percentile(input, x = 100) {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    let sort_array = [];
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in percentile - no argument given');
+    }
+
+    // quantile([1, 2, 3], 0, ???)
+    if (arguments.length > 2) {
+        throw new Error('Exception occurred in percentile - wrong argument number');
+    }
+
+    if (!(typeof x === 'number') || x < 0 || x > 100) {
+        throw new Error('Exception occurred in percentile - argument[1] must belong to interval [0, 100]');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in percentile - argument[0] must be an array, matrix or tensor');
+    }
+
+    let in_type = (input instanceof Mat) || (input instanceof Tensor);
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    if (ndim(raw_in) > 1) {
+        raw_in = flatten(raw_in);
+    }
+    sort_array = private_quick_sort(raw_in);
+    x = x / 100;
+    
+    let length = sort_array.length;
+    if (length === 0) {
+        throw new Error('Exception occurred in percentile - argument[0] cannot be empty');
+    }
+
+    let size = mathjs.round(length * x);
+    if (size < 1) {
+        return [sort_array[0]];
+    }
+    else {
+        let result = sort_array.slice(0, size);
+        return result;
+    }
+
+    // when we use this function, we have ensured that input is an array
+    function private_quick_sort(input) {
+
+        // if the length is less than 10, then use insert sort
+        if (input.length < 10) {
+            return private_insert_sort(input);
+        }
+
+        let borderline = (input[0] + input[input.length - 1]) / 2;
+        let L = [], M = [], R = [];
+
+        // divide the elements into left and right
+        for (let i = 0; i < input.length; i++) {
+            if (input[i] < borderline) {
+                L.push(input[i]);
+            }
+            else if (input[i] == borderline) {
+                M.push(input[i]);
+            }
+            else {
+                R.push(input[i]);
+            }
+        }
+
+        // recursion
+        L = private_quick_sort(L);
+        R = private_quick_sort(R);
+
+        let result = L.concat(M).concat(R);
+        return result;
+    }
+
+    // when we use this function, we have ensured that input is an array
+    function private_insert_sort(input) {
+
+        // if the length is 0 or 1
+        if (input.length <= 1) {
+            return input;
+        }
+
+        // insert part
+        for (let i = 1; i < input.length; i++) {
+
+            // find the position to insert
+            let j = 0;
+            while (input[j] <= input[i] && j < i) {
+                j++;
+            }
+
+            // move the element
+            let temp = input[i];
+            for (let k = i; k > j; k--) {
+                input[k] = input[k - 1];
+            }
+            input[j] = temp;
+        }
+
+        return input;
+    }
+}

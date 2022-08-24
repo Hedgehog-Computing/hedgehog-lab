@@ -1,0 +1,50 @@
+
+function magic_test()
+{
+  *import math:magic
+
+  function check_magic(input)
+  {
+    let magic_matrix = magic(input).clone().val;
+
+    let sumd1 = 0;
+    let sumd2 = 0;
+    for (let i = 0; i < input; i++)
+    {
+        // (i, i) is the diagonal from top-left -> bottom-right
+        // (i, input - i - 1) is the diagonal from top-right -> bottom-left
+        sumd1 = sumd1 + magic_matrix[i][i];
+        sumd2 = sumd2 + magic_matrix[i][input-1-i];
+    }
+
+    // // if the two diagonal sums are unequal then it is not a magic square
+    if(sumd1 !== sumd2)
+      return false;
+
+    // check if each row or column equal
+    for (let i = 0; i < input; i++) {
+      let colSum = 0;
+      let rowSum = 0;   
+      for (let j = 0; j < input; j++)
+      {
+          rowSum += magic_matrix[i][j];
+          colSum += magic_matrix[j][i];
+      }
+
+      if (rowSum != colSum || colSum != sumd1)
+          return false;
+    }
+    // print(input);
+    // print("magic passed.");
+    return true;
+  }
+
+  for(let i = 3; i <= 20; i++)
+  {
+    if(!check_magic(i))
+    {
+      throw new Error("Failed unit test for magic function.");
+    }
+  }
+  // print("all test passed.");
+}

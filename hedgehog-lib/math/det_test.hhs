@@ -1,0 +1,20 @@
+/**
+ * @author Jason Reynolds
+ * @param
+ * @returns
+ * 
+ * Function for testing determinant of matrix
+ */
+
+function det_test() {
+
+    *import math: det
+
+    if (!(det([[2, 5, 3], [7, 13, -1], [2, 3, 3]]) === -46)) {
+        throw new Error('Failed unit test for raw array for det.');
+    }
+    let a = new Mat([[2, 1], [1, 2]]);
+    if (!(det(a) === 3)) {
+        throw new Error('Failed unit test for Mat array for det.');
+    }
+}

@@ -1,0 +1,10 @@
+/**let a = 6;
+let b = [5,34,3];
+let c = [[3,2,3],[3,4,2]];
+let d = new Mat([3,4,2]);
+let e = new Mat([[3,4],[4,3],[4,3]])
+let f = [[[2,2],[3,3],[4,4]],[[2,2],[3,3],[4,4]],[[4,4],[3,3],[2,2]]]
+let g = new Tensor([[[2,2],[3,3],[4,4]],[[2,2],[3,3],[4,4]],[[4,4],[3,3],[2,2]]]);**/
+
+//its taking e,f,g and saying 2.... but if i enter 3 values in each sub array it says 3. something weird with the dimensions
+//will think about it tomorrow 

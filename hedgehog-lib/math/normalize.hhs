@@ -1,0 +1,101 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - a series of numbers, array, matrix, tensor that you want to normalize
+ * @returns - an array / matrix / tensor with elements in [0, 1]
+ * you can write normalize(1, 2, 3) or normalize([1, 2, 3])
+ * 
+ */
+
+
+function normalize(input) {
+
+    *import math: deep_copy
+    *import math: ndim
+    *import math: max
+    *import math: min
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in normalize - no argument given');
+    }
+
+    // normalize(1, 2, 3)
+    if (typeof arguments[0] === 'number') {
+        raw_in = []
+        for (let i = 0; i < arguments.length; i++) {
+            if (typeof arguments[i] === 'number') {
+                raw_in.push(arguments[i])
+            }
+            else {
+                throw new Error('Exception occurred in normalize - only numbers are allowed');
+            }
+        }
+
+        let max_ = max(raw_in);
+        let min_ = min(raw_in);
+        if (max_ === min_) {
+            let result = deep_copy(raw_in);
+            for (let i = 0; i < raw_in.length; i++) {
+                result[i] = 1;
+            }
+            return result;
+        }
+
+        else {
+            let result = deep_copy(raw_in);
+            for (let i = 0; i < raw_in.length; i++) {
+                result[i] = (raw_in[i] - min_) / (max_ - min_);
+            }
+            return result;
+        }
+    }
+
+    // normalize([1, 2, 3])
+    if (arguments.length !== 1) {
+        throw new Error('Exception occurred in normalize - wrong argument number');
+    }
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in normalize - input must be an array, matrix or tensor');
+    }
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+
+    let max_ = max(raw_in);
+    let min_ = min(raw_in);
+
+    let result = normalize_helper(raw_in, max_, min_);
+    if (ndim(result) <= 2) {
+        return mat(result);
+    }
+    else {
+        return new Tensor(result);
+    }
+
+    function output(x, max_, min_) {
+        if (max_ === min_) {
+            return 1;
+        }
+        else {
+            return (x - min_) / (max_ - min_);
+        }
+    }
+
+    function normalize_helper(array, max_, min_) {
+        if (ndim(array) === 1) {
+            let result = deep_copy(array);
+            for (let i = 0; i < result.length; i++) {
+                result[i] = output(array[i], max_, min_);
+            }
+            return result;
+        }
+        else {
+            let result = [];
+            for (let i = 0; i < array.length; i++) {
+                temp = normalize_helper(array[i], max_, min_);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+}

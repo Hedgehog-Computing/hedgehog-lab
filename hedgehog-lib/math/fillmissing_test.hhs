@@ -1,0 +1,52 @@
+/**
+ * @author Jianan Lin
+ * Unit test for fillmissing
+ * 
+ */
+
+
+
+function fillmissing_test() {
+
+    *import math: fillmissing
+
+    let a = [1, 2, NaN];
+    let b = fillmissing(a);
+
+    if (!(b === mat([1, 2, 0]))) {
+        throw new Error('Unit test failed for fillmissing_test');
+    }
+
+    let c = [[1], [2], [NaN]];
+    let d = fillmissing(c, 5);
+    if (!(d === mat([[1], [2], [5]]))) {
+        throw new Error('Unit test failed for fillmissing_test');
+    }
+
+    let e = mat([[NaN, NaN, NaN], [1, 2, 3]]);
+    let f = fillmissing(e, [1, 2, 3]);
+    if (!(f === mat([[1, 2, 3], [1, 2, 3]]))) {
+        throw new Error('Unit test failed for fillmissing_test');
+    }
+
+    let g = mat([[NaN, NaN, NaN], [1, 2, 3]]);
+    let h = fillmissing(g, 1, 'previous');
+    if (!(h === mat([[1, 1, 1], [1, 2, 3]]))) {
+        throw new Error('Unit test failed for fillmissing_test');
+    }
+
+    let i = mat([[NaN, 2, NaN], [1, 2, 3]]);
+    let j = fillmissing(i, [1, 3], 'previous');
+    if (!(j === mat([[1, 2, 2], [1, 2, 3]]))) {
+        throw new Error('Unit test failed for fillmissing_test');
+    }
+
+    let k = [NaN, NaN, NaN, NaN, NaN];
+    let l = [1, 2, 3, 4];
+    let m = fillmissing(k, l);
+    if (!(m === mat([1, 2, 3, 4, 4]))) {
+        throw new Error('Unit test failed for fillmissing_test');
+    }
+
+    //print('fillmissing test pass');
+}

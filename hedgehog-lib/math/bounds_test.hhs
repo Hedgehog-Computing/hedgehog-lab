@@ -1,0 +1,30 @@
+/**
+ * @author Jianan Lin
+ * Unit test for bounds function
+ */
+
+function bounds_test() {
+    *import math: bounds
+
+    if (!(bounds(1, 2, 3, 4, 5) === [1, 5])) {
+        throw new Error('Unit test failed for bounds for numbers');
+    }
+
+    let a = [1, 2, 3, 4, 5];
+    if (!(bounds(a, 0) === [1, 5])) {
+        throw new Error('Unit test failed for bounds for array');
+    }
+
+    let b = mat([[1, 2, 3], [4, 5, 6]]);
+    if (!(bounds(b, 0) === [1, 6])) {
+        throw new Error('Unit test failed for bounds for matrix');
+    }
+    if (!(bounds(b, 1) === mat([[1, 2, 3], [4, 5, 6]]))) {
+        throw new Error('Unit test failed for bounds for matrix');
+    }
+    if (!(bounds(b, 2) === mat([[1, 3], [4, 6]]))) {
+        throw new Error('Unit test failed for bounds for matrix');
+    }
+
+    //print('Bounds test pass');
+}

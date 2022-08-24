@@ -1,0 +1,119 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param input: an array, matrix or tensor
+ * @param missing: an element, array, matrix or tensor
+ * @returns - a matrix / tensor with all elements in missing transformmed to missing values
+ * 
+ */
+
+
+
+function standard_missing(input, missing = 0) {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in standard_missing - no argument given');
+    }
+
+    if (arguments.length > 2) {
+        throw new Error('Exception occurred in standard_missing - wrong argument number');
+    }
+
+    // type check
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in standard_missing - argument[0] must be a JS array, matrix or tensor');
+    }
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+
+    let flag = (Array.isArray(missing)) || (missing instanceof Mat) || (missing instanceof Tensor);
+    let pool = flag ? flatten(missing) : missing;
+
+    if (flag) {
+        let result = standard_array(raw_in);
+        if (ndim(result) <= 2) {
+            return mat(result);
+        }
+        else {
+            return new Tensor(result);
+        }
+    }
+
+    else {
+        let result = standard_element(raw_in);
+        if (ndim(result) <= 2) {
+            return mat(result);
+        }
+        else {
+            return new Tensor(result);
+        }
+    }
+
+    function standard_array(data) {
+        if (ndim(data) === 1) {
+            let result = deep_copy(data);
+            for (let i = 0; i < data.length; i++) {
+                if (pool.includes(data[i])) {
+                    result[i] = getMiss(data[i]);
+                }
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < data.length; i++) {
+                let temp = standard_array(data[i], pool);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+
+    function standard_element(data) {
+        if (ndim(data) === 1) {
+            let result = deep_copy(data);
+            for (let i = 0; i < data.length; i++) {
+                if (data[i] === pool) {
+                    result[i] = getMiss(data[i]);
+                }
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < data.length; i++) {
+                let temp = standard_element(data[i], pool);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+
+
+    function getMiss(x) {
+        if (x === 0 || x) {
+            if (typeof x === 'number') {
+                return NaN;
+            }
+            else if (typeof x === 'boolean') {
+                return false;
+            }
+            else if (typeof x === 'string') {
+                return "";
+            }
+            else {
+                return undefined;
+            }
+        }
+        else {
+            return x;
+        }
+    }
+}

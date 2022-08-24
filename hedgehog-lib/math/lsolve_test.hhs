@@ -1,0 +1,24 @@
+/**
+ * @author Jason Reynolds
+ * 
+ * @param 
+ * @returns 
+ * 
+ * Function for unit testing lsolve (solve linear equation system with lower triangular matrix) 
+ */
+
+
+
+
+
+function lsolve_test() {
+
+    *import math: lsolve
+
+    let a = new Mat([[3, 0, 0], [3, 2, 0], [1, 4, 1]]);
+    let b = [[3], [4], [5]];
+
+    if (!(lsolve(a, b) === [[1], [0.5], [2]])) {
+        throw new Error('Unit test failed for lusolve');
+    }
+}

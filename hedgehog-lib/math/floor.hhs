@@ -1,0 +1,81 @@
+/**
+* @author Blake Wang
+* @params input - The structure with elements to be rounded toward negative infinity. Can be a number, 1d array, 2d array, Mat, Tensor.
+* @returns a number rounded to negative infinity if input is a number, a Mat with all elements rounded to negative infinity if input is a 1d array, 2d array, Mat or Tensor.
+*
+*
+*
+*/
+
+
+
+function floor(input) {
+
+  *import math: is_number
+  *import math: ndim
+  *import math: deep_copy
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in floor - no argument given');
+    }
+    else if (arguments.length > 1) {
+        throw new Error('Exception occurred in floor - wrong argument number');
+    }
+
+    if (is_number(input)) {
+        if (input >= 0) {
+            return parseInt(input);
+        } 
+        else {
+            return (input % 1 === 0 ? parseInt(input) : parseInt(input) - 1);
+        }
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in floor - input must be a number, array, matrix or tensor');
+    }
+
+    // if input is a Mat, Tensor or 2d array
+    let in_type = ((input instanceof Mat || input instanceof Tensor));
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    let result = floor_helper(raw_in);
+
+    let dim = ndim(result);
+    if (dim === 1) {
+        return result;
+    }
+    else if (dim === 2) {
+        return mat(result);
+    }
+    else {
+        return new Tensor(result);
+    }
+
+    function floor_helper(input) {
+        let dim = ndim(input);
+
+        if (dim === 1) {
+            let result = deep_copy(input);
+            for (let i = 0; i < input.length; i++) {
+                let temp = input[i];
+                if (temp >= 0) {
+                    result[i] = parseInt(temp);
+            } 
+                else {
+                    result[i] = (temp % 1 === 0 ? parseInt(temp) : parseInt(temp) - 1);
+                }
+            }
+            return result;
+        }
+
+        else {
+            let result = [];
+            for (let i = 0; i < input.length; i++) {
+                let temp = floor_helper(input[i]);
+                result.push(temp);
+            }
+            return result;
+        }
+    }
+}
+

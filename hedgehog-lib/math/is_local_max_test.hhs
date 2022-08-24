@@ -1,0 +1,26 @@
+/**
+ * @author Jianan Lin
+ * Unit test for is_local_max
+ * 
+ */
+
+
+function is_local_max_test() {
+
+    *import math: is_local_max    
+    
+    let a = mat([[2, 3, 1], [2, 3, 1]]);
+    let b = mat([[0, 1, 0], [0, 1, 0]])
+
+    if (!(is_local_max(a) === b)) {
+        throw new Error('Unit test failed for is_local_max for numbers');
+    }
+
+    let c = mat([[2, 2], [3, 3], [1, 1]]);
+    let d = mat([[0, 0], [1, 1], [0, 0]]);
+    if (!(is_local_max(c, 1) === d)) {
+        throw new Error('Unit test failed for is_local_max for numbers');
+    }
+
+    //print('is_local_max test pass');
+}

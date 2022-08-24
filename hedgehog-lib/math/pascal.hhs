@@ -1,0 +1,41 @@
+/**
+* @author Alan Liang
+* @param n - integer, size of final matrix
+* @returns - Mat object matrix
+*
+* a symmetric Pascal matrix contains the binomial coefficients as its elements.
+*
+*/
+
+function pascal(n)
+{
+  // wrong argument number
+  if (arguments.length === 0) {
+    throw new Error('Exception occurred in pascal - no argument given');
+  }
+  else if (arguments.length > 1) {
+    throw new Error('Exception occurred in pascal - wrong argument number');
+  }
+  // the input shoule be an integer
+  if(!Number.isInteger(n)) {
+    throw new Error("Exception occurred in pascal - the parameter must be an integer.");
+  }
+
+  let pascalSquare = Array(n).fill(0).map(x => Array(n).fill(0));
+
+  // Fill the first row with 1s
+  pascalSquare[0] = Array(n).fill(1);
+
+  // Fill the first column with 1s
+  for (let row = 0; row < n; row++) {
+    pascalSquare[row][0] = 1;
+  }
+
+  // Use the definition of pascal matrix
+  for (let row = 1; row < n; row++) {
+    for (let col = 1; col < n; col++) {
+      pascalSquare[row][col] = pascalSquare[row-1][col] + pascalSquare[row][col-1];
+    }
+  }
+return pascalSquare;
+}

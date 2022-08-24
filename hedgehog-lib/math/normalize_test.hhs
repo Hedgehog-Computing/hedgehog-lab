@@ -1,0 +1,34 @@
+/**
+ * @author Jianan Lin
+ * Unit test for normalize
+ * 
+ */
+
+
+function normalize_test() {
+
+    *import math: normalize
+
+    if (!(normalize(1, 2, 3) === [0, 0.5, 1])) {
+        throw new Error('Unit test failed for normalize for numbers');
+    }
+
+    let a = [[1, 2, 3]];
+    let b = mat(a);
+    let c = new Tensor([a, a]);
+
+    if (!(normalize(a) === mat([[0, 0.5, 1]]))) {
+        throw new Error('Unit test failed for normalize for array');
+    }
+
+    if (!(normalize(b) === mat([[0, 0.5, 1]]))) {
+        throw new Error('Unit test failed for normalize for matrix');
+    }
+
+    let d = normalize(c).val
+    if (!(d[0] === [[0, 0.5, 1]]) || !(d[1] === [[0, 0.5, 1]])) {
+        throw new Error('Unit test failed for normalize for tensor');
+    }
+
+    //print('normalize test pass');
+}

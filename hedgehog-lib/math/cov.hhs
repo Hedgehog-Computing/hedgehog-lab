@@ -1,0 +1,79 @@
+/**
+ * @Author Jianan Lin (林家南)
+ * @param A an array / matrix / tensor
+ * @param B an array / matrix / tensor
+ * @returns - a number = covariance of A and B
+ * up to now only support one dimension covariance
+ * need to add support for matrix calculation after some work
+ * 
+ */
+
+
+function cov(A, B) {
+
+    *import math: ndim
+    *import math: deep_copy
+    *import math: flatten
+
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in cov - no argument given');
+    }
+
+    if (arguments.length > 2) {
+        throw new Error('Exception occurred in cov - no argument given');
+    }
+
+    if (!(Array.isArray(A)) && !(A instanceof Mat) && !(A instanceof Tensor)) {
+        throw new Error('Exception occurred in cov - A must be an array, matrix or tensor');
+    }
+
+    if (!(Array.isArray(B)) && !(B instanceof Mat) && !(B instanceof Tensor)) {
+        throw new Error('Exception occurred in cov - A must be an array, matrix or tensor');
+    }
+
+    let in_type_A = (A instanceof Mat) || (A instanceof Tensor);
+    let raw_in_A = in_type_A ? A.clone().val : deep_copy(A);
+    if (ndim(raw_in_A) > 1) {
+        raw_in_A = flatten(raw_in_A);
+    }
+    if (raw_in_A.length === 0) {
+        throw new Error('Exception occurred in cov - A cannot be empty');
+        // return[0]
+    }
+
+    let in_type_B = (B instanceof Mat) || (B instanceof Tensor);
+    let raw_in_B = in_type_B ? B.clone().val : deep_copy(B);
+    if (ndim(raw_in_B) > 1) {
+        raw_in_B = flatten(raw_in_B);
+    }
+    if (raw_in_B.length === 0) {
+        throw new Error('Exception occurred in cov - B cannot be empty');
+        // return[0]
+    }
+
+    if (raw_in_A.length !== raw_in_B.length) {
+        throw new Error('Exception occurred in cov - A and B must have the same length');
+    }
+
+    if (raw_in_A.length === 1) {
+        return 0;
+    }
+
+    let sumA = 0;
+    for (let i = 0; i < raw_in_A.length; i++) {
+        sumA = sumA + raw_in_A[i];
+    }
+    let meanA = sumA / raw_in_A.length;
+
+    let sumB = 0;
+    for (let i = 0; i < raw_in_B.length; i++) {
+        sumB = sumB + raw_in_B[i];
+    }
+    let meanB = sumA / raw_in_B.length;
+
+    let result1 = 0;
+    for (let i = 0; i < raw_in_A.length; i++) {
+        result1 = result1 + (raw_in_A[i] - meanA) * (raw_in_B[i] - meanB);
+    }
+    return result1 / (raw_in_A.length - 1);
+}

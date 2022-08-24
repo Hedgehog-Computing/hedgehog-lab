@@ -1,0 +1,25 @@
+/*
+ * @Author Alan Liang
+ * test for pascal matrix generation
+ */
+
+
+function pascal_test() {
+
+    *import math: pascal
+    *import math: inv
+
+    // Property of pascal(n) : entries of pascal(n)^-1 are integers
+    for (let n = 1; n < 5; n++) {
+        let A = pascal(n);
+        if (inv(A).val.some(c => c.some(x => !isInteger(x)))) {
+            throw new Error('Unit test failed for pascal');
+        }
+    }
+
+    function isInteger(x) {
+        return Number.isInteger(Math.round(x * 100000) / 100000);
+    }
+    
+//print('pascal test pass');
+}

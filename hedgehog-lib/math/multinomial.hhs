@@ -1,0 +1,84 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - a series of numbers a1, ... an, or an array / matrix / tensor
+ * @returns - a number = (a1 + ... + an)! / (a1! * ... * an!)
+ * 
+ */
+
+
+function multinomial(input) {
+
+    *import math: is_number
+    *import math: flatten
+    *import math: deep_copy
+
+    let length = arguments.length;
+
+    // if there are no arguments, there is an error
+    if (length === 0) {
+        throw new Error('Exception occurred in multinomial - no argument given');
+    }
+
+    // if we input a series of numbers
+    if (is_number(input)) {
+        for (let i = 0; i < length; i++) {
+            if (arguments[i] < 0 || parseInt(arguments[i]) !== arguments[i]) {
+                throw new Error('Exception occurred in multinomial - arguments must be non-negative integers');
+            }
+        }
+
+        let sum = 0;
+        for (let i = 0; i < length; i++) {
+            sum += arguments[i];
+        }
+
+        let result = private_factorial(sum);
+        for (let i = 0; i < length; i++) {
+            result /= private_factorial(arguments[i]);
+        }
+
+        return result;
+    }
+
+    else {
+        if (length !== 1) {
+            throw new Error('Exception occurred in multinomial - wrong argument number');
+        }
+
+        if ( !(Array.isArray(arguments[0])) && !(arguments[0] instanceof Mat) && !(arguments[0] instanceof Tensor)) {
+            throw new Error('Exception occurred in multinomial - argument is of length 1, not a number, but is not a Mat, Tensor or JS Array');
+        }
+
+        let in_type = input instanceof Mat || input instanceof Tensor;
+        let raw_in = in_type ? input.clone().val : deep_copy(input);
+        raw_in = flatten(raw_in);
+
+        let array_length = raw_in.length;
+        for (let i = 0; i < array_length; i++) {
+            if (raw_in[i] < 0 || parseInt(raw_in[i]) !== raw_in[i]) {
+                throw new Error('Exception occurred in multinomial - elements must be non-negative integers');
+            }
+        }
+
+        let sum = 0;
+        for (let i = 0; i < array_length; i++) {
+            sum += raw_in[i];
+        }
+
+        let result = private_factorial(sum);
+        for (let i = 0; i < array_length; i++) {
+            result /= private_factorial(raw_in[i]);
+        }
+
+        return result;
+    }
+    
+    // when we use this function, we have ensured that input is valid
+    function private_factorial(input) {
+        let result = 1;
+        for (let i = 2; i <= input; i++) {
+            result *= i;
+        }
+        return result;
+    }
+}

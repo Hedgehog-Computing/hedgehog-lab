@@ -1,0 +1,57 @@
+/**
+ * @author Jianan Lin (林家南)
+ * @param input - an array, matrix, tensor that you want to determine missing
+ * @returns - true if missing, false else
+ * A missing element is NaN, null, '', or undefined. Notice [] and {} are not missing.
+ * 
+ */
+
+
+function any_missing(input) {
+
+    *import math: ndim
+    *import math: deep_copy
+
+    // argument check
+    if (arguments.length === 0) {
+        throw new Error('Exception occurred in any_missing - no argument given');
+    }
+
+    if (arguments.length > 1) {
+        throw new Error('Exception occurred in any_missing - wrong argument number');
+    }
+
+    if (!(Array.isArray(input)) && !(input instanceof Mat) && !(input instanceof Tensor)) {
+        throw new Error('Exception occurred in any_missing - input must be an array, matrix or tensor');
+    }
+
+    let in_type = input instanceof Mat || input instanceof Tensor;
+    let raw_in = in_type ? input.clone().val : deep_copy(input);
+    return anymissing_helper(raw_in);
+
+    function anymissing_helper(raw_in) {
+        if (ndim(raw_in) === 1) {
+            for (let i = 0; i < raw_in.length; i++) {
+                if (raw_in[i] || raw_in[i] === 0) {
+                    continue;
+                }
+                else {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        else {
+            for (let i = 0; i < raw_in.length; i++) {
+                if (anymissing_helper(raw_in[i]) === false) {
+                    continue;
+                }
+                else {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+}

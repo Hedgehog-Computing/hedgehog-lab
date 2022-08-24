@@ -1,0 +1,45 @@
+/**
+ * @author Jianan Lin (林家南)
+ * Function of test unit for multinomial
+ */
+
+function multinomial_test() {
+
+    *import math: multinomial
+
+    if (multinomial(1, 2) !== 3) {
+        throw new Error('Failed unit test for numbers for multinomial.');
+    }
+
+    let a = [1, 2, 3];
+    if (multinomial(a) !== 60) {
+        throw new Error('Failed unit test for array for multinomial.');
+    }
+
+    let b = [[1, 2], [3]];
+    if (multinomial(b) !== 60) {
+        throw new Error('Failed unit test for array for multinomial.');
+    }
+
+    let c = mat([1, 2, 1]);
+    if (multinomial(c) !== 12) {
+        throw new Error('Failed unit test for matrix for multinomial.');
+    }
+
+    let d = mat([[1, 2], [1]]);
+    if (multinomial(d) !== 12) {
+        throw new Error('Failed unit test for matrix for multinomial.');
+    }
+
+    let e = new Tensor([2, 4])
+    if (multinomial(e) !== 15) {
+        throw new Error('Failed unit test for tensor for multinomial.');
+    }
+    
+    let f = new Tensor([[2, 1], [2]]);
+    if (multinomial(f) !== 30) {
+        throw new Error('Failed unit test for tensor for multinomial.');
+    }
+
+    //print("multinomial test pass");
+}

@@ -1,0 +1,18 @@
+/*
+ * @Author Jianan Lin
+ * test for cov function
+ */
+
+
+function cov_test() {
+
+    *import math: cov
+    
+    let a = [0, 1, 2];
+
+    if (!(cov(a, a) === 1)) {
+        throw new Error('Unit test failed for correcoef for number');
+    }
+    
+    //print('cov test pass');
+}
