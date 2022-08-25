@@ -1,0 +1,17 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `dot_multiply(input1: any[] | Mat | Tensor, input2: any[] | Mat | Tensor) : any[] | Mat | Tensor`
+
+**param** `input1` first input, the first multiplicand
+
+**param** `input2` second input, the second multiplicand
+
+**returns:** `any[] | Mat | Tensor` - A copy of the structure multiplied **element-wise** (Note: this is not a standard multiplication of matrices), similar to dot_divide
+
+This function, similar to dot_divide, takes two structures of the same sizes, divides the elements element-wise, and returns it:
+
+<iframe src="https://hlab.app/s/docs/dot_multiply_hbook"
+    width="100%"
+    height="500px">
+  </iframe>

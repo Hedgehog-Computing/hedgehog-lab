@@ -1,0 +1,26 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `cov(A: any[] | Mat | Tensor, B: any[] | Mat | Tensor) : Number`
+
+**param** `A` a JS array, matrix or tensor, one of the halfs of the pair of data for finding the covariance
+
+**param** `B` a JS array, matrix or tensor, the other half of the pair of data for finding the covariance
+
+**returns** - `Number` - a number representing the covariance of `A` and `B`
+
+To understand covariance, one must first understand variance. Variance of 1 variable, say `A`, is a number that reflects how much `A` varies from its mean or average. That is, how much it fluctuates from the center/average of `A`'s data. The higher this is, the higher the variance is. It's called variance because the number being higher means more variance, because there is more straying from the mean. 
+
+So how does this relate to covariance? Well, the 'co' part means we need 2 variables. The best way to describe it in words is this : the covariance is the number that reflects how highly (or inversely) two variables change, or vary **together**. 
+
+One thing to note is that another topic covered in this book, called, "correlation coefficient", is much easier to understand intuitively. And the note is that the normalized version of the covariance **is** the correlation coefficient.
+
+This function then finds the covariance of the two inputs with the following formula:
+
+<MathJaxContext>
+      <MathJax>{"$$cov(A, B) = \\frac{1}{N - 1} \\sum_{i=1}^{N}{(A_i - \\overline{A})\\cdot (B_i - \\overline{B})}$$"}</MathJax>
+</MathJaxContext>
+
+<iframe src="https://hlab.app/s/LinJianan/cov_book"
+    width="100%"
+    height="500px">
+</iframe>

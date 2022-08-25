@@ -1,0 +1,18 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `lsolve(A: any[] | Mat, b: any[] | Mat) : any[]`
+
+**param** `A` - The 'A' part of `Ax=b`. A 2d matrix, specifically **lower triangular**. See `lusolve` or `usolve` for variants.
+
+**param** `b` - The 'b' part of `Ax=b`. A 1d matrix or array, column vector specifically. 
+
+**returns:** `any[]` - The column vector representing the solution to the equation `Ax=b`, or the part, 'x'. 
+
+This function finds the answer to the equation `Ax=b`, or the linear equation system where x is a column vector of the different variables. 
+
+
+<iframe src="https://hlab.app/s/docs/lsolve_hbook"
+    width="100%"
+    height="500px">
+  </iframe>

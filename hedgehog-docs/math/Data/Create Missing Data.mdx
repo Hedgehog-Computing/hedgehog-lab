@@ -1,0 +1,24 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `missing(input: any[] | Mat | Tensor, dim: Number, times: Number) : any[] | Mat | Tensor`
+
+**param** `input` - The input matrix, tensor, Mat, etc that gets added missing space to it
+
+**param** `dim` - '0' or '1' - 0 means row and 1 means column. This is the extra space you create
+
+**param** `times` - how many rows / columns to create 
+
+**returns:** `any[] | Mat | Tensor` - A copy of the input with extra blank (missing) rows or columns (based on parameter dim, the amount based on parameter times).
+
+This function creates a copy of your input with extra space, which is missing space. 
+
+Note that `null`, `NaN`, `''`, `undefined` are defined to be missing values. [] and {} are not. 
+
+This is useful in combination with the function `fill_missing`.
+
+
+<iframe src="https://hlab.app/s/docs/missing_hbook"
+    width="100%"
+    height="500px">
+</iframe>

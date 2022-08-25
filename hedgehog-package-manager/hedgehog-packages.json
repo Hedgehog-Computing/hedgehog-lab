@@ -1,0 +1,61 @@
+[
+  {
+    "name":"Hedgehog-Standard-Library",
+    "alias":"std",
+    "location":"https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Standard-Library/main/",
+    "docs":"https://github.com/Hedgehog-Computing/Hedgehog-Standard-Library/blob/main/README.md",
+    "website": "https://github.com/Hedgehog-Computing/Hedgehog-Standard-Library",
+    "author": "lidangzzz",
+    "description": "The standard library for Hedgehog Lab"
+  },
+  {
+    "name":"Hedgehog-Datasets",
+    "location":"https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Datasets/main/",
+    "docs":"",
+    "website": "https://github.com/Hedgehog-Computing/Hedgehog-Datasets",
+    "author": "lidangzzz",
+    "description": "A collection of datasets for Hedgehog Lab users"
+  },
+  {
+    "name":"Hedgehog-Network",
+    "location":"https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Network/main/",
+    "docs":"https://github.com/Hedgehog-Computing",
+    "website": "https://github.com/Hedgehog-Computing",
+    "author": "lidangzzz",
+    "description": "A collection of network graph algorithms"
+  },
+  {
+    "name":"Test-Package",
+    "location":"https://raw.githubusercontent.com/Hedgehog-Computing/Test-Package/main/",
+    "docs":"",
+    "website": "https://github.com/Hedgehog-Computing/Test-Package",
+    "author": "lidangzzz",
+    "description": "A test package"
+  },
+  {
+    "name":"math",
+    "location":"https://raw.githubusercontent.com/Hedgehog-Computing/math/main/",
+    "docs":"",
+    "website": "",
+    "author": "",
+    "description": "Math package for Hedgehog Lab"
+  },
+  {
+    "name":"plot",
+    "location":"https://raw.githubusercontent.com/Hedgehog-Computing/plot/main/",
+    "docs":"",
+    "website": "",
+    "author": "",
+    "description": "Plot package for Hedgehog Lab"
+  },
+  {
+    "name":"EDUC412",
+    "location":"https://raw.githubusercontent.com/Hedgehog-Computing/EDUC412/main/",
+    "docs":"",
+    "website": "",
+    "author": "",
+    "description": "EDUC412"
+  }
+
+
+]

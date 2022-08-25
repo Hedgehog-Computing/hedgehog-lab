@@ -1,0 +1,23 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `rm_missing(input: any[] | Mat | Tensor, dim: Number) : any[] | Mat | Tensor`
+
+**param** `input` - the input to remove the missing values of 
+
+**param** `dim` '0' or '1' : 0 means delete the whole column, '1' means delete the whole row. Default is '0'.
+
+**returns:** `any[] | Mat | Tensor` - input without the missing values.
+
+This function simply takes the input, and deletes the columns (default) or rows (if you set the parameter `dim=1`) that have missing values. This evidently deletes non-missing values in most cases.
+
+Note that `null`, `NaN`, `''`, `undefined` are defined to be missing values. [] and {} are not. 
+
+This is useful when you simply want to remove missing data values and not handle it. This can perhaps be appropriate for very large arrays where the missing values are sparse and you dont want to fill it with false values.
+
+
+
+<iframe src="https://hlab.app/s/docs/rm_missing_hbook"
+    width="100%"
+    height="500px">
+</iframe>

@@ -1,0 +1,15 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `iqr(input: any[] | Mat | Tensor) : Number`
+
+**param** `input` a JS array, matrix or tensor, or a series of numbers, to find the inter quartile range of 
+
+**returns** - `Number` - a number representing the inter quartile range.
+
+The interquartile range, or the midspread or middle 50%, is the difference between the 75th and 25th percentiles of the data. So this function is taking data from a construct, whether it is a series of numbers, a declared array, Mat, or Tensor and finds the 75% and 25% percentiles, namely 'q1' and 'q3', the 1st and 3rd quantiles for 0.25 and 0.75. Then we return q3-q1 to end up with the iqr or midspread or middle 50%, or q2.
+
+
+<iframe src="https://hlab.app/s/LinJianan/iqr_book"
+    width="100%"
+    height="500px">
+</iframe>

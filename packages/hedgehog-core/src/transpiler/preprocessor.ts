@@ -4,7 +4,7 @@ https://github.com/Hedgehog-Computing/Hedgehog-Package-Manager
 
 Hedgehog Lab supports three types of "*import":
 a. *import YOUR_FULL_URL, for example *import http://website.com/mylib/myfunction.hhs
-b. *import Package_Name: Function_1, Function_2, Function_3 ... the package name must be registered at https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json
+b. *import Package_Name: Function_1, Function_2, Function_3 ... the package name must be registered at https://raw.githubusercontent.com/Hedgehog-Computing/hedgehog-lab/dev/hedgehog-package-manager/hedgehog-packages.json
 c. let my_Function_A = *import MY_PACKAGE: Function_A
 d. *github: Hedgehog-Computing/math/main/myFunction ( which will automatically convert to -> https://raw.githubusercontent.com/Hedgehog-Computing/math/main/myFunction.hhs)
 e. *import @username/filename 
@@ -57,7 +57,7 @@ async function parseRegisterdPackageWithoutPackageJsonFile(
 ): Promise<Array<string>> {
   const returnListOfFunctions: string[] = [];
   const theFullListInJson = await fetch(
-    'https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json',
+    'https://raw.githubusercontent.com/Hedgehog-Computing/hedgehog-lab/dev/hedgehog-package-manager/hedgehog-packages.json',
     { method: 'get' }
   ).then((body) => body.text());
   const splittedResult = secondPart.split(':');

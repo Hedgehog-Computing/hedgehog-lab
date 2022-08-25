@@ -1,0 +1,23 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `vander(input: any[] | Mat | Tensor, dim : Number) : Mat`
+
+**param** `input` a JS array, matrix or tensor (will be flattened to a 1-d array)
+
+**param** `dim` a number which should be >= 0, the dimension of the vandermonde matrix
+
+**returns** - `Mat` - a vander matrix
+
+
+A vandermonde matrix is defined by a set of scalars, which in this case, come from a 1d array (flattened if 2d or higher), and you can limit it by dim. 
+
+A vandermonde matrix is shown as follows
+
+<MathJaxContext>
+      <MathJax>{"$$\\begin{bmatrix} 1 & x_1 & x_1^2 & ... & x_1^{dim} \\\\ . & . & . & . & . \\\\ . & . & . & . & .\\\\ . & . & . & . & .\\\\ 1 & x_n & x_n^2 & ... & x_n^{dim} \\end{bmatrix}$$"}</MathJax>
+</MathJaxContext>
+
+<iframe src="https://hlab.app/s/LinJianan/vander_book"
+    width="100%"
+    height="500px">
+</iframe>
