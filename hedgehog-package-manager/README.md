@@ -2,7 +2,7 @@
 
 Hedgehog-Package-Manager is the core package manager for Hedgehog Lab. It only contains a single list permanently on Github at
 
-[https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json](https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json)
+[https://raw.githubusercontent.com/Hedgehog-Computing/hedgehog-lab/dev/hedgehog-package-manager/hedgehog-packages.json](https://raw.githubusercontent.com/Hedgehog-Computing/hedgehog-lab/dev/hedgehog-package-manager/hedgehog-packages.json)
 
 ## A quick tutorial for Hedgehog Lab user
 
