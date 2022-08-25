@@ -6,6 +6,8 @@ This is a library of essential core functions for Hedgehog Lab, including:
 - [plot](./plot/README.md), the core plotting and data visualization library
 - [ml](./ml/README.md), the machine learning library
 - [std](./std/README.md), the standard library for some core functions and utilities
+- [datasets](./datasets/README.md), the datasets library
+- [network](./network/README.md), the network library
 
 Each of these libraries is documented in its own README.MD file.
 

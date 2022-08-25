@@ -42,7 +42,9 @@ instruction about with which IP:PORT to connect.
 
 ## User Manual
 
-Hedgehog Book: [https://hedgehog-book.github.io/](https://hedgehog-book.github.io/)
+Hedgehog Book: [https://hedgehog-computing.github.io/](https://hedgehog-computing.github.io/)
+
+
 
 ## Contributing
 
