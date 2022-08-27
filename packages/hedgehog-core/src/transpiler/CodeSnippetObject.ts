@@ -15,7 +15,11 @@ export enum CodeSnippetType {
   hhs = 2
 }
 
-export interface CodeSnippet {
+export class CodeSnippet {
   type: CodeSnippetType;
   code: string;
+  constructor(type: CodeSnippetType, code: string) {
+    this.type = type;
+    this.code = code;
+  }
 }
