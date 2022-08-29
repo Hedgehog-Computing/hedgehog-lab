@@ -12,7 +12,8 @@
         "esbuild": "webpack ./webpack.config.js",
         "watch": "tsc -p tsconfig.json --watch --preserveWatchOutput",
         "prettier": "prettier --single-quote --write '**/*.{js,json,md}'",
-        "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx"
+        "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
+        "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r ts-node/register 'test/**/*.ts'"
     },
     "husky": {
         "hooks": {
@@ -26,8 +27,11 @@
         "@babel/preset-typescript": "^7.10.4",
         "@babel/standalone": "^7.10.5",
         "@tensorflow/tfjs": "^2.7.0",
+        "@types/chai": "^4.3.3",
+        "@types/mocha": "^9.1.1",
         "@types/strip-comments": "^2.0.1",
         "babel-template": "^6.26.0",
+        "chai": "^4.3.6",
         "clean-webpack-plugin": "^3.0.0",
         "csv": "^5.5.0",
         "esbuild-loader": "^2.9.1",
@@ -37,12 +41,15 @@
         "ml-matrix": "^6.8.0",
         "ml-pca": "^4.0.2",
         "ml-regression-simple-linear": "^2.0.3",
+        "mocha": "^10.0.0",
         "nerdamer": "^1.1.5",
         "semver-regex": "3.1.4",
         "strip-comments": "^2.0.1",
         "sync-fetch": "^0.3.0",
+        "test": "^3.2.1",
         "webpack": "^5.21.2",
-        "webpack-cli": "^4.5.0"
+        "webpack-cli": "^4.5.0",
+        "yarn": "^1.22.19"
     },
     "devDependencies": {
         "@babel/types": "^7.10.5",
@@ -53,6 +60,8 @@
         "eslint-plugin-prettier": "^3.1.4",
         "husky": "^4.2.5",
         "pre-commit": "^1.2.2",
-        "prettier": "^2.0.5"
+        "prettier": "^2.0.5",
+        "ts-node": "^10.9.1",
+        "typescript": "^4.8.2"
     }
 }

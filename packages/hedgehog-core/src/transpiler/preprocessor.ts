@@ -13,23 +13,25 @@ e. *import @username/filename
 import { githubDependency } from './GithubDependency/githubDependency';
 import { fetchURL } from './FetchURL/fetchURL';
 import { fetchApi } from './FetchURL/fetchApi';
+import { CodeSnippet } from './CodeSnippetObject';
+import { splitSourceCodeIntoJSandHHSSnippetList } from './splitSourceCodeIntoJSandHHSSnippetList';
 
-async function preprocessor(source: string): Promise<string> {
-  //console.log('The source code after preprocessing');
-  const result = await preprocessDFS(source, 'root');
-  //console.log(result);
-  //console.log('End of the source code after preprocessing');
-  return result;
+async function preprocessor(source: string): Promise<CodeSnippet[]> {
+  // First, traverse the source code by packages and/or dependencies
+  const stringDFSTraversalFetchResult = await preprocessDFS(source, 'root');
+  // Second, split the source code into js and hhs snippets
+  const splittedResult = splitSourceCodeIntoJSandHHSSnippetList(stringDFSTraversalFetchResult);
+  return splittedResult;
 }
 
 /*
-Fetch the full registered package list from 
-https://github.com/Hedgehog-Computing/Hedgehog-Package-Manager
-at 
-https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json
+  Fetch the full registered package list from 
+  https://github.com/Hedgehog-Computing/Hedgehog-Package-Manager
+  at 
+  https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json
 
-Input: Package Name. For example, "Hedgehog-Standard-Library" or "std"
-Output: The root location of the package. For example, "https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Standard-Library/main/"
+  Input: Package Name. For example, "Hedgehog-Standard-Library" or "std"
+  Output: The root location of the package. For example, "https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Standard-Library/main/"
 */
 
 function getPackageLocation(packageName: string, theFullListInJson: string): string {
