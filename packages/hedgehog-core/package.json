@@ -36,6 +36,7 @@
         "csv": "^5.5.0",
         "esbuild-loader": "^2.9.1",
         "gpu.js": "^2.9.5",
+        "lodash": "^4.17.21",
         "mathjs": "^7.1.0",
         "ml-hclust": "^3.0.0",
         "ml-matrix": "^6.8.0",
@@ -47,6 +48,7 @@
         "strip-comments": "^2.0.1",
         "sync-fetch": "^0.3.0",
         "test": "^3.2.1",
+        "ts-node": "^10.9.1",
         "webpack": "^5.21.2",
         "webpack-cli": "^4.5.0",
         "yarn": "^1.22.19"
