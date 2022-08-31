@@ -39,13 +39,8 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
   const vecJSandHHSSnippetList: Array<CodeSnippet> = [];
   let lineCounter = 0;
   const maxLineCounter = vecSplittedString.length;
-  console.log('********max line counter: ' + maxLineCounter);
-  console.log('********source: \n' + source);
-  console.log('******end of source');
   while (lineCounter < maxLineCounter) {
-    //console.log(lineCounter);
     let line = vecSplittedString[lineCounter];
-    console.log('current line is ' + line);
     if (!line) {
       lineCounter++;
       continue;
@@ -60,7 +55,6 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
       const jsStartLine = lineCounter;
       let jsEndLine = -1;
       while (lineCounter < maxLineCounter - 1) {
-        console.log('current line counter inside loop is ' + lineCounter);
         lineCounter++;
         line = vecSplittedString[lineCounter];
         if (line.includes('*js-end')) {
@@ -74,19 +68,15 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
       }
       //find the js code snippet
       let jsCodeSnippet = '';
-      console.log('====jsStartLine: ' + jsStartLine);
-      console.log('====jsEndLine: ' + jsEndLine);
       for (let i = jsStartLine + 1; i < jsEndLine; i++) {
         jsCodeSnippet += vecSplittedString[i] + '\n';
       }
       //add the js code snippet to the list
       vecJSandHHSSnippetList.push(new CodeSnippet(CodeSnippetType.js, jsCodeSnippet));
     } else {
-      console.log('the else statement');
       //find the hhs code snippet
       let hhsCodeSnippet = '';
       while (lineCounter < maxLineCounter) {
-        console.log('current linecounter: ' + lineCounter + ' max line counter: ' + maxLineCounter);
         line = vecSplittedString[lineCounter];
         if (line.includes('*js-start')) {
           lineCounter -= 1;
@@ -100,6 +90,5 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
     }
     lineCounter++;
   }
-  console.log(vecJSandHHSSnippetList);
   return vecJSandHHSSnippetList;
 }
