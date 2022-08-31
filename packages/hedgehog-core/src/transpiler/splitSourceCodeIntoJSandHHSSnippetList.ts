@@ -88,12 +88,12 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
       while (lineCounter < maxLineCounter) {
         console.log('current linecounter: ' + lineCounter + ' max line counter: ' + maxLineCounter);
         line = vecSplittedString[lineCounter];
-        hhsCodeSnippet += line + '\n';
-        lineCounter++;
         if (line.includes('*js-start')) {
-          lineCounter -= 2;
+          lineCounter -= 1;
           break;
         }
+        hhsCodeSnippet += line + '\n';
+        lineCounter++;
       }
       //add the hhs code snippet to the list
       vecJSandHHSSnippetList.push(new CodeSnippet(CodeSnippetType.hhs, hhsCodeSnippet));

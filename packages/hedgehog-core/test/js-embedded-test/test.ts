@@ -21,14 +21,18 @@ print( matrix2 === [[2,4],[6,8]] );
 `;
 
 describe('The embedded-js test 1', async () => {
-  const transpileResult = await transpile(testCode1);
-  const executeResult = executeOutput(transpileResult);
-  console.log('the transpile result is \n ' + transpileResult);
   it('should pass', async () => {
+    const transpileResult = await transpile(testCode1);
+    const executeResult = executeOutput(transpileResult);
+    console.log('the transpile result is \n ' + transpileResult);
     console.log('++++total execute result length is ' + executeResult.length);
     for (let i = 0; i < executeResult.length; i++) {
       console.log(executeResult[i].text);
     }
-    assert.equal(executeResult.length, 5);
+    assert.equal(executeResult[0].text, 'true');
+    assert.equal(executeResult[1].text, 'true');
+    assert.equal(executeResult[2].text, 'true');
+    assert.equal(executeResult[3].text, 'Hello World');
+    assert.equal(executeResult[4].text, 'true');
   });
 });
