@@ -50,7 +50,6 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
       continue;
     }
     if (line.includes('*js-start')) {
-      console.log('the first if statement');
       //find the *js-start line
       const jsStartLine = lineCounter;
       let jsEndLine = -1;
@@ -61,7 +60,6 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
           throw new Error('Cannot embed another js snippet block into another js snippet block');
         }
         if (line.includes('*js-end')) {
-          console.log('====js-end found');
           jsEndLine = lineCounter;
           break;
         }
