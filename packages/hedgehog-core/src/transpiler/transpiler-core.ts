@@ -1,6 +1,6 @@
 import preprocessor from './preprocessor';
 import operatorOverload from './operator-overload';
-import stripe from 'strip-comments';
+import { CodeSnippet, CodeSnippetType } from './CodeSnippetObject';
 
 async function transpilerCore(source: string) {
   //todo: move the registration of plugins and presets to the constructor
@@ -23,20 +23,32 @@ async function transpilerCore(source: string) {
   babel.registerPreset('@babel/preset-typescript', require('@babel/preset-typescript'));
 
   //the real compiling function
+  let result = '';
+  // We will read the code snippet object list
+  // use the babel to transpile the HHS code to JS code.
+  // and keep the JS code as is.
+  // All the results above will be combined into one string
+  // and returned.
   const preprocessed_code = await preprocessor(source);
-  const transpiled = babel.transform(
-    preprocessed_code, // the code
-    {
-      plugins: ['overload'],
-      presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
-      filename: 'source.tsx',
-      sourceType: 'script'
+  for (const codeSnippet of preprocessed_code) {
+    if (codeSnippet.type === CodeSnippetType.js) {
+      result += codeSnippet.code;
+    } else if (codeSnippet.type === CodeSnippetType.hhs) {
+      const transpiled = babel.transform(
+        codeSnippet.code, // the code
+        {
+          plugins: ['overload'],
+          presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+          filename: 'source.tsx',
+          sourceType: 'script'
+        }
+      );
+      result += transpiled.code;
     }
-  );
+  }
 
   //return the code
-  //console.log('The output of transpiler core is: \n' + transpiled.code);
-  return transpiled.code;
+  return result;
 }
 
 export default transpilerCore;

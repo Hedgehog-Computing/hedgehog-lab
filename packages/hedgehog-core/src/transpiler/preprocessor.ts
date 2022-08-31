@@ -13,23 +13,25 @@ e. *import @username/filename
 import { githubDependency } from './GithubDependency/githubDependency';
 import { fetchURL } from './FetchURL/fetchURL';
 import { fetchApi } from './FetchURL/fetchApi';
+import { CodeSnippet } from './CodeSnippetObject';
+import { splitSourceCodeIntoJSandHHSSnippetList } from './splitSourceCodeIntoJSandHHSSnippetList';
 
-async function preprocessor(source: string): Promise<string> {
-  //console.log('The source code after preprocessing');
-  const result = await preprocessDFS(source, 'root');
-  //console.log(result);
-  //console.log('End of the source code after preprocessing');
-  return result;
+async function preprocessor(source: string): Promise<CodeSnippet[]> {
+  // First, traverse the source code by packages and/or dependencies
+  const stringDFSTraversalFetchResult = await preprocessDFS(source, 'root');
+  // Second, split the source code into js and hhs snippets
+  const splittedResult = splitSourceCodeIntoJSandHHSSnippetList(stringDFSTraversalFetchResult);
+  return splittedResult;
 }
 
 /*
-Fetch the full registered package list from 
-https://github.com/Hedgehog-Computing/Hedgehog-Package-Manager
-at 
-https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json
+  Fetch the full registered package list from 
+  https://github.com/Hedgehog-Computing/Hedgehog-Package-Manager
+  at 
+  https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Package-Manager/main/hedgehog-packages.json
 
-Input: Package Name. For example, "Hedgehog-Standard-Library" or "std"
-Output: The root location of the package. For example, "https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Standard-Library/main/"
+  Input: Package Name. For example, "Hedgehog-Standard-Library" or "std"
+  Output: The root location of the package. For example, "https://raw.githubusercontent.com/Hedgehog-Computing/Hedgehog-Standard-Library/main/"
 */
 
 function getPackageLocation(packageName: string, theFullListInJson: string): string {
@@ -163,14 +165,14 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
           const libraryFromApi = await fetchApi(userAndFile[0], userAndFile[1]);
 
           //3.1.2.2.3 get the current file information (For example, storage '@lidang/sound_of_May' as 'root -> lidang -> sound_of_May')
-          const strCallStack = strCurrentCallStack + ' -> ' + userAndFile[0] + ' -> ' + userAndFile[1];
+          const strCallStack =
+            strCurrentCallStack + ' -> ' + userAndFile[0] + ' -> ' + userAndFile[1];
 
           //3.1.2.2.4 process the big chunk of code
           const currentResult = await preprocessDFS(libraryFromApi, strCallStack);
 
           //3.1.2.2.5 append it to the end of returnCode
           returnCode += currentResult + '\n';
-
         } else {
           ////3.1.2.3 otherwise, try to split with colon and comma and fetch the registered packages
           const result = await parseRegisterdPackageWithoutPackageJsonFile(
@@ -203,7 +205,7 @@ async function preprocessDFS(code: string, strCurrentCallStack: string): Promise
           );
         }
         //3.2.2 download the library from URL
- 
+
         const libraryFromUrl = await githubDependency(splittedResult[1]);
 
         //3.2.3 get the current file information (get "FunctionABC.js" from URL string http://mywebsite/FunctionABC.js)
