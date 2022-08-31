@@ -4,17 +4,31 @@ import { isEqual } from 'lodash';
 
 const testCode1 = `
 let a = 1;
+let b = 2;
+let c = 3;
+let matrix1 = [[1,2],[3,4]];
+let matrix2 = matrix1 * 2;
 *js-start
 let d = a + 1;
+let e = b + 1;
+let f = c + 1;
 *js-end
 print( d===2 );
+print( e===3 );
+print( f===4 );
+print( 'Hello World' );
+print( matrix2 === [[2,4],[6,8]] );
 `;
 
-describe('The embedded-js test', async () => {
+describe('The embedded-js test 1', async () => {
   const transpileResult = await transpile(testCode1);
-  const executeResult = await executeOutput(transpileResult);
-  console.log(executeResult);
+  const executeResult = executeOutput(transpileResult);
+  console.log('the transpile result is \n ' + transpileResult);
   it('should pass', async () => {
-    //assert.equal(isEqual)
+    console.log('++++total execute result length is ' + executeResult.length);
+    for (let i = 0; i < executeResult.length; i++) {
+      console.log(executeResult[i].text);
+    }
+    assert.equal(executeResult.length, 5);
   });
 });
