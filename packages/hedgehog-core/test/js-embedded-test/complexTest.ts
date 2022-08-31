@@ -3,6 +3,10 @@ import { transpile, executeOutput } from '../../src/index';
 import { isEqual } from 'lodash';
 
 const testCode1 = `
+*js-start
+*js-end
+*js-start
+*js-end
 let a = 1;
 let b = 2;
 let c = 3;
@@ -23,6 +27,12 @@ d = d + 1;
 e = e + 1;
 f = f + 1;
 *js-end
+*js-start
+*js-end
+*js-start
+*js-end
+*js-start
+*js-end
 d = d + 1;
 e = e + 1;
 f = f + 1;
@@ -33,6 +43,8 @@ print( 'Hello World' );
 print( matrix2 === [[2,4],[6,8]] );
 *js-start
 print( d===5);
+*js-end
+*js-start
 *js-end
 `;
 

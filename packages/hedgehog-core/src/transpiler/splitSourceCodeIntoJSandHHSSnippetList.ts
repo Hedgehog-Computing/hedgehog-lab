@@ -57,6 +57,9 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
       while (lineCounter < maxLineCounter - 1) {
         lineCounter++;
         line = vecSplittedString[lineCounter];
+        if (line.includes('*js-start')) {
+          throw new Error('Cannot embed another js snippet block into another js snippet block');
+        }
         if (line.includes('*js-end')) {
           console.log('====js-end found');
           jsEndLine = lineCounter;
