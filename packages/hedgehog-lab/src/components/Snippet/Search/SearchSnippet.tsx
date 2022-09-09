@@ -54,11 +54,14 @@ const SearchSnippet = (): React.ReactElement => {
                         ml: 1,
                     }}
                 >
-                    <MenuItem dense value={'5'}>
-                        5
-                    </MenuItem>
                     <MenuItem dense value={'10'}>
                         10
+                    </MenuItem>
+                    <MenuItem dense value={'50'}>
+                        50
+                    </MenuItem>
+                    <MenuItem dense value={'200'}>
+                        200
                     </MenuItem>
                 </Select>
             </Box>
