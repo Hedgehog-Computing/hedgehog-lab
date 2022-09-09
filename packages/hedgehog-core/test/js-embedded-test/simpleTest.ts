@@ -8,11 +8,11 @@ let b = 2;
 let c = 3;
 let matrix1 = [[1,2],[3,4]];
 let matrix2 = matrix1 * 2;
-*js-start
+js_start
 let d = a + 1;
 let e = b + 1;
 let f = c + 1;
-*js-end
+js_end
 print( d===2 );
 print( e===3 );
 print( f===4 );

@@ -6,7 +6,7 @@
         - the code snippet as a string
     
     The js code snippet is the part of the source code that is
-    between *js-start and *js-end, and all the rest parts are hhs code snippets.
+    between js_start and js_end, and all the rest parts are hhs code snippets.
 
     After the parsing, the code snippet will be transformed into a list of 
     objects, and the transpiler core will be able to compile the hedgehog script
@@ -17,10 +17,10 @@
     let a=1;
     let b=2;
     let c=a+b;
-    *js-start
+    js_start
     function add(a,b) { return a+b; }
     console.log(c);
-    *js-end
+    js_end
     console.log(add(a,b));
 
     will be parsed into the following list of objects:
@@ -49,25 +49,25 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
       lineCounter++;
       continue;
     }
-    if (line.includes('*js-start')) {
+    if (line.includes('js_start')) {
       console.log('the first if statement');
-      //find the *js-start line
+      //find the js_start line
       const jsStartLine = lineCounter;
       let jsEndLine = -1;
       while (lineCounter < maxLineCounter - 1) {
         lineCounter++;
         line = vecSplittedString[lineCounter];
-        if (line.includes('*js-start')) {
+        if (line.includes('js_start')) {
           throw new Error('Cannot embed another js snippet block into another js snippet block');
         }
-        if (line.includes('*js-end')) {
+        if (line.includes('js_end')) {
           console.log('====js-end found');
           jsEndLine = lineCounter;
           break;
         }
       }
       if (jsEndLine === -1) {
-        throw new Error('The *js-start line is not followed by a *js-end line');
+        throw new Error('The js_start line is not followed by a js_end line');
       }
       //find the js code snippet
       let jsCodeSnippet = '';
@@ -81,7 +81,7 @@ export function splitSourceCodeIntoJSandHHSSnippetList(source: string): Array<Co
       let hhsCodeSnippet = '';
       while (lineCounter < maxLineCounter) {
         line = vecSplittedString[lineCounter];
-        if (line.includes('*js-start')) {
+        if (line.includes('js_start')) {
           lineCounter -= 1;
           break;
         }
