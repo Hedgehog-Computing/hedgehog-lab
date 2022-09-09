@@ -3,36 +3,36 @@ import { transpile, executeOutput } from '../../src/index';
 import { isEqual } from 'lodash';
 
 const testCode1 = `
-*js-start
-*js-end
-*js-start
-*js-end
+js_start
+js_end
+js_start
+js_end
 let a = 1;
 let b = 2;
 let c = 3;
 let matrix1 = [[1,2],[3,4]];
 let matrix2 = matrix1 * 2;
-*js-start
+js_start
 let d = a + 1;
 let e = b + 1;
 let f = c + 1;
-*js-end
-*js-start
+js_end
+js_start
 d = d + 1;
 e = e + 1;
 f = f + 1;
-*js-end
-*js-start
+js_end
+js_start
 d = d + 1;
 e = e + 1;
 f = f + 1;
-*js-end
-*js-start
-*js-end
-*js-start
-*js-end
-*js-start
-*js-end
+js_end
+js_start
+js_end
+js_start
+js_end
+js_start
+js_end
 d = d + 1;
 e = e + 1;
 f = f + 1;
@@ -41,11 +41,11 @@ print( e===6 );
 print( f===7 );
 print( 'Hello World' );
 print( matrix2 === [[2,4],[6,8]] );
-*js-start
+js_start
 print( d===5);
-*js-end
-*js-start
-*js-end
+js_end
+js_start
+js_end
 `;
 
 describe('The embedded-js simple test 1', async () => {
