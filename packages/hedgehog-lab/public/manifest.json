@@ -1,20 +1,20 @@
 {
   "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Hedgehog Lab",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "cat.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "cat.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable any"
     },
     {
-      "src": "logo512.png",
+      "src": "cat.png",
       "type": "image/png",
       "sizes": "512x512"
     }
