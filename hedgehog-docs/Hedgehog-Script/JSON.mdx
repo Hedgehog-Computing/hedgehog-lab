@@ -1,0 +1,62 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# JSON
+
+`JSON` is an object which has methods for parsing JavaScript Object Notation (JSON) and converting values to JSON. It can't be called or constructed, and aside from its two method properties, it has not interesting functionality of its own.
+
+The difference between JSON and JavaScript is important. JSON is a syntax for serializing objects, arrays, numbers, etc. It is **based** upon JavaScript syntax but is distinct from it: some JavaScript is NOT JSON.
+
+For Objects and Arrays, property names must be double quoted strings and trailing commas are forbidden. For numbers, leading zeros are forbidden. A decimal point must be followed by at least 1 digit. NaN and Infinity are not supported.
+
+Let's start by considering an example of JSON.parse() (a JavaScript method on the JSON object), where is parses a string as JSON. and `eval` executes the string as JavaScript:
+```js
+const code = '"\u2028\u2029"';
+JSON.parse(code); //returns "\u2028\u2029"
+eval(code); // can throw a SyntaxError in older engines
+```
+There are two JSON methods that are static: JSON.parse() and JSON.stringify(). The first, parse(), takes a string and transforms it into JSON, optionally also transforming the produced value and properties. The `reviver` option allows for interpreting what the `replacer` has used to stand in for other data types. As for stringify(), it returns a JSON string corresponding to the specified value, optionally including only certain properties or replacing property values in a user-defined manner. By default, all instances of `undefined` are replaced with `null` and supported native data types are censored. The `replacer` option allows for specifying other behavior. Here is an example of JSON:
+
+```js
+{
+    "browsers": {
+        "firefox": {
+            "name": "Firefox",
+            "pref_url": "about:config",
+            "releases": {
+                "1": {
+                    "release_date": "2004-11-09",
+                    "status": "retired",
+                    "engine": "Gecko",
+                    "engine_version": "1.7"
+                }
+            }
+        }
+    }
+}
+```
+Now let's have a demo of JSON.parse():
+
+```js
+const json = '{"result":true, "count":50}';
+const obj = JSON.parse(json);
+print(obj.count); //will output 50
+print(obj.result); //will output true
+
+//now for more examples:
+JSON.parse('{}'); // {}
+JSON.parse('true'); // true
+JSON.parse('"foo"'); // "foo"
+JSON.parse('[1, 5, "false"]'); // [1,5,"false"]
+JSON.parse('null'); //null
+
+//and lastly, here's an example using the reviver option:
+
+JSON.parse('{"p": 5}', (key, value) => typeof value === 'number' ? value*2 : value); //the reviver returns 2*value if value is a number and value itself unchanged if not
+//the output will be {p: 10} since 5 is a number
+JSON.parse('{"1": 1, "2": 2, "3": {"4": 4, "5": {"6": 6}}}', (key, value) => { console.log(key); return value; }); 
+//the reviver is saying given the input key and value, print the key and return the value, so the output is:
+//(output is not the console.log values, its the returns values): 1 2 4 6 5 3 ""
+```
+
+There is much more to learn about JSON but this is the basic information. Simply google 'JSON' if you want to learn more. It is quite useful in some cases.

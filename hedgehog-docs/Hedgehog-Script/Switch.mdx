@@ -1,0 +1,71 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Switch Statement
+
+The switch statement is a conditional in a way. It evaluates an expression, matching its value against a series of `case` clauses and executes statements **if** a case clause has a matching value (only the first one it runs into), until a `break` statement is encountered. One can use the `default` clause to jump to a clause if there is no `case` that matches the expression's value. This is quite a commonly used statement so let's give an example:
+
+```js
+const expression = 'Fruit';
+switch (expression) {
+    case 'Meat': 
+        print('Meat is full of proteins.');
+        break;
+    case 'Nuts':
+        print('Nuts are full of fats.');
+        break;
+    case 'Fruit':
+        print('Fruit is full of simple carbohydrates.');
+        break;
+    default:
+        print(`${expression} is not meat, nuts or fruit, it can be a mix of macronutrients!`);
+}
+//executing this will output the expected result for the 3rd case: 'Fruit is full of simple carbohydrates.'
+```
+
+The syntax is very brief and simple for a `switch` statement:
+
+```js
+switch (expression) {
+    case value1:
+        //statements executed when expression matches value1
+        [break;]
+    case value2:
+        //statements executed when expression matches value2
+        [break;]
+    ...
+    case valueN:
+        //statements executed when expression matches valueN
+        [break;]
+    [default:
+        //statements executed when no value matches the expression
+        [break;]]
+}
+```
+
+Note that breaks are optional: if one wants the `switch` statement to continue even after running into a value that matches, maybe it needs it to go 'higher' if the cases are in some type of order. So not all cases require a `break`. 
+
+Another thing you can do with `switch` statements is put the `default` clause in between two case clauses. This causes execution to start from the `default` clause if not match is found, and executes all statements after that versus having `default` clause at the end of the `switch` statement.
+
+One may wonder what the purpose of `switch` statements are when `if...else` chains do the same exact thing. What it provides is identical in results to an `if...else` chain, however its more compact and readable and more importantly, `if...else` chains do not perform identity (===) comparisons but rather equality (==). Another benefit to `switch (true)` pattern being an alternative to `if...else` is that it can utilize fall-through behavior: Basically not putting in a break can cause cases to 'fall through'. Here is an example:
+
+```js
+switch(true) {
+    case isSquare(shape):
+        print('This shape is a square');
+        //fall through since a square is a rectangle as well!
+    case isRectangle(shape):
+        print('This shape is a rectangle');
+    case isQuadrilateral(shape):
+        print('This shape is a quadralateral');
+        break;
+        //fall through ends
+    case isCircle(shape):
+        print('This shape is a circle');
+        break;
+
+}
+//this fall through method is possible in switch case statements but not if...else chains
+```
+
+Overall, a `switch` statement can be thought of as an alternative to `if...else` chains with some benefits (and drawbacks depending on the scenario). The main benefits are fall-through behavior and use of identity comparisons instead of equality (=== vs ==). Lastly, remember to use the `default` case in a powerful manner: it doesn't have to be at the bottom, it can be in between cases.

@@ -1,0 +1,70 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# HTTP Requests & Responses
+
+These are absolutely fundamental methods for interacting with the web or internet in any manner. It is great to learn it even if you don't see yourself using them.
+
+First of all, what are HTTP requests and responses, and why are they so important? They are how data is exchanged between a server and a client. And considering the internet is filled of billions of servers and billions of clients, it's quite important to understand how it works. Your computer is a client in probably more than 50 ways right now while you're reading this!
+
+Requests are sent by the client to trigger an action on the server. And responses, on the other hand, are the answer from the server. HTTP requests and responses (also called HTTP messages) are made up of textual information encoded in ASCII and span over several lines. HTTP is a protocol for sending such messages and stands for - Hypertext Transfer Protocol. Historically, HTTP messages were openly sent across the connection. This was in HTTP/1.1. In HTTP/2, the once human-readable message became divided up into HTTP frames, providing optimization and performance improvements.
+
+Developers rarely actually craft these textual HTTP messages themselves - software, a browser, proxy, or web server perform this action. They provide HTTP messages through config files (proxies and servers), APIs(browsers) and other interfaces.
+
+HTTP requests and responses both share similar structure and are composed of the following:
+<ul>
+<li>A 'start-line' describing the requests to be implemented, or its status of whether success or not. This is always one line.</li>
+<li>An optional set of HTTP headers specifying the request, or describing the body included in the message. </li>
+<li>A blank line indicating all meta-information for the request has been sent</li>
+<li>An optional body containing data associated with the request (such as content of an HTML form) or the document associated with a response. The prescence of the body and its size is specified by the start-line and HTTP headers.</li>
+</ul>
+
+While we won't go into great depth, know that the start-line and HTTP headers are collectively known as the 'head' of the requests, whereas its payload is known as the 'body'.
+
+HTTP Requests again, are messages sent by the client to initiate an action or get a response from a server. Their start-line has 3 elements:
+<ul>
+<li>An HTTP method: a verb like GET, PUT, or POST or a noun like HEAD or OPTIONS, which describe the action to be performed. For example, GET indicates that a resource should be fetched while POST implies they want data to be pushed to the server.</li>
+<li>Then there's the request target - usually a URL, or the absolute path of the protocol, port, and domain. This information varies between different HTTP methods.</li>
+<li>Lastly, the HTTP Version is given in the start-line, which defines the structure of the remaining message and implies what version they expect for the response.</li>
+</ul>
+
+Then there's HTTP headers which can widely vary. Lastly, there's the body of the HTTP Request. This isn't always necessary such as in GET, HEAD, etc don't need one.
+
+As for responses, they have a status line, HTTP header, and body.
+
+But more importantly - knowing this, how do we actually create or intialize HTTP requests or responses in JavaScript?
+
+### Making HTTP Requests
+
+There are various ways to do so, and it's not a JavaScript built-in method. Rather we use other software to create the requests through their APIs. Such software can be AJAX, jQuery, Axios, Angular HTTPClient, and more. Let us consider AJAX:
+
+AJAX is traditional for asynchronous HTTP requests (async is basically the opposite of syncronous, and async can be descibred as non-blocking in the fact it doesn't block further execution while one or more operation are in progress. Multiple related operations can run concurrently without waiting for other tasks to complete. Parties receive and process messagews when it's convenient or possible rather than responding immediately upon receipt. A great example of asynchronous communication is texting: one person can send a text and the recipient can respond whenever. In the meantime the sender and receiver can do other tasks while waiting for the response.
+
+But getting back to AJAX, we send data using the HTTP POST method and receive it via HTTP GET. Let's explore a GET request. To make an HTTP call in AJAX, first we need to intialize a new XMLHttpRequest() method, specify the URL endpoint, and HTTP method (GET in this case). Then we use open() to tie the HTTP method and URL endpoint together and call send() to fire off the request. Lastly, we log the HTTP response to the console by using the XMLHTTPRequest.onreadystatechange property which has a event handler that's called when the readystatechanged event is fired:
+
+```js
+const Http = new XMLHttpRequest();
+const url = 'https://jsonplaceholder.typicode.com/posts';
+Http.open("GET", url);
+Http.send();
+
+Http.onreadystatechange = (e) => {
+    console.log(Http.responseText);
+}
+```
+
+The URL here is jsonplaceholder, which is a free online REST API for developers that returns random data in JSON format. Also note that the above code won't simply run in JavaScript. You need to have Ajax connected/imported somehow.
+
+After execution, if you view the console, you'll see an Array of data in JSON format. But how do we know if the request is finished? How can we handle the responses with Ajax? Well, the 'onreadystatechange' property has 2 methods, 'readyState' and 'status' which allow us to check the state of the request:
+
+```js
+//HTTP.onreadystatechange = (e) => { console.log(Http.responseText); } becomes....
+Http.onreadystatechange = function() {
+    if(this.readyState == 4 && this.status == 200) {
+        console.log(Http.responseText);
+    }
+}
+//readyState being 4 means the request is finished. readyState has 5 return values. One can find more documentation on readyState and status if they wish to
+```
+
+Overall, this is just one of many ways to send a proper HTTP request. We've covered what requests and responses are, a little bit about their structure, why they're important and how to implement one in a particular API. If you're interested in learning more, check out jQuery, which can uses Ajax and has more features.

@@ -1,0 +1,54 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Method Definitions
+
+Method definitions are simply a shorter syntax for defining a function property in an object initializer:
+
+Syntax:
+
+```js
+const obj = {
+    get property() {},
+    set property(value) {},
+    property(parameters) {},
+    *generator(parameters) {},
+    async property(parameters) {},
+    aysnc *generator(parameters) {},
+
+    //with computed keys
+
+    get [expression]() {},
+    set [expression](value) {},
+    [expression](parameters) {},
+    *[expression](parameters) {},
+    async [expression](parameters) {},
+    async *[expression](parameters) {},
+};
+```
+The shorthand syntax is similar to the `getter` and `setter` syntax. Given the following code you can shorten it to the code below it:
+
+```js
+const obj = {
+    foo: function() {
+        //...
+    },
+    bar: function() {
+        //...
+    }
+}
+
+//shortens to...
+
+const obj = {
+    foo() {
+        // ...
+    },
+    bar() {
+        // ...
+    }
+}
+```
+
+Generator methods can also be defined using this shorthand syntax, along with Async methods. 
+

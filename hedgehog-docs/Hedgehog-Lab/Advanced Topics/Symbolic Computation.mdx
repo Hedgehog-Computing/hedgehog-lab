@@ -1,0 +1,40 @@
+## Using symbols and TeX for writing & calculating formulas
+
+We have a feature for symbols that can be used along with TeX and some of our own functions for writing formulas and even calculating them.
+
+To start, you would declare a variable as a symbol:
+
+```js
+let x = sym('x')
+```
+
+Then you can write an expression using that symbol:
+
+```js
+let fx = (x^3) + sin(x)
+```
+
+Then you can output the formula as such:
+```js
+formulaTex `f(x)= ${fx}`
+```
+
+To perform calculations on the formula, you can use diff() and integrate():
+
+```js
+formulaTex`f'(x) = ${diff(fx, x)}`
+```
+or, 
+```js
+formulaTex`\int{f(x)dx} = ${integrate(fx, x)}`
+```
+
+Here's an example below of many different functions being used, specifically, integrals, derivatives, trigonometric functions, exponential functions, and partial derivatives/integrals:
+
+<iframe src="https://hlab.app/s/docs/symboliccomputation_hbook"
+    width="100%"
+    height="1000px">
+  </iframe>
+
+
+Please view the TeX section if you're unfamiliar with using TeX, as it's used in symbolic computation.

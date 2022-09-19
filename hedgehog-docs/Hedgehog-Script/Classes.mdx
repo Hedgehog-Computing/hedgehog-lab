@@ -1,0 +1,67 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Classes
+
+Classes are a **template** for creating objects. They hold data with code that performs operations on such data. In JavaScript, classes are built on prototypes, and it's good to know that real classes don't actually exist in JavaScript but they are rather just normal objects under the hood. One can also say that classes are "special functions" - since in a function you define function expressions and function declarations, you also do the same in classes - class expressions and class declarations.
+
+A way to define a class is using a class declaration. Simply use the `class` keyword:
+
+```js
+class Shape {
+    constructor(area) {
+        this.area = area;
+    }
+}
+```
+
+The purpose of classes is to create a way to make an object as many times as you want, quickly and with variety that is determined in the class declaration. Then you can also have subclasses, creating psuedo object-oriented programming. That is, there can be inheritance, structures of classes, and more.
+
+Note that a ReferenceError will be thrown if a class is constructed or initialized before it's declared. (unlike functions)
+
+Another way to define classes than class declarations is through class expressions. They can be named or not, and the name given is local to the class's body - it has to be accessed via the `name` property:
+
+```js
+//unnamed
+let Shape = class {
+    constructor(area) {
+        this.area = area;
+    }
+};
+
+print(Shape.name); //outputs "Shape"
+
+//named
+Shape = class Shape2 {
+    constructor(area) {
+        this.area = area;
+    }
+};
+
+print(Shape.name); //output is the named class - "Shape2"
+```
+
+Within the class body, you can define members - methods, constructors and properties. The constructor is a special method for creating and initializing an object created with a `class`. There can only be one method named "constructor" in a class, otherwise a SyntaxError will be thrown. The purpose of the constructor is that it runs immediately when a class is created and gives the class an initial state via parameters passed in and statements executed in the constructor. 
+
+Let's consider the different type of methods, there are prototype methods (get, set), generator methods (syntax is '*functionName() { ...}'), and static methods (use the `static` keyword).
+
+An important concept is binding `this`. If a static or prototype method is called without a value for `this` (like by assigning the method to a variable and then calling it), `this` will then be `undefined` in the method. For example having a function like this: `static func1() { return this; }`, when calling `func1()` it will be `undefined`. Rewrite it like this to bind `this` method calls to the initial `this` (by default is the global object):
+
+```js
+function Animal() { }
+
+Animal.prototype.speak = function() { return this; }
+
+Animal.eat = function() { return this; }
+
+const obj = new Animal();
+const speak = obj.speak;
+speak(); //returns global object (like a window in a browser)
+
+const eat = Animal.eat;
+eat(); //global object
+```
+
+For subclasses, creating them as a derived class of an upper class is as simple as adding `extends`. For example if the upper class is `Animal`, you can make subclass by the following: `class Hippo extends Animal { constructor(...) { super(...)}}`. And in a subclass, you can override the upperclass functions. (if there is `eat()` method in Animal and an `eat()` method in Hippo, when calling `eat()` on a Hippo instance, it will run the Hippo's version of `eat()` not Animal's).
+
+Overall, classes can be useful in scenarios where you need to create a hierachical system of functions, each with their own properties and inherited properties. They are relatively simple to make and use and can be powerful.

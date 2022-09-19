@@ -1,0 +1,103 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# try...catch
+
+The `try...catch` statement is a very useful one, and is very commonly used. Why? Because it effectively makes code very safe and handles errors very well. Sure you can throw an exception if some conditional is met like a parameter is `NaN` or `null`, however, `try...catch` lets one 'try' the code first and if it does throw an exception, the code in the 'catch' block will be executed. Hence it allows one to navigate around exceptions and errors rather than just throw them! It's very important to be in the habit of consistently checking for errors from any angle using `try...catch`. 
+
+Structurally, a `try...catch` statement has a `try` block and either a `catch` block, `finally` block, or both. The code in the `try` block is executed first. If the `try` block throws an exception - the code in the following `catch/finally` block is executed. Note that when there is a `finally` block, it will always be executed before control flow exits the `try...catch` construct. This is good to know when using both `catch` and `finally`.
+
+The basic syntax is the following:
+
+```js
+try {
+    tryStatements
+} catch (exceptionVar) {
+    catchStatements
+} finally {
+    finallyStatements
+}
+```
+
+The `exceptionVar` is an optional identifier to hold the caught exception for the associated `catch` block. If the block does not utilize the exception's value, you can omit the `exceptionVar` and it's surrounding parantheses.
+
+Once again, the `catch` block specifies what to do if an exception is thrown in the `try` block. The moment an exception is thrown control flow  shifts to `catch`. If no exception occurs, `catch` is simply skipped. However, `finally` if used, will always be executed before control flow exits the `try...catch` block. `try` statements can also be nested. If an inner `try` statement doesn't have an associated `catch` statement, then the `catch` statement above it will run. Another important feature is that `catch` blocks can be conditional, so let's provide a good example summarizing what we've said so far:
+
+```js
+try {
+    routine1(); //this may throw up to 3 exceptions of different types.
+}
+//we need to handle each of the 3 types of exceptions:
+catch(e) {
+    if (e instanceof TypeError) {
+        //statements to handle TypeError exception
+        //or you can simply log it! like this
+        errorLogger(e);
+    }
+    else if (e instanceof RangeError) {
+        //statements for RangeError exception handling
+    }
+    else if (e instanceof EvalError) {
+        //statements specific for handling EvalErrors
+    }
+    else {
+        //just in case another type of exception occurs, this will handle it
+    }
+}
+```
+
+A common use case of `try...catch` is to only catch (and silence) a small subset of expected errors, and re-throw the errors in other cases:
+```js
+try {
+    routine2();
+} catch (e) {
+    if (e instanceof RangeError) {
+        //statements to remedy this very common expected error
+    }
+    else {
+        throw e; //throw it again without changing anything, this makes the program end most likely
+    }
+}
+```
+
+The exception identifier (e in these two cases above) holds the exception value. One can use 'e' to get detailed information about the exception that was thrown. If you don't need the exception value/information, it can be omitted. Here is a more realistic example:
+
+```js
+function isValidJSON(text) {
+    try {
+        JSON.parse(text);
+        return true; //this statement is only reached if JSON.parse(text) does NOT throw an exception
+    } catch {
+        return false; //obviously an exception occurred while parsing the text into a JSON object thus it's not valid JSON, so simply return false. Exception info isn't very important here
+    }
+}
+```
+
+The `finally` block: it is rather simple once you understand the `try...catch` block. The `finally` block will always run, (even when return is called in `try` or `catch`, as it is designed to shift control flow to `finally` immediately before a control-flow statement in `try` or `catch` such as `return`, `throw`, `break`, `continue`, etc). One example of using a `finally` block is when opening a file, trying to write data to it, and whether or not something is caught and handled, `finally` will run, closing the file.
+
+Now let's give an example where the `try..catch` block is also nested with `try`s, has a `finally` statement, and the `finally` statement competes with other control-flow statements:
+
+```js
+(() => {
+    try {
+        try {
+            throw new Error('oops');
+        } catch(ex) {
+            print('inner '+ ex.message);
+            throw ex;
+        } finally {
+            print('finally');
+            return;
+        }
+
+    } catch (ex) {
+        print('outer ' + ex.message)
+    }
+
+})(); //output is: "inner oops" "finally". This is because we try a try-catch-finally block, where the finally block returns. But recall that if there is a control-flow statement, it switches to finally before **executing** the control flow statement. So try throws a new Error which is first caught by catch and prints "inner oops". The throw statement in try did not actually execute, it got caught, hence why it flowed to catch not finally. Then catch after printing, tries to throw the exception 'ex'. Since it's a catch block, control flow transfers to the finally block where it prints "finally" and returns, ending the function. If there was no return then the outer catch block would actually execute.
+
+//Note that at the top it's using arrow function notation. If one isn't familiar with it, basically read it as this:
+//function funcName() { returns try { try {  ... }}} , funcName();
+```
+
+Overall, one should get very familiar with `try...catch...finally` statements and use them often. It's a great way of handling exceptions and errors, and you can even do nothing in the catch block but just throw the exception, virtually identical to calling `if( ... ) { throw new Exception(...); }`. There are many varieties of `try...catch` blocks based on whether or not you have a `catch` block, a `finally` block, both of them, if anythings nested, etc. This creates powerful, complex exception and error handling.

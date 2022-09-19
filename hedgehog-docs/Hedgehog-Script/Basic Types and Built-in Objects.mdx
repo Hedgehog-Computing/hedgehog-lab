@@ -1,0 +1,90 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Basic Types & Built-in Objects
+
+JavaScript has several basic built-in types. These are opposed to constructed types, which are objects you define yourself such as a class. Let's go over them and then discuss some other built-in JavaScript objects.
+
+### Primitive Values
+
+These are immutable data represented directly at the lowest level of the language. Here are the list of all primitive types:
+
+<ul>
+<li> Boolean - true or false values </li>
+<li> Null type - null can be thought of as non-existence of something, like an object. It is different than undefined. </li>
+<li> Undefined type - a variable that has not been assigned a value is undefined for example </li>
+<li> Number type - double precision 64 bit binary value. Is composed of floating-point values between 2^-1074 (Number.MIN_VALUE) and 2^1024 (Number.MAX_VALUE) as well as the corresponding negative values.</li>
+<li> BigInt type - represents integers with arbitrary precision. With BigInts one can safely store and operate on large integers even beyond the safe integer limit for Number</li>
+<li> NaN - not a number </li>
+<li> String type - textual data, technically a set of elements of a 16-bit unsigned integer value. Each element occupies a position in a String. JavaScript Strings are immutable.</li>
+<li> Symbol type - unique and immutable value, and can be used as a key of an Object property</li>
+<li> Objects (collections of properties) - an object is a value in memory which is possibly referenced by an identifier</li>
+</ul>
+
+Now let's go over a list of a large variety of built-in objects. These are specific objects that can sometimes seem to be subtypes of primitive types, however, they are more complex objects than primitive types and are available by using their keyword/name:
+
+<ul>
+<li>AggregateError</li>
+<li>Array</li>
+<li>ArrayBuffer</li>
+<li>AsyncFunction</li>
+<li>AsyncGenerator</li>
+<li>AsyncGeneratorFunction</li>
+<li>Atomics</li>
+<li>BigInt64Array</li>
+<li>BigUint64Array</li>
+<li>DataView</li>
+<li>Date</li>
+<li>decodeURI()</li>
+<li>decodeURIComponent()</li>
+<li>encodeURI()</li>
+<li>encodeURIComponent()</li>
+<li>Error</li>
+<li>eval()</li>
+<li>EvalError</li>
+<li>FinalizationRegistry</li>
+<li>Float32Array</li>
+<li>Float64Array</li>
+<li>Function</li>
+<li>Generator</li>
+<li>GeneratorFunction</li>
+<li>globalThis</li>
+<li>Infinity</li>
+<li>Int16Array</li>
+<li>Int32Array</li>
+<li>Int8Array</li>
+<li>Intl</li>
+<li>isFinite()</li>
+<li>isNaN()</li>
+<li>JSON</li>
+<li>Map</li>
+<li>Math</li>
+<li>parseFloat()</li>
+<li>parseInt()</li>
+<li>Promise</li>
+<li>Proxy</li>
+<li>RangeError</li>
+<li>ReferenceError</li>
+<li>Reflect</li>
+<li>RegExp</li>
+<li>Set</li>
+<li>SharedArrayBuffer</li>
+<li>SyntaxError</li>
+<li>TypedArray</li>
+<li>TypeError</li>
+<li>Uint16Array</li>
+<li>Uint32Array</li>
+<li>Uint8Array</li>
+<li>Uint8ClampedArray</li>
+<li>undefined</li>
+<li>URIError</li>
+<li>WeakMap</li>
+<li>WeakRef</li>
+<li>WeakSet</li>
+<li>WebAssembly</li>
+</ul>
+
+Some of these are relatively evident of what they are based on their name, many are covered in this book, and some are more complex that aren't in this book (Proxy and reflect for example). However, this exhausts the list of built-in objects (along with primitive types, they are technically built in objects) so it's good to familiarze oneself with them.
+
+
+

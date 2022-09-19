@@ -1,0 +1,23 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Continue Statements
+
+A `continue` statement stops the execution of the statements in the current iteration of the current or labeled loop, and continues the execution of the loop with the next iteration. Basically, it skips a loop iteration when it is called, perhaps under a conditional.
+
+Here is a simple example:
+
+```js
+for (let i = 0; i < 6; i++) {
+    if (i===4) {
+        continue;
+    }
+    //this makes it print i and a space after
+    print(i+' ');
+}
+```
+And the output of this would be: 0 1 2 3 5. Notice that 4 is missing between all the numbers less than 6. That is because the `continue` statement is executed when i is 4 hence skipping the whole loop iteration, thus skipping the print statement. 
+
+`Continue` can optionally be used with the `label` identifier to make the program go to the next iteration of a labeled loop statement instead of the current loop. Hence, `continue` needs to be nested within the labeled statement. 
+
+Note that `continue` is similar to `break` which can be found in this section. The difference is that `continue` ends the current iteration so for for loops it will jump back to the update expression and in a while loop it jumps back to the while condition. In a `break` context, it simply exits the whole entire loop.

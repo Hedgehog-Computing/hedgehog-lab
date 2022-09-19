@@ -1,0 +1,90 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Maps
+
+The `Map` object holds key-value pairs and remembers the original insertion order of the keys. Any value (both objects and basic/primitive types or values) may be used as either the key or the value. If you've read about the `Set` object, this may sound familiar. There are key differences though. Let's focus on what `Map` objects are, how to implement them and their features instead though.
+
+A key in a `Map` can only occur once, that is keys are unique to the collection. A `Map` object is iterated over by key-value pairs - a `for...of` loop returns a 2-member array of [key, value] for each iteration. This iteration is in insertion order, i.e. the order in which elements were inserted; first inserted is the first element in the collection. Elements, or key-value pairs are inserted via the `set()` method (not the object). Specification requires maps to be implemented such that access times are on average sublinear. This is great, as they can be represented internally as a hash table with O(1) lookup, a search tree with O(log(N)) lookup or any other data structure - as long as it's better than O(N). This makes it potentially faster than even Arrays in various cases.
+
+Here are some basic `Map` operations:
+
+```js
+const map1 = new Map();
+map1.set('a',1);
+map1.set('b',3);
+map1.set('c',5);
+
+print(map1.get('a')); //i.e. get map1's value for the key: 'a'. This output will be 1.
+
+map1.set('a', 50);
+
+print(map1.get('a')); //once again get the value, except it's changed - so the output will now be 50.
+
+print(map1.size); //3 elements, so the size is 3
+
+map1.delete('b');
+
+print(map1.size); //since 'b' key is removed (along with its value), there are now only 2 elements. the size is 2.
+```
+
+
+### Objects vs Keys
+
+`Object` is similar to `Map` in that both let you set keys to values, retrieve such values, delete key-value pairs, detect whether something is stored at a key, and more. Historically, `Object` has been used as `Map` actually. However, here are the key differences that make `Map` preferable in various cases:
+
+<ul>
+<li> Accidental keys: `Map` has no keys by default. It only contains what one puts in it. `Object` has a prototype so it contains default keys that can collide with explicit keys if not careful. </li>
+<li> Key types: `Map` keys can be any value. `Object` keys must either be a `String` or a `Symbol`.</li>
+<li> Key order: `Map` are in insertion order. `Object` keys are ordered now, but historically they weren't, thus the order is complex, hence it's best not to rely on property order. </li>
+<li> Size: `Map` size is easily found via the size property. `Object` size doesn't have a iteration protocol, so objects are not directly iterable. There are ways to iterate over an `Object` though.</li>
+<li> Performance: `Map` performs better where there is frequent addition and removal of key-value pairs. `Object` is not optimized for such frequent actions.</li>
+<li> Serialization and parsing: `Map` has no native support for either, but one can build their own serialization/parsing support using JSON.stringify() or JSON.parse().`Object` do have support for serialization natively as well as parsing. </li>
+</ul>
+
+Another difference is setting object properties: Setting `Object` properties works for `Map` objects as well, and can cause much confusion. This appears to work:
+
+```js
+const wrongMap = new Map();
+wrongMap['abc'] = 'abccc';
+wrongMap['abc2'] = 'abccc2';
+
+print(wrongMap); //Map {abc: 'abccc', abc2: 'abccc2' }
+```
+
+However, this way of setting properties does not actually interact with the `Map` data structure. It uses a feature of the generic object. The value of 'abc' is not stored in the Map for queries. Some operatioins on the data fail! For example, `wrongMap.has('abc')` returns false! as well as `wrongMap.delete('abc')`. The correct usage for storing data in the `Map` object is through the `set(key, value)` method: `wrongMap.set('phone', 5551118888)`.
+
+`Map` has many methods. We will briefly list them without diving in: 
+<ul>
+<li>Constructor: Map()</li>
+<li>Static properties: get Map[@@species] </li>
+<li>Instance properties: Map.prototype.size </li>
+<li>Instance Methods:
+    <ul>
+    <li>Map.prototype.clear() - removes all key-value pairs </li>
+    <li>Map.prototype.delete() - true if an element has existed and has been removed, false otherwise. map.has(key) will return false afterwards. </li>
+    <li>Map.prototype.get() - returns the value associated to the passed key, or undefined if there is none. </li>
+    <li>Map.prototype.has() - returns true or false depending on whether the value is in the Map or not. </li>
+    <li>Map.prototype.set() - sets the value for a passed key in Map. Returns the Map object too. </li>
+    <li>Map.prototype[@@iterator]() - returns new iterator that contains two-member array of [key, value] for each element in Map, in insertion order. </li>
+    <li>Map.prototype.keys() - Same as above but only returns keys. </li>
+    <li>Map.prototype.values() - same as above but only returns values. </li>
+    <li>Map.prototype.entries() - alias for Map.prototype[@@iterator]().</li>
+    <li>Map.prototype.forEach() - calls callbackFn once for each key-value pair in Map, in insertion order. If a thisArg is provided to forEach, it will be replaced as the 'this' value for each callback. </li>
+    </ul>
+    </li>
+</ul>
+
+Note that NaN can be a `Map` key. 
+
+One can iterate over a `Map` using for...of like discussed: 
+`const map1 = new Map(); map1.set(0, 'zero'); map1.set(1, 'one'); ... for (const [key, value] of map1) { print(`${key} = ${value}`)}; }`
+
+`Map` can also be iterated with `forEach()`: `map1.forEach((value, key) => {print(`${key} = ${value}`); });`
+
+One can use a `Map` constructor to transform a 2D key-value Array into a map:
+`const array1 = [['key1', 'value1'], ['key2', 'value2']];` then `const map1 = new Map(array1);`
+
+Merging `Map` objects is also possible: `const firstMap = new Map(...); const secondMap = new Map(...);` then `const mergedMap = new Map([...first, ...second]);` - this is using rest parameters.
+
+Overall `Maps` are like `Arrays`, `Objects` and even `Sets`. There are differences though for each, and use cases differ too. It's mostly important to understand what a map is and the key differences between it and `Objects`, since that's their main competitor. It's also good to know the various features and methods of the `Map` built-in object.

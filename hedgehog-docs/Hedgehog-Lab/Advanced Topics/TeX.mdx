@@ -1,0 +1,26 @@
+In this section, we'll show how to use basic TeX for use in having output displayed as TeX and symbolic computation, and potentially more.
+
+Please note that a lot of the information about how to use TeX is well documented on the internet. There is a large amount of expressions you can use to generate different things such as integrals, derivatives, trigonometric functions, inverse functions, fractions, cross and dot product, and much much more. This example is by no means exhaustive.
+
+To write something in TeX, simply call the function 'tex' and input the TeX:
+
+`tex("\\text{Welcome to Hedgehog Lab.}")`
+
+Notice a few things: `\\text` is used to create a string of text. It is followed by `{actual text here...}` and all of it is encapsulated by double quotations.
+
+You can write a formula (see Symbolic Computation section for more details) using `formulaTex(formula...)`:
+
+`formulaTex("Y = mx + b")`
+
+If you have a variable, say `let A = random(10,10)` we can convert it to TeX as follows:
+
+`A.toTex()`
+
+Here is an example of what's been described in a more complex scenario:
+
+<iframe src="https://hlab.app/s/docs/tex_hbook"
+    width="100%"
+    height="700px">
+  </iframe>
+
+Overall, TeX is quite useful for outputting what you want in that format. You can then save the output and use it for whatever you need. It's more important to note that TeX can be and is, integrated with all of Hedgehog Lab's features. So it's not just writing TeX - it's using TeX with Hedgehog Lab.

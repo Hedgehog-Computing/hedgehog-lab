@@ -1,0 +1,64 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# NaN and Null
+
+### NaN
+
+`NaN` is a global property, and a value representing Not-A-Number. It is an object. NaN values are non-writable, non-enumarable and non-configurable.
+
+Theere are a variety of things that fall under NaN but first let's look at a simple example:
+
+```js
+function sanitise(x) {
+    if (isNaN(x)) {
+        return NaN;
+    }
+    return x;
+}
+```
+
+Calling `sanitise('1')` outputs `"1"`. But calling `sanitise('stringhere')` outputs `NaN`.
+
+Here are the operations that return NaN:
+
+<ul>
+<li> Failed number conversion (something like `parseInt("word")`, `Number(undefined)`, or implicit ones such as `Math.abs(undefined)`).</li>
+<li> Math operation where result is not real (e.g. `Math.sqrt(-5)`). </li>
+<li> Indeterminate form: (0*infinity, 1**infinity1, etc ) </li>
+<li> A method or expression whose operand is or gets coerced to NaN (7**NaN, 7*"word") - i.e. NaN is contagious </li>
+<li> Other cases where an invalid value is represented as a number (new Date("word".getTime())). </li>
+</ul>
+
+How can one test if a value is NaN to throw an exception? If it's a number, one can use `Number.isNaN()` otherwise, use `isNaN()`
+
+Be careful for NaN values and make sure to check for them in try-catch methods or throw exceptions.
+
+### Null
+
+While `NaN` is a built in object, `null` is simpler; it is a primitive value i.e. a basic type. It's responsibility is to represent the intentional absence of any object value. So one can think of `NaN` as Not-A-Number while `null` is not-existing. Let's dive in a little deeper.
+
+`null`, unlike `undefined` is not an identifier for a property of the global object. Instead, `null` express a lack of identification, indicating that a **variable points to no object**. 
+
+Note that you can even initilialize or set variables to `null`:
+```js
+const var1 = null;
+print(var1) //null error
+```
+
+There are some key differences between `null` and `undefined` - when checking for them, beware of the difference between equality (==) and identity (===), as identity performs type-conversion:
+
+```js
+typeof null // "object"
+typeof undefined // "undefined"
+null === undefined //false
+null == undefined //true
+null === null //true
+null == null //true
+isNaN(1+null) //false->1+null IS a number, namely 1
+isNaN(1+undefined) //true - it is NOT a number because undefined is not non-existence but rather something else unique
+```
+
+Be careful for `null` values as they can throw errors, make sure to try-catch them or throw exceptions. There are uses when you do want something to be null however. Overall, keep in mind the differences between `null` and `undefined` or `NaN`.
+
+

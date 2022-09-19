@@ -1,0 +1,23 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Break Statements
+
+The `break` statement is quite simple ; it ends the current loop/switch and transfers program control to the statement right after the end of the loop.
+
+Here is an example:
+
+```js
+for (let i = 0; i < 5; i++) {
+    if (i > 2) {
+        break;
+    }
+    i = i*i;
+}
+```
+
+What's the expected result? It is simply `3`. What happens is this: i starts at 0. It's not greater than 2 so we save i as ixi = 0x0 = 0. Now i is 1; since 1 is not greater than 2 we skip the if condition statement and follow the statement i = ixi where i is saved as 1x1 = 1. Now i is at 2. Two is not greater than 2 so we skip the if statement and proceed to the statement `i=i*i` hence `i = 2*2 = 4`. Lastly, i is now 3. Since 3 is now greater than 2, we enter the if conditional and perform the `break` operation, exiting the loop hence never performing the `i=i*i` operation. Thus, i is still saved as 3.
+
+Note that the `break` statement has an optional identifier (has to be used if not in a loop or switch case) which makes the program break out of the labelled statement. The break should be nested within such label.
+
+The other important statement very similar to `break` is calleed `continue`, which you can find in this section, and it's important to understand when to use each.
