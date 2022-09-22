@@ -1,0 +1,24 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Null
+
+`null` is relatively simple; it is a primitive value i.e. a basic type. It's responsibility is to represent the intentional absence of any object value. So one can think of `null` as not-existing. Let's dive in a little deeper.
+
+`null`, unlike `undefined` is not an identifier for a property of the global object. Instead, `null` express a lack of identification, indicating that a **variable points to no object**. 
+
+Note that you can even initilialize or set variables to `null`:
+```js
+const var1 = null;
+print(var1) //null error
+```
+
+There are some key differences between `null` and `undefined` - when checking for them, beware of the difference between equality (==) and identity (===), as identity performs type-conversion:
+
+ <iframe
+    src="https://hlab.app/s/docs/null_hbook"
+    width="100%"
+    height="500px"
+  ></iframe>
+
+Be careful for `null` values as they can throw errors, make sure to try-catch them or throw exceptions. There are uses when you do want something to be null however. Overall, keep in mind the differences between `null` and `undefined` or `NaN`

@@ -1,0 +1,24 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Break Statements
+
+The `break` statement is quite simple - it ends the current loop/switch and transfers program control to the statement proceeding the loop.
+
+Here is a simple example:
+
+<iframe
+    src="https://hlab.app/s/docs/breaks_hbook"
+    width="100%"
+    height="500px" />
+
+:::warning
+
+The reason `break` was replaced with the `print(...)` statement is because `break` is **not allowed**.
+
+That is because `break` is a **statement**. Conditional tertiary operator (?) only can return **expressions**.
+:::
+
+<p>&nbsp;</p>
+
+Lastly, the other important statement that's effectively the closest to `break` (but performs a distinctly different operation) is calleed `continue`, which you can find in this section, and it's important to understand when to use each, as breaking from loops under extra conditions can be quite useful.

@@ -1,0 +1,67 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Data Structures
+
+Data structures in HedgehogScript (or any programming language) is a format to organize, manage and store data in a way that allows efficient access and modification. They also are a collection of data values, the relationships among them if any, and the functions and operations that can be applied to said data. Data structures are very crucial for projects or even simple scripts as they handle data - one of the, if not the most, important things in programming.
+
+### Arrays
+
+First let's note a common, built-in data structure: `Arrays` and `objects` are included in HedgehogScript. `objects` are actually data structures in themselves - they hold data via properties, and can manage or modify it via methods in the object.
+
+### Stacks
+
+Next, let's consider `stacks`, an important data structure. These are list-like structures that work under a LIFO pattern (last in, first out). A stack is used when you need to make sure elements follow LIFO patterns. 
+
+Some examples are: JavaScript's call stack, managing function calls in various programming languages and undo/redo functionality some languages offer. 
+
+To implement a stack, one can use an `Array` with `push` and `pop` methods. Here is an example:
+
+### Queues
+
+Similar to stacks, there exist queues. They follow the opposite pattern FIFO (first in, first out) just like a real life queue. 
+
+There are various use of queues in JavaScript, some are background tasks and printing/task processing. 
+
+One common way to implement a queue is with an Array, but instead you have a `push()` and `shift()` method. An example is as follows:
+
+### Linked/Doubly linked Lists
+
+Linked lists are a constructed data type commonly used in Hedgehog Script. Within the list, each value is a `node`, and each node is connected with the following value in the list. (`null` follows the end). 
+
+Also there exists doubly linked lists - just like a linked list but it has a `previousNode` and `nextNode`. 
+
+:::info
+The first element of a list is called the `head` and the last is the `tail`. Note that lists do not have indexes. While there is a downside the bonus is that insertion, deletion and sometimes modification are more efficient than `Arrays`.
+:::
+
+There are functions that should be implemented in linked/doubly linked lists. The most important are the `constructor`, `pop()`, `push(value)`, `get(index)` and `insert(index, value)`. Here is an example implementing them:
+
+### Trees
+
+Another data structure is `trees` which have `nodes` in a child/parent relationship, kind of like a family tree. 
+
+There is a `root` node, and then `children` and `parent` nodes. All nodes are `children` of `root`. 
+
+Only connections between parent/children are allowed. For example, sibling connections are forbidden. There can only be 1 `root`. 
+
+Some examples of tree usage is : the DOM model, situation analysis in AI, and operating systems' file folders. 
+
+:::tip
+One very important and useful tree is the `binary (search) tree`. Definitely learn about it!
+:::
+
+### Heaps
+
+Next, there is `heaps`. These are a type of trees and a specific type is `binary heaps` used to implement `priority queues`.
+
+The construction of a `heap` is relatively complicated so we'll skip it for now. 
+
+### Graphs
+
+Lastly, `graphs` are a data structure where nodes can be connected in any way. These are useful for social networks, geolocalization and recommendation systems. 
+
+
+:::info
+There are more, complex data structures one can create but these are the most well-known and commonly used. In face many universities have a mandatory data structure class! They are extremely vital to larger projects.
+:::

@@ -1,0 +1,122 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#  Control Flow
+
+Control flow is all about the **order of execution**. 
+
+Whether it be a statement, instruction, or function call, control flow is responsible for it's execution and in what order.
+
+Since programming languages and programs have evolved past the assembly programming level, executions no longer needs to be so rigid relative to the line number.
+
+We can now have a massive variety of ways to change control flow and handle what gets executed when. We'll cover the basics in this section.
+
+:::info
+Assembly and even Maching Level Programming even had control-flow! They both effectively use labels. It's done through an intruction pointer register - contains the addresss of the next instruction to be executed and can be modified by programmer sometimes. 
+:::
+
+"Block statements" are almost always paired with control flow statements - they are blocks delimited by `{}`. Examples include `if`, `for` or `while`, etc.
+
+The syntax is as follows:
+
+` (optionalStatement) {
+    StatementList
+  }`
+
+## if-else statement
+
+`if (condition) {` <br />
+    &nbsp;&nbsp;&nbsp;&nbsp;`statementsExecutedIfTrue` <br />
+ `}`
+ `else {` <br />
+      &nbsp;&nbsp;&nbsp;&nbsp;`statementsExecutedOtherwise`<br />
+ `}`
+
+
+Use `if-else` statements when you need to execute binary control-flow. 
+
+That is go direction A if (`condition === true`) and go direction B if (`condition === false`).
+
+:::tip
+
+When writing a `if-else` statement, you don't need the `else` statement all the time! It is implicitly there if the only control flow is an `if()`. 
+
+That's because if `if()` fails, everything you write after `if()` will be executed!
+:::
+
+As for more directions, say C and D and E... use a `if-else if-else if....-else(optional)`.
+
+Here is an example of a simple `if-else` statement:
+
+<iframe src="https://hlab.app/s/docs/control1_hbook"
+    width="100%"
+    height="300px"/>
+
+<p>&nbsp;</p>
+
+And here is an example of a little more complicated statement (including `else-if` and `else`):
+<iframe src="https://hlab.app/s/docs/ctrlflow1_hbook"
+    width="100%"
+    height="800px"/>
+
+
+
+
+## For statement
+A `for` loop repeats until a specified condition evaluates to `false`. The Hedgehog Script `for`-loop statement looks as follows: 
+
+```
+for ([initialExpression]; [condition]; [incrementExpression]) { 
+  statement }
+```
+Here is an example:
+
+<iframe src="https://hlab.app/s/docs/control2_hbook"
+    width="100%"
+    height="200px"/>
+
+
+
+## while and do-while statement
+The `while` statement creates a loop that executes a specified statement as long as the test condition evaluates to `true`. The condition is evaluated *before* executing the statement.
+
+Here is the syntax for `while` statement:
+```
+while (condition) {
+  statement }
+```
+
+The `do...while` statement creates a loop that executes a specified statement until the test condition evaluates to `false`. The condition is evaluated *after* executing the statement, resulting in the specified statement executing _at least once_.
+
+Here is the syntax for `do...while` statement:
+```
+do {
+   statement }
+while (condition);
+```
+Here are examples for `while` and `do...while` statements in Hedgehog Script performing the same function:
+
+<iframe src="https://hlab.app/s/docs/control3_hbook"
+    width="100%"
+    height="500px"/>
+
+<p>&nbsp;</p>
+
+:::info
+These are the basic, fundamental ways to control the logical flow of your script/program using Hedgehog Script. It's quite important to learn them all by:
+- frequently using them
+- using a variety
+- trying to learn new control flow methods
+
+Those skills translate to **any** language.
+:::
+
+:::tip
+
+If you are wanting to learn more, here is a great place to do so: [Control Flow - MDN](https://developer.mozilla.org/en-US/docs/Glossary/Control_flow).
+
+:::
+
+
+
+

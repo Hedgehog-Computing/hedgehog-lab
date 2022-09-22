@@ -1,0 +1,68 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Switch Statement
+
+The `switch` statement is a sometimes useful conditional-like statement. 
+
+What it does is - evaluates an expression, matches the evaluated value against `case` clauses, and executes statements if a case is matching.
+
+It's typical to add `breaks` in most cases: it ends the statement after executing the `case` instructions.
+
+:::tip
+
+There is a `default` clause that a `switch case` statement can fall back on if defined: if nothing is matched to a `case`, the `default case` is executed. 
+:::
+
+Let's view a simple example of what we've said so far: 
+<iframe
+    src="https://hlab.app/s/docs/switch_hbook"
+    width="100%"
+    height="500px"/>
+
+The syntax is very brief and simple for `switch` statements:
+
+```js
+switch (expression) {
+    case value1:
+        //statements executed when expression matches value1
+        [break;]
+    case value2:
+        //statements executed when expression matches value2
+        [break;]
+    ...
+    case valueN:
+        //statements executed when expression matches valueN
+        [break;]
+    [default:
+        //statements executed when no value matches the expression
+        [break;]]
+}
+// NOTE: [] -> optional
+```
+
+
+Why are the `breaks` optional? If one wishes the expression to 'fall-through' the `cases` - just don't add `breaks`. 
+
+Also, `default` is optional like previously mentioned. 
+
+Let's view an example to understand what 'fall-through' means: 
+
+:::tip
+`default` cases don't have to be at the end! 
+
+If in the middle, perhaps the `default` case will be hit before any case is (hence ignoring below cases if theres a `break` in `default`). 
+:::
+
+<iframe
+    src="https://hlab.app/s/docs/switchex1_hbook"
+    width="100%"
+    height="800px"/>
+
+
+- Why use a `switch` statement when `if...else if... else if` chains exist? Simply put, there is fall-through behavior which is useful in some cases.
+
+
+- Overall, a `switch` statement can be thought of as an alternative to `if...else if` chains with sometimes benefits, sometimes drawbacks. The main benefits are fall-through behavior and use of identity comparisons instead of equality (=== vs ==). 
+
+- Lastly, remember to use the `default` case in a powerful manner: it doesn't have to be at the bottom, it can be in between cases.

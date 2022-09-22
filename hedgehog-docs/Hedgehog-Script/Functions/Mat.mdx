@@ -1,0 +1,72 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# The Mat Object
+
+The `Mat` Object is very useful for matrix-like operations in Hedgehog Script. It can be 1 dimensional, 2d, 3d and so on. 
+
+To declare one, it's like declaring an instance of a Hedgehog Script `object` (by using the `new` keyword).
+
+Here is a very simple example:
+
+
+  <iframe src="https://hlab.app/s/docs/mat1_hbook"
+    width="100%"
+    height="300px"/>
+
+
+Don't forget to use `( )` to construct it!
+
+:::info
+
+When constructing a `Mat`, always have at least 2 layers of brackets. Something like `new Mat([1,2,3,4])` is forbidden.
+
+:::
+
+### We support many functions for matrices ...
+
+Basic summation, multiplication, elementwise-operations, decompositions, processing data and much more, it's all there, built-in, easy to use.
+
+However, those functions are located in the "Math" book (top navigation bar). In this section we simply give the basics.
+
+Here are the fundamental properties of `Mat` objects:
+
+`rows`, `cols`, `val`. Sub-properties include: `val.length`, `val[0].length`. 
+
+There are vital for operating around a matrix. From loops, to boundaries to the most important - values (`val`). 
+
+
+
+  <iframe src="https://hlab.app/s/docs/mat2_hbook"
+    width="100%"
+    height="700px"/>
+<p>&nbsp;</p>
+
+:::tip
+
+Use the property `val` to transform a `Mat` into a raw `Array`:
+
+`myMat_raw = myMat.val;`
+
+Typical `Array` functions can now be performed on `myMat_raw`.
+:::
+
+
+All built in functions for Hedgehog Lab work for `Arrays`, `Tensor` objects and `Mat` objects. However, if you only have a normal `Array` you are limited to Hedgehog Script `Array` libraries. 
+
+Here are some examples of using `Mat` or its counterpart in a function:
+
+
+  <iframe src="https://hlab.app/s/docs/mat3_hbook"
+        width="100%"
+    height="500px"/>
+
+:::note
+
+One can use '\n' in strings to add newlines. 
+
+:::
+
+Overall, the `Mat` is a useful object in Hedgehog Script designed for matrix functions and operations. It can even model tensors. 
+
+
+

@@ -1,0 +1,74 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Return Statements
+
+The `return` statement is relatively simple and familiar. It ends function execution, absolutely, when executed. 
+
+It also can store a value, to be 'returned'
+
+Here is a very simple, brief example:
+
+<iframe
+    src="https://hlab.app/s/docs/returns_hbook"
+    width="100%"
+    height="350px"/>
+
+- The syntax of a `return` statement is very simple: `return [expression];`.
+- If `[expression]` is omitted, `undefined` is returned instead.
+
+
+:::info
+**Automatic Semicolon Insertion**: not too important, but good to understand: 
+
+Did you not place a semi-colon (;) after a `return [expression]` statement? 
+
+Good news, it's automatically inserted for you.
+
+But the downside is... if you had code executed **after** the `return` statement, it is unreachable, and the function will end 'prematurely'.
+:::
+
+Here is an example as well as a remedy for it:
+
+<iframe
+    src="https://hlab.app/s/docs/returnex1_hbook"
+    width="100%"
+    height="700px"/>
+
+<p>&nbsp;</p>
+
+:::tip
+
+A useful case of `return;` is when you want to **intentionally** interrupt a function within some point in the control flow.
+
+Here is a simple example on how to do so:
+:::
+
+<p>&nbsp;</p>
+
+
+<iframe
+    src="https://hlab.app/s/docs/returnex2_hbook"
+    width="100%"
+    height="500px"/>
+
+:::info
+If one isn't aware of what's going on with the expression `${count}A`, here's a quick explanation (and useful for the future):
+
+This is a **template literal** performing **string interpolation**. The `$` is a delimiter as well as the backticks surrounding the expression. 
+
+So in simple terms, wrap your whole expression with ` `` ` and wrap your [expression] (===count here) with `{}`s prefixed by $. It will now be 'evaluated' or 'computed'. The 'A' at the end literally just adds an A as a suffix to the result. 
+:::
+
+One more useful feature of `return` statements is not to return a value, but rather a **function**:
+
+<iframe
+    src="https://hlab.app/s/docs/returnex3_hbook"
+    width="100%"
+    height="300px"/>
+
+- Overall, this is a review of `return` statements, and one needs to acknowledge that `return` completely ends function execution when called. 
+
+- No expression to `return`? `unidentified` is the result. 
+
+- Other than for typical use, `return` can be used for - interrupting a function and returning functions ( among other techniques ).

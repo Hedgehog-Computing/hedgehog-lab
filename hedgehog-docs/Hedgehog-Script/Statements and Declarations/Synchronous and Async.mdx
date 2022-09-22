@@ -1,0 +1,46 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Synchronous and Asynchronous Functions (sync and async)
+
+These two terms are relatively important, depending on if you want to use a specific one. The have opposite effects and different use cases. Let's first start with async functions. They are declared with the `async` keyword and the `await` keyword is allowed within it. These two keywords enable asynchronous, promise-based behavior to be written in a cleaner style avoiding having to configure promise chains.
+
+Here is a simple example:
+
+<iframe
+    src="https://hlab.app/s/docs/async_hbook"
+    width="100%"
+    height="500px"
+></iframe>
+
+The return value of a async function is a `Promise` object (discussed in the promises section), which will be resolve with the value returned by the async function or rejected with an exception thrown from (or uncaught) within the async function. Async functions can contains 0 or multiple `await` expressions. What an `await` expression does is effectively make promise-returning functions behave as though they're synchronous by suspending execution until the returned promise is fulfilled or rejected. The resolved value is treated as the return value of the await expression. Using `await` and `async` enables the use of typical `try...catch` blocks around asynchronous code.
+
+For an example, let's rewrite a Promise chain with an async function:
+
+```js
+function getProcessedData(url) {
+    return downloadData(url) //returns a promise
+    .catch( (e) => downloadFallbackData(url)) //returns a promise
+    .then ( (v) => processDataInWorker(v)); //returns a promise
+}
+
+//rewritten as...
+
+async function getProcessedData(url) {
+    let v;
+    try {
+        v = await downloadData(url);
+    } catch (e) {
+        v = await downloadFallbackData(url);
+    }
+    return processDataInWorker(v);
+}
+```
+
+Let's now discuss synchronous functions and that should make it more understandable for how `async` and `sync` work and compare to each other.
+
+Asynchronous means not occuring at the same time. What this allows is avoid halting the execution of other sequential code. Syncronous means occuring at the same time, hence is basically driven by sequential, step by step executions with no delays and no 'skipping' code and moving to other code. Note that Promises inherently allow us to perform asynchronous operations. Another note is that synchronous code has to wait for earlier lines to execute before moving on to the next, unlike asynchronous where execution can be fluid by using something such as `setTimeout()` or `await`.
+
+Lastly, let's give a real life example of sync vs async: consider text messaging. Imagine you send somebody a text and wait for their response. They may not respond immediately, so you can do other things on your phone until then such as open an app, send another text message to them or somebody else, etc. Eventually the response will come, i.e. they will text you back. That 'promise' is now finished or resolved. This is asyncronous communication. On the otherhand, consider if it was synchronous: you send a text message, and you're not allowed to do any other tasks until that text is responded to, i.e. the promise is fulfilled. This is quite inefficient! However, there are uses for synchronous communication. An example of where synchronous communication is better is a debate - the promises are replies or statements to each other. One person says something, the other person debating responds. Then the response merits a response. Each response is not allowed until the current response has been resolved. That is to say, if you ask a question 'why is the sky blue?' and they begin answering, you are not allowed to proceed aka interrupt them while they are responding. If asynchronous communication was used here, the debate would be less professional and efficient - you would have questions being asked while previous questions are still being answered, and even responses in reverse order making things confusing and chaotic. Basically they would interrupt each other while responding. One can see why synchronous communication is preferred in this example.
+
+Overall, asynchronous and synchronous functions and code is good to understand, considering the context it is in - promises, queues, etc. They can be a confusing topic, but it's most important to understand the fundamental differences and features, and how to perform an asynchronous operation. Then when one understands promises in depth, this topic will be quite useful for use cases where async may be preferred or sync is.

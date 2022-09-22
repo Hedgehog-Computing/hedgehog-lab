@@ -1,0 +1,56 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# JSON
+
+`JSON` is an object with methods for parsing JavaScript Object Notation (`JSON`) and converting said values to `JSON`. It only has two method properties.
+
+The difference between JSON and JavaScript is important. `JSON` is a syntax for serializing objects, arrays, numbers, etc. It is **based** upon Hedgehog Script, (similar to JavaScript) syntax but is distinct from it.
+
+:::note
+JavaScript is **not** JSON
+:::
+
+There are certain things that are required for Objects/Arrays in JSON: must double quote property names. Trailing commas are forbidden. Leading zeros are forbidden, etc. Note that `NaN` and `Infinity` aren't supported.
+
+Let's start by considering an example of one of the 2 methods: stringify
+
+
+<iframe
+    src="https://hlab.app/s/docs/json2_hbook"
+    width="100%"
+    height="300px" />
+
+Note that one can also embed or nest JSON:
+
+<iframe
+    src="https://hlab.app/s/docs/json3_hbook"
+    width="100%"
+    height="500px" />
+
+:::tip
+
+Use `JSON.stringify()` to convert certain objects into strings!
+:::
+
+The mentioned methods are: `JSON.parse()` and `JSON.stringify` (both `static`). The effective difference is parse transforms the string into `JSON` while stringify returns a `JSON` string. They both have a `replacer` and `reviver` option field. `reviver` allows for interpreting what `replacer` has replaced. Here's an example:
+
+
+Now let's have a demo of `JSON.parse()` in conjunction with `JSON.stringify`:
+
+<iframe
+    src="https://hlab.app/s/docs/json4_hbook"
+    width="100%"
+    height="400px" />
+
+And lastly, here's an example using the mentioned `reviver` and `replacer` options:
+
+<iframe
+    src="https://hlab.app/s/docs/json_hbook"
+    width="100%"
+    height="500px" />
+
+:::info
+`JSON` can be an in-depth topic - this is an introduction and it can be very useful. Check out the MDN page for `JSON` here: 
+[JSON MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)
+:::

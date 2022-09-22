@@ -1,0 +1,54 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Regular Expressions (Regex)
+
+Regular expressions are very powerful and important to learn! JavaScript has a object called `RegExp` which is used like regular expressions - matching text with a pattern. Note that a regex can get quite complex but in return more powerful and matches much more specific sets or varieties of patterns in text. Let's first go over the 2 ways to create a `RegExp` object:
+
+<ul>
+<li> Literal notation - takes a pattern between 2 slashes, followed by optional flags, after the second slash. </li>
+<li> Constructor function - takes a string or a RegExp object as its first parameter, and a string of optional flags as its second. </li>
+</ul>
+
+The following 3 expressions create the same exact regular expression object:
+
+ <iframe
+    src="https://hlab.app/s/docs/regexp_hbook"
+    width="100%"
+    height="600px"
+  ></iframe>
+
+What's /ab+c/ mean? And what is the 'i' flag? Well, there are many more things to learn but let's start with this. The '+' in 'ab+c' is a quantifier specifying how many instances of the previous element must be present in the input string for a match to occur - specifically, '+' matches the previous element one or more times. Hence something like /be+/ will match "bee" in "been", and "be" in "bent". Basically, the + here matches anything where it begins with 'b' and has one or more 'e's. Regarding the 'i' flag, it means that the searching behavior is modified so that it ignores casing - making searching case-insensitive. Thus, overall the regular expression /ab+c/i matches text where it starts with a, has 1 or more b's after and ends with c, and whether its upper or lower case doesn't matter. So 'abbbbbcccc' will be matched to 'abbbbbc'. There are many more quantifiers among other types of searching methods, as well as many flags.
+
+Here are some flags: 'i' - case-insensitive matching. 'm' - use multiline mode (^ and $ match the beginning and end of a line, rather than a string). 'n' - do not capture unnamed groups. 's' - single line mode. 'x' - ignore unescaped white space in the regular expression pattern (\b(?x) \d+ \s \w+) matches "1 aardvark", "2 cats" in "1 aardvark 2 cats IV centurions".)
+
+Then there are character classes - a character class matches any one of a set of characters. Here are some examples:
+<ul>
+<li>[ character_group ] - matches any single character in 'character_group' by default its case sensitive. [ae] will match "a" in "based", "a", "e" in "lane".</li>
+<li>[^character_group] - negation: matches any single character NOT in 'character_group' - [^aei] matches "r", "g", "n" in "green".</li>
+<li>[first - last] - character range: matches any single character in the range from first to last - [A-Z] "A", "B" in "AB1234".</li>
+<li>. - wildcard: matches any single character except \n. (to match a period, you need to escape it (\.)) - a.e matches "ave" in "avenue", "ate" in "water".</li>
+<li>\p{ name }: matches any single character in the unicode general cateogry or named block specified by name </li>
+<li>\P{ name }: negation of \p{ name }, matches characters not in named block </li>
+<li>\w: matches any word character - \w matches "I","D","C","5","0" in 'IDC5.0'</li>
+<li>\W: matches any non-word character \W matches "." in 'IDC5.0'</li>
+<li>\s: matches any white-space character</li>
+<li>\S: matches any non-white-space character </li>
+<li>\d: matches any decimal digit </li>
+<li>\D: matches any character that's not a decimal digit </li>
+</ul>
+
+There is also 'anchors' - which cause a match to succeed or fail based on the **current position in the string**. But they don't cause advancement through the string or consume characters. Here are some:
+
+<ul>
+<li>^: by default, the match must start at the beginning of the string; in multiline mode, it must start at the beginning of the line - ^\d{3} matches "991" in "991-340"</li>
+<li>$: the match must occur at the end of the string, before  \n at the end of the string, or in multiline mode, before the end of the line or before \n at the end of the line: -\d{3}$ "-333" in "-991-333".</li>
+<li>\A: match must occur at the start of the string, similar to ^. </li>
+<li>\Z: match must occur at end of the string or before \n at the end, similar to $.</li>
+<li>\z: match must occur at end of the string.</li>
+<li>\G: match must occur where previous match ended, or if there was no previous match, at the position where matching started: \G\(\d\) - matches "(1)", "(3)" in "(1)(2)(3)".</li>
+<li>\b: match must occur on a boundary between a /w and a /W </li>
+<li>\B: match must not occur on a \b boundary. </li>
+</ul>
+
+Some other more complex topics include but are not limited to grouping constructs, lookaround expressions, more quantifiers (like + or ? or {n}), backreference constructs, alteration constructs, substitutions, regular expression options, and quite a lot more. Regular expressions can be a very deep topic, but hopefully this explains the basics of it and introduces some of the expressions operations. If one has used Grep in Linux, they will understand the power of a regexp. Finding and matching text in any kind of way imaginable is very powerful for a huge amount of scenarios.

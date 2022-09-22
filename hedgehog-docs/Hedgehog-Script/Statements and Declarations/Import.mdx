@@ -1,0 +1,72 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Imports
+
+The `import` declaration (static) is used to import bindings which are exported by another module. 
+
+If you have a module with a `export` declaration, then one can `import` it to the current module and use it there. 
+
+The imported bindings are named so since the modules that exported the binding updates them. Also, it's read-only.
+
+For source file import declarations, one must have the source file be interpreted as a module. To do so, in HTML, add `type = "module"` to `<script>`.
+
+As for non-HTML, use a function-like dynamic `import` call. 
+
+Here are some brief examples on importing a module - recall that the imported module must have an export declaration:
+
+
+- `import` * as first from "mod1"; 
+
+- `import` (export1) from "module-name"; 
+
+- `import` (export1 as alias1) from "module-name"; 
+
+- `import` defaultExport from "module-name"; 
+
+- `import` "module-name"; 
+
+- `import` (export1, export2) from "module-name"; 
+
+... And more varieties.
+
+
+- `defaultExport` refers to the name that is referred to as the default export from the module. 
+- `module-name` is the module to import from.
+
+- `import` declarations must also be present in modules and only at the highest level (not inside blocks or functions, etc). 
+
+<p>&nbsp;</p>
+
+:::caution
+imports and exports are actually not to crucial or vital for learning Hedgehog Script. It's a relatively messy topic with many details.
+The best 2 things to know are: 
+- to import something, that something needs to have a line declaring that its exporting
+- use the follow for math functions from our math library: *import math: functionNameInMath;
+:::
+
+- There are effectively four forms of `import` declarations:
+
+
+- Named import: `import {export1, export2} from "module-name";`
+
+- Default import: `import defaultExport from "module-name";`
+
+- Namespace import: `import * as name from "module-name';`
+
+- Side effect import: `import "module-name";`
+
+
+Here is a clear example in Hedgehog Script using import to import math libraries like mentioned:
+
+:::note
+It's okay if you don't understand what's going on. All that's important in this section is understanding how to import (and export).
+:::
+<iframe
+    src="https://hlab.app/s/docs/imports_hbook"
+    width="100%"
+    height="600px"/>
+
+:::tip
+Overall, one shouldn't stress about `import` and `export` too much yet. If one is curious the link is here for a great deal of information: [Import - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)
+:::

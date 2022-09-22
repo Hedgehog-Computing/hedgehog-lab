@@ -1,12 +1,26 @@
 In Hedgehog Lab you can encapsulate output in markdown. All you have to do is call the markdown function: 
 
-`markdown(` enter markdown here `)`
+```
+markdown(' Your markdown here ')
+```
+
+or for multiple lines, using template strings instead:
+
+```
+markdown(` 
+# Your markdown title1
+
+## Your markdown title2 
+
+Your markdown context
+`)
+```
 
 An example is as follows:
 
 <iframe src="https://hlab.app/s/docs/markdown_hbook"
     width="100%"
-    height="700px">
+    height="800px">
   </iframe>
 
 If you're interested in using this, there are a variety of well documented resources on the internet regarding markdown syntax.

@@ -1,0 +1,47 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# NaN
+
+`NaN` means Not-A-Number. Let's see an example of `NaN`:
+
+ <iframe
+    src="https://hlab.app/s/docs/nan2_hbook"
+    width="100%"
+    height="400px"/>
+
+
+
+Here is a quick example of how to implement `NaN`:
+
+ <iframe
+    src="https://hlab.app/s/docs/nan_hbook"
+    width="100%"
+    height="400px"/>
+
+:::info
+'1' is a number, so `isNaN()` so it prints the value. But 'stringhere' is clearly not a number hence returns `NaN`
+:::
+
+Here are the operations that return NaN:
+
+-  Failed number conversion (something like `Number(undefined)`, or implicitly `Math.abs(undefined)`)
+
+-  Math operation where result is not real (e.g. `Math.sqrt(-5)`) 
+
+-  Indeterminate forms: (`0*infinity`, `1**infinity1`, etc)
+
+-  A method/expression whose operand gets coerced to `NaN`: (`7**NaN`, `7*"word"`) - (`NaN` is contagious) 
+
+-  Cases where an invalid value is represented as a number (`new Date("word".getTime())`) 
+
+
+To test if something is `NaN`, one can use `Number.isNaN()` for numbers, otherwise there is `isNaN()`.
+
+:::tip
+Be careful for `NaN` values and make sure to check for them in `try...catch` methods or throw exceptions.
+:::
+
+While going through the chapters it's good to internalize the differences between `NaN`, `undefined` and `null`.
+
+

@@ -1,0 +1,41 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Let Statement
+
+`Let` is an extremely important and commonly used declaration. It is for declaring a a block-scoped local variable, optionally initializing it to a value.
+
+
+:::warning
+
+We'll mention it immediately: do **not** use `var`. Use `let` every time! 
+
+`Var` can leak into connected files. It's dangerous and bad practice.
+:::
+
+Here is a simple, easy example using `let`:
+
+<iframe
+    src="https://hlab.app/s/docs/let_hbook"
+    width="100%"
+    height="350px" />
+
+- As mentioned, the difference is: the declaration is block-scoped. So it only applies within the `if-conditional`. 
+
+- If it was within a `for-loop`, `let varName;` will disappear when the loops ends, etc. 
+
+- `let` is unlike `var`, where `var` declares a variable globally, or locally to an entire function. 
+
+- Use `let`. **Don't** use `var` ever. It's good practice.
+
+- One other difference is that regarding the top level of programs and functions `let`, unlike `var` doesn't create a property on the global object
+
+Let's show an example of one of the above:
+
+<iframe
+    src="https://hlab.app/s/docs/letex2_hbook"
+    width="100%"
+    height="700px" />
+
+
+In general, `let` is very much preferable to `var` and we actually advise agaqinst ever using `var`.

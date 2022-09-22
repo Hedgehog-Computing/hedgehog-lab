@@ -1,0 +1,46 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Object
+
+`Object` is a type just like `String` is a type. However, `Objects` are effectively data structures since they store, manage and modify data - specifically key-value pairs.
+
+:::info
+`Objects` are quite important to learn and understand as they are the top level, the pinnacle type. Almost everything is derived from the object `Object` in Hedgehog Script.
+:::
+
+Let's discuss the `constructor` for `Object` - which creates `Objects`: 
+
+- If the input is `null` or `undefined` you will get an empty `Object`. If the argument is an `object` itself it will return itself.
+
+- Otherwise, the `constructor` will return an `object` of a type that corresponds to the given argument.
+
+Let's view an example of creating `Objects`:
+
+ <iframe
+    src="https://hlab.app/s/docs/object_hbook"
+    width="100%"
+    height="400px"/>
+
+:::info
+There is no direct method to delete `Object` properties like `Map` (which has `Map.delete() ` ) for example. Rather, one must use the delete operator. 
+:::
+
+There are quite a few methods, static or instance, for `Object`. Let's point out some of them:
+
+- `Object()` - the `constructor`, takes the input and makes it an object. 
+
+- (`static`) `Object.entries()` - returns an array with all [key, value] pairs of a given object. 
+
+- (`static`) `Object.seal()` - prevents other code from deleting properties of an object. 
+
+- (`instance`) `Object.hasOwnProperty()` - returns `true` or `false` based on whether the object has the direct property.
+
+- (`instance`) `Object.toString()` - returns a `String` representation of the object. 
+
+
+`Objects` can be quite a complex topic. They are fundamental and have a long list of methods and details.
+
+:::tip
+If one is curious to learn more, check out [Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) for more info, specifically in JavaScript (compatible with Hedgehog Script). 
+:::

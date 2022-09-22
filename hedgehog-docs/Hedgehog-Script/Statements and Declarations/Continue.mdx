@@ -1,0 +1,39 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Continue Statements
+
+A `continue` statement stops the execution of the statements within the current iteration of a loop. Then it **resumes** or "continues" at the next iteration. 
+
+Basically, `continue` skips a loop iteration when it is called, perhaps under a conditional.
+
+Here is a simple example:
+
+<iframe
+    src="https://hlab.app/s/docs/continue_hbook"
+    width="100%"
+    height="500px"/>
+
+`Continue` can optionally be used with the `label` identifier to make the program go to the next iteration of a **labeled** loop statement instead of the current loop. 
+
+Hence, `continue` needs to be nested within the labeled statement. 
+
+Here is an example comparing two different versions of a function:
+
+<iframe
+    src="https://hlab.app/s/docs/continueex1_hbook"
+    width="100%"
+    height="950px"/>
+
+<p>&nbsp;</p> 
+
+:::note
+
+The difference between `break` and `continue` is that `continue` ends the current iteration and moves to the next or the `label`.
+
+However, `break` simply exits the entire loop itself.
+:::
+
+Overall, it's good to understand `continue` in relation to `break`.
+
+It's also important to use `labels`! They completely change control-flow in a way sometimes not possible through typical means.

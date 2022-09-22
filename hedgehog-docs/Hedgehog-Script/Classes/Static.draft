@@ -1,0 +1,64 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# The Static Keyword
+
+`static` defines a static method or property **for a class**. The basic rule about static methods and properties are that they cannot be called on instances of the class but rather need to be called on the class itself (`let a = new Class1(); a.staticMethod(); a.staticProperty;` are invalid! Use - `Class1.staticMethod(); Class1.staticProperty;`).
+
+Static methods are typically utility functions such as creating or cloning objects, whereas static properties are useful for caches, fixed configuration, or any other data you don't need to replicate across instances - because you can't, it's only available to the first instance of that class.
+
+To declare a static method or property, simply do so like you would a normal method or property but add `static` at the beginning of the declaration.
+
+
+**Please note that class properties, hence static properties are currently not supported in Hedgehog Lab yet**
+
+The syntax is simply this:
+
+```js
+static methodName() { /* ... */ }
+static propertyName = value;
+```
+Note a few things about using static members in classes: 1) static members (methods or properties) can be defined on a class (like shown above). 2) A class with a static member can be sub-classed. 3) Static members can only be called in certain ways (as we discussed already, however there are additional niche rules regarding `this`)
+
+Let's discuss the concept of calling a static member from another static method: basically to call a static method or property in a different static method, **of the same class**, you can use `this` keyword:
+
+```js
+class StaticMethodCall {
+    static staticProp = 'static property';
+    static staticMethod() {
+        return `Static method and ${this.staticProp} has been called`;
+    }
+    static staticMethod2() {
+        return `${this.staticMethod()} from another static method`;
+    }
+}
+
+StaticMethodCall.staticMethod(); //by definition, it will return "Static method and static property has been called"
+StaticMethodCall.staticMethod2(); //note that this is calling a static method from a different static method: hence why we use `this`
+//`this` refers to the class, specifically its 'staticMethod()' method which is legal. Thus the following will be returned: 
+// "Static method and static property has been called from another static method", as expected.
+```
+
+One last important note regarding calling static members is calling them from a class constructor and other methods (not static): Static memebers are not directly accessed using `this` from **non-static methods**. It works for static methods however. For non-static methods, one needs to call them using the class name: `ClassName.staticMethodName();` or `ClassName.staticPropertyName;`. OR, one can also call the method as a property of the `constructor`: `this.constructor.staticMethodName();` and `this.constructor.staticPropertyName;`. This last version is recommended.
+
+
+Here is an example in JavaScript:
+
+```js
+class StaticMethodCall {
+    constructor() {
+        print(StaticMethodCall.staticProperty); //'static property'
+        print(this.constructor.staticProperty); //'static property'
+        print(StaticMethodCall.staticMethod()); //'static method has been called.'
+        print(this.constructor.staticMethod()); //'static method has been called.'
+    }
+
+    static staticProperty = 'static property';
+    static staticMethod() {
+        return 'static method has been called';
+    }
+}
+```
+
+Overall `static` can be a slightly confusing topic, just be aware that it's a keyword used on class methods and properties (public or private), and its effects limit it to how it can be accessed making its protection different and utility different. That limit is by calling it on the class itself, or the constructor using `this`. 
+
