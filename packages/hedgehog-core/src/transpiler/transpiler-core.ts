@@ -22,6 +22,14 @@ async function transpilerCore(source: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   babel.registerPreset('@babel/preset-typescript', require('@babel/preset-typescript'));
 
+  //register @babel/plugin-proposal-class-properties
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const babelPluginProposalClassProperties = require('@babel/plugin-proposal-class-properties');
+  babel.registerPlugin(
+    '@babel/plugin-proposal-class-properties',
+    babelPluginProposalClassProperties
+  );
+
   //the real compiling function
   let result = '';
   // We will read the code snippet object list
@@ -37,7 +45,7 @@ async function transpilerCore(source: string) {
       const transpiled = babel.transform(
         codeSnippet.code, // the code
         {
-          plugins: ['overload'],
+          plugins: ['overload', '@babel/plugin-proposal-class-properties'],
           presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
           filename: 'source.tsx',
           sourceType: 'script'
