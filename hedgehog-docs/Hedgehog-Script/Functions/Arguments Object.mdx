@@ -9,37 +9,35 @@ Hence, one can think of arguments as realized parameters through function calls.
 
 The `arguments` object contains all arguments in an `array` format. Thus, `Array` methods can be utilized.
 
-Here is a simple example:
+Here is an example:
 
 <iframe
     src="https://hlab.app/s/docs/argument_hbook"
     width="100%"
     height="300px"/>
 
-The arguments object here is simply getting printed for each value.
-
-:::note
+:::info
 One can find the size or amount of arguments via `arguments.length`
 :::
 
-An important fact and example is the argument objects can be variable in size. 
+- An important fact and example is the argument objects can be variable in size. 
 
-That is, the function is defined so the user can enter 0, 2, 3, or more variables.
+    - That is, the function is defined so the user can enter 0, 1 or 2+ variables.
 
-Here is an example, and how to implement functions for such cases:
+Here is an example, and how to implement a function for such a case:
 
 <iframe
     src="https://hlab.app/s/docs/argsex1_hbook"
     width="100%"
     height="400px"/>
 
-:::note
-`arguments[]` start at index 0 just like everything else in Hedgehog Script
+:::info
+`arguments[]` start at index 0 like an `Array`. 
 
 Also, `...params` is how you create a variable amount of arguments: this will be covered in the chapter "Parameters".
 :::
 
-One last example is changing an `argument`:
+Another example is changing an `argument`:
 
 <iframe
     src="https://hlab.app/s/docs/argsex2_hbook"
@@ -47,7 +45,3 @@ One last example is changing an `argument`:
     height="400px"/>
 
 <p>&nbsp;</p>
-
-Overall, the `arguments` object is similar to an `Array`. `arguments` themselves are realized parameters during function calls. 
-
-Hopefully one will run into many cases where using the `arguments` object is helpful, as there are many use cases.

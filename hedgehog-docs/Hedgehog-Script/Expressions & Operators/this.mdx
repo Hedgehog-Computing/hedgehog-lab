@@ -3,75 +3,77 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # This
 
-`this` is a keyword belonging to a function, and it behaves a little differently in JavaScript than other languages. It also has some differences between strict mode and non-strict mode. (strict mode is an optional restricted variant of JavaScript. The primary things strict mode does to normal JavaScript semantics is: 1) Eliminates some JavaScript silent errors by changing them into throw errors. 2)Fixes mistakes that make it difficult for JavaScript engines to perform optimizations: strict mode can sometimes run faster. 3) Prohibits some syntax likely to be defined in future version of ECMAScript.
+The keyword `this` belongs to functions, (or when used alone, the global object).
 
-In most scenarios, the value of `this` is determined by how a function is called (runtime binding). It can't be set by assignment during execution and it may be different each time the function is called. The `bind()` method can set the value of a function's `this` regardless of how it's called though, and arrow functions do not provide their own `this` binding.
+`this` is basically a pointer to that function/object.
 
-Here is a simple example of using `this`:
-
-```js
-const test = {
-    prop: 50,
-    func: function() {
-        return this.prop;
-    },
-};
-
-print(test.func()); //expected output is 50 since test's method 'func' is called, which is a function with no parameters and returns 'this.prop' where 'this' is referring to the class, and this.prop is referring to the class's 'prop' property, which is 50.
-```
-There are different contexts of using `this`:
-<ul>
-<li> Global context: when `this` is called outside of any function, in the global execution context, it refers to the global object. For example, the window object is the global object in web browsers.</li>
-<li> Function context: when `this` is called in a function, if it's not set when entering an execution context then it again refers to the global object. One can set the value of `this` when calling a function with `call()` or `apply()`.</li>
-<li> Class context: `this` behaves similarly in classes as it does in functions, sincer classes are basically functions (they are prototype chains). However, there are some differences, namely, within a class constructor `this` is a regular object. All non-static methods within the class are added to the prototype of `this`.</li>
-</ul>
 Here is an example:
 
-```js
-class Example {
-    constructor() {
-        const proto = Object.getPrototypeOf(this);
-        print(Object.getOwnPropertyNames(proto));
-    }
-    first() {}
-    second() {}
-    static third() {}
-}
+<iframe
+    src="https://hlab.app/s/docs/thisex1_hbook"
+    width="100%"
+    height="500px"/>
 
-new Example(); //this holds the following: ['constructor', 'first', 'second']
-//this is explained by noting that the non-static methods (first() and second()) are added to the prototype of `this`. 'proto' is defined to be the result of fetching the prototype of `this`. And then the constructor prints the property names belonging to proto, the prototype of `this`. Thus when the class is initialized, the constructor activates printing the property names of the prototype of `this`. As noted, first() and second(), since they're non-static they are added to the prototype of `this`. Also, the constructor itself of the class is a function, non-static so it is also added, hence we have the 3 property names: 'constructor', 'first', 'second'.
-```
 
-Regarding subclasses or derived classes, unlike base class constructors, derived constructors have no initial `this` binding. Calling `super()` however, creates a `this` binding within the constructor and essentially has the effect of evaluating the following line of code (where Base is the inherited class):
+There are different contexts of using `this`:
 
-`this = new Base();`
+- Global context: when `this` is called outside of a function, it refers to the global object. (window in a browser for example)
 
-Warning: do not refer to `this` before calling `super()`. It will throw an error. 
+- Function context: calling `this` in a function refers to the object the function belongs to. 
 
-`this` in function contexts revisited:
+    - If said function is alone, this refers globally.
+
+:::note
+
+We can change what `this` refers to, especially in function contexts, using `binding` methods (shown soon).
+:::
+
+<p>&nbsp;</p>
+
+:::info 
+
+`this` can also be used within a `Class`. It's context is similar to functions.
+
+However, classes aren't fully supported in Hedgehog Script just yet.
+
+:::
+
+Here's another example of `this` used in a object setting:
+
+<iframe
+    src="https://hlab.app/s/docs/thisex2_hbook"
+    width="100%"
+    height="500px"/>
+
+### Binding this
+
+We can change what `this` refers to by using certain methods:
+
+- `bind()` can set a function's `this` value. Note that arrow functions don't have their own `this` binding
+
+- `call()` will bind a function's `this` to the first parameter put in `call()`
+
+- `apply()` similar to `call()`
+
+Let's see an example:
 
 <iframe
     src="https://hlab.app/s/docs/this_hbook"
     width="100%"
-    height="500px"
-></iframe>
+    height="500px"/>
 
-The bind() method: We have Function.prototype.bind() at our disposal, and calling f.bind(someObject) creates a new function with the same body and scope as f, but where `this` occurs in the original function - in the new function it is permanently bound to the first argument of bind - (someObject).
+Regarding the `bind()` method, a function calls `bind()` with an object parameter which lead to a creation of a new, equal function.
 
-An example:
+`this` will then be bound permanently in the new function to said parameter.
 
-```js
-function f() {
-    return this.a;
-}
-const g = f.bind({a:'qwerty'});
-print(g()); //prints the return value of g() where g() = f.bind({a:'qwerty'}) and f simply returns this.a. Thus it will be 'qwerty'. (`this` is bound to the first object in bind, namely {a: 'qwerty'}). Also g's `this` is bound to 'qwerty' too.
+Let's see another example to clarify:
 
-const h = g.bind({a:'hello' }); //bind only works once!!
-print(h()); //qwerty
+<iframe
+    src="https://hlab.app/s/docs/thisex3_hbook"
+    width="100%"
+    height="600px"/>
 
-const o = {a: 30, f, g, h};
-print(o.a, o.f(), o.g(), o.h()); //o.a is simply 30, o.f() will be 30 too since f doesn't bind `this` basically. o.g() is qwerty along with o.h() since they both g and h bind `this` already
-```
+:::tip
 
-There are many more uses and technicalities of `this` but we won't cover them here. They are not used often and change depending on whether you're in strict mode or not. Just know the basic concept of what `this` is, know that it has different contexts (global, function, classes) and know how to bind it.
+For more detailed information regarding `this`, visit: [this - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+:::

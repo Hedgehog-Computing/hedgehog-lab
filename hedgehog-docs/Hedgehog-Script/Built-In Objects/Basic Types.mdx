@@ -3,26 +3,38 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Basic Types
 
-Hedgehog Script has several basic built-in types. These are opposed to constructed types, which are objects you make yourself.
+Hedgehog Script has several basic built-in types. These are the complement to constructed types.
 
-Let's go over some and as well as discuss some other built-in Hedgehog Script objects.
+Let's discuss both, starting with primitives.
 
 ### Primitive Values
 
-These are immutable data represented directly at the lowest level of the language. Here are the list of all primitive types:
+These are immutable data represented directly at the lowest level of the language. 
+
+Here are the list of all primitive types:
 
 
 - `Boolean` - `true` or `false` value 
+
 - `Null type` - can be thought of as non-existence of something. `null` is different than `undefined`.  
-- `Undefined type` - a variable that has not been assigned a value is `undefined` for example  
-- `Number` type - double precision 64 bit binary value. Is between +/- 2^-1074 (`Number.MIN_VALUE`) and +/- 2^1024 (`Number.MAX_VALUE`) 
+
+- `Undefined type` - a variable that has not been assigned a value is `undefined` for example 
+
+- `Number` type - double precision value between +/- 2^-1074 (`Number.MIN_VALUE`) and +/- 2^1024 (`Number.MAX_VALUE`) 
+
 - `BigInt` type - represents integers with arbitrary precision. `BigInts` can go beyond the safe integer limit for `Number` 
+
 - `NaN` - stands for Not-a-number  
+
 - `String` type - textual data. Hedgehog Script `Strings` are immutable.
-- `Objects` (collections of properties) - an `object` is a value in memory which can be referenced by an identifier 
+
+- `Objects` (collections of properties) - an `Object` is a value in memory which can be referenced by an identifier 
 
 
-Here is an interactive Hedghog Lab window for you to try out types, whether primitive or built-in:
+The following is an example of some different types
+
+Try it out by interacting/editing the left-hand side!
+
 
   <iframe
     src="https://hlab.app/s/docs/basictypes_hbook"
@@ -32,10 +44,10 @@ Here is an interactive Hedghog Lab window for you to try out types, whether prim
 :::info
 The `${}` in Hedgehog Script is a placeholder for an expression/variable/operation/etc.
 
-That said placeholder is executed at runtime - its output passed as a string.
+That said placeholder is executed at runtime - its output passed as a `String`.
 :::
 
-Another example of more primitive types is as follows:
+Another example of more primitive types:
 
   <iframe
     src="https://hlab.app/s/docs/basictypes1_hbook"
@@ -47,7 +59,7 @@ Another example of more primitive types is as follows:
 
 There are many, many built-in objects available in Hedgehog Script. 
 
-Visit [Reference](/hedgehog-docs/Hedgehog-Script/Reference/Reference.mdx) to learn about them.
+Visit [Built-in objects - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects) to learn about them.
 :::
 
 

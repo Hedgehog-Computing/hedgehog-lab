@@ -3,7 +3,11 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Set
 
-The `Set` object is an `object` available as a data structure. It has similarities and differences relative to `Maps` and `Objects`. `Maps` resemble `Sets` the most.
+The `Set` is an object available as a data structure. 
+
+- It has similarities and differences relative to `Maps` and `Objects`. 
+
+    - `Maps` resemble `Sets` the most.
 
 `Sets` store **unique** values - which can be virtually anything. 
 
@@ -11,35 +15,40 @@ The `Set` object is an `object` available as a data structure. It has similariti
 Compared to mathematical sets, `Sets` in Hedgehog Script **must** have unique values with no duplication.
 :::
 
-One can iterate through a `Set` in insertion order just like a `Map`. The way to add new elements to a `Set` is using `add()`. 
+One can iterate through a `Set` in insertion order just like a `Map`. 
+
+The way to add new elements to a `Set` is using `add()`. 
 
 
 Any implementation of a `Set` is required to be, on average, sub-linear access times. 
 
-
+:::info
 <MathJaxContext>
 <MathJax>
-<p> That is, just like maps, internally they can be like a hash table with <span>{ "\\(\\Omega(1)\\)" }</span> lookup time, a search at <span>{ "\\(\\Omega(\\log(N))\\)" }</span> time, and anything else better than <span>{ "\\(\\Omega(N)\\)" }</span> time. </p>
+<p> That is, just like maps, internally they can be like a hash table with <span>{ "\\(\\Omega(1)\\)" }</span> lookup time.</p>
+
+<p>Then a search at <span>{ "\\(\\Omega(\\log(N))\\)" }</span> time, and anything else better than <span>{ "\\(\\Omega(N)\\)" }</span> time. </p>
 </MathJax>
 </MathJaxContext>
+:::
 
 ### Set Methods
 
 Here are some vital methods within `Set`:
 
-- `Set.has(value)`checks if a value is in that `Set` object. It is usually faster than `Arrays` when, `Array.length === Set.size`.
+- `Set.has(value)`checks if a value is in that `Set` object
 
-- One can create a `Set` using the constructor `Set()`.
+- One can create a `Set` using the constructor `Set()`
 
-- An example instance property is: `Set.size` - which returns the number of values in the `Set` object.
+- An example instance property is: `Set.size` - (returns number of elements in `Set`)
 
-- `Set.add()` - Inserts a new element with a specified value in to a `Set` object, **if** there isn't one with the same value already.
+- `Set.add()` - Inserts a new element with a specified value in to a `Set` object, **if** there isn't one with the same value already
 
-- `Set.clear()` - Remove all elements from the `Set` object.
+- `Set.clear()` - Remove all elements from the `Set` object
 
-- `Set.values()`, `Set.keys()` and `Set.entries()` - returns an iterator that contains: values, keys and entries, respectively, in insertion order. Note that entries are in the form `[value, value]`.
+- `Set.values()`, `Set.keys()` and `Set.entries()` - returns an iterator that contains: values, keys and entries, respectively
 
-- `Set.forEach()` - In insertion order, it iterates through the values. Similar to `Array.forEach()` or `Map.forEach()`.
+- `Set.forEach()` -  Iterates through the values. Similar to `Array.forEach()` or `Map.forEach()`
 
 
 Some examples of using the `Set` object:
@@ -50,18 +59,28 @@ Some examples of using the `Set` object:
     height="900px"/>
 
 :::tip
-That was a long example! One thing to note is the last function: it uses the mentioned method `Set.forEach()`, and adds `JSON`, the conditional trinary operator and uses an arrow function!
+That was a long example! One thing to note is the last function: 
+- it uses the mentioned method `Set.forEach()`, `JSON`, conditional ternary operator `?` and an arrow function!
 
-If one is confused this is how it works: in **insertion order**, `set1` is iterated over and runs a (arrow) function that takes in `value` as the argument and then checks if `a` is an `object`: if so, parse it. Otherwise, keep it the same. Then `print` the value - stringified, so `objects` can be shown!
+If one is confused this is how it works: 
+- In **insertion order**, `set1` is iterated over and runs the function which takes in `value` as the argument
+
+- Then it checks if `a` is an `object`: if so, parse it. Otherwise, keep it the same. 
+
+- Then `print` the value - stringified, so `objects` can be shown!
 :::
 
-- Note that there are quite a lot more methods to try out. For example, `Set.delete()`, `Set.clear()`, `Set.values()` `Set.keys()` and `Set.entries()` are a few you can try on your own.
+<p>&nbsp;</p>
 
 :::info
-There are quite a lot of elementary functions one can write. They can be based on mathematical sets. Examples such as unions, intersections, differences, and more can be found in the reference: [Set Examples](/hedgehog-docs/Hedgehog-Script/Reference/SetExamples.mdx).
+There are quite a lot of elementary functions one can write and use. 
+
+More information can be found here: [Sets - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set).
 :::
 
-Lastly, a practical function or use of `Sets` is to decompose `Strings`:
+Lastly, a practical function of `Sets` is to decompose `Strings`:
+
+- Note that entries are stored as [value, value]
 
 <iframe
     src="https://hlab.app/s/docs/set_hbook"
@@ -70,8 +89,9 @@ Lastly, a practical function or use of `Sets` is to decompose `Strings`:
 <p>&nbsp;</p>
 
 :::tip
-A really good use of `Sets` is their ability to remove duplicate elements in `Arrays`! Just transform the `Array` to a `Set` and then the `Set` back into an `Array`.
+A really good use of `Sets` is their ability to remove duplicate elements in `Arrays`:
+
+Just transform the `Array` to a `Set` and then the `Set` back into an `Array`.
 :::
 
-Overall Sets are a unique tool different than Arrays. The primary difference is that Sets don't hold duplicate values, and you can't access or add according to indice, there is just insertion order. However, Sets are faster than Arrays for a variety of techniques. Sets can also be used for things such as decomposing Strings or removing duplicate values in an Array. One last note is that Sets are interesting and can be powerful, however, they aren't used that frequently.
 

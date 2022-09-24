@@ -5,21 +5,18 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 Control flow is all about the **order of execution**. 
 
-Whether it be a statement, instruction, or function call, control flow is responsible for it's execution and in what order.
+Whether it be a statement, instruction, or function call, control flow handles the order of execution.
 
-Since programming languages and programs have evolved past the assembly programming level, executions no longer needs to be so rigid relative to the line number.
+Let's cover some basics in this section:
 
-We can now have a massive variety of ways to change control flow and handle what gets executed when. We'll cover the basics in this section.
 
-:::info
-Assembly and even Maching Level Programming even had control-flow! They both effectively use labels. It's done through an intruction pointer register - contains the addresss of the next instruction to be executed and can be modified by programmer sometimes. 
-:::
+- "Block statements" are almost always paired with control flow statements - they are blocks delimited by `{}`
 
-"Block statements" are almost always paired with control flow statements - they are blocks delimited by `{}`. Examples include `if`, `for` or `while`, etc.
+  - Examples include `if`, `for` or `while`, etc.
 
 The syntax is as follows:
 
-` (optionalStatement) {
+` (someControlFlowStatement) {
     StatementList
   }`
 
@@ -44,7 +41,7 @@ When writing a `if-else` statement, you don't need the `else` statement all the 
 That's because if `if()` fails, everything you write after `if()` will be executed!
 :::
 
-As for more directions, say C and D and E... use a `if-else if-else if....-else(optional)`.
+As for more directions, say C and D and E... use a `if-else if-else if....-else(optional)` control flow.
 
 Here is an example of a simple `if-else` statement:
 
@@ -54,7 +51,7 @@ Here is an example of a simple `if-else` statement:
 
 <p>&nbsp;</p>
 
-And here is an example of a little more complicated statement (including `else-if` and `else`):
+And here is an example of using `if...else if...else`:
 <iframe src="https://hlab.app/s/docs/ctrlflow1_hbook"
     width="100%"
     height="800px"/>
@@ -63,11 +60,13 @@ And here is an example of a little more complicated statement (including `else-i
 
 
 ## For statement
-A `for` loop repeats until a specified condition evaluates to `false`. The Hedgehog Script `for`-loop statement looks as follows: 
+A `for` loop repeats until a specified condition evaluates to `false`. 
+
+The Hedgehog Script `for`-loop statement looks as follows: 
 
 ```
 for ([initialExpression]; [condition]; [incrementExpression]) { 
-  statement }
+  statementList }
 ```
 Here is an example:
 
@@ -78,7 +77,9 @@ Here is an example:
 
 
 ## while and do-while statement
-The `while` statement creates a loop that executes a specified statement as long as the test condition evaluates to `true`. The condition is evaluated *before* executing the statement.
+The `while` statement creates a loop that executes a specified statement as long as the test condition evaluates to `true`. 
+
+The condition is evaluated *before* executing the statement.
 
 Here is the syntax for `while` statement:
 ```
@@ -86,7 +87,9 @@ while (condition) {
   statement }
 ```
 
-The `do...while` statement creates a loop that executes a specified statement until the test condition evaluates to `false`. The condition is evaluated *after* executing the statement, resulting in the specified statement executing _at least once_.
+The `do...while` statement creates a loop that executes a specified statement until the test condition evaluates to `false`.
+
+The condition is evaluated *after* executing the statement, resulting in the specified statement executing **at least once**.
 
 Here is the syntax for `do...while` statement:
 ```
@@ -105,11 +108,15 @@ Here are examples for `while` and `do...while` statements in Hedgehog Script per
 :::info
 These are the basic, fundamental ways to control the logical flow of your script/program using Hedgehog Script. It's quite important to learn them all by:
 - frequently using them
+
 - using a variety
+
 - trying to learn new control flow methods
 
 Those skills translate to **any** language.
 :::
+
+<p>&nbsp;</p>
 
 :::tip
 

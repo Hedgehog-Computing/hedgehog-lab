@@ -7,18 +7,28 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Introduction
 
+:::info
 
+Thank you for considering Hedgehog Lab using Hedgehog Script! 
+
+- We're always glad to have more members of the community.
+
+This book is all about how to start programming in Hedgehog Lab.
+:::
 ## Getting Started
 
-Firstly, the major thing to understand is that you need to write and learn JavaScript/TypeScript in order to effectively utilize Hedgehog Script. Everything will be written in such.
+Firstly, the goal is to understand how to read, write and learn Hedgehog Script in order to effectively Hedgehog Lab.
 
-## Topics
+### Topics
 
-The topics we'll cover are basic JavaScript topics that you'll use while writing in Hedgehog Script. The left hand sidebar shows the topics.
-Namely - the topics will be Built-in Objects, Expressions & Operators, Statements & Declarations, Functions, Classes and lastly, Errors. Within each will be several topics.  
+The topics we've selected are based on what is most common and useful for starting to write in Hedgehog Script. 
 
+The left hand sidebar shows the topics. Namely:
+- Expressions & Operators, Statements & Declarations, Built-in Objects, Functions and lastly, Classes.
 
-Let's first start with the classic example:
+  - Within each topic will be chapters discussing specific things related to the topic
+
+**Let's first start with the classic example:**
 
 
 
@@ -28,10 +38,12 @@ Use the `print()` function to print `"Hello world"` string in Hedgehog Lab:
   <iframe
     src="https://hlab.app/s/docs/helloworld_hbook"
     width="100%"
-    height="500px"
+    height="300px"
   ></iframe>
 
 
 Do you see the output `"Hello world"`? Congratulations! Your first Hedgehog Script runs successfully!
 
-Try it yourself, by changing the code and executing it in browser!
+:::tip
+Try it out yourself, by changing the code and executing it in-browser!
+:::

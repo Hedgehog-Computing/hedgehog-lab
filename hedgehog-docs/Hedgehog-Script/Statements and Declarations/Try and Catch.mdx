@@ -10,16 +10,18 @@ The `try...catch` statement is powerful and useful. Reason being, it makes code 
 
 Throwing `exceptions` isn't always the best error-handling method. 
 
-A `try...catch` takes a little more time but lets you execute things with access to the error - after an error.
+A `try...catch` lets you execute things with access to the error, thereby resolving it.
 :::
 
-- Structurally, a `try...catch` statement has a `try` block and either a `catch` block, `finally` block, or both. 
+- Structurally, a `try...catch` statement has a `try` block, then a `catch` block, `finally` block, or both. 
 
-- The code in the `try` block is executed first. If the `try` block throws an exception - the code in the following `catch/finally` block is executed. 
+- The code in the `try` block is executed first. If the `try` throws an exception or error: 
+
+    - Then the code in the `catch/finally` block is executed. 
 
 - Note that when there is a `finally` block, it will always be executed before control flow exits the `try...catch` construct. 
 
-So basically this statement **tries** to perform an action, and if trying **fails**, you can **catch** the resulting errors and hopefully fix them.
+Overall this statement **tries** to perform an action, and if trying **fails**, you can **catch** the resulting errors and hopefully resolve them.
 
 
 The basic syntax is the following:
@@ -34,13 +36,15 @@ try {
 }
 ```
 
-The `exceptionVar` is an optional identifier to hold the caught exception. If you don't need this, ignore it - write `catch { catchStatements }`.
+- The `exceptionVar` is an optional identifier to hold the caught exception. 
 
-An exception being thrown in the `try` block immediately leads the control flow to `catch`. 
+    - If you don't need this, ignore it - write `catch { catchStatements }`.
 
-However, when `finally` is used, it will always be exected before control flow leaves the whole `try...catch` block.
+- An exception being thrown in the `try` block immediately leads the control flow to `catch`. 
 
-- Let's provide an example showing some of the things we talked about:
+- If `finally` is part of the statement, it will always be exected before control flow leaves the whole `try...catch` block.
+
+Let's see an example:
 
 <iframe
     src="https://hlab.app/s/docs/trycatch2_hbook"
@@ -53,27 +57,22 @@ A great use case of `try...catch` is to only catch (and silence) a small subset 
 
 As for other errors, just re-throw them if they're not relevant in your scenario. 
 
-To do this, within the `catch(e) {}` block, add an `if...else` or `if...else if... ... else` chain. 
-
 For example: `if (e instanceof RangeError) { //handle range error} else { throw e; }`
 :::
 
-The exception identifier (which can be omitted) can provide detailed info regarding the thrown Error/Exception.
+The optional exception identifier can provide detailed info regarding the thrown Error/Exception.
 
 Here's an example where the exception identifier isn't needed at all:
 
 <iframe
     src="https://hlab.app/s/docs/trycatch_hbook"
     width="100%"
-    height="500px" 
-/>
+    height="500px"/>
 
-The `finally` block: it is simple once you understand the `try...catch` block. `finally` blocks will always run.  
 
-When control flow statements happen in `try` or `catch` like: `return`, `break`, `throw`, `continue`, etc. the finally block can activate.
+One example of using a `finally` block is: During a file opening you `try` to write data. 
 
-One example of using a `finally` block is: During a file opening you `try` to write data. Whether or not an exception occurs and is handled via `catch`...
-`finally` is gauranteed to run - this is where one would close the file.
+Whether or not an exception occurs and is handled via `catch`... `finally` will run. A good thing to add in `finally` is closing a file.
 
 Lastly, let's give an example combining mentioned things:
 
@@ -82,9 +81,10 @@ Lastly, let's give an example combining mentioned things:
     width="100%"
     height="650px"/>
 
-- Overall, one should get very familiar with `try...catch...finally` statements and use them often. 
+- Overall, one should get familiar with `try...catch...finally` statements and use them often. 
 
 - It's a great way of handling exceptions and errors, and you can even do nothing in the catch block but just throw the exception!
+
     - which is virtually identical to `if() { throw new Exception() }`! 
-- There are many varieties of `try...catch` blocks based on whether or not you have a `catch` block, a `finally` block, both of them, if anythings nested, etc. 
-    - This creates a powerful, flexible and complex exception and error handling tool.
+
+

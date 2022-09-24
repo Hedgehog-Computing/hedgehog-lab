@@ -2,16 +2,14 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Strings
 
-`Strings` are `objects` used for textual data such as "Hello World!"
+`Strings` are objects used for textual data such as "Hello World!"
 
-Their uses vary vastly, and they an extremely common type, with many useful methods. They are the type to represent, hold and manipulate data in a text format. 
+Their uses vary vastly, and they are an extremely common type, with many useful methods. 
 
-Let's start out with an example of `String` usage:
-
-This example demonstrates acting on `Strings` in Hedgehog Script.
+But before we show said methods, let's learn how to create `Strings`:
 
 :::warning
-Avoid using `String()` as a constructor for `Strings`, as shown in the following example:
+Avoid using `String()` as a constructor for `Strings`
 :::
 
 
@@ -21,19 +19,25 @@ Avoid using `String()` as a constructor for `Strings`, as shown in the following
 
 :::tip
 
-Try to think about `Strings` as 1-D `Arrays`: for example the `String` "lailai" is an `Array` containing textual elements:
+Try to think about `Strings` as 1-D `Arrays`. For example the `String` "lailai" is kind of an `Array`:
  
 `['l', 'a', 'i', 'l', 'a', 'i']`.
 :::
 
-Naturally, we want to learn about `String` methods and properties, so let's go over some:
+Let's go over some methods and properties frequently used:
 
 - `strcmp()`: comparing strings
+
 - `toUpperCase()` / `toLowerCase()`: changes strings case type
-- `\{special character}` - escapes i.e. treats like a literal special character
+
+- `\{special character}` - escapes it. Hence views it as a literal
+
 - `String.length` is the only property, the rest are methods!
+
 - `String.at(index)` - returns the char at said index
+
 - `String.includes(searchString)` - boolean based on if searchString is in the `String`
+
 - `String.indexOf(searchValue)` - returns the index of the first instance of said value
 
 Let's view an example of a practical scenario, using some `String` methods:
@@ -44,9 +48,9 @@ Let's view an example of a practical scenario, using some `String` methods:
 
 
 :::info
-As one can imagine, there exists many, many more methods for `Strings`. See [Strings](/hedgehog-docs/Hedgehog-Script/Reference/StringExamples.mdx) for more.
+As one can imagine, there exists many, many more methods for `Strings`.
 
-However, for information regarding `String` object itself, visit: [Strings - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) for more information.
+For more examples and details, visit: [Strings - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String) for more information.
 :::
 
 

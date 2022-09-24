@@ -3,14 +3,16 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Let Statement
 
-`Let` is an extremely important and commonly used declaration. It is for declaring a a block-scoped local variable, optionally initializing it to a value.
+`Let` is an extremely important and commonly used declaration. 
+
+It is for declaring a a block-scoped local variable, optionally initializing it to a value.
 
 
 :::warning
 
 We'll mention it immediately: do **not** use `var`. Use `let` every time! 
 
-`Var` can leak into connected files. It's dangerous and bad practice.
+`Var` can leak into other code. It's dangerous and bad practice.
 :::
 
 Here is a simple, easy example using `let`:
@@ -20,22 +22,18 @@ Here is a simple, easy example using `let`:
     width="100%"
     height="350px" />
 
-- As mentioned, the difference is: the declaration is block-scoped. So it only applies within the `if-conditional`. 
+- As mentioned, the declaration is block-scoped. Thus 'x' only applies within the `if-conditional`
 
-- If it was within a `for-loop`, `let varName;` will disappear when the loops ends, etc. 
-
-- `let` is unlike `var`, where `var` declares a variable globally, or locally to an entire function. 
-
-- Use `let`. **Don't** use `var` ever. It's good practice.
-
-- One other difference is that regarding the top level of programs and functions `let`, unlike `var` doesn't create a property on the global object
+- If it was within a `for-loop`, a `let` variable will disappear after the loop executes fully
 
 Let's show an example of one of the above:
 
 <iframe
     src="https://hlab.app/s/docs/letex2_hbook"
     width="100%"
-    height="700px" />
+    height="500px" />
 
+:::info
 
-In general, `let` is very much preferable to `var` and we actually advise agaqinst ever using `var`.
+If one is interested in why `var` is objected to, consider this article explaining some reasons: [Why Var is Obsolete](https://javascript.plainenglish.io/4-reasons-why-var-is-considered-obsolete-in-modern-javascript-a30296b5f08f)
+:::

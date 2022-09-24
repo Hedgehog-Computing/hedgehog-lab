@@ -3,22 +3,41 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Null
 
-`null` is relatively simple; it is a primitive value i.e. a basic type. It's responsibility is to represent the intentional absence of any object value. So one can think of `null` as not-existing. Let's dive in a little deeper.
+`null` is simple - it is a primitive type meaning 'non-existent'.
 
-`null`, unlike `undefined` is not an identifier for a property of the global object. Instead, `null` express a lack of identification, indicating that a **variable points to no object**. 
+It's responsibility is to represent the intentional absence of any object value. 
 
-Note that you can even initilialize or set variables to `null`:
-```js
-const var1 = null;
-print(var1) //null error
-```
+`null`, unlike `undefined`, is not an identifier for a property of the global object. Instead, `null` expresses a lack of identification.
 
-There are some key differences between `null` and `undefined` - when checking for them, beware of the difference between equality (==) and identity (===), as identity performs type-conversion:
+The other way to think about `null` is that a `null` variable points to no object.  
+
+Let's view an example, specifically initialization:
+
+ <iframe
+    src="https://hlab.app/s/docs/nullex1_hbook"
+    width="100%"
+    height="300px"/>
+
+<p>&nbsp;</p>
+
+:::caution
+
+In the following example we use `===` to learn about `null`. 
+
+While `==` differs from `===` (equality vs identity), **only identity (`===`) is allowed.**
+:::
+
+<p>&nbsp;</p>
 
  <iframe
     src="https://hlab.app/s/docs/null_hbook"
     width="100%"
-    height="500px"
-  ></iframe>
+    height="500px"/>
 
-Be careful for `null` values as they can throw errors, make sure to try-catch them or throw exceptions. There are uses when you do want something to be null however. Overall, keep in mind the differences between `null` and `undefined` or `NaN`
+<p>&nbsp;</p>
+
+:::tip
+Overall, be aware of `null` and learn where they can show up. Use `try...catch` blocks to handle them. 
+
+Lastly, it's good to understand the differences between `null`, `undefined`, and `NaN`.
+:::

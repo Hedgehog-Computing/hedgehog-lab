@@ -2,35 +2,46 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 :::caution
 
-Before reading this please note that classes are in an experimental stage in Hedgehog Script and not ready right now.
+Before reading this please note that classes are in an experimental stage in Hedgehog Script and don't support certain things.
 
 :::
 
 
 # Classes
 
-Classes are a **template** for creating objects. They have similar syntax as `functions`: define class expressions and give a class declaration.
+Classes are a **template** for creating objects. 
 
-The purpose of classes is to create an abstraction of certain `Objects`. Then use the template to repeatedly create new `objects` of that type. An example could be - cars are vehicles - which are machines, and a Honda is a car type, specifically a 2001 Honda Civic. Can you define the subclasses and superclasses?
+Their syntax is like `functions`: define class expressions and give a class declaration.
+
+The purpose of classes is to create an abstraction of certain `Objects`. 
+
+Then one can use the template to repeatedly create new objects of that type. 
+
+An example: cars are vehicles - which are machines - a Honda is a car type, specifically a 2001 Honda Civic. 
+
+- Can you define the subclasses and superclasses?
 
 :::info
 `Classes` are just `Objects` under the hood.
 :::
 
-Let's view an example of declaring a `class` with a `constructor` and using said `class` to do something:
+Let's view an example of declaring a `class` with a `constructor`:
+
 
 <iframe
     src="https://hlab.app/s/docs/classex1_hbook"
     width="100%"
     height="600px" />
 
-A `class` can have both `subclasses` and `superclasses`. Hence, you can effectively have inheritance among other things.
+A `Class` can have both subclasses and superclasses. Hence, one can effectively have inheritance. 
 
 :::caution
 A ReferenceError will be thrown if a class is constructed or initialized before it's declared. (unlike functions)
 :::
 
-The way we defined the class above is via class expressions. There is another way, direct declaration:
+The way we defined the class above is via class expressions. 
+
+There is another way, direct declaration:
 
 <iframe
     src="https://hlab.app/s/docs/classex2_hbook"
@@ -38,26 +49,31 @@ The way we defined the class above is via class expressions. There is another wa
     height="500px" />
 
 :::tip
-As shown above you can do a few important things in the class body: define members (i.e. methods, properties) and define the constructor (only 1 can exist per class).
+As shown above one can do a few important things in the class body: 
+
+- define methods/properties and define the constructor
 :::
 
-An important concept is binding `this`. If a static method is called without a value for `this` (example - by assigning the method to a variable and then calling it), `this` will then be `undefined` in the method. For example having a function like this: `static func1() { return this; }`, when calling `func1()`, `this` will be `undefined`. Rewrite it like the following example to bind `this` correctly.
+<p>&nbsp;</p>
 
-<iframe
-    src="https://hlab.app/s/docs/classesex_hbook"
-    width="100%"
-    height="400px"/>
+:::info
 
-For subclasses, creating them as a derived class is as simple as adding `extends`. Here is the syntax:
+An important concept is binding `this`. Check out [this](../Expressions%20%26%20Operators/this.mdx) to learn about `this`.
+:::
+
+
+Regarding subclasses, creating them as a derived class is as simple as adding `extends`:
 - `class [subClassName] extends [className] {constructor(...) { super(...) } }`
 <p>&nbsp;</p>
 
 :::info
 
-One can override class body methods: If the class 'Animal' has subClass 'Hippo', and have a different version of `eat()` then instances of 'Hippo' will use their `eat()`instead of `Animal.eat()`.
+One can override class body methods: Consider 'Animal' has a subclass 'Hippo', which has a different version of `eat()`.
+ 
+ - Instances of 'Hippo' will use their `eat()` instead of `Animal.eat()`.
 
 :::
 
 <p>&nbsp;</p>
 
-`Classes` are powerful if one needs a hierachical system of functions, each with their own properties and inherited properties. They are relatively simple to make and use, and have many useful methods. 
+For more, detailed information, visit: [Classes - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)

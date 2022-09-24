@@ -24,8 +24,6 @@ Unlike `static` fields, public instance fields exist on **every created instance
 
 Here is an example:
 
-//ahhh nvm ALL CLASS PROPERTIES give error 'missing class properties transform'. Changing this to a draft
-
 When initializing fields, `this` refers to the class instance **under construction**. Just like public instance methods, if you're in a subclass you can access the superclass prototype via `super`. The example of this would be very similar to the static one, but dropping the keyword `static`.
 
 Note that you can access fields' values within the constructor - this is due to the instance fields of a class being added before the respective constructor runs:

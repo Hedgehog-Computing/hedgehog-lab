@@ -19,11 +19,13 @@ Here is a quick example of how to implement `NaN`:
     width="100%"
     height="400px"/>
 
-:::info
-'1' is a number, so `isNaN()` so it prints the value. But 'stringhere' is clearly not a number hence returns `NaN`
+:::note
+'1' is a number, so `isNaN()` is false hence returns '1'. 
+
+But 'stringhere' is clearly not a number hence returns `NaN`
 :::
 
-Here are the operations that return NaN:
+Here are some operations that return `NaN`:
 
 -  Failed number conversion (something like `Number(undefined)`, or implicitly `Math.abs(undefined)`)
 
@@ -36,12 +38,11 @@ Here are the operations that return NaN:
 -  Cases where an invalid value is represented as a number (`new Date("word".getTime())`) 
 
 
-To test if something is `NaN`, one can use `Number.isNaN()` for numbers, otherwise there is `isNaN()`.
+To test if something is `NaN`, one can use `Number.isNaN()` otherwise there is `isNaN()`.
 
 :::tip
 Be careful for `NaN` values and make sure to check for them in `try...catch` methods or throw exceptions.
 :::
 
-While going through the chapters it's good to internalize the differences between `NaN`, `undefined` and `null`.
 
 

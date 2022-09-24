@@ -1,44 +1,51 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
-#  Variables and Var
-
+#  Variables
 You can define variable and constant in this way:
 
-With Typescript you can use the keyword `let` for a variable, for example, `let x = 10;`
-You can also define a variable without a keyword, for example, `x = 10;`
-Lastly, for constants, you can use keyword `const`, for example, `const x = 10`.
+- With Hedgehog Script you can use the keyword `let` for a variable, for example, `let x = 10;`
 
+- You can also define a variable without a keyword, for example, `x = 10;`
+
+- Lastly, for constants, you can use keyword `const`, for example, `const x = 10`
+
+    - `const` means constant as the variable can't change
+
+:::warning
+
+Do not define variables with no keyword, this is the same as saying `var variableName = value`
+
+Regarding `var`, it shouldn't be used! 
+
+:::
+
+Let's view a simple example of variable declaration:
 
 <iframe src="https://hlab.app/s/docs/var1_hbook"
     width="100%"
-    height="500px"
-    ></iframe>
+    height="300px"/>
 
 
-There is also the `var` declaration if you want to declare a variable globally, or locally to a function. `let` allows you to limit the variables to the scope of a block statement. Not using any declaration gives it complete global access. Also, `var` does not need to be initialized. (`var varName;`). One can also declare multiple variables at the same time:
+One can also declare multiple variables quickly, in one line:
 
-```js
-var var1=5, var2 = 10, var3 = 40, varText = 'text';
-//this intializes 4 var variables - var1 as 5, var2 as 10, var3 as 40 and varText as 'text'
-```
+<iframe src="https://hlab.app/s/docs/varex2_hbook"
+    width="100%"
+    height="300px"/>
 
-### var hoisting
+<p>&nbsp;</p>
 
-This is a concept you may run into every now and then. Hoisting is basically the behavior of `var` variables to be used before declared. It's called hoisting because it appears that the variable declaration is moved to the top of the function or global code. This is because in JavaScript `var` declarations, no matter where they are, are processed before any code is executed, hence it's effectively like declaring it at the top of a function or globally. For example...
+:::caution
 
-```js
-var1 = 2;
-var var1;
+Declare variables at the top of the scope they're used.
 
-//this is implicitly understood as:
+And certainly declare them before intializing them (hoisting not supported)
+:::
 
-var var1;
-var1 = 2;
-```
+<p>&nbsp;</p>
 
-Thus it's recommended to always declare variables at the top of their scope so it's clear which variables are function scoped and which are global. Also so there isn't confusion about how it's appearing to be used before declared (but isn't, via hoisting).
-
-Overall variables are one of the most fundamental and important things in any programming language. This is a rather shallow dive into the nature of JavaScript's variables, specifically declared with `var`. It is recommended to avoid using `var` and instead use `let` as the same things can be accomplished without any danger. However, it's important to understand the differences and features of both.
+:::tip
+This was a brief introduction. For more detailed information visit: [Variables (let) - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [Variables (const) - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
+:::
 
 

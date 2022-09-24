@@ -1,0 +1,76 @@
+<ul>
+<li>Addition (+) </li>
+<li>Addition assignment (+=)</li>
+<li>Assignment (=)</li>
+<li>async function expression</li>
+<li>async function* expression</li>
+<li>await</li>
+<li>Bitwise AND (&)</li>
+<li>Bitwise AND assignment (&=)</li>
+<li>Bitwise NOT (~)</li>
+<li>Bitwise OR (|)</li>
+<li>Bitwise OR assignment (|=)</li>
+<li>Bitwise XOR (^)</li>
+<li>Bitwise XOR assignment (^=)</li>
+<li>class expression</li>
+<li>Comma operator (,)</li>
+<li>Conditional (ternary) operator</li>
+<li>Decrement (--)</li>
+<li>delete operator</li>
+<li>Destructuring assignment</li>
+<li>Division (/)</li>
+<li>Division assignment (/=)</li>
+<li>Equality (==)</li>
+<li>Exponentiation (**)</li>
+<li>Exponentiation assignment (**=)</li>
+<li>Function expression</li>
+<li>function* expression</li>
+<li>Greater than (>)</li>
+<li>Greater than or equal (>=)</li>
+<li>Grouping operator ( )</li>
+<li>import</li>
+<li>import.meta</li>
+<li>in operator</li>
+<li>Increment (++)</li>
+<li>Inequality (!=)</li>
+<li>instanceof</li>
+<li>Left shift </li>
+<li>Left shift assignment </li>
+<li>Less than </li>
+<li>Less than or equal </li>
+<li>Logical AND (&&)</li>
+<li>Logical AND assignment (&&=)</li>
+<li>Logical NOT (!)</li>
+<li>Logical nullish assignment (??=)</li>
+<li>Logical OR (||)</li>
+<li>Logical OR assignment (||=)</li>
+<li>Multiplication (*)</li>
+<li>Multiplication assignment (*=)</li>
+<li>new operator</li>
+<li>new.target</li>
+<li>null</li>
+<li>Nullish coalescing operator (??)</li>
+<li>Object initializer</li>
+<li>Operator precedence</li>
+<li>Optional chaining (?.)</li>
+<li>Property accessors</li>
+<li>Remainder (%)</li>
+<li>Remainder assignment (%=)</li>
+<li>Right shift (>>)</li>
+<li>Right shift assignment (>>=)</li>
+<li>Spread syntax (...)</li>
+<li>Strict equality (===)</li>
+<li>Strict inequality (!==)</li>
+<li>Subtraction (-)</li>
+<li>Subtraction assignment (-=)</li>
+<li>super</li>
+<li>this</li>
+<li>typeof</li>
+<li>Unary negation (-)</li>
+<li>Unary plus (+)</li>
+<li>Unsigned right shift (>>>)</li>
+<li>Unsigned right shift assignment (>>>=)</li>
+<li>void operator</li>
+<li>yield</li>
+<li>yield*</li>
+</ul>
