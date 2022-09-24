@@ -6,7 +6,7 @@ import type { Arguments, CommandBuilder } from 'yargs';
 type Options = {
   name: string;
   upper: boolean | undefined;
-};
+}; 
 
 export const command: string = 'greet <name>';
 export const desc: string = 'Greet <name> with Hello';
