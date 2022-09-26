@@ -30,6 +30,14 @@ async function transpilerCore(source: string) {
     babelPluginProposalClassProperties
   );
 
+  const bablePluginProposalPrivateMethods = require('@babel/plugin-proposal-private-methods');
+  babel.registerPlugin(
+    '@babel/plugin-proposal-private-methods',
+    bablePluginProposalPrivateMethods
+  )
+
+  // register and add @babel/plugin-proposal-class-properties
+
   //the real compiling function
   let result = '';
   // We will read the code snippet object list
@@ -45,7 +53,8 @@ async function transpilerCore(source: string) {
       const transpiled = babel.transform(
         codeSnippet.code, // the code
         {
-          plugins: ['overload', '@babel/plugin-proposal-class-properties'],
+          plugins: ['overload', ['@babel/plugin-proposal-class-properties', {"loose":true}], 
+          ['@babel/plugin-proposal-private-methods',{"loose":true}]],
           presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
           filename: 'source.tsx',
           sourceType: 'script'
