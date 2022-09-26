@@ -30,11 +30,9 @@ async function transpilerCore(source: string) {
     babelPluginProposalClassProperties
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const bablePluginProposalPrivateMethods = require('@babel/plugin-proposal-private-methods');
-  babel.registerPlugin(
-    '@babel/plugin-proposal-private-methods',
-    bablePluginProposalPrivateMethods
-  )
+  babel.registerPlugin('@babel/plugin-proposal-private-methods', bablePluginProposalPrivateMethods);
 
   // register and add @babel/plugin-proposal-class-properties
 
