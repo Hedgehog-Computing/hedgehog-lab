@@ -1,29 +1,7 @@
 import * as React from "react";
 import {useCallback, useEffect, useState} from "react";
-import {
-    Box,
-    Collapse,
-    Divider,
-    Link,
-    List,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    Toolbar,
-    Typography,
-    useTheme
-} from "@mui/material";
-import {
-    CreateOutlined,
-    ExpandLessOutlined,
-    ExpandMoreOutlined,
-    ExploreOutlined,
-    FiberManualRecord,
-    HomeOutlined,
-    PersonOutline,
-    TextSnippetOutlined,
-    TimelineOutlined
-} from "@mui/icons-material";
+import {Box, Collapse, Divider, Link, List, ListItemButton, ListItemText, Typography, useTheme} from "@mui/material";
+import {CreateOutlined, ExploreOutlined, HomeOutlined, PersonOutline, TimelineOutlined} from "@mui/icons-material";
 import {useRecoilState} from "recoil";
 import {sideBarOpenState} from "../../../states/RLayoutStates";
 import {Link as RouteLink} from "react-router-dom";
@@ -52,18 +30,25 @@ const CurrentSnippets = () => {
         <>
             {data && data?.response?.result.length > 0 && (
                 <>
-                    <ListItemButton onClick={handleCollapseClick}>
-                        <ListItemIcon>
-                            <TextSnippetOutlined
-                                color={collapseOpen ? "primary" : "inherit"}
-                            />
-                        </ListItemIcon>
-                        <ListItemText>Current</ListItemText>
-                        {collapseOpen ? (
-                            <ExpandLessOutlined color={"primary"}/>
-                        ) : (
-                            <ExpandMoreOutlined/>
-                        )}
+                    <ListItemButton onClick={handleCollapseClick} sx={{
+                        borderRadius: 10,
+                        height: '28px'
+                    }}>
+                        {/*<ListItemIcon>*/}
+                        {/*    <TextSnippetOutlined*/}
+                        {/*        color={collapseOpen ? "primary" : "inherit"}*/}
+                        {/*    />*/}
+                        {/*</ListItemIcon>*/}
+                        <ListItemText sx={{
+                            '& .MuiTypography-root': {
+                                fontSize: '12px'
+                            }
+                        }}>Current</ListItemText>
+                        {/*{collapseOpen ? (*/}
+                        {/*    <ExpandLessOutlined color={"primary"}/>*/}
+                        {/*) : (*/}
+                        {/*    <ExpandMoreOutlined/>*/}
+                        {/*)}*/}
                     </ListItemButton>
                     <Collapse in={collapseOpen} timeout="auto" unmountOnExit>
                         <List
@@ -72,7 +57,7 @@ const CurrentSnippets = () => {
                             component="div"
                             sx={{
                                 borderLeft: "solid 1px",
-                                ml: "27px",
+                                ml: "-5px",
                                 borderColor: blue[500]
                             }}
                         >
@@ -85,25 +70,29 @@ const CurrentSnippets = () => {
                                               color: "initial",
                                               "&:hover": {
                                                   textDecoration: "none"
-                                              }
+                                              },
+                                              borderRadius: 10
                                           }}>
-                                        <ListItemButton>
+                                        <ListItemButton dense sx={{
+                                            borderRadius: 10,
+                                            height: '28px'
+                                        }}>
                                             <ListItemText>
-                                                <FiberManualRecord
-                                                    sx={{
-                                                        fontSize: "5px",
-                                                        color: theme.palette.grey[500],
-                                                        ml: "6px"
-                                                    }}
-                                                />
+                                                {/*<FiberManualRecord*/}
+                                                {/*    sx={{*/}
+                                                {/*        fontSize: "5px",*/}
+                                                {/*        color: theme.palette.grey[500],*/}
+                                                {/*        ml: "6px"*/}
+                                                {/*    }}*/}
+                                                {/*/>*/}
 
                                                 <Typography
                                                     color={theme.palette.text.primary}
                                                     variant={"body2"}
                                                     component={"span"}
-                                                    sx={{ml: "18px"}}
+                                                    sx={{fontSize: '12px', ml: '4px'}}
                                                 >
-                                                    {item.title.slice(0, 10)}
+                                                    {item.title.slice(0, 7)}..
                                                 </Typography>
                                             </ListItemText>
                                         </ListItemButton>
@@ -132,7 +121,7 @@ const SideBar = (): React.ReactElement => {
 
     const publicList = [
         {link: '/', icon: <HomeOutlined/>, text: 'Home'},
-        {link: '/e/example/Empty', icon: <CreateOutlined/>, text: 'New Snippets'},
+        {link: '/e/example/Empty', icon: <CreateOutlined/>, text: 'New'},
         {link: '/explore', icon: <ExploreOutlined/>, text: 'Explore'},
     ]
 
@@ -142,11 +131,10 @@ const SideBar = (): React.ReactElement => {
             anchor="left"
             open={sideBarOpen}
             sx={{
-                borderRight: sideBarOpen ? "1px solid rgba(0, 0, 0, 0.12)" : ""
+                borderRight: sideBarOpen ? "1px solid rgba(0, 0, 0, 0.12)" : "",
+
             }}
         >
-            <Toolbar/>
-
             {isDevPath && <Box mt={2}/>}
             <Box
                 sx={{
@@ -157,13 +145,11 @@ const SideBar = (): React.ReactElement => {
                         fontWeight: "bold"
                     },
                     bgcolor: grey[100],
+                    mt: '32px'
                 }}
             >
                 <List dense sx={{
                     px: '5px',
-                    '& .MuiListItemButton-root': {
-                        my: '2px'
-                    }
                 }}>
                     <SideList data={publicList}/>
                     <Divider/>

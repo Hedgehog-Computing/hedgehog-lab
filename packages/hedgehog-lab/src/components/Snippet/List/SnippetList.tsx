@@ -12,7 +12,7 @@ import {
     useMediaQuery,
     useTheme,
 } from "@mui/material";
-import React, {useCallback, useState, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {atomOneLight, CopyBlock} from "react-code-blocks";
 import {Link as RouterLink, useMatch} from "react-router-dom";
 import {useRecoilState, useRecoilValue} from "recoil";
@@ -88,7 +88,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
         })
     }, [auth.accessToken])
 
-    useEffect( () => {
+    useEffect(() => {
         setHostname('https://' + window.location.hostname);
     }, [])
 
@@ -235,9 +235,10 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
                                             }}
                                         >
                                             <CopyBlock
-                                                text={item?.content && item?.content.slice(0, 200)}
+                                                text={item?.content && item?.content.slice(0, 30)}
                                                 language={"javascript"}
                                                 theme={atomOneLight}
+                                                wrapLines
                                             />
                                         </Box>
                                     </CardActionArea>

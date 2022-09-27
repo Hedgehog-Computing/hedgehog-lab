@@ -14,6 +14,7 @@ const GitHubButton = () => {
 
     return (
         <Button size={'small'} color={'inherit'} variant={'contained'}
+                sx={{alignSelf: 'center'}}
                 endIcon={<GitHub/>} target={'_blank'} href={'https://github.com/Hedgehog-Computing/hedgehog-lab'}>
             Github
 

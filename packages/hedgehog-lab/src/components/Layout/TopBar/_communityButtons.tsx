@@ -29,7 +29,7 @@ const CommunityButtons = () => {
                 data.map((item, index) => (
                     <Button key={index} size={'small'} color={'inherit'} variant={'contained'}
                             endIcon={item.icon} target={'_blank'}
-                            href={item.link}>
+                            href={item.link} sx={{alignSelf: 'center'}}>
                         {item.text}
                     </Button>
                 ))
