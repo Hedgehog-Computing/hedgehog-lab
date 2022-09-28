@@ -1,16 +1,20 @@
+#!/usr/bin/env node
 import {executeOutput, transpile} from '@hedgehogcomputing/core';
 
+const argv = require('yargs/yargs')(process.argv.slice(2)).argv;
+const hhsFilePath = argv.f;
+const hhsUserAndScript = argv._;
+const hhOutputItems = argv.o;
 
-import type { Arguments, CommandBuilder } from 'yargs';
+if (typeof hhsFilePath === 'string') {
+  console.log(hhsFilePath)
+}
 
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
+if (typeof hhsUserAndScript === 'string') {
+  console.log(hhsUserAndScript)
+}
 
-yargs(hideBin(process.argv))
-  // Use the commands directory to scaffold.
-  .commandDir('commands')
-  // Enable strict mode.
-  .strict()
-  // Useful aliases.
-  .alias({ h: 'help' })
-  .argv;
+if (typeof hhOutputItems === 'string') {
+  console.log(hhOutputItems)
+}
+
