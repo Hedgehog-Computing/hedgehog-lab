@@ -1,7 +1,7 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
-# Operators & Expressions
+# Expressions & Operators
 
 There are infinitely many operators and expressions one can create and use.
 

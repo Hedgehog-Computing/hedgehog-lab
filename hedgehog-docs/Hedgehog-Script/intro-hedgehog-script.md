@@ -7,29 +7,34 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Introduction
 
-:::info
 
-Thank you for considering Hedgehog Lab using Hedgehog Script! 
+### Overview
 
-- We're always glad to have more members of the community.
+- **Hedgehog Script** is a **JavaScript**-like programming language;
 
-This book is all about how to start programming in Hedgehog Lab.
-:::
-## Getting Started
+- **Functional Programming(FP)** and **Object-Oriented Programming(OOP)** are supported;
 
-Firstly, the goal is to understand how to read, write and learn Hedgehog Script in order to effectively Hedgehog Lab.
+- **Operator overload** for Matrix and Symbolic Computing are supported (just like **Matlab**);
+
+- **No package installation**. Import any package(s) inside code without pre-processing;
+
+- **Everything is inside your browser**. No terminal, no local environment. Coding and running in your browser locally.
+
 
 ### Topics
 
 The topics we've selected are based on what is most common and useful for starting to write in Hedgehog Script. 
 
 The left hand sidebar shows the topics. Namely:
+
+Here are the basic topics we've selected: 
+
+- [Expression & Operators](./Expressions%20%26%20Operators/Operators%20and%20Expressions.mdx)
 - Expressions & Operators, Statements & Declarations, Built-in Objects, Functions and lastly, Classes.
 
   - Within each topic will be chapters discussing specific things related to the topic
 
 **Let's first start with the classic example:**
-
 
 
 Use the `print()` function to print `"Hello world"` string in Hedgehog Lab:

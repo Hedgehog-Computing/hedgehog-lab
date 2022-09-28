@@ -1,3 +1,7 @@
+---
+sidebar_position: 5
+---
+
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
@@ -20,9 +24,9 @@ Here is a quick example of how to implement `NaN`:
     height="400px"/>
 
 :::note
-'1' is a number, so `isNaN()` is false hence returns '1'. 
+`'1'` is a number, so `isNaN()` is false hence returns `'1'`. 
 
-But 'stringhere' is clearly not a number hence returns `NaN`
+But `'stringhere'` is clearly not a number hence returns `NaN`
 :::
 
 Here are some operations that return `NaN`:
@@ -31,9 +35,9 @@ Here are some operations that return `NaN`:
 
 -  Math operation where result is not real (e.g. `Math.sqrt(-5)`) 
 
--  Indeterminate forms: (`0*infinity`, `1**infinity1`, etc)
+-  Indeterminate forms: (`0 * infinity`, `1 ** infinity1`, etc)
 
--  A method/expression whose operand gets coerced to `NaN`: (`7**NaN`, `7*"word"`) - (`NaN` is contagious) 
+-  A method/expression whose operand gets coerced to `NaN`: (`7 ** NaN`, `7 * "word"`) - (`NaN` is contagious) 
 
 -  Cases where an invalid value is represented as a number (`new Date("word".getTime())`) 
 

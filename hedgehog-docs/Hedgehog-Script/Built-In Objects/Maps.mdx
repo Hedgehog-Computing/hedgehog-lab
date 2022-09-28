@@ -1,9 +1,19 @@
+---
+sidebar_position: 7
+---
+
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
 # Maps
 
 The `Map` object holds key-value pairs and follows insertion order. 
+
+<iframe
+    src="https://hlab.app/s/docs/simple_map_example"
+    width="100%"
+    height="300px"/>
+
 
 **Any value** may be used as either the key or value. 
 
@@ -76,17 +86,6 @@ One has to make their own, typically by using `JSON.stringify()` and `JSON.parse
 Another key difference is setting properties: 
 
 - Setting `Object` properties works for `Map` objects as well, which can cause confusion.
-
-:::warning
-The following is an example. The issue is that setting properties doesn't actually interact with `Map` at all!
-
-The value of `'abc'` is **not** in the `Map` data structure for queries. Hence some operations fail completely.
-:::
-
-<iframe
-    src="https://hlab.app/s/docs/wrongMap_hbook"
-    width="100%"
-    height="500px"/>
 
 :::tip
 

@@ -5,57 +5,87 @@
 
 Thank you for reading this book!
 
-If you wish to contribute to this book, here's our process:
+### Contribute to this book
 
-- 1) Fork the repository on [Hedgehog Book Github](https://github.com/Hedgehog-Computing/docs)
+1.  Fork and `git clone` the repository at [https://github.com/Hedgehog-Computing/hedgehog-lab](https://github.com/Hedgehog-Computing/hedgehog-lab)
 
-- 2) Make sure to have Yarn installed
+```bash
+git clone https://github.com/Hedgehog-Computing/hedgehog-lab.git
+```
 
-- 3) In the terminal, run `yarn` and then `yarn start` (debug mode)
+2.  Change directory to `hedgehog-docs` folder, run `yarn` and then `yarn start` after `yarn` is installed
 
-- 4) Contribute in the way you'd like
+```bash
+cd ./hedgehog-docs
+yarn
+```
 
-- 5) Submit for merging
+3. Start debugging/editing mode on your local server at **https://localhost:3000** 
 
-A quick guide on certain features:
+```bash
+yarn start
+```
 
-- MDX is used along with Docusaurus, for extra resources visit their sites
+or build a static book site
+```bash
+yarn build
+```
 
-- To add pictures, put said picture in `.../static/img/{pictureFileName}`
-    - To display, write: `![Description](/img/{pictureFileName})`
+4.  Commit and submit pull request
 
-- To add code blocks start one with ` ```js ` , and end it with ` ``` `
+### Basic features about the book
 
-- For inline code simply wrap said code in backticks (`)
+-  This book is developed with Docusaurus [https://docusaurus.io/](https://docusaurus.io/) with both **markdown** and **MDX** supported
+
+-  To add an **MDX** page:
+
+    - Add the file `my_chapter.mdx` to the directory
+    - Install necessary packages locally at `./hedgehog-docs` by 
+    ```bash
+    yarn add my_package
+    ```
+    - Import packages at the beginning of `your_chapter.mdx` 
+    ```bash
+    import {my_module} from my_package
+    ```
+
+- To add images:
+    - Add the image files at `../static/img/{pictureFileName}`
+    - Display the image: `![Description](/img/{pictureFileName})`
+
+- To add a reference link: `[Display text](url)`
+
+- Manage your code block
+
+````md
+add an embedded code block `in this way` or add a standalone code block
+
+```js
+print('A stand alone code block')
+```
+````
 
 **Adding a code snippet:**
 
 Add an iframe element with the source being your snippet link:
 
--<iframe
+```html
+<iframe
     src="snippet_link"
     width="100%"
     height="600px"\>
-
-**Building a static site:**
-
-- Run `yarn build` in your terminal
+```
 
 ### We appreciate your time and the community.
 
 
-**Current Contributors:**
+**Contributors:**
 
-- **Xinran Wang** - Founder of Hedgehog Lab
-    - [ ![LinkedInIcon](../static/img/linkedinIcon_32x32.png)](https://www.linkedin.com/in/xrwang1/) **LinkedIn**
-    - [ ![GithubIcon](../static/img/githubIcon_32x32.png)](https://github.com/lidangzzz) **GitHub**
-    - [ ![GoogleIcon](../static/img/googleIcon_32x32.png)](https://www.google.com) (need actual link for google scholar) **Google Scholar**
+- Xinran Wang  [ ![GithubIcon](../static/img/githubIcon_32x32.png)](https://github.com/lidangzzz) **GitHub**
 
-- **Jason Reynolds** - Contributor to Hedgehog Lab
-    - [ ![LinkedInIcon](../static/img/linkedinIcon_32x32.png)](https://www.linkedin.com/in/jasonreynolds1648/) **LinkedIn**
-    - [ ![GithubIcon](../static/img/githubIcon_32x32.png)](https://github.com/Gaoooooo) **GitHub**
+- Jason Reynolds  [ ![GithubIcon](../static/img/githubIcon_32x32.png)](https://github.com/Gaoooooo) **GitHub**
 
 
-**Made in 2022**
+
 
 

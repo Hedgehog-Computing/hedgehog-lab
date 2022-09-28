@@ -1,14 +1,29 @@
+---
+sidebar_position: 2
+---
+
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-## What it is and how to use it
+# GPU Acceleration
 
-GPU acceleration is a feature in Hedgehog Lab that utilizes the power of your graphics card to do computations, **sometimes** taking significantly less time for matrix calculations and such.
+1. Hedgehog Lab supports **GPU acceleration** for computations done inside the browser.
 
-To use it, you simply set a variable's `mode` property to `'gpu'`.
+2. GPU Acceleration utilizes the power of your graphics card(s) to increase performance.
 
-Here is an example below. Try running it yourself with various dimensions or different calculations to see if it makes an impact. Note that it differs from computer to computer.
+3. It can take significantly less time for some matrix calculations among other things.
+
+4. To use it, set a `variable`'s `mode` property to 'gpu'.
+
+Here is an example: 
 
 <iframe src="https://hlab.app/s/docs/gpuacceleration_hbook"
     width="100%"
-    height="500px">
-  </iframe>
+    height="500px"/>
+
+:::tip
+
+Try out different dimensions or different calculations to see the impact.
+
+The results may vary among different browsers and computers.
+
+:::

@@ -1,3 +1,7 @@
+---
+sidebar_position: 3
+---
+
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
