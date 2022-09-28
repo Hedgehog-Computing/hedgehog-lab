@@ -3,24 +3,14 @@ import {executeOutput, transpile} from '@hedgehogcomputing/core';
 
 import type { Arguments, CommandBuilder } from 'yargs';
 
-type Options = {
-  name: string;
-  upper: boolean | undefined;
-}; 
+import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
-export const command: string = 'greet <name>';
-export const desc: string = 'Greet <name> with Hello';
-
-export const builder: CommandBuilder<Options, Options> = (yargs) =>
-  yargs
-    .options({
-      upper: { type: 'boolean' },
-    })
-    .positional('name', { type: 'string', demandOption: true });
-
-export const handler = (argv: Arguments<Options>): void => {
-  const { name, upper } = argv;
-  const greeting = `Hello, ${name}!`;
-  process.stdout.write(upper ? greeting.toUpperCase() : greeting);
-  process.exit(0);
-}; 
+yargs(hideBin(process.argv))
+  // Use the commands directory to scaffold.
+  .commandDir('commands')
+  // Enable strict mode.
+  .strict()
+  // Useful aliases.
+  .alias({ h: 'help' })
+  .argv;
