@@ -1,23 +1,42 @@
 #!/usr/bin/env node
-import {executeOutput, transpile} from '@hedgehogcomputing/core';
-import { boolean } from 'yargs';
+const core = require('@hedgehogcomputing/core');
 
 const argv = require('yargs/yargs')(process.argv.slice(2)).argv;
 const hhsFilePath = argv.f;
 const hhsScriptPath = argv._;
-const hhOutputItems = argv.o;
+const hhSaveOutputItemFile = argv.o;
 
-let executeFile = false;
-let executeScript = false;
-if (typeof hhsFilePath === 'string') {
-  console.log(hhsFilePath)
+let executeFile = typeof hhsFilePath === 'string';
+let executeScript = typeof hhsScriptPath === 'string';
+let saveOutputItemToFile = typeof hhSaveOutputItemFile === 'string';
+
+if (executeFile && executeScript) {
+  console.log('Cannot execute a local hedgehog script file and a remote script at the same time');
+  process.exit(1);
 }
 
-if (typeof hhsScriptPath === 'string') {
-  console.log(hhsScriptPath)
+if (executeFile) {
+  ( async () => {
+    const fs = require('fs');
+    const hhsSourceCodeText = fs.readFileSync(hhsFilePath, 'utf8');
+    const transpiledSourceCode = await core.transpile(hhsSourceCodeText);
+    const outputItems = core.executeOutput(transpiledSourceCode);
+    if (saveOutputItemToFile) {
+      fs.writeFileSync(hhSaveOutputItemFile, JSON.stringify(outputItems));
+    }
+  })();
 }
 
-if (typeof hhOutputItems === 'string') {
-  console.log(hhOutputItems)
+if (executeScript) {
+  ( async () => {
+    const transpiledSourceCode = await core.transpile('*import  ' + hhsScriptPath);
+    const outputItems =  core.executeOutput(transpiledSourceCode);
+    if (saveOutputItemToFile) {
+      const fs = require('fs');
+      fs.writeFileSync(hhSaveOutputItemFile, JSON.stringify(outputItems));
+    }
+
+  })();
 }
 
+export {};
