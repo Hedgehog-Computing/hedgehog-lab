@@ -1,6 +1,5 @@
-#!/usr/bin/env node
+#! /usr/bin/env node
 const core = require('@hedgehogcomputing/core');
-
 const argv = require('yargs/yargs')(process.argv.slice(2)).argv;
 const hhsFilePath = argv.f;
 const hhsScriptPath = argv._;
@@ -35,8 +34,5 @@ if (executeScript) {
       const fs = require('fs');
       fs.writeFileSync(hhSaveOutputItemFile, JSON.stringify(outputItems));
     }
-
   })();
 }
-
-export {};
