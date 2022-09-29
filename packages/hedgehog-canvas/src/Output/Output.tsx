@@ -3,7 +3,6 @@ import ReactECharts from 'echarts-for-react';
 import Plot from 'react-plotly.js';
 import MathJax from 'react-mathjax';
 import Markdown from 'react-markdown';
-import TableComponent from './OutputItemCompoments/TableComponent';
 import {
     isDrawingItem,
     isEChartItem,
@@ -16,15 +15,12 @@ import {
 } from '@hedgehogcomputing/core';
 import type {CodeComponent} from 'react-markdown/src/ast-to-react'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
-import {useRecoilValue} from "recoil";
-import {themeModState} from "../../themes/RThemeStates";
-import {atomOneDark, atomOneLight} from "react-syntax-highlighter/dist/esm/styles/hljs";
 import TextareaAutosize from '@mui/material/TextareaAutosize'
+import TableComponent from "@hedgehogcomputing/lab/src/components/Results/OutputItemCompoments/TableComponent";
 
 type CodeProps = Parameters<CodeComponent>[0]
 
 const Output = ({outputItemList}: { outputItemList: OutputItem[] }): React.ReactElement => {
-    const themeMode = useRecoilValue(themeModState)
 
     const items = outputItemList.map((item) => {
         if (isDrawingItem(item)) {
@@ -58,7 +54,7 @@ const Output = ({outputItemList}: { outputItemList: OutputItem[] }): React.React
                     const match = /language-(\w+)/.exec(className || '')
                     return !inline && match ? (
                         //@ts-ignore
-                        <SyntaxHighlighter style={themeMode === 'light' ? atomOneLight : atomOneDark}
+                        <SyntaxHighlighter
                                            language={match[1]}
                                            customStyle={{backgroundColor: 'transparent'}}
                                            PreTag="div" {...props as any} >
