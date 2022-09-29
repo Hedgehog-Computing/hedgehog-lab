@@ -13,7 +13,6 @@ import { OutputItem } from '../output/output-item';
 import { rawInputsToTex } from '../utilites/process-raw-inputs';
 
 import * as React from 'react';
-import * as d3 from 'd3';
 
 /*
 Third party libraries
@@ -40,7 +39,7 @@ import * as tf from '@tensorflow/tfjs';
 
 //tvm.js
 
-export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, React, d3, Tensor, Table };
+export { Sym, Mat, Scalar, _Mat, nerdamer, GPU, mathjs, tf, React, Tensor, Table };
 
 /* 
    import all mljs library and export 
