@@ -19,7 +19,7 @@ const CommunityButtons = () => {
         {
             text: 'Discord',
             icon: <ForumOutlined/>,
-            link: 'https://discord.gg/kmuBw8pRFf/'
+            link: 'https://discord.com/invite/Ty896QK3aT'
         },
     ]
 

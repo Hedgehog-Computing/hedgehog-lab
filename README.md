@@ -4,7 +4,7 @@
 
 Try it at [https://hlab.app/](https://hlab.app/).
 
-Join our community at [**Discord server**](https://discord.gg/kmuBw8pRFf)
+Join our community at [**Discord server**](https://discord.com/invite/Ty896QK3aT)
 
 ## Installation
 
