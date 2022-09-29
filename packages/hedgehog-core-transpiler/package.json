@@ -1,0 +1,19 @@
+{
+  "name": "hedgehog-core-transpiler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "watch": "tsc -p tsconfig.json --watch --preserveWatchOutput",
+    "prettier": "prettier --single-quote --write '**/*.{js,json,md}'",
+    "lint": "eslint src --fix --ext .ts,.tsx,.js,.jsx",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
