@@ -1,10 +1,10 @@
 import React from "react";
 import {Box, Card, Paper, Typography,} from "@mui/material";
-import Output from "./Output";
 import {useRecoilValue} from "recoil";
 import {compilerLoadingState, compilerResultState,} from "../../states/RCompilerStates";
 import EditorLoading from "../Base/Editor/Loading";
 import useApp from "../../hooks/useApp";
+import Output from "@hedgehogcomputing/canvas/src/Output";
 
 const Results = (): React.ReactElement => {
     const compilerLoading = useRecoilValue<boolean>(compilerLoadingState);

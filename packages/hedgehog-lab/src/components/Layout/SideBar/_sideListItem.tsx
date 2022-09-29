@@ -1,5 +1,5 @@
 import {Link as RouteLink, useLocation} from "react-router-dom";
-import {Link, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Link, ListItemButton, ListItemText} from "@mui/material";
 import * as React from "react";
 import {blue} from "@mui/material/colors";
 
@@ -26,12 +26,16 @@ const SideListItem: React.FC<SideListItemProps> = (props) => {
                 borderRadius: 10,
             }}
         >
-            <ListItemButton sx={{borderRadius: 10}}>
-                <ListItemIcon>
-                    {icon}
-                </ListItemIcon>
+            <ListItemButton dense sx={{borderRadius: 10, height: '28px'}}>
+                {/*<ListItemIcon>*/}
+                {/*    {icon}*/}
+                {/*</ListItemIcon>*/}
 
-                <ListItemText>
+                <ListItemText sx={{
+                    '& .MuiTypography-root': {
+                        fontSize: '12px',
+                    }
+                }}>
                     {text}
                 </ListItemText>
             </ListItemButton>

@@ -8,11 +8,10 @@ import {
     DialogTitle,
     IconButton,
     ListItemButton,
-    ListItemIcon,
     ListItemText,
     Typography,
 } from "@mui/material";
-import {AccountCircleOutlined, CloseOutlined, LoginOutlined,} from "@mui/icons-material";
+import {AccountCircleOutlined, CloseOutlined,} from "@mui/icons-material";
 import {useLocation, useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
 import Auth from "../../../pages/Auth/Auth";
@@ -93,12 +92,19 @@ export default function AuthDialog(): React.ReactElement {
             {location.pathname === "/auth" ? (
                 <></>
             ) : (
-                <ListItemButton onClick={handleClickOpen}>
-                    <ListItemIcon>
-                        <LoginOutlined/>
-                    </ListItemIcon>
+                <ListItemButton sx={{
+                    borderRadius: 10,
+                    height: '28px',
+                }} onClick={handleClickOpen}>
+                    {/*<ListItemIcon>*/}
+                    {/*    <LoginOutlined/>*/}
+                    {/*</ListItemIcon>*/}
 
-                    <ListItemText>
+                    <ListItemText sx={{
+                        '& .MuiTypography-root': {
+                            fontSize: '12px',
+                        }
+                    }}>
                         <Box fontWeight={"bold"}>Login</Box>
                     </ListItemText>
                 </ListItemButton>

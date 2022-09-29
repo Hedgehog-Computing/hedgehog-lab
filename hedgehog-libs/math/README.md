@@ -37,6 +37,6 @@ Thank you!
 
 ### Community
 
-[**Discord Server**](https://discord.gg/hGhsanhJaK) 
+[**Discord Server**](https://discord.com/invite/Ty896QK3aT) 
 
 [**Twitter**](https://twitter.com/HedgehogLabHQ)

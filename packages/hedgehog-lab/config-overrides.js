@@ -51,6 +51,11 @@ module.exports = (config, env) => {
         { loader: babelLoader.loader, options: babelLoader.options },
       ],
     }),
+      addWebpackModuleRule({
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      }),
     addWebpackPlugin(new ESBuildPlugin()),
     !prod && addBabelPlugin("react-refresh/babel"),
     !prod && addWebpackPlugin(new ReactRefreshPlugin())

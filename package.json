@@ -12,7 +12,7 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "init": "lerna add @hedgehogcomputing/core --scope @hedgehogcomputing/lab",
+    "init": "lerna add @hedgehogcomputing/core --scope @hedgehogcomputing/lab --scope @hedgehogcomputing/canvas",
     "dev:web": "lerna exec --scope @hedgehogcomputing/lab yarn start",
     "build:core": "lerna exec --scope @hedgehogcomputing/core yarn build",
     "watch": "lerna run --parallel watch",

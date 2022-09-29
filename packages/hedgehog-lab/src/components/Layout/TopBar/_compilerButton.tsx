@@ -36,6 +36,7 @@ const CompilerButton = () => {
             ) : (
                 <>
                     <Button
+                        sx={{alignSelf: 'center'}}
                         variant={"contained"}
                         id={COMPILE_AND_RUN_BUTTON_ID}
                         color="primary"

@@ -61,8 +61,8 @@ const Brand = (): React.ReactElement => {
         <Box width={"100%"}>
             <ListItem>
                 <ListItemIcon onClick={handleSideBarOpen}>
-                    <IconButton>
-                        <MenuOutlined/>
+                    <IconButton sx={{height: '16px'}}>
+                        <MenuOutlined sx={{height: '16px'}}/>
                     </IconButton>
                 </ListItemIcon>
 
@@ -70,7 +70,7 @@ const Brand = (): React.ReactElement => {
                     <Link component={RouteLink} to={`/`} sx={{display: "block"}}>
                         <ListItemText sx={{display: {xs: "none", md: "block"}}}>
                             <Typography
-                                variant="h6"
+                                variant="body2"
                                 noWrap
                                 color={theme.palette.text.primary}
                                 sx={{
@@ -141,7 +141,7 @@ const TopBar = (): React.ReactElement => {
         >
             {isDevPath && <DevModeAlert/>}
 
-            <Toolbar disableGutters sx={{mr: 2}}>
+            <Toolbar disableGutters sx={{mr: 2, height: '32px', minHeight: 'inherit'}} variant={'dense'}>
                 <Box minWidth={isPhoneMedia ? '60px' : sideBarWidth}>
                     <Brand/>
                 </Box>
