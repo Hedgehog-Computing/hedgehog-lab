@@ -5,7 +5,7 @@ sidebar_position: 8
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
-# Object
+# `object`
 
 `object` is a type just like `string` is a type. 
 
@@ -19,11 +19,11 @@ Almost everything is derived from the object `object` in Hedgehog Script.
 
 Let's discuss the `constructor` for `object` - which creates objects: 
 
-- If the input is `null` or `undefined` you will get an empty `Object`. If the argument is an `object` itself it will return itself.
+- If the input is `null` or `undefined` you will get an empty `object`. If the argument is an `object` itself it will return itself.
 
 - Otherwise, the `constructor` will return an `object` of a type that corresponds to the given argument.
 
-Let's view an example of creating `Objects`:
+Let's view an example of creating `object`s:
 
  <iframe
     src="https://hlab.app/s/docs/object_hbook"
@@ -31,12 +31,12 @@ Let's view an example of creating `Objects`:
     height="400px"/>
 
 :::info
-There is no direct method to delete `Object` properties like `Map` (which has `Map.delete() ` ) for example. 
+There is no direct method to delete `object` properties like `Map` (which has `Map.delete()`) for example. 
 
 Rather, one must use the delete operator: `delete Object.property;`
 :::
 
-There are quite a few methods, static or instance, for `Object`. Let's point out some of them:
+There are quite a few methods, static or instance, for `object`. Let's point out some of them:
 
 - `Object()` - the `constructor`, takes the input and makes it an object. 
 
@@ -54,3 +54,5 @@ There are quite a few methods, static or instance, for `Object`. Let's point out
 :::tip
 If one is curious to learn more, check out [Objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) for more info.
 :::
+
+---

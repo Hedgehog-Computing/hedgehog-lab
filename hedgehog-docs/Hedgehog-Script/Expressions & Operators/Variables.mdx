@@ -6,21 +6,20 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
 #  Variables
-You can define variable and constant in this way:
+
+One can define variable and constant in this way:
 
 - With Hedgehog Script you can use the keyword `let` for a variable, for example, `let x = 10;`
 
-- You can also define a variable without a keyword, for example, `x = 10;`
+- For constants, you can use keyword `const`, for example, `const x = 10`
 
-- Lastly, for constants, you can use keyword `const`, for example, `const x = 10`
-
-    - `const` means constant as the variable can't change
+    - `const` means constant as the variable can't change or be redeclared
 
 :::warning
 
 Do not define variables with no keyword, this is the same as saying `var variableName = value`
 
-Regarding `var`, it shouldn't be used! 
+And regarding `var`, it should **never** be used!
 
 :::
 
@@ -41,15 +40,20 @@ One can also declare multiple variables quickly, in one line:
 
 :::caution
 
-Declare variables at the top of the scope they're used.
+Declare variables at the top of the scope they're used in.
 
-And certainly declare them before intializing them (hoisting not supported)
+And certainly declare them before intializing them.
+
 :::
 
 <p>&nbsp;</p>
 
 :::tip
-This was a brief introduction. For more detailed information visit: [Variables (let) - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [Variables (const) - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
+
+For more detailed information visit: [Variables (let) - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) and [Variables (const) - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const)
+
 :::
+
+---
 
 

@@ -29,10 +29,13 @@ The left hand sidebar shows the topics. Namely:
 
 Here are the basic topics we've selected: 
 
-- [Expression & Operators](./Expressions%20%26%20Operators/Operators%20and%20Expressions.mdx)
-- Expressions & Operators, Statements & Declarations, Built-in Objects, Functions and lastly, Classes.
+- [Expression & Operators](/Expressions%20%26%20Operators/Expressions%20%26%20Operators.md)
+- [Statements & Declarations](/Statements%20and%20Declarations/Declarations.mdx)
+- [Built-In Objects](/Built-In%20Objects/Basic%20Types.mdx)
+- [Functions](/Functions/Functions.mdx)
+- [Classes](/Classes/Classes.mdx)
 
-  - Within each topic will be chapters discussing specific things related to the topic
+- Within each topic will be chapters discussing specific things related to the topic
 
 **Let's first start with the classic example:**
 

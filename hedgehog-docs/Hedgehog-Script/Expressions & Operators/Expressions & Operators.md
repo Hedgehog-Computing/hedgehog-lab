@@ -35,14 +35,15 @@ Here is an example of some:
  <iframe
     src="https://hlab.app/s/docs/operator_hbook"
     width="100%"
-    height="500px"
-  ></iframe>
+    height="500px"/>
 
 Try using others operators or expressions yourself by editing the left-hand side of the Hedgehog Lab environment!
 
 :::tip
 
-Please note this is a brief introduction.
+This is just a brief introduction.
 
-Again, to find more detailed information, and a list of all built-in operators/expressions, visit: [Ops & Expressions - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators)
+To find more detailed information, and a list of all built-in operators/expressions, visit: [Ops & Expressions - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators)
 :::
+
+---

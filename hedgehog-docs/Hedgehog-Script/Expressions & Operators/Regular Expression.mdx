@@ -7,9 +7,9 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Regular Expressions
 
-`RegExp` is a powerful object that matches text to a pattern.
+`RegExp` is a powerful `object` that matches text to a pattern.
 
-There are two ways to create said object:
+There are two ways to create said `object`:
 
 - 1) Literal notation - pattern and/or options enclosed by `/ /`
 
@@ -21,7 +21,7 @@ The following 3 expressions create the same exact regular expression object:
  <iframe
     src="https://hlab.app/s/docs/regexp_hbook"
     width="100%"
-    height="600px"/>
+    height="400px"/>
 
 :::info
 
@@ -39,6 +39,8 @@ Let's breakdown the regular expression `/ab+c/`:
 
 A great example is `/be+/`:  'bee', 'bent', 'bear' are all matches.
 
+---
+
 ### Character classes and Anchors
 
 A **character class** matches any one set of characters. 
@@ -53,7 +55,7 @@ Here are some examples:
 
 - `\w` matches any word character - "V", "e", "2", "0", **not "."** in "Ve2.0"
 
-**Anchors** cause a match to suceed or fail based on the **current position in the string**.
+**Anchors** cause a match to succeed or fail based on the **current position in the string**.
 
 They don't cause advancement through the string or consume characters.
 
@@ -66,8 +68,13 @@ Here's a few examples:
 - `\b` match must occur on a boundary between a word character and a non-word character
 
 :::tip
-This is a very brief introduction - to learn more about:
 
-  - character classes, anchors, and regular expressions in general visit: [RegExp - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions). 
+`RegExp` can be an extremely powerful tool, but it may be complicated at first. 
+
+If you wish to learn more about
+
+  - If you wish to learn more about character classes, anchors, and regular expressions in general, visit: [RegExp - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions). 
 
 :::
+
+---

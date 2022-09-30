@@ -2,7 +2,134 @@
 sidebar_position: 3
 ---
 
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
 # Loop Statements
 
-//for loop do {} while while {} continue, break
+When needing to do a task multiple times, it's common to use a **loop statement**.
+
+These are statements that create a cyclic execution of code until a *condition is met*.
+
+Some examples are `for`, `do {} while` and `while{}`. 
+
+- Within these, `break;` and `continue;` can be used.
+
+---
+
+## `for` Statement
+
+A `for` loop repeats until the **specified condition** evaluates to `false`. 
+
+The Hedgehog Script loop statement using `for` has this syntax:
+
+```js
+for ([initialExpression]; [condition]; [incrementExpression]) {
+
+  statementList 
+}
+```
+
+The loop will keep going until the expression makes the condition **false**.
+
+:::info
+
+It is common to use `let i = 0;` as the `initialExpression`, and `i++;` as the `incrementExpression`
+
+:::
+
+Here is an example:
+
+<iframe src="https://hlab.app/s/docs/control2_hbook"
+    width="100%"
+    height="200px"/>
+
+---
+
+## `while` & `do-while` Statements
+
+The statements `while` and `do-while` are both loops that are almost the same.
+
+The minor difference is when the *condition* is checked:
+
+- In a `while` loop the condition is checked at the beginning
+
+- Versus a `do-while` loop it is checked at the end
+
+### `while`
+
+The `while` loop executes a statement list as long as the test condition evaluates to **`true`**.
+
+The condition is evaluated **before** executing the statements.
+
+Here is the syntax for `while` loop statements:
+
+```js
+while (condition) {
+
+  statementList
+
+}
+```
+### `do-while`
+Identically, the `do-while` loop runs as long as the test condition evaluates to **`true`**.
+
+However, the condition is evaluated **after** executing the statement list.
+
+Here is the syntax for `do-while` statement:
+
+```js
+do {
+   statementList
+}
+while (condition);
+```
+
+Here are examples for `while` and `do-while` loops in Hedgehog Script:
+
+<iframe src="https://hlab.app/s/docs/control3_hbook"
+    width="100%"
+    height="500px"/>
+
+---
+
+## `break;` & `continue;`
+
+Within all three of these loops, the statements `break;` and `continue [label];` can be used.
+
+In a loop context, `break;` causes the execution to **immediately halt** and **exit** the loop.
+
+- It can be useful for throwing errors among other things
+
+On the otherhand, `continue;` statements in a loop context can do two things:
+
+- Normally when called by itself "`continue;`" will instead immediately **skip** the current loop iteration. 
+
+- However, `continue;` can also be used with the optional `label` (i.e. `continue label1;`)
+    
+    - Whereever that `label` is located is where control flow will jump to. 
+
+Here is an example of both versions of `continue [label];` being used:
+
+<iframe
+    src="https://hlab.app/s/docs/continueex1_hbook"
+    width="100%"
+    height="700px"/>
+
+And here is an example of `break;`
+
+<iframe
+    src="https://hlab.app/s/docs/breakex1_hbook"
+    width="100%"
+    height="650px"/>
+
+---
+
+:::tip
+
+For more resources on loops visit [Control Flow - MDN](https://developer.mozilla.org/en-US/docs/Glossary/Control_flow)
+
+:::
+
+--- 
+
 

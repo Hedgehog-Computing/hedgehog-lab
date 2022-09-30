@@ -9,15 +9,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 A `Set` is an object available as a data structure. 
 
-- It has similarities and differences relative to `Map` and `Object`. 
+- It has similarities and differences to `Map` and `Object`. 
 
     - `Map` resemble `Set` the most.
 
 `Set` stores **unique** values - which can be virtually anything. 
 
-:::note
-Compared to mathematical sets, `Sets` in Hedgehog Script **must** have unique values with no duplication.
+:::info
+Compared to mathematical sets, a `Set` in Hedgehog Script **must** have unique values with no duplication.
 :::
+
+Here is an example of using `Set`:
 
  <iframe
     src="https://hlab.app/s/docs/simple_set_example"
@@ -29,14 +31,14 @@ One can iterate through a `Set` in insertion order just like a `Map`.
 The way to add new elements to a `Set` is using `add()`. 
 
 
-Any implementation of a `Set` is required to be, on average, sub-linear access times. 
+Any implementation of a `Set` is required to have, on average, sub-linear access times. 
 
 :::info
 <MathJaxContext>
 <MathJax>
-<p> That is, just like maps, internally they can be like a hash table with <span>{ "\\(\\Omega(1)\\)" }</span> lookup time.</p>
+<p> Just like maps, internally they can be like a hash table with <span>{ "\\(\\Omega(1)\\)" }</span> lookup time.</p>
 
-<p>Then a search at <span>{ "\\(\\Omega(\\log(N))\\)" }</span> time, and anything else better than <span>{ "\\(\\Omega(N)\\)" }</span> time. </p>
+<p>Then a search at <span>{ "\\(\\Omega(\\log(N))\\)" }</span> time, and anything else (as long as its better than) with less than <span>{ "\\(\\Omega(N)\\)" }</span> time. </p>
 </MathJax>
 </MathJaxContext>
 :::
@@ -65,7 +67,7 @@ Some examples of using the `Set` object:
  <iframe
     src="https://hlab.app/s/docs/setMethod1_hbook"
     width="100%"
-    height="900px"/>
+    height="600px"/>
 
 :::tip
 That was a long example! One thing to note is the last function: 
@@ -103,4 +105,4 @@ A really good use of `Sets` is their ability to remove duplicate elements in `Ar
 Just transform the `Array` to a `Set` and then the `Set` back into an `Array`.
 :::
 
-
+---

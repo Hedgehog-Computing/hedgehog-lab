@@ -1,11 +1,8 @@
----
-    sidebar_position: 9
----
 # Contribution 
 
-Thank you for reading this book!
+*Thank you for reading this book!*
 
-### Contribute to this book
+### Contributing to this book
 
 1.  Fork and `git clone` the repository at [https://github.com/Hedgehog-Computing/hedgehog-lab](https://github.com/Hedgehog-Computing/hedgehog-lab)
 
@@ -32,6 +29,8 @@ yarn build
 ```
 
 4.  Commit and submit pull request
+
+---
 
 ### Basic features about the book
 
@@ -76,7 +75,9 @@ Add an iframe element with the source being your snippet link:
     height="600px"\>
 ```
 
-### We appreciate your time and the community.
+---
+
+## We appreciate your time and the community.
 
 
 **Contributors:**
@@ -85,7 +86,4 @@ Add an iframe element with the source being your snippet link:
 
 - Jason Reynolds  [ ![GithubIcon](../static/img/githubIcon_32x32.png)](https://github.com/Gaoooooo) **GitHub**
 
-
-
-
-
+---

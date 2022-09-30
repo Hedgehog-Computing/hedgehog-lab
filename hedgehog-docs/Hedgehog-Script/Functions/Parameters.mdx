@@ -7,8 +7,6 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # Parameters
 
-### Default Parameters
-
 Parameters are named variables, passed into a function, and are used to **import** the arguments into functions. 
 
 Effectively, arguments are **realized** parameters through a function call.
@@ -23,13 +21,13 @@ An example:
 
 Here are some key differences between parameters and arguments:
 
+- Function parameters are the names listed in the function's definitions
 
-- Function parameters are the names listed in the function's definitions. (parameter1 in our case above)
-
-- Function arguments are the actual values passed to the function. 
-    - (variable argument1 (const 50) is a parameter that becomes an argument)
+    - Function arguments are the actual values passed to the function. 
 
 - Arguments are set to the values of the parameters supplied. 
+
+- An `arguments` object exists but there is no equivalent for parameters.
 
 :::info
 
@@ -39,17 +37,34 @@ Arguments can't exist without parameters.
 
 :::
 
-An important feature regarding parameters is the 2 versions: 
+Parameters have two versions but we will only discuss one, as the second is not good practice:
 
-- Input parameters (most common kind; pass values into functions)
+- Input parameters (pass values into functions)
 
-- Output/return parameters (primarily return multiple values from a function)
+---
 
-    - Not recommended as they can cause confusion
+### Default Parameters
+
+What happens if a user doesn't fill all parameters? What if you **want** it to be *variable* in size?
+
+That is when default parameters come into play:
+
+- In the function definition, just add `=value` as a suffix to a parameter and you have a default parameter!
+
+- This means that if none is provided, the parameter will be set to `value` from above.
+
+Here's an example:
+
+<iframe
+    src="https://hlab.app/s/docs/defaultparamex1_hbook"
+    width="100%"
+    height="300px"/>
+
+---
 
 ### Rest Parameters
 
-What's the difference between **default parameter** and a **rest parameter**?
+What's the difference between a **default parameter** and a **rest parameter**?
 
 - **Default parameters** allow named parameters to be initialized with default values
 
@@ -75,6 +90,8 @@ It also allows quite a bit of flexibility in function definitions. Here is anoth
     width="100%"
     height="500px"/>
 
+<p>&nbsp;</p>
+
 One can also mix normal **and** default parameters with rest parameters, for the most flexible function definitions:
 
 <iframe
@@ -86,22 +103,7 @@ One can also mix normal **and** default parameters with rest parameters, for the
 
 Only one rest parameter is allowed in a function, and it must be the last parameter in the definition.
 
+Also, one can access the length of restParams easily: `{restParamName}.length;`
 :::
 
-There are a few technical differences between rest parameters and the argument object which should be mentioned:
-
-
-- The arguments object is not a real `Array`, while rest parameters are `Array` instances.
-
-- The arguments object has additional functionality specific to itself like the callee property for example. 
-
-- The `...restParam` bundles all extra parameters into one array.
-
-    - On the other hand, arguments object contains ALL the parameters - including the parameters in `...restParam`, all in one.
-
-
-:::info
-
-Access the length of restParams easily: `{restParamName}.length;`
-
-:::
+---

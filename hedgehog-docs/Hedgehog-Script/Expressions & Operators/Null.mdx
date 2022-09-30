@@ -7,11 +7,13 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 # `null`
 
-`null` is simple - it is a primitive type meaning 'non-existent'.
+`null` is a primitive type meaning 'non-existent'.
 
-It's responsibility is to represent the intentional absence of any object value. 
+Its responsibility is to represent the intentional absence of any object value. 
 
-`null`, unlike `undefined`, is not an identifier for a property of the global object. Instead, `null` expresses a lack of identification.
+`null`, unlike `undefined`, is not an identifier for a property of the global object. 
+
+- Instead, `null` expresses a lack of identification.
 
 The other way to think about `null` is that a `null` variable points to no object.  
 
@@ -26,10 +28,11 @@ Let's view an example, specifically initialization:
 
 :::caution
 
-In the following example we use `===` to learn about `null`. 
-
 While `==` differs from `===` (equality vs identity), **only identity (`===`) is allowed.**
+
 :::
+
+In the following example we use `===` to learn about `null`. 
 
 <p>&nbsp;</p>
 
@@ -43,5 +46,7 @@ While `==` differs from `===` (equality vs identity), **only identity (`===`) is
 :::tip
 Overall, be aware of `null` and learn where they can show up. Use `try...catch` blocks to handle them. 
 
-Lastly, it's good to understand the differences between `null`, `undefined`, and `NaN`.
+It's also good to understand the differences between `null`, `undefined`, and `NaN`.
 :::
+
+---

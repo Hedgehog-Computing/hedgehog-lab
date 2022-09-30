@@ -26,6 +26,24 @@ const sidebars = {
     },
   ],
    */
+  /*sidebar: [
+    {
+      type: 'category',
+      label: 'Hedgehog-Script',
+      items: [
+        {
+          type:'doc',
+          id:'introduction',
+          label:'Introduction',
+        },
+        {
+          type: 'doc',
+          id: 'statementsdeclarations',
+          label: 'Statements & Declarations',
+        }
+      ],
+    },
+  ],*/
 };
 
 module.exports = sidebars;
