@@ -10,16 +10,17 @@ Here is an overall view of the Hedgehog Computing Project.
 
 ---
 
-#### A Programming Environment inside a Browser
+### A Programming Environment inside a Browser
 
-Most of the programming languages 
+No installation or package management is required. Just open a browser and start coding, with a full-featured programming environment. Hedgehog Lab will execute and configure everything automatically. Hedgehog Lab is a web-based programming environment that runs in a browser, includes a text editor, a compiler, and an output window.
+
 
 ---
 
 
-#### Built on top of JavaScript, easy to learn
+### **Hedgehog Script**: Built on top of JavaScript, easy to learn
 
-In Hedgehog Script, most of the basic syntax and features are similar to the JavaScript. Variable and expressions, functions, classes, modules, etc. are all the same. The only difference is that Hedgehog Script supports operator overloading for Matrix and Vector, which makes it easier to write linear algebra, statistics and machine learning code.
+In **Hedgehog Script**, most of the basic syntax and features are similar to the JavaScript. Variable and expressions, functions, classes, modules, etc. are all the same. The only difference is that Hedgehog Script supports operator overloading for matrix, vector and symbolic computing, which makes it easier to write linear algebra, statistics and machine learning code.
 
 Here is an exmaple:
 
@@ -36,43 +37,11 @@ To write snippets or scripts in Hedgehog Lab, you will need to understand some b
 - Packages and modules
  
 
-This is what 'Hedgehog Script' covers and gives examples of. There are many other topics that can be used in your scripts, and you can learn about them from MDN: [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+This is what **Hedgehog Script** covers and gives examples of. There are many other topics that can be used in your scripts, and you can learn about them from MDN: [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
 ---
 
-Hedgehog lab is a tool to run, compile, and execute JavaScript for Scientific Computing, Data Analysis, and Data Visualization TOTALLY in your browser. It's an open source scientific computing environment for JavaScript, again, completely in your browser, with matrix operation and many other math functions that are supported by GPU acceleration, TeX support, and symbolic computation.
-
-Community of Hedgehog: Scientific Computing, Data Visualization, Machine Learning, Optimization, Algebra & GPU Acceleration in JavaScript.
-
-Basically, you can run mathematical analysis, matrix operations, data visualization and more on just your browser with JavaScript.
-
-To understand how to do this we're going to cover these topics in the following manner: 
-<ul><li>Getting Started & Hedgehog Lab </li>
-      <li>Hedgehog Script</li>
-      <li>Math library </li>
-      <li>Plot library </li>
-</ul>
-
-
-
-## Getting Started
-
-<iframe src="https://hlab.app/s/docs/helloworld_hbook" width="100%" height="500px" />
-
-Notice the variety of buttons you can press and the two screens you have presented to you. Let's cover them quickly. On the **top left** you can access the snippet bar/snippet access, where you can create new snippets, explore and find other snippets, view your timeline (people you follow and their snippets), your current snippets and your profile. Note that snippets are basically scripts. 
-
-The central button at the top is deciding if it's in LiveMode or not. If it's not, you have to click 'Run' on the **top right** each time you want to execute code. Otherwise, you may write and run code continuously using LiveMode. If you ever run into a problem, refresh the page. 
-
-The other buttons are 'Fullscreen' for fullscreen access to the output screen (right hand screen). 'Book' for access to this book you're reading! 'Discord' for the official Hedgehog Community Discord. 'Github' for the official Hedgehog Lab GitHub repo, if you want to view or contribute to this open source project and lastly, 'Run' which executes the code on the left screen.
-
-As implied, the two screens, left and right, are code (input) on the left and output on the right.
-
-## Hedgehog Script
-
-
-
-
-## Math & Plot
+### Math, Linear Algebra, Statistics and Machine Learning
 
 Math and Plot are both **reference libraries** of functions for math, and plot respectively. They are on the top navigation bar in this book. Later we will include more books such as machine learning, put plot into data visualization, and more.
 
