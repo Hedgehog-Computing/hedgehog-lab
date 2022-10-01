@@ -1,0 +1,32 @@
+---
+sidebar_position: 5
+---
+
+# Browser Requirements
+
+We support the latest versions of **Chrome**, **Safari**, **Microsft Edge**, **Brave** and any browsers with a **Chromium**-based core. Firefox is not supported at this time. But before you start, make sure you have the latest version of your browser.
+
+### GPU Acceleration
+
+Make sure WebGL and/or WebGL2 is enabled in your browser. You can check this by going to [https://webglreport.com/](https://webglreport.com/). If WebGL is not enabled, you will see a red warning. If WebGL is enabled, you will see a green checkmark.
+
+Also you can check the performance of following benchmark script. If the benchmark of GPU is faster than CPU, WebGL is enabled.
+
+---
+
+<iframe src="https://hlab.app/s/docs/gpu_acceleration_demo_1"
+    width="100%"
+    height="300px">
+</iframe>
+
+---
+
+If not enabled, please enable it. If you are using Chrome, you can enable it by going to `chrome://flags/#ignore-gpu-blacklist` and enable the flag. If you are using Safari, you can enable it by going to `Safari > Preferences > Advanced > Show Develop menu in menu bar` and enable `WebGL 2.0`.
+
+![WebGL Config](/img/browser_requirements_webgl.jpg)
+
+---
+
+### Local Storage and Cookies
+
+Make sure your browser allows local storage and cookies. You can check this by going to [https://browserleaks.com/localstorage](https://browserleaks.com/localstorage). If local storage and cookies are not enabled, you will see a red warning. If local storage and cookies are enabled, you will see a green checkmark.

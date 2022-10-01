@@ -4,12 +4,41 @@ sidebar_position: 1
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-
 # Quickbook
 
-This is a quick guide that covers all the material on how to use hedgehog lab, hedgehog script and the libraries. It's a maximum read of 5 minutes and should help you get started quickly if you want to avoid going over the various topics.
+Here is an overall view of the Hedgehog Computing Project.
 
-## Introduction 
+---
+
+#### A Programming Environment inside a Browser
+
+Most of the programming languages 
+
+---
+
+
+#### Built on top of JavaScript, easy to learn
+
+In Hedgehog Script, most of the basic syntax and features are similar to the JavaScript. Variable and expressions, functions, classes, modules, etc. are all the same. The only difference is that Hedgehog Script supports operator overloading for Matrix and Vector, which makes it easier to write linear algebra, statistics and machine learning code.
+
+Here is an exmaple:
+
+<iframe src="https://hlab.app/s/docs/quickbook_demo_1"
+    width="100%"
+    height="500px">
+  </iframe>
+
+To write snippets or scripts in Hedgehog Lab, you will need to understand some basic JavaScript/TypeScript. This includes but is not limited to: 
+- Variables and expressions
+- Control flow
+- Functions
+- Classes
+- Packages and modules
+ 
+
+This is what 'Hedgehog Script' covers and gives examples of. There are many other topics that can be used in your scripts, and you can learn about them from MDN: [https://developer.mozilla.org/en-US/docs/Web/JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+
+---
 
 Hedgehog lab is a tool to run, compile, and execute JavaScript for Scientific Computing, Data Analysis, and Data Visualization TOTALLY in your browser. It's an open source scientific computing environment for JavaScript, again, completely in your browser, with matrix operation and many other math functions that are supported by GPU acceleration, TeX support, and symbolic computation.
 
@@ -40,19 +69,7 @@ As implied, the two screens, left and right, are code (input) on the left and ou
 
 ## Hedgehog Script
 
-To write snippets or scripts in Hedgehog Lab, you will need to understand some basic JavaScript/TypeScript. This includes but is not limited to: 
-<ul><li>Arrays</li>
-      <li>Control Flow</li>
-      <li>Strings</li>
-      <li>Variables</li>
-      <li>Classes</li>
-      <li>Functions</li>
-      <li>The Mat Object</li>
-</ul>
 
-This is what 'Hedgehog Script' covers and gives examples of. There are many other topics that can be used in your scripts, and you can learn about them here: https://www.typescriptlang.org/docs/handbook/typescript-from-scratch.html (TypeScript)
-
-or here: https://developer.mozilla.org/en-US/docs/Web/JavaScript (JavaScript)
 
 
 ## Math & Plot
