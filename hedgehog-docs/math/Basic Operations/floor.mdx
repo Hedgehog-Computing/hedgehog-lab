@@ -1,17 +1,16 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
-#### `floor(input: Number | any[] | Mat | Tensor) : Number | any[] | Mat | Tensor[]`
+#### `floor(dataIn: number | any[] | Mat | Tensor) : number | any[] | Mat | Tensor`
 
-**param** `input` - the construct to find the floor of its numbers, element-wise. 
+**param** `dataIn` - the construct to find the floor of its numbers, element-wise. 
 
-**returns:** `Number | any[] | Mat | Tensor` - The construct with the elements reflected as their floor values
+**returns:** `number | any[] | Mat | Tensor` - The construct with the elements reflected as their floor values
 
-The floor of a number is the closest INTEGER below that number. For example, the closest integer below 5 is, well, 5. The closest integer below 5.9 is 5. The closest below 6.0001 is 6. And so on. This function takes in a number, list, matrix, Mat or Tensor and finds the floor of all elements and returns the input construct with all the elements now being the floor elements. 
+The floor of a number is the closest **integer** below that number. For example, the closest integer below 5 is, well, 5. The closest integer below 5.9 is 5. The closest below 6.0001 is 6. This function takes in a `number`, list, matrix, `Mat` or `Tensor` and finds the floor of all elements and returns the `dataIn` construct with all the elements now being the floor elements. 
 
 
 
 <iframe src="https://hlab.app/s/docs/hbook_floor"
     width="100%"
-    height="500px">
-</iframe>
+    height="500px"/>

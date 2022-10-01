@@ -1,0 +1,15 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `cholesky(matrix: any[] | Mat) : any[]`
+
+**param** `matrix` - The matrix to decompose using the Cholesky method. Needs to be symmetric (hermitian) and positive definite (if the number `z^T*M*z > 0` for every non-zero column vector z for `M=input`, but one can ignore these details).
+
+**returns:** `any[]` - An object holding the matrix `L` from the decomposition `L*L^T = matrix`. Accessed via `{result}.L`.
+
+This function decomposes a positive definite, symmetric (hermitian) matrix using the Cholesky method. It return and object with member `L`, where `L` is part of the decomposition, `L*L^T = A` where `A` would be the input. If the input is not positive definite an exception will be thrown. 
+
+
+<iframe src="https://hlab.app/s/docs/cholesky_hbook"
+    width="100%"
+    height="500px"/>

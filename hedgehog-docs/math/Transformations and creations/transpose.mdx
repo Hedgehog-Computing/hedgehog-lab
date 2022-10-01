@@ -1,16 +1,16 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-#### `transpose(input: any[] | Mat): any[]`
+#### `transpose(matrix: any[] | Mat): any[]`
 
-**param** `input` A matrix to transpose. Should be square.
+**param** `matrix` - The `Array` or `Mat` to get the transpose of. Should be square and 2 dimensional.
 
-**returns:** `any[]` - A matrix that is the transpose of `input`. Note to do a transpose one must have a square matrix (2d)
+**returns:** `any[]` - An `Array` that is the transpose of `matrix`.
 
-This function simply gives the transpose of the `input` matrix, which should be a two-dimensional, square matrix: (recall a transpose is the rows and columns switched)
+This function returns a new matrix that is the transpose of `matrix`, which should be a 2-D, square matrix. 
 
+A transpose of a matrix is the resulting matrix when you swap the rows and columns.
 
 <iframe src="https://hlab.app/s/docs/hbook_transpose"
     width="100%"
-    height="500px">
-  </iframe>
+    height="500px"/>

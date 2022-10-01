@@ -1,0 +1,20 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `is_missing(matrix: any[] | Mat | Tensor) : any[] | Mat | Tensor`
+
+**param** `matrix` - the `Array`, `Mat`, or `Tensor` where you want to find a missing element(s).
+
+**returns:** `any[] | Mat | Tensor` - A copy of `matrix`, where each element is '1' if missing, '0' if not.
+
+This function effectively takes your input, which is a `Mat`, `Tensor` or `Array`, and if it has a missing value in that entry it puts a '1' in that entry. If it is not a missing value, it sets it to '0'. So you get returned a corresponding structure of what you put in `matrix` with 0's and 1's, where 1's represent missing elements and 0's otherwise. 
+
+Note that `NaN`, `null`, `''` and `undefined` are defined to be missing but `[]` and `{}` are not.
+
+This is useful for **knowing** where the missing elements are but not having an effect on them yet. 
+
+
+
+<iframe src="https://hlab.app/s/docs/is_missing_hbook"
+    width="100%"
+    height="500px"/>

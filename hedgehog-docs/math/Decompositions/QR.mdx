@@ -1,0 +1,15 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `QR(matrix: any[] | Mat) : any[]`
+
+**param** `matrix` - The matrix to be decomposed using the QR method. Needs to be a square matrix.
+
+**returns:** `any[]` - An object holding the matrices `Q` and `R`. Access them via `{result}.Q`
+
+This function decomposes a square matrix using the QR method, where Q is an orthogonal matrix and R is an upper triangular matrix. Note that an orthogonal matrix is one where the rows and columns are orthonormal vectors which is satisfied by Q^TxQ = QxQ^T = I, where I is identity). Knowing when one decomposition is better than the other is key to saving time and being efficient with data.
+
+
+<iframe src="https://hlab.app/s/docs/QR_hbook"
+    width="100%"
+    height="500px"/>

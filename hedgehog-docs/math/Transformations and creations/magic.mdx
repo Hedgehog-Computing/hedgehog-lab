@@ -1,17 +1,16 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
-#### `magic(input: Number) : Mat`
+#### `magic(size: number) : Mat`
 
-**param** `input` - the number being the size of the square magic matrix. If input = 4, it'll generate a 4x4 magic matrix.
+**param** `size` - the `number` representing the size of the square magic matrix (dimension-wise). If `size = 4`, it'll generate a 4x4 "magic matrix".
 
-**returns:** `Mat` - a Mat of size input x input, with the magic properties imbued making it a magic matrix. 
+**returns:** `Mat` - a `Mat` of dimenions `size x size`, with the magic propeerties imbued making it a magic matrix. 
 
-This function creates a magic matrix given a number, the size of the matrix to make. A magic matrix is one where the rows, columns, and main diagonals sum up to the same values. Naturally, the matrix is square. An example is given in the section below. Try it out for different inputs. 
+This function creates a magic matrix given a number, the size of the matrix to make. A magic matrix is one where the rows, columns, and main diagonals sum up to the same values. The magic matrix is square. An example is given in the section below. Try it out for different sizes. 
 
 
 
 <iframe src="https://hlab.app/s/docs/hbook_magic"
     width="100%"
-    height="500px">
-</iframe>
+    height="500px"/>

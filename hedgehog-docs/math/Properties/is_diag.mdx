@@ -1,0 +1,14 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `is_diag(matrix: any[] | Mat) : boolean`
+
+**param** `matrix` - an `Array` or `Mat` to check if it's diagonal or not. 
+
+**returns:** `boolean` - `true` if diagonal, `false` otherwise
+
+A diagonal matrix is similar to the identity matrix but the diagonal entries are free to have any number in them (unlike identity which has all 1's on the diagonal) and 0's elsewhere. Connected concepts are the upper triangular and lower triangular matrices which are also within this book. This function specifically takes in any 2-D `Array` or `Mat` object as an input and determines whether it's diagonal or not.
+
+<iframe src="https://hlab.app/s/docs/hbook_is_diag"
+    width="100%"
+    height="500px"/>
