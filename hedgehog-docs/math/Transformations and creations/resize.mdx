@@ -1,5 +1,13 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `resize`
+
+Resizes the matrix to the given sizes in a smaller matrix.
+
+---
+
+## Syntax
+
 #### `resize(matrix: any[] | Mat | Tensor, sizes: any[], defaultValue : number) : any[] | Mat | Tensor`
 
 **param** `matrix` - an `Array`, `Mat` or `Tensor` - the construct to be resized
@@ -10,9 +18,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns** - `any[] | Mat | Tensor` - a resized `Array`, `Mat` or `Tensor` with the corresponding size given in `sizes`
 
+---
+
+## Description
+
 `sizes` should be something like `[2, 2, 2]` or `[2, -1]`. Here, -1 means automatically matching.
 
 `resize` and `reshape` are very similar. Here is an example for clarity:
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/resize_book"
     width="100%"

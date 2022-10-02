@@ -1,5 +1,12 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `shape`
+
+Gives the `shape` of the matrix, which is the size of each dimension.
+
+---
+
+## Syntax
 
 #### `shape(matrix: any[] | Mat | Tensor) : any[]`
 
@@ -7,9 +14,15 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
  
 **returns:** `any[]` - A row vector specifying the shape. And in the row vector, the numbers in each index represent the length of each dimension. For example a return value of [3,4] means the shape of the construct was a 3x4 matrix. A return value of [10] means it has 1 dimension of size 10. That is a list with 10 elements.
 
+---
+
+## Description
+
 This function gives us the `shape` of various constructs whatever dimensions they have. The shape is a row vector that informs us of the lengths of each dimension of said construct. Another example is if it was a tensor with 5 dimensions, where dimension 1 had 3 rows, dimension 2 had 4 columns, dimension 3 had height 3, dimension 4 had length 2, and dimension 5 had length 4, we would have a shape of [3,4,3,2,4].
 
+---
 
+## Example
 
 <iframe src="https://hlab.app/s/docs/hbook_shape"
     width="100%"

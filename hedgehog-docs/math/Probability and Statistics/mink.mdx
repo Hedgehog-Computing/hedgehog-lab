@@ -1,5 +1,12 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `mink` 
+
+Gives the `k` minimum elements  from the matrix in the form of a sub-matrix.
+
+---
+
+## Syntax
 
 #### `mink(matrix: any[] | Mat, k: number, dim: number) : any[] | Mat`
 
@@ -9,11 +16,19 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **param** `dim` '1' | '2' - the direction you want to find the smallest elements for 2-D matrices. Default is `dim=1`. `dim=1` means column and `dim=2` means row. This is needed because the user may want to differentiate rows and columns, and only find the smallest say, 2, elements in a 3x3 matrix in the direction of columns only. 
 
-**returns:** `any[] | Mat` - If 'A' is a matrix, it will return a matrix whose columns or rows contain the k smallest elements of each columns or rows of A (based on the parameter `dim`), returned as a `Mat`. If it is a list, it'll return a list containing the k smallest elements of that list.
+**returns:** `any[] | Mat` - a submatrix (`Array` or `Mat`) 
 
-This function effectively returns the k smallest elements in the form of an `Array` (or list for the list case). And for a matrix, you have to provide it a dimension (default is `dim = 1`, column), it will return the `k` smallest elements in each column of A, as a new matrix. It's similar to `min()` where it returns the smallest values, but can returns more now, specified by the parameter `k`. 
+---
+
+## Description
+
+If 'A' is a matrix, it will return a matrix whose columns or rows contain the k smallest elements of each columns or rows of A (based on the parameter `dim`), returned as a `Mat`. If it is a list, it'll return a list containing the k smallest elements of that list.(or list for the list case). And for a matrix, you have to provide it a dimension (default is `dim = 1`, column), it will return the `k` smallest elements in each column of A, as a new matrix. It's similar to `min()` where it returns the smallest values, but can returns more now, specified by the parameter `k`. 
 
 Here is an example to clarify:
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/hbook_mink"
     width="100%"

@@ -1,15 +1,31 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `ndim`
+
+Number of dimensions.
+
+---
+
+## Syntax
+
 #### `ndim(dataIn: any[] | Mat | Tensor | number) : number`
 
 **param** `dataIn` - an `Array`, `Mat` or `Tensor` or even a `number`.
 
 **returns:** `number` - Representing the dimension of the structure. 
 
+---
+
+## Description
+
 This function is quite useful as it can handle different cases when size matters. It determines the number of dimensions of a structure. For example, a vector is 1 dimensional. A 2-D array is 2 dimensional. A 3-D `Array` or 3-D `Tensor` has 3 dimensions and so on. A `number` has 0 dimensions.
 
 Note that this is returning the **number** of dimensions, not the dimensions themselves. So for a matrix of size 3x4, it has 2 dimensions - rows and columns. Thus `ndim=2`, the size of 3x4 doesn't matter in this function.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/ndim_hbook"
     width="100%"

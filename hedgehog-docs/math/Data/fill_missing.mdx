@@ -1,5 +1,12 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `fill_missing`
+
+What to fill the missing values with and how.
+
+---
+
+## Syntax
 
 #### `fill_missing(matrix: any[] | Mat | Tensor, content: number | any[] | Mat | Tensor, method: string) : any[] | Mat | Tensor`
 
@@ -11,10 +18,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns:** `any[] | Mat | Tensor` - copy of the input with the missing values filled
 
+---
+
+## Description
+
 This function fills the empty entries in an `Array`, `Mat` or `Tensor`. However there are nuances to it. First, you can decide what it fills it with by setting the `content` parameter. Do you want it to put in, say -1's for each missing entry? Or do you want it to put in a 2-D matrix in each missing entry? (You would then have a larger matrix as a return value). There's also the `method` parameter. Do you want to always fill missing entries with `content`? For example, every single missing entry gets filled by `content = -1`? Or do you want to set `method = "previous"` so that the missing entry uses the previous value of `matrix`?
 
 Below are some examples of various usages of the parameters:
 
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/fill_missing_hbook"
     width="100%"

@@ -1,5 +1,12 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `smooth`
+
+Smooths data.
+
+---
+
+## Syntax
 
 #### `smooth(matrix: any[] | Mat | Tensor, dim: number) : any[] | Mat | Tensor`
 
@@ -9,6 +16,10 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns:** `any[] | Mat | Tensor` - a copy of the input with the elements smoothed.
 
+---
+
+## Description
+
 This function smooths the data by the following method: 
 
 `a[i] -> (a[i - 2] + a[i - 1] + a[i] + a[i + 1] + a[i + 2]) / 5`
@@ -16,6 +27,10 @@ This function smooths the data by the following method:
 An example to make it clearer is shown below. It's useful for cases where the data is very noisy in large data sets, or where there are many outliers. 
 
 Overall it tries to make the data all "closer" together, or less eratic. 
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/smooth_hbook"
     width="100%"

@@ -1,5 +1,12 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `missing`
+
+Adds extra missing space.
+
+---
+
+## Syntax
 
 #### `missing(matrix: any[] | Mat | Tensor, dim: number, times: number) : any[] | Mat | Tensor`
 
@@ -11,12 +18,19 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns:** `any[] | Mat | Tensor` - A copy of the input with extra blank (**missing**) rows or columns (based on parameter `dim` with the amount based on parameter `times`).
 
+---
+
+## Description
+
 This function creates a copy of your input with extra space, which is missing space. 
 
 Note that `null`, `NaN`, `''` and `undefined` are defined to be missing values. `[]` and `{}` are not. 
 
 This is useful in combination with the function `fill_missing`.
 
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/missing_hbook"
     width="100%"

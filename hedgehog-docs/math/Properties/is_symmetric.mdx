@@ -1,14 +1,29 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `is_symmetric`
+
+Checks if matrix is symmetric or not.
+
+---
+
+## Syntax
+
 #### `is_symmetric(matrix: any[] | Mat) : boolean`
 
 **param** `matrix` - Any matrix, 2 dimensional and square, to test if it's symmetric or not.
 
 **returns:** - `boolean` - `true` if it is symmetric, `false` otherwise
 
+---
+
+## Description
+
 This function tests if a square 2-D matrix is symmetric or not. A symmetric matrix has the property that swapping rows and columns doesn't change the matrix. This also means that the matrix's transpose is equal to itself. One way to visually check is look at the diagonal - if the elements are symmetric across that, it is symmetric. 
 
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/is_symmetric_hbook"
     width="100%"

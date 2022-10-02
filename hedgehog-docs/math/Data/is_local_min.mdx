@@ -1,8 +1,15 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-#### `is_local_min(matrix: any[] | Mat | Tensor, dim: number) : Mat | Tensor`
+# `is_local_min`
 
+Gives location of minimum.
+
+---
+
+## Syntax
+
+#### `is_local_min(matrix: any[] | Mat | Tensor, dim: number) : Mat | Tensor`
 
 **param** `matrix` an `Array`, `Mat` or `Tensor`, i.e. the structure to find the local minima locations
 
@@ -10,9 +17,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns** - `Mat | Tensor` - a `Mat` or `Tensor` with '1' denoting a local min value and '0' denoting otherwise.
 
+--- 
+
+## Description
+
 Notice if `dim` is 1, then `matrix` must be at least 2-D.
 
 This function finds all the local minimum value **locations** of the input.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/is_local_min_book"
     width="100%"

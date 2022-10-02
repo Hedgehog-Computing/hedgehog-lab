@@ -1,16 +1,32 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `mean`
+
+Finds the mean or average of a matrix.
+
+---
+
+## Syntax
+
 #### `mean(matrix: any[] | Mat | Tensor) : number`
 
 **param** `matrix` - an `Array`, `Mat` or `Tensor`, that contains the data for finding the mean
 
 **returns** - `number` - representing the mean (sometimes called the average) of `matrix`'s elements
 
+---
+
+## Description
+
 This function finds the mean of the data given in `matrix`. The mean is the sum of all elements, divided by the number of elements. It can be thought of as the 'center' of the data, as it accounts all values, high and low and tries to go in the middle. 
 
 Note that the mean is prone to abuse by data that is very extreme, such as outliers or repetition. Suppose you have a data set of [2,3,4,2,3,100,2]. The 100 is clearly extreme, an outlier, and this will affect the mean dramatically. There are methods that reduce this inconsistency by removing or performing other operations on outliers. 
 
 The mean is similar to the median. They are both measurements of the 'center' of data sets.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/mean_book"
     width="100%"

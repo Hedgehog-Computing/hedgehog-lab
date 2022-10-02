@@ -1,5 +1,13 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `bounds`
+
+Finds the min and max of lists and matrices.
+
+---
+
+## Syntax
+
 #### `bounds(dataIn: any[] | Mat | Tensor, dim: number) : Mat | any[]`
 
 **param** `dataIn` - series of `number`s, an `Array`, matrix/`Mat` or `Tensor` to get the min and max of
@@ -8,9 +16,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns:** `Mat | any[]` - 1-D array or 2-D matrix - [min, max] or [[min1, min2], [max1, max2]], [[min1, max1], [min2, max2]]
 
+---
+
+## Description
+
 This function finds the minimum and maximum value of the given `dataIn`, which is a series of `number`s, an `Array`, a matrix/`Mat` or `Tensor`. 
 
 For 2-D `Arrays`/`Mat` objects, you can use the `dim` parameter to determine if you get the bounds of all values or according to a row or column.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/bounds_hbook"
     width="100%"

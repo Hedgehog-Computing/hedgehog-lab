@@ -1,7 +1,14 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-#### `gcd(dataIn1: number | any[] | Mat, dataIn2: number | any[] | Mat) : number | Mat`
+# `gcd`
 
+Greatest common divisor.
+
+---
+
+## Syntax
+
+#### `gcd(dataIn1: number | any[] | Mat, dataIn2: number | any[] | Mat) : number | Mat`
 
 **param** `dataIn1` - Note: `dataIn1` and `dataIn2` must be the same type **unless** you input a list only. The first input is the first part of the pair of items you want to find the `gcd` of. This function can find the `gcd` of two integers, or two 2-D or 1-D `Array`/`Mat` objects
 
@@ -13,11 +20,14 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 ## Description
 
+
 This function is the greatest common divisor function. The greatest common divisor is famous - it is the shared integer between 2 (or more) numbers, such that it divides both of the numbers, and there is no number that can divide them that is larger. I.e. the largest shared divisor. 
 
 This function returns the `gcd` of two integers however, if given lists, it will return the `gcd` element-wise of each list indice. If given just a list, it will give the `gcd` of all elements in that list. An example is shown below that may clear this up. For other structures, it also does element-wise computation by index.
 
+---
 
+## Example
 
 <iframe src="https://hlab.app/s/docs/hbook_`gcd`"
     width="100%"

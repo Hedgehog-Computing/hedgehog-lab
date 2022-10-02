@@ -1,5 +1,13 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `cov`
+
+Calculates the covariance between two matrices.
+
+---
+
+## Syntax
+
 #### `cov(matrix1: any[] | Mat | Tensor, matrix2: any[] | Mat | Tensor) : number`
 
 **param** `matrix1` an `Array`, `Mat` or `Tensor`, first half of the pair of data for finding the covariance.
@@ -7,6 +15,10 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 **param** `matrix2` an `Array`, `Mat` or `Tensor`, the other half of the pair of data for finding the covariance
 
 **returns** - `number` - representing the covariance of `A` and `B`
+
+---
+
+## Description
 
 To understand covariance, one must first understand variance. Variance of one variable, say `matrix1`, is a number that reflects how much `matrix1` varies from its mean or average. That is, how much data fluctuates from the center/average of `matrix1`. The higher this is, the higher the variance is. It's called variance because the number being higher means more variance in the data, since there is more straying from the mean. 
 
@@ -19,6 +31,10 @@ This functions uses this formula:
 <MathJaxContext>
       <MathJax>{"$$cov(A, B) = \\frac{1}{N - 1} \\sum_{i=1}^{N}{(A_i - \\overline{A})\\cdot (B_i - \\overline{B})}$$"}</MathJax>
 </MathJaxContext>
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/cov_book"
     width="100%"

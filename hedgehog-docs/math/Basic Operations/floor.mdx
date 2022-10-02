@@ -1,5 +1,12 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `floor`
+
+Closest integer below a given number (element-wise for matrices). 
+
+---
+
+## Syntax
 
 #### `floor(dataIn: number | any[] | Mat | Tensor) : number | any[] | Mat | Tensor`
 
@@ -7,9 +14,15 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns:** `number | any[] | Mat | Tensor` - The construct with the elements reflected as their floor values
 
+---
+
+## Description
+
 The floor of a number is the closest **integer** below that number. For example, the closest integer below 5 is, well, 5. The closest integer below 5.9 is 5. The closest below 6.0001 is 6. This function takes in a `number`, list, matrix, `Mat` or `Tensor` and finds the floor of all elements and returns the `dataIn` construct with all the elements now being the floor elements. 
 
+---
 
+## Example
 
 <iframe src="https://hlab.app/s/docs/hbook_floor"
     width="100%"

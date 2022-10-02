@@ -1,5 +1,12 @@
-
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# `test`
+
+Runs all test functions, does nothing if they all pass.
+
+---
+
+## Syntax
 
 #### `test()`
 
@@ -7,11 +14,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns:** none 
 
+---
+
+## Description
+
 This function runs all "tests", for all the math functions in the math library. It may take a while. The tests for each function are not in this reference book.
 
 Similar to `all()` this will import all the test functions and **run them**. For each function there is a test function named `{functionname}_test.hhs` that throws an exception if it fails. If it passes nothing happens. 
 
+---
 
+## Example
 
 <iframe src="https://hlab.app/s/docs/hbook_test"
     width="100%"

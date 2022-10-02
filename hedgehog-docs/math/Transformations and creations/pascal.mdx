@@ -1,14 +1,28 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `pascal`
+
+Creates a pascal matrix given an `integer`.
+
+---
+
+## Syntax
 
 #### `pascal(size: integer) : any[]`
 
 **param** `size` - the size of the pascal matrix, an `integer`, namely positive and not zero.
 
-**returns:** `any[]` - the pascal matrix corresponding to the size (dimension-wise) wwgiven for the square matrix. 
+**returns:** `any[]` - the pascal matrix corresponding to the size (dimension-wise) given for the square matrix. 
+
+---
+
+## Description
 
 A pascal matrix has binomial coefficients as its entries. The binomial coefficients are the numbers in front of the variables for the expansion (a+b)^x, where x is variable. So for `x = 2`, `(a+b)^2 = (a+b)(a+b) = a^2+2ab+b^2 = (1)a^2 + (2)ab + (1)b^2`. Thus the coefficients for the case `x = 2` is 1,2,1. This function takes in a `number` as its size, and returns the pascal matrix corresponding to that size.
 
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/hbook_pascal"
     width="100%"

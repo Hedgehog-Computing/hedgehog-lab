@@ -1,5 +1,12 @@
-
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# `lusolve`
+
+Solves all cases of `Ax=b` linear equation systems using the LU method.
+
+---
+
+## Syntax
 
 #### `lusolve(A: any[] | Mat, b: any[] | Mat) : any[]`
 
@@ -9,7 +16,15 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns:** `any[]` - The column vector representing the solution to the equation `Ax=b`, or the part, `x`. 
 
+---
+
+## Description
+
 This function finds the answer to the equation `Ax=b`, or the linear equation system where `x` is a column vector of the different variables. Can be less efficient than `lsolve()` or `usolve()` but works for non-triangular matrices.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/lusolve_hbook"
     width="100%"

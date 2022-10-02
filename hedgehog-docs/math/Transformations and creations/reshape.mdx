@@ -1,5 +1,13 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `reshape`
+
+Changes the `shape` of a matrix
+
+---
+
+## Syntax
+
 #### `reshape(matrix: any[] | Mat | Tensor, sizes: any[]) : any[] | Mat | Tensor`
 
 **param** `matrix` - an `Array`, `Mat` or `Tensor` - the construct to reshape according to `sizes`.
@@ -8,7 +16,15 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns** - `any[] | Mat | Tensor` - an `Array`, `Mat` or `Tensor` reshaped with the corresponding size given in `sizes`
 
+---
+
+## Description
+
 `size` should be something like `[2, 2, 2]` or `[2, -1]`. In the latter case, -1 means automatically matching.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/reshape_book"
     width="100%"

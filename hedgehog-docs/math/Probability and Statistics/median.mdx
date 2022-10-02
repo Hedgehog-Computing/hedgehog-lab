@@ -1,14 +1,30 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `median`
+
+Finds the median of a given matrix.
+
+---
+
+## Syntax
+
 #### `median(matrix: any[] | Mat | Tensor) : number`
 
 **param** `matrix` an - `Array`, `Mat` or `Tensor`, holding the data to find the median.
 
 **returns** - `number` - representing the median of `matrix`
 
+---
+
+## Description
+
 This function finds the median of the input data. The median is one of a few ways to describe the 'center' of data. Another is 'mean' i.e. the average. Try to think of all the numbers of `matrix` lined up in order. Then simply take the middle one! If there's two in the middle, take the sum of them, divided by 2 (i.e. the average of them).
 
 Again, this is a descriptive statistic method of finding the 'center' of data. The advantage here over the mean is outliers don't make an impact because they're just removed automatically. The disadvantage is the true center may be less accurately represented because only 1 item is taken into account, so the median doesnt take into account the weights other members play into the center. 
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/median_book"
     width="100%"

@@ -1,8 +1,15 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-#### `is_local_max(matrix: any[] | Mat | Tensor, dim: number) : Mat | Tensor`
+# `is_local_max`
 
+Gives the locations of maxima.
+
+---
+
+## Syntax
+
+#### `is_local_max(matrix: any[] | Mat | Tensor, dim: number) : Mat | Tensor`
 
 **param** `matrix` - an `Array`, `Mat` or `Tensor`, i.e. the construct to find the local maximum value of the input.
 
@@ -10,9 +17,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns** `Mat | Tensor` - a `Mat` or `Tensor` with '1' denoting the local max value is there and '0' denoting that it is not a local maxima.
 
+---
+
+## Description
+
 Note that if `dim` is '1', then `matrix` must be at least a 2-D input.
 
 This function finds all the local maximum value **locations** of the input.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/is_local_max_book"
     width="100%"

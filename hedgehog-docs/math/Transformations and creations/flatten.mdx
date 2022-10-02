@@ -1,14 +1,29 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `flatten`
+
+Makes any matrix 1 dimensional.
+
+---
+
+## Syntax
+
 #### `flatten(matrix: any[] | Mat | Tensor) : any[]`
 
 **param** `matrix` - an `Array`, `Mat` or `Tensor`
 
 **returns:** `any[]` - A list with all elements from `matrix`. The order of elements follows the dimensions or shape order. 
 
+---
+
+## Description
+
 This function is a useful tool for taking a multidimensional matrix, for example a 2-D matrix, and "flattening" it into a 1d `Array` i.e. a list. Here is an example:
 
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/docs/flatten_hbook"
     width="100%"

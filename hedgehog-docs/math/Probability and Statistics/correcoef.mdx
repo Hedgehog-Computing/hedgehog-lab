@@ -1,5 +1,13 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `correcoef`
+
+Calculates correlation coefficient of two matrices.
+
+----
+
+## Syntax
+
 #### `correcoef(matrix1: any[] | Mat, matrix2: any[] | Mat): number`
 
 
@@ -8,6 +16,10 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 **param** `matrix2` - similar to `matrix1`, needs to be the same length and is an `Array` or `Mat` holding data.
 
 **returns** - a `number` representing the correlation coefficient of `matrix1` and `matrix2`, between -1 and 1.
+
+---
+
+## Description
 
 The correlation coefficient can be thought of as a number that represents how strongly 2 variables are connected. It takes in two variables of data, `matrix1` and `matrix2`, where `matrix1` contains data, say [0,1,1,2,2,3] and `matrix2` contains other data, say [0,0,1,1,2,3,].
 
@@ -22,6 +34,10 @@ To find the correlation coefficient of the two input matrices, use the following
 <MathJaxContext>
       <MathJax>{"$$r = \\frac{\\sum(x_i - \\bar{x}) (y_i - \\bar{y})}{\\sqrt{\\sum(x_i - \\bar{x})^2 \\sum(y_i - \\bar{y})^2}}$$"}</MathJax>
 </MathJaxContext>
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/correcoef_book"
     width="100%"

@@ -1,5 +1,13 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
+# `quantile`
+
+Finds the specified quantile point and gives all items below it in a matrix.
+
+---
+
+## Syntax
+
 #### `quantile(matrix: any[] | Mat | Tensor, q: number) : any[]`
 
 **param** `matrix` - an `Array`, `Mat` or `Tensor` - where the data is stored to find the quantiles of
@@ -8,9 +16,17 @@ import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 **returns** - `any[]` - an `Array` representing the quantile (all the numbers that fall below the quantile limit)
 
+---
+
+## Description
+
 The quantile is a descriptive statistic. Note that it is similar to the percentile, or `percentile()`, another function in this book. The quantile is a number between 0 and 1 that cuts the distribution of points or values in an `Array` evenly (by numerical order) and labels them with their appropriate quantile. For example, taking all the `Array`'s data in order, splitting it in half evenly, and taking the middle point is quantile 0.5. Hence, `iqr`(interquartile range) is also related to quantiles.
 
 *Quartiles* are quantiles cut at 1/4 parts - 0.25, 0.50, 0.75. The other quantiles are arbitrary. Overall, if you want to find the bottom `y`% of data, you can simply call `quantile(matrix, y/100)`. That is because `y/100` converts a percentage value into a quantile value. For example, if I want the bottom 23% of values in my 2-D `Array` called `matA`, I would simply call `quantile(matA, .23)`. This gives me the .23 quantile of the input, an `Array` with all values below 0.23.
+
+---
+
+## Example
 
 <iframe src="https://hlab.app/s/LinJianan/quantile_book"
     width="100%"
