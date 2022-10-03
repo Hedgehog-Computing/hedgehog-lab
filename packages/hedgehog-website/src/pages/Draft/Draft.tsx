@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useEditor} from "../../hooks/useEditor";
 import Editor from "../../components/Base/Editor/Editor";
 import Meta from '../../components/Meta/Meta';
-import HedgehogLab from "@hedgehogcomputing/LAB/src/HedgehogLab";
+import HedgehogLab from "@hedgehogcomputing/lab/src/HedgehogLab";
 
 const Draft = () => {
     const {editorCode, setEditorCode} = useEditor();
