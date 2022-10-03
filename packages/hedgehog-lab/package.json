@@ -1,5 +1,5 @@
 {
-  "name": "@hedgehogcomputing/LAB",
+  "name": "@hedgehogcomputing/lab",
   "version": "0.7.0",
   "license": "Apache-2.0",
   "dependencies": {
