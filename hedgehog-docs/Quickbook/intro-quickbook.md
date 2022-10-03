@@ -43,42 +43,43 @@ This is what **Hedgehog Script** covers and gives examples of. There are many ot
 
 ### Math, Linear Algebra, Statistics and Machine Learning
 
-Math and Plot are both **reference libraries** of functions for math, and plot respectively. They are on the top navigation bar in this book. Later we will include more books such as machine learning, put plot into data visualization, and more.
+With sweet syntax sugar **operator overload**, Hedgehog Script makes it easy to write linear algebra, statistics and machine learning code, with Matlab or Python-like syntax. Also symbolic computing is supported.
 
-In each reference library, in each page, a function is written with an explanation in the same format for each page. Let's go through that format with an example:
+Here is an exmaple:
 
-We will use `dot_multiply()` from 'Math' which takes two matrices and multiplies them **element-wise**.
 
-Example:
-
-#### `dot_multiply(input1: any[] | Mat | Tensor, input2: any[] | Mat | Tensor)`
-
-**param** `input1` first input, the first multiplicand
-
-**param** `input2` second input, the second multiplicand
-
-**returns: any[] | Mat | Tensor** - A copy of the structure multiplied **element-wise** (Note: this is not a standard multiplication of matrices), similar to dot_divide
-
-This function, similar to dot_divide, takes two structures of the same sizes, divides the elements element-wise, and returns it:
-
-<iframe src="https://hlab.app/s/docs/dot_multiply_hbook"
+<iframe src="https://hlab.app/s/docs/basic_operation_demo"
     width="100%"
-    height="500px">
+    height="300px">
   </iframe>
 
-Notice the pattern (and all reference functions in math and plot and future libraries follow this): we have the name of the function with it's input parameters : their types. For this example, the input is `input1` which can be `any[]`, `Mat`, or `Tensor`. Similarly, it has a second parameter, `input2` with the same types, namely `any[]` or `Mat` or `Tensor`. 
 
-Then we have the parameter descriptions, a separate line for each parameter. 
+Also there are many built-in functions and classes for math, linear algebra, statistics and machine learning in both **JavaScript** and **Hedgehog Script**, including **math.js** and **tensorflow.js**. 
 
-Then we have the statement for what it returns, and what type it returns, and a description of it. In this case, it returns either `any[]`, a `Mat`, or `Tensor`. This returned value is a copy of the structure multiplied element-wise. 
+---
 
-Lastly, we have a function description at the end of the reference page: " This function, similar to dot_divide, takes two structures of the same sizes, divides the elements element-wise, and returns it" with an example from Hedgehog Lab in action.
+### Out-of-the-box Pacakge Management
 
-This is how you read the reference materials.
+Hedgehog Lab supports out-of-the-box package management. You don't need to install any package manager, just use the `*import` statement to import packages from the web. Hedgehog Lab will automatically download and install the packages for you.
 
-## Overall
+Here are four examples of using packages in Hedgehog Lab:
 
-Now that you understand the Lab itself, and the prerequisites (JavaScript namely), and how to read the reference material, feel free to dive in and write your own snippets, read our source code, read the reference libraries 'Math' and 'Plot' and build upon what's built! 
+```js
+*import Package: Module
+
+*import https://your_url.com/your_package.js
+
+*import @username/package
+
+*github username/repo/branch/path/to/package.js
+```
+
+
+---
+
+### Overall
+
+Now that you understand the Hedgehog Lab itself, and the prerequisites (JavaScript namely), and how to read the reference material, feel free to dive in and write your own snippets, read our source code, read the reference libraries 'Math' and build upon what's built! 
 
 Thank you and we hope you enjoy.
 
