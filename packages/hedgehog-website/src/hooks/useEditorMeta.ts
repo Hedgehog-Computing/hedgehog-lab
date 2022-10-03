@@ -3,10 +3,11 @@ import {editorCodeState, editorMetaState} from "../states/RYourCodeStates";
 import {useMatch, useNavigate} from "react-router-dom";
 import useSWR from "swr";
 import {fetcher} from "../network/fetcher";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 import {useAuth} from "./useAuth";
+import {IUserSnippet} from "../pages/Snippets/Editor";
 
-export const useEditorMeta = () => {
+export const useEditorMeta = (userSnippetURL?: string | null) => {
     const [editorMeta, setEditorMeta] = useRecoilState(editorMetaState);
     const resetEditorMeta = useResetRecoilState(editorMetaState);
     const resetEditorCode = useResetRecoilState(editorCodeState)
@@ -17,7 +18,12 @@ export const useEditorMeta = () => {
     let currentFilePath: string
 
     if (isUserSnippetPage) {
-        const {userID, snippetID} = isUserSnippetPage?.params
+        let {userID, snippetID} = isUserSnippetPage?.params
+
+        if (userSnippetURL) {
+           [userID, snippetID] =  userSnippetURL.split('/')
+        }
+
         URL = `/snippets?user=${userID}&title=${snippetID}`
         currentFilePath = `/s/${userID}/${snippetID}`
     }
