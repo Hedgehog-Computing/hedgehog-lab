@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {useEditor} from "../../hooks/useEditor";
 import Editor from "../../components/Base/Editor/Editor";
 import Meta from '../../components/Meta/Meta';
+import HedgehogLab from "@hedgehogcomputing/LAB/src/HedgehogLab";
 
 const Draft = () => {
     const {editorCode, setEditorCode} = useEditor();
@@ -16,7 +17,7 @@ const Draft = () => {
     return (
         <>
             <Meta title='Draft'/>
-            <Editor/>
+            <HedgehogLab source={editorCode ?? lastRunningCode} defaultFullScreen={false} defaultLiveMode={true}/>
         </>
         
     )

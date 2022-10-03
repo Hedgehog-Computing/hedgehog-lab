@@ -37,13 +37,8 @@ const SnippetEditor: React.FC<ISnippetEditor> = (props)=> {
     );
 
     useEffect(()=>{
-        if (defaultFullScreen) {
-            setResultFullScreen(defaultFullScreen ? true: false);
-        }
-
-        if (defaultLiveMode) {
-            setCompilerLiveMode(defaultLiveMode ? "on": "off");
-        }
+        setResultFullScreen(defaultFullScreen ? true: false);
+        setCompilerLiveMode(defaultLiveMode ? "on": "off");
     }, [defaultFullScreen, defaultLiveMode, setCompilerLiveMode, setResultFullScreen])
 
     useEffect(() => {
