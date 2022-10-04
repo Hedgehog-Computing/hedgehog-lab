@@ -58,21 +58,17 @@ Also there are many built-in functions and classes for math, linear algebra, sta
 
 ---
 
-### Out-of-the-box Pacakge Management
+### Out-of-the-box Module Management
 
-Hedgehog Lab supports out-of-the-box package management. You don't need to install any package manager, just use the `*import` statement to import packages from the web. Hedgehog Lab will automatically download and install the packages for you.
+Hedgehog Lab supports out-of-the-box module management. You don't need to install any package manager, just use the `*import` statement to import modules from the web. Hedgehog Lab will automatically download and install the modules for you.
 
-Here are four examples of using packages in Hedgehog Lab:
+Here are four examples of using modules in Hedgehog Lab:
 
-```js
-*import Package: Module
+<iframe src="https://hlab.app/s/docs/quickbook_package_demo"
+    width="100%"
+    height="300px">
+  </iframe>
 
-*import https://your_url.com/your_package.js
-
-*import @username/package
-
-*github username/repo/branch/path/to/package.js
-```
 
 
 ---

@@ -92,6 +92,13 @@ const config = {
             docsPluginId: 'math' // related the plugin id in this file.
           },
           {
+            to: '/Modules/Modules',    // ./math/intro.md
+            label: 'Modules',
+            position: 'left',
+            activeBaseRegex: `/Modules/`,
+            docsPluginId: 'Modules' // related the plugin id in this file.
+          },
+          {
             to: '/contribution/intro-contribution',  // ./docs-system/Intro.md
             label: 'Contribution',
             position: 'left',
@@ -206,6 +213,15 @@ const config = {
         id: 'Quickbook',
         path: 'Quickbook',
         routeBasePath: 'Quickbook',
+        sidebarPath: require.resolve('./sidebars.js'),
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'Modules',
+        path: 'Modules',
+        routeBasePath: 'Modules',
         sidebarPath: require.resolve('./sidebars.js'),
       },
     ],
