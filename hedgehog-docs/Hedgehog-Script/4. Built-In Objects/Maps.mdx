@@ -1,0 +1,128 @@
+---
+sidebar_position: 7
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# `Map`
+
+The `Map` object holds key-value pairs and follows insertion order. 
+
+<iframe
+    src="https://hlab.app/s/docs/simple_map_example"
+    width="100%"
+    height="300px"/>
+
+
+**Any value** may be used as either the key or value. 
+
+:::tip
+`Maps` are similar to `Sets` but have differences.
+
+Both however, use **insertion order**: the first element inserted takes the first index, and so on.
+
+The most recent is the last index.
+:::
+
+A key in a `Map` is unique and can't be used more than once. 
+
+Also note that `Map` objects are iterated over by key-value pairs in insertion order. 
+
+:::info
+Maps are required to be implemented such that access times are on average better than linear time.
+<MathJaxContext>
+<MathJax>
+<p>This is very efficient because they can internally be represented as hash-tables with <span>{ "\\(\\Omega(1)\\)" }</span> time complexity. </p>
+
+<p>A search tree can be <span>{ "\\(\\Omega(\\log(N))\\)" }</span>, and any other data structure can be used - if its better than <span>{ "\\(\\Omega(N)\\)" }</span></p>
+</MathJax>
+</MathJaxContext>
+:::
+
+
+Here are some basic `Map` operations:
+
+<iframe
+    src="https://hlab.app/s/docs/map_hbook"
+    width="100%"
+    height="600px"/>
+
+---
+
+### Objects vs Keys
+
+`Objects` and `Maps` share the notion that they are formed via key-value pairs. 
+
+Within both one can set keys to values, retrieve values, delete pairs, detect if a key is stored, and more.
+
+:::info
+
+Historically, `Object` in languages like JavaScript have been used as `Map` actually.
+:::
+
+Here are some important differences that can make `Maps` more efficient sometimes:
+
+
+- **Accidental keys:** `Map` has no keys by default. It only contains what one puts in it. 
+
+    - `Object` has default keys that can collide with explicit keys.
+
+- **Key types:** `Map` keys can pair with any value. `Object` keys must be a `String`.
+
+- **Key order:** `Maps` are in insertion order. `Object` orders can be more complex. 
+
+- **Size:** `Map` size is easily found via the size property. `Objects` are not directly iterable. 
+     - Hence, one has to create methods to find things such as size.
+
+- **Performance:** `Map` performs better with frequent actions. `Object` is not optimized for frequent changes.
+
+:::note
+Regarding serialization/parsing, a downside of `Map` is that there is no native support for either.
+
+One has to make their own, typically by using `JSON.stringify()` and `JSON.parse()`. 
+:::
+
+
+Another key difference is setting properties: 
+
+- Setting `Object` properties works for `Map` objects as well, which can cause confusion.
+
+:::tip
+
+The correct usage for storing data in the `Map` object is through the `set(key, value)` method:
+
+Remember to not use `Object` methods
+:::
+
+The corrected example:
+<iframe
+    src="https://hlab.app/s/docs/correctMap_hbook"
+    width="100%"
+    height="500px"/>
+
+`Map` has many methods. We will list the most important ones:
+
+- `Constructor`: `Map()`
+
+- `get()` - Retrieve the value associated to the passed key 
+
+- `clear()` - remove all key-value pairs!
+
+- `keys()`, `values()` and `entries()` - returns an **iterator** object that goes over: keys, values and [key, value] arrays
+
+- `forEach()` - effectively iterates over the key-value pairs in insertion order
+
+
+:::info
+`NaN` can actually be used as a key in a `Map`!
+:::
+
+A practical use is transforming an `Array` into a `Map`:
+
+<iframe
+    src="https://hlab.app/s/docs/map2_hbook"
+    width="100%"
+    height="400px"/>
+
+---

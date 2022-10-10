@@ -1,0 +1,17 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `multinomial(matrix1: any[] | Mat | Tensor ) : number`
+
+**param** `matrix1` an `Array`, `Mat`, `Tensor`, or a series of numbers - the construct to find the multinomial coeff. of
+
+**returns** `Number` -  a number representing the multinomial of `matrix1`
+
+This function finds the multinomial coefficient of numbers in a data structure according to the formula below. One can think of it as an analogue for the binomial probability distribution and its coefficients. However, this is for the multinomial case.
+
+<MathJaxContext>
+      <MathJax>{"$$\\text{multinomial}(x) = \\frac{(x_1 + x_2 + ... + x_n)!}{x_1!\\cdot x_2!\\cdot ... \\cdot x_n!}$$"}</MathJax>
+</MathJaxContext>
+
+<iframe src="https://hlab.app/s/LinJianan/multinomial_book"
+    width="100%"
+    height="500px"/>

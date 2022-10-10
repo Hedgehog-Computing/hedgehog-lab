@@ -1,0 +1,91 @@
+---
+sidebar_position: 9
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# `JSON`
+
+`JSON` is an object with methods for parsing and converting.
+
+
+There are only two methods `JSON` uses. 
+
+
+:::info
+`JSON` - JavaScript Object Notation
+
+Hedgehog Script supports JavaScript
+:::
+
+<p>&nbsp;</p>
+
+:::note
+JavaScript is **not** `JSON`
+:::
+
+There are certain things that are required for `objects`s & `Array`s in `JSON`: 
+
+- One must double quote property names 
+
+- Trailing commas and leading zeros are forbidden
+
+- Note that `NaN` and `Infinity` aren't supported
+
+Let's start with an example of one of the two methods: `stringify()`
+
+
+<iframe
+    src="https://hlab.app/s/docs/json2_hbook"
+    width="100%"
+    height="300px" />
+
+Note that one can also embed or nest `JSON`:
+
+<iframe
+    src="https://hlab.app/s/docs/json3_hbook"
+    width="100%"
+    height="500px" />
+
+:::tip
+
+Use `JSON.stringify()` to convert certain objects into strings
+
+:::
+
+The mentioned methods are: `JSON.parse()` and `JSON.stringify` (both `static`). 
+
+The effective difference is parse transforms the string into `JSON` while stringify returns a `JSON` string. 
+
+:::info
+
+Both methods have `replacer` and `reviver` as option fields. 
+
+`reviver` allows for interpreting what `replacer` has replaced
+
+:::
+
+Let's have a demo of `JSON.parse()` & `JSON.stringify()`:
+
+<iframe
+    src="https://hlab.app/s/docs/json4_hbook"
+    width="100%"
+    height="400px" />
+
+Here's an example using the mentioned `reviver` and `replacer` options:
+
+<iframe
+    src="https://hlab.app/s/docs/json_hbook"
+    width="100%"
+    height="500px" />
+
+:::info
+
+`JSON` can be an in-depth topic - this is only an introduction. 
+
+Check out the MDN page for `JSON` here: [JSON-MDN docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON)
+
+:::
+
+---

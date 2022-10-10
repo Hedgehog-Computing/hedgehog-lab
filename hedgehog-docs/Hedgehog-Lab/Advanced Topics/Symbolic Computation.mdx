@@ -1,0 +1,47 @@
+---
+sidebar_position: 5
+---
+
+# Symbolic Computation
+
+**Symbols** can be used along with **TeX** for writing formulas and calculating them.
+
+The first step is to declare a `variable` as a `Symbol`:
+
+```js
+let x = sym('x')
+```
+
+Then write an expression using that symbol:
+
+```js
+let fx = (x^3) + sin(x)
+```
+
+You can output the formula:
+```js
+formulaTex `f(x)= ${fx}`
+```
+
+Here is an example of performing calculations on the formula:
+
+- Finding a derivative:
+```js
+formulaTex`f'(x) = ${diff(fx, x)}` 
+```
+
+- Calculating an integral:
+```js
+formulaTex`\int{f(x)dx} = ${integrate(fx, x)}`
+```
+<p>&nbsp;</p>
+
+
+Here's an example with several types of calculations: 
+
+
+<iframe src="https://hlab.app/s/docs/symboliccomputation_hbook"
+    width="100%"
+    height="500px"/>
+
+---

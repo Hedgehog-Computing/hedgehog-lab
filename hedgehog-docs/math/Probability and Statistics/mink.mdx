@@ -1,0 +1,20 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `mink(matrix: any[] | Mat, k: number, dim: number) : any[] | Mat`
+
+**param** `matrix` - the list, `Array`, or `Mat` to find the `k` smallest elements of 
+
+**param** `k` - the number of smallest elements we want to find. For example, `k=2` will return an `Array` of the rows/columns of the 2 smallest numbers. (in the direction of `dim`)
+
+**param** `dim` '1' | '2' - the direction you want to find the smallest elements for 2-D matrices. Default is `dim=1`. `dim=1` means column and `dim=2` means row. This is needed because the user may want to differentiate rows and columns, and only find the smallest say, 2, elements in a 3x3 matrix in the direction of columns only. 
+
+**returns:** `any[] | Mat` - If 'A' is a matrix, it will return a matrix whose columns or rows contain the k smallest elements of each columns or rows of A (based on the parameter `dim`), returned as a `Mat`. If it is a list, it'll return a list containing the k smallest elements of that list.
+
+This function effectively returns the k smallest elements in the form of an `Array` (or list for the list case). And for a matrix, you have to provide it a dimension (default is `dim = 1`, column), it will return the `k` smallest elements in each column of A, as a new matrix. It's similar to `min()` where it returns the smallest values, but can returns more now, specified by the parameter `k`. 
+
+Here is an example to clarify:
+
+<iframe src="https://hlab.app/s/docs/hbook_mink"
+    width="100%"
+    height="600px"/>

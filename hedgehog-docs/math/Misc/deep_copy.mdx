@@ -1,0 +1,20 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `deep_copy(input: number | any[] ) : number | any[]`
+
+**param** `input` - the `number` or `Array` your want a deep copy of, i.e. a new reference. 
+
+**returns:** `number | any[] ` - a replicate of the input but with a different reference.
+
+This function is very useful for many functions that need to modify parameters or other ``Array``s. Since there is no way of cloning an `Array` in a deep way, we have to write a way ourselves. 
+
+For example, even if you created a new `Array` and copied all the items from the original `Array` to the new `Array`, the new `Array` would still have the reference to the original `Array` causing issues when modifying the new `Array` and trying to access the old `Array` - because the old `Array` would now be updated too. This prevents that.
+
+Overall, if you need an `Array` that is an **independent**, non-shallow copy of another `Array`, simply call `deep_copy(Array_to_copy)`. Then when you modify this new, independent `Array`, it will not interfere in any manner with `Array_to_copy`. 
+
+
+
+<iframe src="https://hlab.app/s/docs/hbook_deep_copy"
+    width="100%"
+    height="500px"/>

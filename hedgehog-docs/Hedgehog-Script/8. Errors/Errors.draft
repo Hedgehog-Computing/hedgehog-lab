@@ -1,0 +1,104 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Errors
+
+There are quite a few errors that can happen in JavaScript. Since they are broken down into different types, its very helpful as one can pinpoint the error's reason or cause. It is also important to handle errors, but that won't be discussed in this section because it's covered in sections like `try...catch` blocks. You can also do something like `if (/...outside of the array, or perhaps the number is too large or too small, etc .../) { throw new Exception('this is the error that occurred.'); }` or `throw new Error()`. 
+
+
+First let's demonstrate throwing out an error:
+
+ <iframe
+    src="https://hlab.app/s/docs/error_hbook"
+    width="100%"
+    height="500px"
+  ></iframe>
+
+Let's list out the various types of errors (not all of them) and briefly explain the more important ones:
+
+<ul>
+<li>Error: Permission denied to access property "x" - typical when something is private or non-accessible in another way</li>
+<li>InternalError: too much recursion </li>
+<li>RangeError: BigInt division by zero </li>
+<li>RangeError: BigInt negative exponent </li>
+<li>RangeError: argument is not a valid code point </li>
+<li>RangeError: invalid array length </li>
+<li>RangeError: invalid date </li>
+<li>RangeError: precision is out of scope </li>
+<li>RangeError: radix must be an integer </li>
+<li>RangeError: repeat count must be less than infinity </li>
+<li>RangeError: repeat count must be non-negative </li>
+<li>RangeError: x can't be converted to BigInt because it isn't an integer</li>
+<li>ReferenceError: "x" is not defined</li>
+<li>ReferenceError: assignment to undeclared variable "x" - typical, make sure to declare variables properly</li>
+<li>ReferenceError: can't access lexical declaration 'X' before initialization</li>
+<li>ReferenceError: deprecated caller or arguments usage</li>
+<li>ReferenceError: reference to undefined property "x"</li>
+<li>SyntaxError: "0"-prefixed octal literals and octal escape seq. are deprecated</li>
+<li>SyntaxError: "use strict" not allowed in function with non-simple parameters</li>
+<li>SyntaxError: "x" is a reserved identifier - this can happen occasionally, its when for example, a variable is named the same as a JavaScript keyword</li>
+<li>SyntaxError: JSON.parse: bad parsing</li>
+<li>SyntaxError: Malformed formal parameter</li>
+<li>SyntaxError: Unexpected '#' used outside of class body</li>
+<li>SyntaxError: Unexpected token</li>
+<li>SyntaxError: Using //@ to indicate sourceURL pragmas is deprecated. Use //# instead</li>
+<li>SyntaxError: a declaration in the head of a for-of loop can't have an initializer</li>
+<li>SyntaxError: applying the 'delete' operator to an unqualified name is deprecated</li>
+<li>SyntaxError: cannot use `??` unparenthesized within `||` and `&&` expressions</li>
+<li>SyntaxError: for-in loop head declarations may not have initializers</li>
+<li>SyntaxError: function statement requires a name</li>
+<li>SyntaxError: identifier starts immediately after numeric literal</li>
+<li>SyntaxError: illegal character</li>
+<li>SyntaxError: invalid BigInt syntax</li>
+<li>SyntaxError: invalid assignment left-hand side</li>
+<li>SyntaxError: invalid regular expression flag "x"</li>
+<li>SyntaxError: missing ) after argument list - these and the following are quite typical! Rather than bugs, they're simply syntax mistakes or slipups</li>
+<li>SyntaxError: missing ) after condition</li>
+<li>SyntaxError: missing : after property id</li>
+<li>SyntaxError: missing ; before statement</li>
+<li>SyntaxError: missing = in const declaration</li>
+<li>SyntaxError: missing ] after element list</li>
+<li>SyntaxError: missing formal parameter</li>
+<li>SyntaxError: missing name after . operator</li>
+<li>SyntaxError: missing variable name</li>
+<li>SyntaxError: missing } after function body</li>
+<li>SyntaxError: missing } after property list</li>
+<li>SyntaxError: redeclaration of formal parameter "x"</li>
+<li>SyntaxError: return not in function - a function needs a return</li>
+<li>SyntaxError: test for equality (==) mistyped as assignment (=)? - if you accidentally pressed '=' only once, assignment is attempted when equality was intended</li>
+<li>SyntaxError: unparenthesized unary expression can't appear on the left-hand side of '**'</li>
+<li>SyntaxError: unterminated string literal</li>
+<li>TypeError: "x" has no properties</li>
+<li>TypeError: "x" is (not) "y"</li>
+<li>TypeError: "x" is not a constructor</li>
+<li>TypeError: "x" is not a function</li>
+<li>TypeError: "x" is not a non-null object</li>
+<li>TypeError: "x" is read-only</li>
+<li>TypeError: 'x' is not iterable</li>
+<li>TypeError: More arguments needed</li>
+<li>TypeError: Reduce of empty array with no initial value</li>
+<li>TypeError: X.prototype.y called on incompatible type</li>
+<li>TypeError: can't access dead object</li>
+<li>TypeError: can't assign to property "x" on "y": not an object</li>
+<li>TypeError: can't convert BigInt to number</li>
+<li>TypeError: can't convert x to BigInt</li>
+<li>TypeError: can't define property "x": "obj" is not extensible</li>
+<li>TypeError: can't delete non-configurable array element</li>
+<li>TypeError: can't redefine non-configurable property "x"</li>
+<li>TypeError: cannot use 'in' operator to search for 'x' in 'y'</li>
+<li>TypeError: cyclic object value</li>
+<li>TypeError: invalid 'instanceof' operand 'x' - can happen if 'x' is not an object</li>
+<li>TypeError: invalid Array.prototype.sort argument</li>
+<li>TypeError: invalid assignment to const "x"</li>
+<li>TypeError: property "x" is non-configurable and can't be deleted</li>
+<li>TypeError: setting getter-only property "x"</li>
+<li>URIError: malformed URI sequence</li>
+<li>Warning: 08/09 is not a legal ECMA-262 octal constant</li>
+<li>Warning: -file- is being assigned a //# sourceMappingURL, but already has one</li>
+<li>Warning: Date.prototype.toLocaleFormat is deprecated</li>
+<li>Warning: String.x is deprecated; use String.prototype.x instead</li>
+<li>Warning: expression closures are deprecated</li>
+<li>Warning: unreachable code after return statement - this has been discussed a couple times - a return statement completely ends the function no matter what</li>
+</ul>
+
+That was quite a list. It's not necessarily important to understand the exact details of all errors, but rather it's good to acknowledge they exist and importantly, what type of error they are. As one codes over time, they will encounter a variety of errors and gain knowledge about them through fixing the errors.

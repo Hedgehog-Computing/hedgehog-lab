@@ -1,0 +1,86 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+:::caution
+
+Before reading this please note that classes are in an experimental stage in Hedgehog Script and don't support certain things.
+
+:::
+
+
+# Classes
+
+Classes are a **template** for creating objects. 
+
+Their syntax is like `function`s - define class expressions and give a class declaration.
+
+The purpose of classes is to create an abstraction of certain objects. 
+
+Then one can use the template to repeatedly create new objects of that type. 
+
+An example: cars are vehicles - which are machines - a Honda is a car type, specifically a 2001 Honda Civic. 
+
+- Can you define the subclasses and superclasses?
+
+:::info
+`Classes` are just `Objects` under the hood in Hedgehog Script.
+:::
+
+Let's view an example of declaring a `class` with a `constructor`:
+
+
+<iframe
+    src="https://hlab.app/s/docs/classex1_hbook"
+    width="100%"
+    height="600px" />
+
+A `Class` can have both subclasses and superclasses. Hence, one can effectively have inheritance. 
+
+:::caution
+A ReferenceError will be thrown if a class is constructed or initialized before it's declared. (unlike functions)
+:::
+
+The way we defined the class above is via class expressions. 
+
+There is another way, direct declaration:
+
+<iframe
+    src="https://hlab.app/s/docs/classex2_hbook"
+    width="100%"
+    height="400px" />
+
+:::tip
+
+As shown above one can do a few important things in the class body: 
+
+- Define methods/properties and define the constructor
+:::
+
+<p>&nbsp;</p>
+
+:::info
+
+An important concept is binding `this`. Check out [this](../Expressions%20%26%20Operators/this.mdx) to learn about `this`.
+:::
+
+
+Regarding subclasses, creating them as a derived class is as simple as adding `extends`:
+- `class [subClassName] extends [className] {constructor(...) { super(...) } }`
+<p>&nbsp;</p>
+
+:::info
+
+One can override class body methods: Consider 'Animal' has a subclass 'Hippo', which has a different version of `eat()`.
+ 
+ - Instances of 'Hippo' will use their `eat()` instead of `Animal.eat()`.
+
+:::
+
+<p>&nbsp;</p>
+
+:::tip
+
+For more, detailed information, visit: [Classes - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes)
+
+:::
+
+---

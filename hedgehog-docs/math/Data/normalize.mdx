@@ -1,0 +1,15 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `normalize(matrix: any[] | Mat | Tensor) : Mat | Tensor`
+
+
+**param** `matrix`- an `Array`, matrix or `Tensor`, or a series of `number`s (a list), i.e. the construct of data to be normalized
+
+**returns** - `Mat | Tensor` - a `Mat` or `Tensor` with all the values inside normalized to the range [0,1].
+
+This function **normalizes** the data. It performs normalization on the data whether its in a matrix structure or in a series of `number`s. Effectively, it takes the values and reduces them to various values in the interval [0,1]. For example, (1,2,3) would be normalized as (0,0.5,1).
+
+<iframe src="https://hlab.app/s/LinJianan/normalize_book"
+    width="100%"
+    height="500px"/>

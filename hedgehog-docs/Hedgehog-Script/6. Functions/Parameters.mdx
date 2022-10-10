@@ -1,0 +1,109 @@
+---
+sidebar_position: 2
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Parameters
+
+Parameters are named variables, passed into a function, and are used to **import** the arguments into functions. 
+
+Effectively, arguments are **realized** parameters through a function call.
+
+An example:
+
+<iframe
+    src="https://hlab.app/s/docs/paramex1_hbook"
+    width="100%"
+    height="500px"/>
+
+
+Here are some key differences between parameters and arguments:
+
+- Function parameters are the names listed in the function's definitions
+
+    - Function arguments are the actual values passed to the function. 
+
+- Arguments are set to the values of the parameters supplied. 
+
+- An `arguments` object exists but there is no equivalent for parameters.
+
+:::info
+
+The fundamental, basic idea of parameters are that they are unrealized arguments.
+
+Arguments can't exist without parameters.
+
+:::
+
+Parameters have two versions but we will only discuss one, as the second is not good practice:
+
+- Input parameters (pass values into functions)
+
+---
+
+### Default Parameters
+
+What happens if a user doesn't fill all parameters? What if you **want** it to be *variable* in size?
+
+That is when default parameters come into play:
+
+- In the function definition, just add `=value` as a suffix to a parameter and you have a default parameter!
+
+- This means that if none is provided, the parameter will be set to `value` from above.
+
+Here's an example:
+
+<iframe
+    src="https://hlab.app/s/docs/defaultparamex1_hbook"
+    width="100%"
+    height="300px"/>
+
+---
+
+### Rest Parameters
+
+What's the difference between a **default parameter** and a **rest parameter**?
+
+- **Default parameters** allow named parameters to be initialized with default values
+
+    - Used when certain parameters are optional (so if they don't put one in it becomes the default value)
+
+- **Rest parameters** allow an indefinite, probably unnamed, amount of arguments as an `Array`.
+
+    -  It creates certain flexibility in function definitions.
+
+The following is an example of the differences:
+
+<iframe
+    src="https://hlab.app/s/docs/paramex2_hbook"
+    width="100%"
+    height="600px"/>
+
+As previously mentioned, the rest parameter syntax allows a function to accept an indefinite number of arguments as an `Array`
+
+It also allows quite a bit of flexibility in function definitions. Here is another example:
+
+<iframe
+    src="https://hlab.app/s/docs/params_hbook"
+    width="100%"
+    height="500px"/>
+
+<p>&nbsp;</p>
+
+One can also mix normal **and** default parameters with rest parameters, for the most flexible function definitions:
+
+<iframe
+    src="https://hlab.app/s/docs/paramex4_hbook"
+    width="100%"
+    height="400px"/>
+
+:::tip
+
+Only one rest parameter is allowed in a function, and it must be the last parameter in the definition.
+
+Also, one can access the length of restParams easily: `{restParamName}.length;`
+:::
+
+---

@@ -33,3 +33,10 @@ iframe {
   width: calc(100vw - (300px + ((100vw - var(--ifm-container-width-xl)) / 2)));
   z-index: 999;
 }
+
+.img-center {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 100%,
+}

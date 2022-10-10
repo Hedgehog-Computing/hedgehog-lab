@@ -1,0 +1,86 @@
+---
+sidebar_position: 10
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# `Mat`
+
+The `Mat` object is very useful for matrix-like operations in Hedgehog Script. 
+
+- It can be 1 dimensional, 2D, 3D, etc. It can also represent tensors!
+
+To declare one, do the same as you would for an `object` (by using the `new` keyword).
+
+Here's an example:
+
+
+  <iframe src="https://hlab.app/s/docs/mat1_hbook"
+    width="100%"
+    height="300px"/>
+
+
+Don't forget to use `( )` to construct it!
+
+:::info
+
+When constructing a `Mat`, always have at least 2 layers of brackets. Something like `new Mat([1,2,3,4])` is forbidden.
+
+:::
+
+---
+
+### We support many functions for matrices:
+
+- Basic summation, multiplication, elementwise-operations, decompositions, processing data and much more.
+
+  - It's all there, built-in, easy to use.
+
+- However, those functions are located in the "Math" book (top navigation bar). In this section we simply give the basics.
+
+Here are the fundamental properties of `Mat` objects:
+
+`rows`, `cols`, `val`. Sub-properties include: `val.length`, `val[0].length`. 
+
+There are vital for operating around a matrix. An example of some properties at play:
+
+
+
+<iframe src="https://hlab.app/s/docs/mat2_hbook"
+  width="100%"
+  height="500px"/>
+
+<p>&nbsp;</p>
+
+:::tip
+
+Use the property `val` to transform a `Mat` into a raw `Array`:
+
+`myMat_raw = myMat.val;`
+
+Typical `Array` functions can now be performed on `myMat_raw`.
+:::
+
+
+Close to all built in Math functions for Hedgehog Lab work for `Array`s, `Tensor`s and `Mat`s.
+
+However, if you only have a normal `Array` you are limited to Hedgehog Script's `Array` libraries. 
+
+Here is an example of using `Mat` in a function:
+
+
+<iframe src="https://hlab.app/s/docs/mat3_hbook"
+  width="100%"
+  height="500px"/>
+
+:::tip
+
+`Mat` is a powerful tool for representing and operating on matrices. 
+
+Check out the "Math" book to become more familiar about usages of `Mat` and its functions!
+
+:::
+
+---
+
+

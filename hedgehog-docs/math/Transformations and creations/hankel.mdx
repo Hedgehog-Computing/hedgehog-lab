@@ -1,21 +1,20 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
-#### `Hankel(input: any[]) : Mat`
+#### `hankel(list: any[]) : Mat`
 
-**param** `input` - An array (1d) or list of numbers, MUST be ODD in length.
+**param** `list` - A 1-D `Array` or just a series of numbers, **must** be odd in length.
 
 **returns:** `Mat` - A Hankel matrix. Where the skewing up-right diagonals are constant. 
 
-This function constructs a Hankel matrix. A Hankel matrix is much easier understood when seen than when said. However, to explain it, basically, if you take any element on the left hand side of the matrix and follow its diagonal in the up-right direction, it will be constant. An example is:
+This function constructs a Hankel matrix. A Hankel matrix is much easier understood when seen than when said. However, to explain it - if you take any element on the left hand side of the matrix and follow its diagonal in the up-right direction, it should be constant. An example is:
 
+```js
 [[1, 2, 3],
 [2, 3, 4],
-[3, 4, 5]].
-
-
+[3, 4, 5]]
+```
 
 <iframe src="https://hlab.app/s/docs/hbook_hankel"
     width="100%"
-    height="500px">
-</iframe>
+    height="500px"/>
