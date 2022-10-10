@@ -1,0 +1,15 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `is_tril(matrix: any[] | Mat) : boolean`
+
+**param** `matrix` - Any matrix, must be 2 dimensional and square, to test if it's lower triangular or not
+
+**returns:** `boolean` - `true` if it is lower triangular, `false` otherwise.
+
+This function tests if a square 2-D matrix is lower triangular or not. Lower triangular matrices have the property that above the diagonal, all values are zero. Thus one can look at the diagonal and see if theres any entry above the diagonal that is non zero. If there is, it is **not** lower triangular. 
+
+
+<iframe src="https://hlab.app/s/docs/is_tril_hbook"
+    width="100%"
+    height="500px"/>

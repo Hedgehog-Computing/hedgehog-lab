@@ -1,0 +1,129 @@
+---
+sidebar_position: 1
+---
+
+# Declarations
+
+A declaration is a formal or explicit announcement of an identifier's meaning.
+
+Some declarations are `let`, `const`, `function` and `class`.
+
+---
+
+
+### `let`
+
+`let` is a declaration for a block-scoped local variable. 
+
+- Within the declaration you can optionally initialize it to a value
+
+An example is:
+
+`let a;` or, 
+
+`let b = 6;`
+
+:::warning
+
+It's important to mention immediately: do **not** use `var`. Use `let` every time! 
+
+`var` can leak into other code. It's dangerous and bad practice.
+:::
+
+Here is a simple, easy example using `let`:
+
+<iframe
+    src="https://hlab.app/s/docs/let_hbook"
+    width="100%"
+    height="400px" />
+
+:::info
+
+A type is not required in a declaration in Hedgehog Script. It is a dynamic language.
+
+:::
+
+- The declaration is block-scoped and local. 
+
+    - In the example above, the declaration `let x = 2;` dissolves after the `if` conditional.
+
+- If used in a loop, the variable declared by `let` would dissolve after the loop.
+
+Let's show an example of this concept:
+
+<iframe
+    src="https://hlab.app/s/docs/letex2_hbook"
+    width="100%"
+    height="500px" />
+
+:::info
+
+If one is interested in why `var` is objected to, consider this article explaining some reasons: [Why Var is Obsolete](https://javascript.plainenglish.io/4-reasons-why-var-is-considered-obsolete-in-modern-javascript-a30296b5f08f)
+:::
+
+---
+
+### `const` 
+
+A declaration using `const` is quite similar to `let`.
+
+The difference is that `const` variables can't be redeclared or reassigned.
+
+`const` also has a block scope.
+
+Here is an example displaying the difference:
+
+<iframe
+    src="https://hlab.app/s/docs/constex_hbook"
+    width="100%"
+    height="400px" />
+
+---
+
+### `function`
+
+Using the identifier `function` lets one declare a function.
+
+Unlike a variable, one must initialize a function's parameters and code statements in Hedgehog Script:
+
+<iframe
+    src="https://hlab.app/s/docs/funcdeclarationex_hbook"
+    width="100%"
+    height="500px" />
+
+:::info
+
+In the example above, the parameters are numbers then strings!
+
+That's because Hedgehog Script is dynamically typed.
+
+:::
+
+---
+
+### `class`
+
+Just like a `function` declaration, one uses `class` declarations in a similar way.
+
+Some additional things classes can do (functions can too in some cases, but it's messy) are:
+
+- Classes can be redeclared
+
+- Class names are optional
+
+Here is an example displaying the variety of class declarations:
+
+<iframe
+    src="https://hlab.app/s/docs/classdeclarationex_hbook"
+    width="100%"
+    height="800px" />
+
+---
+
+:::tip
+
+You may see this before the functions or classes section. 
+
+Visit **[Hedgehog Script Functions](/Functions/Functions.mdx)** and **[Hedgehog Script Classes](/Classes/Classes.mdx)** for information about them.
+
+:::

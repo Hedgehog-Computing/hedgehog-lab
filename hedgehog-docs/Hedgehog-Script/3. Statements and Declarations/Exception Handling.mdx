@@ -1,0 +1,122 @@
+---
+sidebar_position: 4
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# Exception Handling
+
+When errors *can* occur, it is good practice to handle them to either change the program or debug.
+
+However, one may also wish to `throw` user-defined errors for specific cases and handle them in a `try...catch`.
+
+- An example of this is when checking for, say, the boundaries of an object.
+
+Error handling is all about this. Predicting and managing errors, or throwing your own errors for possibly bad data.
+
+---
+
+### `try...catch`
+
+
+The `try...catch` statement is powerful for handling errors; it makes code robust, safe and error-proof.
+
+:::info
+
+Throwing `exceptions` isn't always the best error-handling method. 
+
+A `try...catch` lets you execute things with access to the error, thereby resolving it.
+:::
+
+- A `try...catch` statement has a `try` block, then a `catch` block, and an optional `finally` block. 
+
+- The code in the `try` block is executed first. If the `try` throws an exception or error: 
+
+    - Then the code in the `catch/finally` block is executed. 
+
+- Note that when there is a `finally` block, it will **always** be executed.
+
+    - It will execute before control flow exits the `try...catch` construct. 
+
+This is the syntax for `try...catch` blocks:
+
+```js
+try {
+
+    tryStatements
+} catch (exceptionVar) {
+
+    catchStatements
+} [finally {
+
+    finallyStatements
+}]
+```
+
+- The `exceptionVar` is an optional identifier to hold the caught exception. 
+
+    - If you don't need this, ignore it and write `catch { catchStatements }`.
+
+- An exception being thrown in the `try` block immediately moves control flow to `catch`. 
+
+- If `finally` is included, it will be executed no matter what. 
+
+    - A great example of `finally` is when trying to open a file, at the end no matter what close it
+
+
+Let's see an example utilizing a `try...catch` with a `finally` too:
+
+<iframe
+    src="https://hlab.app/s/docs/trycatch2_hbook"
+    width="100%"
+    height="800px"/>
+
+:::tip
+A great use case of `try...catch` is to only catch (and silence) a small subset of expected errors, say RangeErrors.
+
+As for other errors, just re-throw them if they're not relevant in your scenario. 
+
+For example: `if (e instanceof RangeError) { //handle range error} else { throw e; }`
+:::
+
+The optional exception identifier can provide detailed information regarding the thrown Error/Exception.
+
+Here's an example where the exception identifier isn't needed at all:
+
+<iframe
+    src="https://hlab.app/s/docs/trycatch_hbook"
+    width="100%"
+    height="500px"/>
+
+---
+
+### `throw`
+
+The keyword `throw` is also used for exception handling, and using it throws a user-defined exception.
+
+Similarly, control flow will be passed to the first `catch` block in the "stack". 
+
+- If there is no `catch` blocks, the program simply terminates after throwing the error.
+
+The different between `throw` and `try...catch` is:
+
+- `throw` is user-defined, so one can throw exceptions when a `try` block wouldn't
+
+- Also, `throw` lets you throw objects and expressions
+
+Here's an example of using `throw`:
+
+<iframe
+    src="https://hlab.app/s/docs/throwex1_hbook"
+    width="100%"
+    height="500px"/>
+
+<p>&nbsp;</p>
+
+:::tip
+
+`throw` and `try...catch` can be combined. That is when exception handling is powerful.
+
+:::
+
+---

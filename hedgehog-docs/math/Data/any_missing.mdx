@@ -1,0 +1,20 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `any_missing(matrix: any[] | Mat | Tensor) : boolean`
+
+**param** `matrix` - The inputted matrix to check for any missing data
+
+**returns:** `boolean` - `true` if there is at least 1 missing element, `false` otherwise
+
+This function goes through the data, whether it be a list, `Array`, etc and checks for missing values. Missing values are namely, `NaN`, `null`, `''`, and `undefined`. Note that `[]` and `{}` are not considered missing. Hence it will comb through the data searching for these 4 types of missing values and if it returns `true` at least once, it will return that there is missing values. 
+
+This is useful for searching in a large `Array` and should be standard. If not done, you may get an error and that error may not be understood to be coming from the missing elements. Below is some smaller scale examples of how to use this function.
+
+
+
+<iframe src="https://hlab.app/s/docs/any_missing_hbook"
+    width="100%"
+    height="600px"/>
+
+A common usage of this concept is when importing large data files and translating them such as csv files, you may end up with a lot of `null` or `NaN` entries.

@@ -1,0 +1,203 @@
+---
+sidebar_position: 1
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# Matrix
+
+As a scientific programming language, all the usual matrix operations are supported by Hedgehog Script. The matrix is a two-dimensional array of numbers. The matrix is created by the `mat()` function or `Mat()` class constructor. 
+
+---
+
+### Create a matrix
+
+You can create a matrix by the `mat()` function or `Mat()` class constructor. The `mat()` function is a shortcut (or a wrapper function) for the `Mat()` class constructor. 
+
+The `Mat()` class constructor accept the following arguments: 
+
+`Mat(input: number[][] | number[] | number)`
+
+**param** `input` - the input data for the matrix, which means you can create a matrix by passing a two-dimensional array of numbers(as an M-by-N matrix), a one-dimensional array of numbers(as a 1-by-N matrix), or a single number(as a 1-by-1 matrix).
+
+the `mat()` function and `Mat()` class constructor have the same parameters, but the `mat()` function is more convenient to use. 
+
+Here is an example of creating a matrix by the `mat()` function and `Mat()` class constructor: 
+
+<iframe src="https://hlab.app/s/docs/matrix_demo_1"
+    width="100%"
+    height="400px">
+  </iframe>
+
+---
+
+
+### Create certain types of matrix with built-in functions
+
+Also here are a list of built-in functions for creating certain types of matrix:
+
+`csv2mat(csv: string): Mat` - create a matrix from a CSV string
+
+`mat2csv(mat: Mat): string` - create a CSV string from a matrix
+
+`json2mat(json: string): Mat` - create a matrix from a JSON string
+
+`mat2json(mat: Mat): string` - create a JSON string from a matrix
+
+`zeros(m: number, n?: number): Mat` - create an m-by-m or m-by-n matrix of zeros
+
+`ones(m: number, n?: number): Mat` - create an m-by-m or m-by-n matrix of ones
+
+`Ns(m: number, n?: number, N:number): Mat` - create an m-by-m or m-by-n matrix of given number `N`
+
+`diag(v: number[]): Mat` - create a diagonal matrix from a vector
+
+`eye(m: number, n?: number): Mat` - create an m-by-m or m-by-n identity matrix
+
+`random(m: number, n?: number): Mat` - create an m-by-m or m-by-n matrix of random numbers
+
+`range(start: number, end = null, step?: number): Mat` - create a 1-by-N matrix of numbers from start to end with a step. 
+- `range(x)` - create a 1-by-x matrix of numbers from 0 to x-1
+- `range(x, y)` - create a 1-by-(y-x) matrix of numbers from x to y-1
+- `range(x, y, z)` - create a 1-by-ceil((y-x)/z) matrix of numbers from x to y-1 with a step of z
+
+<iframe src="https://hlab.app/s/docs/matrix_demo_2"
+    width="100%"
+    height="600px">
+  </iframe>
+
+
+---
+
+### Matrix operations
+
+Most of the matrix operations are supported and overloaded by Hedgehog Script, like the `+`, `-`, `*`, `/`, `**` operators -- which means you can use the Matlab-flavored operators to do matrix operations and expressions.
+
+<iframe src="https://hlab.app/s/docs/matrix_demo_operators"
+    width="100%"
+    height="600px">
+  </iframe>
+
+
+
+---
+
+### Reference of `Mat()` class
+
+Here are the reference of `Mat()` class:
+
+#### Member variables
+
+`val: number[][]` - the value (2D array of number) of the matrix
+
+`rows: number` - the number of rows of the matrix
+
+`cols: number` - the number of columns of the matrix
+
+`mode: string` - the mode of the matrix, which can be:
+ 
+- `'gpu'` (GPU acceleration)
+- `'cpu'` or `null` (CPU mode) 
+- `'wasm'` (wasm mode)
+
+`digits` - the number of digits to display when printing the matrix
+
+#### Member functions
+
+`clear()` - clear the matrix
+
+`clone() : Mat` - clone the current matrix
+
+`copy(mat: Mat)` - copy the value of another matrix to the current matrix
+
+`equals(mat: Mat): boolean` - check if the current matrix is equal to another matrix
+
+`init(input: number[][]): Mat` - initialize the matrix
+
+`min(): number` - get the minimum value of the matrix
+
+`max(): number` - get the maximum value of the matrix
+
+`range(arg1: number, arg2: number|null, step = 1): Mat` - create a 1-by-N matrix of numbers from arg1 to arg2 with a step.
+
+`Ns(row: number, col: number, N: number): Mat` - set the value of the matrix to a given number `N`
+
+`zeros(row: number, col: number): Mat` - set the value of the matrix to zeros
+
+`ones(row: number, col: number): Mat` - set the value of the matrix to ones
+
+`diag(v: number[]): Mat` - set the value of the matrix to a diagonal matrix from a vector
+
+`eye(row: number, col: number): Mat` - set the value of the matrix to an identity matrix
+
+`random(row: number, col: number): Mat` - set the value of the matrix to a matrix of random numbers
+
+`T(): Mat` - transpose the matrix
+
+`transpose(): Mat` - transpose the matrix
+
+`each(functor: (element:number) => number): Mat` - apply a functor to each element of the matrix
+
+`add(mat: Mat): Mat` - add another matrix to the current matrix
+
+`addScalar(scalar: number): Mat` - add a scalar to the current matrix
+
+`minus(mat: Mat): Mat` - subtract another matrix from the current matrix
+
+`multiply(mat: Mat): Mat` - multiply another matrix to the current matrix
+
+`multiplyScalar(scalar: number): Mat` - multiply a scalar to the current matrix
+
+`minusScalar(scalar: number): Mat` - subtract a scalar from the current matrix
+
+`dotMultiply(mat: Mat): Mat` - dot multiply another matrix to the current matrix
+
+`divide(mat: Mat): Mat` - divide the current matrix by another matrix
+
+`set(row: number, col: number, value: number): Mat` - set the value of a given element of the matrix
+
+`get(row: number, col: number): number` - get the value of a given element of the matrix
+
+`at(row: number, col: number): number` - get the value of a given element of the matrix
+
+`to2DArray(): number[][]` - convert the matrix to a 2D array of number
+
+`row(row: number): Mat` - get a row of the matrix as an N-by-1 matrix
+
+`col(col: number): Mat` - get a column of the matrix as an 1-by-N matrix
+
+`reshape(row: number, col: number): Mat` - reshape the matrix to a given size
+
+`subMatrix(rowStart: number, rowEnd: number, colStart: number, colEnd: number): Mat` - get a sub-matrix of the current matrix
+
+`resize(row: number, col: number, defaultFillingValue = 0): Mat` - resize the matrix to a given size
+
+`Rows(rowStart: number, rowEnd: number): Mat` - get a sub-matrix of the current matrix
+
+`Cols(colStart: number, colEnd: number): Mat` - get a sub-matrix of the current matrix
+
+`ColVector(col: number): Mat` - get a column of the matrix as an 1-by-N matrix
+
+`Row(row: number): Mat` - get a row of the matrix as an N-by-1 matrix
+
+`Col(col: number): Mat` - get a column of the matrix as an 1-by-N matrix
+
+`squareSum(): number` - get the square sum of the matrix
+
+`setDigits(digits: number): Mat` - set the number of digits to display when printing the matrix
+
+`toString(): string` - convert the matrix to a string
+
+`toStirngWithTab(): string` - convert the matrix to a string with tab
+
+`toCsv(): string` - convert the matrix to a csv string
+
+`toJson(): string` - convert the matrix to a json string
+
+`toTex(): string` - convert the matrix to a tex string
+
+`log(): Mat` - print the object in the console terminal (for debugging)
+
+`appendInRow(mat: Mat): Mat` - append another matrix in the row of the current matrix
+
+`appendInColumn(mat: Mat): Mat` - append another matrix in the column of the current matrix

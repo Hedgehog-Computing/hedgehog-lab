@@ -1,0 +1,66 @@
+
+
+# Built in Objects
+
+## Keep only fundamental ones, and provide a section for EACH one with an example
+
+Here is a long list of some of many more objects available to use in Hedgehog Script. They are available via keyword or name:
+```
+Array 
+ArrayBuffer 
+BigInt64Array 
+BigUint64Array 
+DataView 
+Date 
+decodeURI() 
+decodeURIComponent() 
+encodeURI() 
+encodeURIComponent() 
+Error 
+FinalizationRegistry 
+Float32Array 
+Float64Array 
+Function 
+Generator 
+GeneratorFunction 
+globalThis 
+Infinity 
+Int16Array 
+Int32Array 
+Int8Array 
+Intl 
+isFinite() 
+isNaN() 
+JSON 
+Map 
+Math 
+parseFloat() 
+parseInt() 
+RangeError 
+ReferenceError 
+Reflect 
+RegExp 
+Set 
+SharedArrayBuffer 
+SyntaxError 
+TypedArray 
+TypeError 
+Uint16Array 
+Uint32Array 
+Uint8Array 
+Uint8ClampedArray 
+undefined 
+URIError 
+WeakMap 
+WeakRef 
+WeakSet
+```
+Some one may deduce the meaning of via name, some are covered in this book and the rest are more complex. 
+
+If one wishes to familiarize themselves with all built-in objects visit here: [Built-in Object - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects)
+
+:::warning
+
+Some of these are not supported in Hedgehog Script
+
+:::

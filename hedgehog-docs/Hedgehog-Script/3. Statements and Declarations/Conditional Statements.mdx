@@ -1,0 +1,141 @@
+---
+sidebar_position: 2
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+# Conditional Statements
+
+**Control flow** is about the order of execution.
+
+Conditional statements are a part of control flow, since their conditions can change the order of execution.
+
+Let's discuss the basics of **conditional statements**.
+
+---
+
+### `if`, `if-else` and `if-else if`
+
+To control the flow of execution, one may wish to have different things happen based on a condition.
+
+`if` is used for this purpose. 
+
+The `if` statement is composed of a **condition** and statements to run if the condition is true:
+
+<iframe
+    src="https://hlab.app/s/docs/condstatementsex1_hbook"
+    width="100%"
+    height="600px" />
+
+With `if`, one can add an `else` statement afterwards to execute something if the condition fails:
+
+The syntax is:
+
+```js
+if (condition) {
+    //statements
+}
+else {
+    //otherwise, statements
+}
+```
+
+And lastly, one can combine and `else-if` into the mix for multiple conditional cases.
+
+The syntax using `else-if` is:
+
+```js
+if (condition) {
+    //if statements
+}
+else if (condition2) {
+    //else-if statements
+}
+else if (condition3) {
+    //else-if 2 statements
+}
+...
+[else {
+    //else statements...
+}];
+```
+
+:::info
+
+When using `[]` around something in syntax, it means that statement/declaration is **optional**
+
+:::
+
+Here is an example covering a mix of what we've discussed:
+
+<iframe
+    src="https://hlab.app/s/docs/condstatementsex2_hbook"
+    width="100%"
+    height="700px" />
+
+---
+
+### `switch` Statements 
+
+The statement `switch` is effectively another version of `if else-if ... [else]` chains.
+
+The syntax of a `switch` case is as follows:
+
+```js
+switch(expression) {
+    case value1:
+        //statements if expression matches value1
+        break; 
+    case value2:
+        //statements if expression matches value2
+        break;
+    ...
+    case valueN:
+        //statements if expression matches valueN
+        break;
+    [default: 
+        //statements executed when none of the values match the expression
+        break; ]
+}
+```
+
+There is an optional statement in this syntax: namely, `default: `
+
+First we need to quickly cover `break` statements to understand a switch case:
+
+- A `break` statement effectively "breaks out" of control flow.
+
+- In the context of `switch` cases, calling `break;` forces control flow to leave the switch case.
+
+What is `default: ` and why is it optional?
+
+- Regarding `default: `, if it is provided, something **will** happen whether or not a case succeeds.
+
+    - However, if it isn't provided, then simply **nothing** will happen if all cases fail.
+
+It all depends on how the user wants the program to function.
+
+Here is an example of a basic `switch` case:
+
+<iframe
+    src="https://hlab.app/s/docs/condstatementsex3_hbook"
+    width="100%"
+    height="500px" />
+
+Here's an example with no default case being used:
+
+<iframe
+    src="https://hlab.app/s/docs/condstatementsex4_hbook"
+    width="100%"
+    height="600px" />
+
+---
+
+:::tip
+
+For more resources on conditional statements and control flow, visit [Control Flow - MDN](https://developer.mozilla.org/en-US/docs/Glossary/Control_flow)
+
+:::
+
+--- 
+    

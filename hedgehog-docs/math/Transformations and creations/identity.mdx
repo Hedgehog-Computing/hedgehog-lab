@@ -1,18 +1,17 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
 
-#### `Identity(input: Integer) : Mat`
+#### `identity(int: integer) : Mat`
 
-**param** `input` - the size of the identity matrix you want to create. An identity matrix is square, so itll be the length of the rows and columns. 
+**param** `int` - an integer representing the size of the identity matrix you want to create. An identity matrix is square so if `int = 3`, you'll get a 3x3 matrix.
 
 
-**returns:** `Mat` - A Mat 2d array namely the identity matrix. 
+**returns:** `Mat` - namely the identity matrix as a `Mat` object (matrix). 
 
-This function creates a identity matrix. An identity matrix is simply a square matrix, whose diagonal entries are all 1's and everything else is 0's. It is important because any matrix multiplied by the identity matrix (to the left, or right) gives back that matrix. 
+This function creates an identity matrix of `int x int` size. An identity matrix has all diagonal values as 1's and everything else as 0's. It is important in many operations because any matrix multiplied by the identity matrix (to the left, or right) is equal to the matrix itself.
 
 
 
 <iframe src="https://hlab.app/s/docs/hbook_identity"
     width="100%"
-    height="500px">
-</iframe>
+    height="500px"/>

@@ -1,0 +1,55 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Data Structures
+
+## The Essentials:
+
+Data structures in HedgehogScript (or any programming language) are formats to organize, manage and store data for easy access.
+
+They also are a collection of data values, the relationships among them, and the functions/operations that can be applied.
+
+
+### Arrays (and Objects)
+
+First let's note a common, built-in data structure: `Arrays` and `objects` are included in Hedgehog Script. 
+
+`objects` are actually data structures in themselves - they hold data via properties, and manage it via methods in the object.
+
+### Stacks
+
+Next, let's consider `stacks`, an important data structure. 
+
+- These are list-like structures that work under a LIFO pattern (last in, first out).
+
+Some examples are: managing function calls and undo/redo functionality some languages offer. 
+
+To implement a stack, one can use an `Array` with `push` and `pop` methods. Here is an example:
+
+:::tip
+
+Shrink the details of the class by clicking the down arrow next to the '2' in '2 class Stack {'
+
+:::
+
+<iframe
+    src="https://hlab.app/s/docs/stackex_hbook"
+    width="100%"
+    height="900px" />
+
+
+### Queues
+
+Similar to stacks, there exist queues. They follow the opposite pattern FIFO (first in, first out) just like a real life queue. 
+
+There are various use of queues in Hedgehog Script, some being background tasks and printing/task processing. 
+
+One common way to implement a queue is with an Array similar to `Stack`, but you have a `push()` and `shift()` method.
+
+** The implementation is very similar to `Stack`'s, just different indices. **
+
+:::info
+
+In the next section, we'll see some more advanced data structures.
+
+:::

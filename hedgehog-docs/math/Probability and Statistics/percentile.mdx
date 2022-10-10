@@ -1,0 +1,19 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `percentile(matrix: any[] | Mat | Tensor, perc: number) : any[]`
+
+**param** `matrix` - an `Array`, `Mat` or `Tensor`.
+
+**param** `perc` a `number` in the interval [0, 100]
+
+**returns** `any[]` - an `Array` representing the percentile (all the numbers with index larger than `perc`% of the values)
+
+The percentile of a construct, whether it be a function or in our case, matrix-like structures, is a number for where values in an `Array` below a certain percentage, namely, `perc`, *fall below*. For example, the 60th percentile is the number where below 60% of all the scores may be found. So if we had `[1,2,3,4,5,6,7,8,9,10]`, the 60th percentile would be '6' and everything **below** it (`[6,5,4,3,2,1]`) Note that the percentile is similar to the quantile. 
+
+Hence, in this function, we return an `Array` that contains all the values below the percentile (including the percentile value). The function name can be misleading as the percentile is actually a parameter and we're returning an `Array` of numbers in that percentile range.
+
+This aligns well with our modern concept of the word 'percentile'. For example the statement 'he scored in the 99th percentile in his exam' we understand to be the top 1%. This makes sense according to the definition we use, as his score is equal to or above 99% of other scores. 
+
+<iframe src="https://hlab.app/s/LinJianan/percentile_book"
+    width="100%"
+    height="500px"/>

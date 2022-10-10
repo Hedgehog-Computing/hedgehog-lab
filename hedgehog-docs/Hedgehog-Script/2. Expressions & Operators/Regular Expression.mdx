@@ -1,0 +1,80 @@
+---
+sidebar_position: 4
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Regular Expressions
+
+`RegExp` is a powerful `object` that matches text to a pattern.
+
+There are two ways to create said `object`:
+
+- 1) Literal notation - pattern and/or options enclosed by `/ /`
+
+- 2) Constructor - take in a string or literal and option flags as parameters 
+
+
+The following 3 expressions create the same exact regular expression object:
+
+ <iframe
+    src="https://hlab.app/s/docs/regexp_hbook"
+    width="100%"
+    height="400px"/>
+
+:::info
+
+The 'i' is one of many flags, specifically for making the search case-insensitive.
+
+:::
+
+Let's breakdown the regular expression `/ab+c/`: 
+
+- `+` after b means to match at least one 'b'
+
+- 'a' and 'c' are simply the beginning and end of the pattern
+
+  - 'abc' matches, as well as 'abbbc'. 'ababc' does not
+
+A great example is `/be+/`:  'bee', 'bent', 'bear' are all matches.
+
+---
+
+### Character classes and Anchors
+
+A **character class** matches any one set of characters. 
+
+Here are some examples:
+
+- `[ae]` matches the "a" in "based", and "e" in "lane"
+
+- `[^ae]` matches anything **not** in the character class - "r", "g", "n" are matched in "green"
+
+- `[A-P]` matches any character in the range A through P
+
+- `\w` matches any word character - "V", "e", "2", "0", **not "."** in "Ve2.0"
+
+**Anchors** cause a match to succeed or fail based on the **current position in the string**.
+
+They don't cause advancement through the string or consume characters.
+
+Here's a few examples:
+
+- `$` match must occur at the end 
+
+- `\A` match must occur at the start of the string
+
+- `\b` match must occur on a boundary between a word character and a non-word character
+
+:::tip
+
+`RegExp` can be an extremely powerful tool, but it may be complicated at first. 
+
+If you wish to learn more about
+
+  - If you wish to learn more about character classes, anchors, and regular expressions in general, visit: [RegExp - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions). 
+
+:::
+
+---

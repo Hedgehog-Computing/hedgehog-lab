@@ -1,18 +1,19 @@
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-#### `resize(input: any[] | Mat | Tensor, sizes: any[], defaultvalue : Number) : any[] | Mat | Tensor`
+#### `resize(matrix: any[] | Mat | Tensor, sizes: any[], defaultValue : number) : any[] | Mat | Tensor`
 
-**param** `input` a JS array, matrix or tensor, the construct to be resized
+**param** `matrix` - an `Array`, `Mat` or `Tensor` - the construct to be resized
 
-**param** `sizes` a 1-d array representing the size to resize to
+**param** `sizes` a 1-D `Array` (list) to resize to
 
-**param** `defaultvalue` a number for filling the remaining empty spaces
+**param** `defaultValue` a number for filling the remaining empty spaces
 
-**returns** - `any[] | Mat | Tensor` - a resized JS array, matrix or tensor with the corresponding size given in `sizes`
+**returns** - `any[] | Mat | Tensor` - a resized `Array`, `Mat` or `Tensor` with the corresponding size given in `sizes`
 
-sizes should be like [2, 2, 2] or [2, -1]. Here, -1 means automatically matching.
+`sizes` should be something like `[2, 2, 2]` or `[2, -1]`. Here, -1 means automatically matching.
+
+`resize` and `reshape` are very similar. Here is an example for clarity:
 
 <iframe src="https://hlab.app/s/LinJianan/resize_book"
     width="100%"
-    height="500px">
-</iframe>
+    height="500px"/>

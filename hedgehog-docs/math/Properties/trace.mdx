@@ -1,16 +1,15 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-#### `trace(input: any[][] | Mat | Tensor) : Number`
+#### `trace(matrix: any[] | Mat | Tensor) : number`
 
-**param** `input` - Any JavaScript 2d array, Mat, Tensor. Must be 2d and square though.
+**param** `matrix` - an `Array`, `Mat` or `Tensor`. Must be 2-D and square.
 
-**returns:** `Number` - The trace of the matrix.
+**returns:** `number` - The trace of the matrix.
 
-This function returns the trace of the matrix given. Note that the trace is the sum of the diagonal entries of a matrix. It is useful in certain applications and measurements of matrix properties. 
+This function returns the trace of the matrix given. The trace is the *sum of the diagonal entries* of a matrix. It is useful in certain applications and measurements of matrix properties. 
 
 
 <iframe src="https://hlab.app/s/docs/trace_hbook"
     width="100%"
-    height="500px">
-  </iframe>
+    height="500px"/>

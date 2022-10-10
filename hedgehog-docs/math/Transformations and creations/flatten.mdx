@@ -1,16 +1,15 @@
 
 import { MathJax, MathJaxContext } from 'better-react-mathjax'
 
-#### `flatten(input: any[] | Mat | Tensor) : any[]`
+#### `flatten(matrix: any[] | Mat | Tensor) : any[]`
 
-**param** `input` can be any matrix like structure; a vector, 2d javascript array, Mat object, Tensor, etc
+**param** `matrix` - an `Array`, `Mat` or `Tensor`
 
-**returns:** `any[]` - A 1-dimensional javascript array with all elements from `input`. The order of elements follows the dimensions or shape order. 
+**returns:** `any[]` - A list with all elements from `matrix`. The order of elements follows the dimensions or shape order. 
 
-This function is a useful tool for taking a multidimensional matrix or even a 2d matrix and "flattening" it into a 1d javascript array. Here is an example:
+This function is a useful tool for taking a multidimensional matrix, for example a 2-D matrix, and "flattening" it into a 1d `Array` i.e. a list. Here is an example:
 
 
 <iframe src="https://hlab.app/s/docs/flatten_hbook"
     width="100%"
-    height="500px">
-  </iframe>
+    height="500px"/>

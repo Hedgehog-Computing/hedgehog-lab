@@ -1,0 +1,22 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `smooth(matrix: any[] | Mat | Tensor, dim: number) : any[] | Mat | Tensor`
+
+**param** `matrix` - an `Array`, `Mat` or `Tensor` only supporting 2-D, to smooth the data of. 
+
+**param** `dim` either '0' or '1', '0' for rows, '1' for columns. Default is rows, `dim=0`.  
+
+**returns:** `any[] | Mat | Tensor` - a copy of the input with the elements smoothed.
+
+This function smooths the data by the following method: 
+
+`a[i] -> (a[i - 2] + a[i - 1] + a[i] + a[i + 1] + a[i + 2]) / 5`
+
+An example to make it clearer is shown below. It's useful for cases where the data is very noisy in large data sets, or where there are many outliers. 
+
+Overall it tries to make the data all "closer" together, or less eratic. 
+
+<iframe src="https://hlab.app/s/docs/smooth_hbook"
+    width="100%"
+    height="500px"/>

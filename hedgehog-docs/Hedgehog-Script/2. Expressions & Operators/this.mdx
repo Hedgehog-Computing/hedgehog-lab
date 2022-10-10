@@ -1,0 +1,85 @@
+---
+sidebar_position: 2
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# `this`
+
+The keyword `this` belongs to functions, (or when used alone, the global `object`).
+
+`this` is effectively a pointer to that `function`/`object`.
+
+Here is an example:
+
+<iframe
+    src="https://hlab.app/s/docs/thisex1_hbook"
+    width="100%"
+    height="500px"/>
+
+
+There are different contexts of using `this`:
+
+- Global context: when `this` is called outside of a function, it refers to the global object. (window in a browser for example)
+
+- Function context: calling `this` in a function refers to the object the function belongs to. 
+
+    - If said function is alone, this refers globally.
+
+- Class context: refers to the properties/members of that class in an instance of it
+
+:::info
+
+We can change what `this` refers to, especially in function contexts, using `binding` methods (shown soon).
+
+:::
+
+<p>&nbsp;</p>
+
+Here's another example of `this` used in an `object` setting:
+
+<iframe
+    src="https://hlab.app/s/docs/thisex2_hbook"
+    width="100%"
+    height="500px"/>
+
+---
+
+### Binding this
+
+We can change what `this` refers to by using certain methods:
+
+- `bind()` can set a function's `this` value. Note that arrow functions don't have their own `this` binding
+
+- `call()` will bind a function's `this` to the first parameter put in `call()`
+
+- `apply()` similar to `call()`
+
+Let's see an example:
+
+<iframe
+    src="https://hlab.app/s/docs/this_hbook"
+    width="100%"
+    height="400px"/>
+
+Regarding the `bind()` method, a function calls `bind()` with an `object` parameter.
+
+This leads to a creation of a new, equal function.
+
+- `this` will then be bound permanently in the new function to said parameter.
+
+Let's see another example to clarify:
+
+<iframe
+    src="https://hlab.app/s/docs/thisex3_hbook"
+    width="100%"
+    height="500px"/>
+
+:::tip
+
+For more detailed information regarding `this`, visit: [this - MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this)
+
+:::
+
+---

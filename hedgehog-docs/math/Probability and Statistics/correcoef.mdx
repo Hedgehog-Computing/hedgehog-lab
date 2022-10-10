@@ -1,0 +1,28 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `correcoef(matrix1: any[] | Mat, matrix2: any[] | Mat): number`
+
+
+**param** `matrix1` - the first part of the pair of data to find the correlation coefficient of. Needs to be an `Array` or `Mat`.
+
+**param** `matrix2` - similar to `matrix1`, needs to be the same length and is an `Array` or `Mat` holding data.
+
+**returns** - a `number` representing the correlation coefficient of `matrix1` and `matrix2`, between -1 and 1.
+
+The correlation coefficient can be thought of as a number that represents how strongly 2 variables are connected. It takes in two variables of data, `matrix1` and `matrix2`, where `matrix1` contains data, say [0,1,1,2,2,3] and `matrix2` contains other data, say [0,0,1,1,2,3,].
+
+Then it finds the distances between each point for each indice and keeps a track of it as a sum. 
+
+Overall, it outputs a number between -1 and 1. The closer it is to 1, the stronger the correlation. The closer to -1, the stronger the inverse correlation. 
+
+A practical use of this is something like an `Array` of housing prices over a span of years - `matrix1`, and an `Array` of crime amount over the years - `matrix2`. Is crime correlated to housing prices? If so, how **much** is it correlated?
+
+To find the correlation coefficient of the two input matrices, use the following formula (or this function!):
+
+<MathJaxContext>
+      <MathJax>{"$$r = \\frac{\\sum(x_i - \\bar{x}) (y_i - \\bar{y})}{\\sqrt{\\sum(x_i - \\bar{x})^2 \\sum(y_i - \\bar{y})^2}}$$"}</MathJax>
+</MathJaxContext>
+
+<iframe src="https://hlab.app/s/LinJianan/correcoef_book"
+    width="100%"
+    height="500px"/>

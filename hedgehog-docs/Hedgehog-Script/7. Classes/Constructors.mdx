@@ -1,0 +1,35 @@
+---
+sidebar_position: 1
+---
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Constructors
+
+The `constructor` method is a special, unique method of a `class` to initialize an instance of that class.
+
+A simple example is the following:
+
+<iframe
+    src="https://hlab.app/s/docs/constructor_hbook"
+    width="100%"
+    height="400px"/>
+
+:::note
+`constructor()` can have an arbitrary amount of parameters, including none.
+:::
+
+A `constructor` is powerful in the sense that it can manage all the initialization of an object, executing before anything else.
+
+:::tip
+You don't **need** to write a `constructor`! 
+
+- A virtual, empty one will be inserted by default. 
+
+- Similarly if you forget to call `super()` in a subclass, Hedgehog Script will call it for you. 
+:::
+
+---
+
+

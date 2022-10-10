@@ -1,0 +1,55 @@
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+# Other Useful Data Structures
+
+### Linked/Doubly linked Lists
+
+Linked lists are a constructed data type that can be helpful in Hedgehog Script. 
+
+Within the list, each value is a `node`, and each node is connected with the following value in the list. (`null` follows the end). 
+
+Also there exists doubly linked lists - just like a linked list but it has a `previousNode` and `nextNode`. 
+
+:::info
+The first element of a list is called the `head` and the last is the `tail`. Note that lists do not have indexes. 
+
+While there are downsides, the bonus is that insertion, deletion and sometimes modification are more efficient than `Arrays`.
+:::
+
+There are functions that should be implemented in linked/doubly linked lists. 
+
+The most important are the `constructor`, `pop()`, `push(value)`, `get(index)` and `insert(index, value)`.
+
+### Trees
+
+Another data structure is `trees` which have `nodes` in a child/parent relationship, kind of like a family tree. 
+
+There is a `root` node, and then `children` and `parent` nodes. All nodes are `children` of `root`. 
+
+Only connections between parent/children are allowed. For example, sibling connections are forbidden. There can only be 1 `root`. 
+
+Some examples of tree usage is : the DOM model, situation analysis in AI, and operating systems' file folders. 
+
+:::tip
+One very important and useful tree is the `binary (search) tree`
+:::
+
+### Heaps
+
+Next, there is `heaps`. These are a type of trees and a specific type is `binary heaps` used to implement `priority queues`.
+
+The construction of a `heap` is relatively complicated so we'll skip it for now. 
+
+### Graphs
+
+Lastly, `graphs` are a data structure where nodes can be connected in any way. 
+
+These are useful for social networks, geolocalization and recommendation systems. 
+
+
+:::info
+There are more, complex data structures one can create but these are the most well-known and commonly used. 
+
+Infact many universities have a mandatory data structure class! They are extremely vital to larger projects.
+:::

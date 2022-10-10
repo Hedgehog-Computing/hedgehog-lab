@@ -1,0 +1,15 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+#### `is_triu(matrix: any[] | Mat) : boolean`
+
+**param** `matrix` - Any matrix, 2 dimensional and square, to test if it's an upper triangular matrix or not
+
+**returns:** `boolean` - `true` if it is upper triangular, `false` otherwise.
+
+This function tests if a square 2-D matrix is upper triangular or not. Upper triangular matrices have the property that everything *below* the diagonal is zero, hence only the upper diagonal (shaped like a triangle) has values. For a visual method, look at the diagonal and see if there's any entry below the diagonal that is non zero. If there is, it is *not* upper triangular. 
+
+
+<iframe src="https://hlab.app/s/docs/is_triu_hbook"
+    width="100%"
+    height="500px"/>

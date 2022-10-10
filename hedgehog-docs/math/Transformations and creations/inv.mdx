@@ -1,0 +1,16 @@
+
+import { MathJax, MathJaxContext } from 'better-react-mathjax'
+
+
+#### `inv(matrix: any[] | Mat) : any[]`
+
+**param** `matrix` a 2-D `Array` or `Mat`. Should be square and invertible. 
+
+**returns:** `any[]` - The matrix that is the *inverse* of `matrix` i.e. `matrix * matrix^-1 = I` where `I` is the identity matrix. (recall identity matrix is 1's on the diagonal and 0's elsewhere)
+
+This function simply finds the inverse of a matrix if it's invertible. One test for invertible matrices is its invertible if the determinant is not zero. ( !(det(matrix) === 0 ) 
+
+
+<iframe src="https://hlab.app/s/docs/inv_hbook"
+    width="100%"
+    height="500px"/>

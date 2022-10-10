@@ -16,7 +16,7 @@ import {
 import type {CodeComponent} from 'react-markdown/src/ast-to-react'
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
-import TableComponent from "@hedgehogcomputing/lab/src/components/Results/OutputItemCompoments/TableComponent";
+import TableComponent from "@hedgehogcomputing/website/src/components/Results/OutputItemCompoments/TableComponent";
 
 type CodeProps = Parameters<CodeComponent>[0]
 
