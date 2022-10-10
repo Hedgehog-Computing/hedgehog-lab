@@ -10,7 +10,7 @@ const config = {
   tagline: 'The official documentation for Hedgehog Lab',
   url: 'https://hlab.app/',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'ignore',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/hedgehog_1f994.ico',
 
