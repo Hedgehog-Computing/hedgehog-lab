@@ -1,0 +1,50 @@
+---
+sidebar_position: 2
+---
+
+# Tensor
+
+Tensor is a multi-dimensional array with a uniform type. In Hedgehog Lab, tensor is only used to store data. There are not any operations on tensor supported in Hedgehog Lab. 
+
+### Create a tensor
+
+You can create a tensor by using the `Tensor(n_dim_array)` constructor or `tensor` wrapper function. Both of them take an n-dimensional array as input. 
+
+
+### Member variables and methods
+
+`val: any[]`: The value of the tensor. It is a n-dimensional array.
+
+`ndim: number`: The number of dimensions of the tensor.
+
+`shape: number[]`: The shape of the tensor.
+
+`dimensions(): number[]`: Return the shape of the tensor.
+
+`toString(): string`: Return the string representation of the tensor, for example, a three-dimensional tensor will be serialized as a string in this format:
+
+```js
+[[[1, 2], 
+[3, 4]], 
+[[5, 6], 
+[7, 8]]]
+``` 
+
+`toStringDenseMode`: Return the string representation of the tensor in dense mode, for example, a three-dimensional tensor will be serialized as a string in this format:
+
+```js
+[[[1, 2], [3, 4]], [[5, 6], [7, 8]]]
+```
+
+`clone(): Tensor`: Return a copy of the tensor.
+
+`copy( A: Tensor ): Tensor`: Copy the value of tensor `A` to the tensor.
+
+`zerosAsShape( shape: number[] ): Tensor`: Return a tensor with the same shape as the input shape, and all elements are zeros.
+
+`zeros( d1: number, d2: number, ...dn: number ): Tensor`: Return a tensor with the input shape, and all elements are zeros.
+
+<iframe src="https://hlab.app/s/docs/tensor_demo_mat_reference"
+    width="100%"
+    height="400px">
+  </iframe>
