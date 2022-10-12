@@ -48,4 +48,4 @@ jobs:
         aws-region: us-east-2
 
     - name: Deploy static site to S3 bucket
-      run: aws s3 sync ./packages/hedgehog-lab/build/ s3://hlab-production --delete
+      run: aws s3 sync ./packages/hedgehog-website/build/ s3://hlab-production --delete
