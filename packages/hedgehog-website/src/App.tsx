@@ -12,6 +12,8 @@ import {pageView} from "./utils/ga4";
 import {searchState} from "./states/RSnippetStates";
 import { HelmetProvider } from 'react-helmet-async';
 import Meta from './components/Meta/Meta';
+import {ToastContainer} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ThemePage = () => {
     const resetSearch = useResetRecoilState(searchState)
@@ -35,6 +37,7 @@ const ThemePage = () => {
 const App = (): React.ReactElement => {
     return (
         <div className="App">
+            <ToastContainer />
             {/*// @ts-ignore */}
             <RecoilRoot>
                 <HelmetProvider>

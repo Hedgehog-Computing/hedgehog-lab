@@ -17782,6 +17782,13 @@ react-syntax-highlighter@^15.4.5:
     prismjs "^1.25.0"
     refractor "^3.2.0"
 
+react-toastify@^9.0.8:
+  version "9.0.8"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-9.0.8.tgz#3876c89fc6211a29027b3075010b5ec39ebe4f7e"
+  integrity sha512-EwM+teWt49HSHx+67qI08yLAW1zAsBxCXLCsUfxHYv1W7/R3ZLhrqKalh7j+kjgPna1h5LQMSMwns4tB4ww2yQ==
+  dependencies:
+    clsx "^1.1.1"
+
 react-transition-group@^4.4.2:
   version "4.4.2"
   resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-4.4.2.tgz"

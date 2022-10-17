@@ -128,7 +128,7 @@ const SnippetList: React.FC<ISnippetListProps> = (props) => {
             {snippets.map((item: ISnippetsProps, index: number) => {
                 return (
                     <Box key={index}>
-                        <Grid container display={"flex"} justifyContent={"space-between"}
+                        <Grid container display={"flex"} justifyContent={"space-between"} alignItems={'center'}
                               spacing={isExplorePage ? 0 : 1}>
                             <Grid item>
                                 <Box alignItems={"center"} display={"flex"} sx={{

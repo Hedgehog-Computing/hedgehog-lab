@@ -10,6 +10,8 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://cra.link/PWA
 
+import {toast} from "react-toastify";
+
 const isLocalhost = Boolean(
     window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -48,6 +50,10 @@ export function register(config?: Config) {
               'PWA: This web app is being served cache-first by a service ' +
               'worker. To learn more, visit https://cra.link/PWA'
           );
+
+            toast.info("PWA is available!", {
+                position: toast.POSITION.BOTTOM_LEFT
+            });
         });
       } else {
         // Is not localhost. Just register service worker
@@ -76,6 +82,15 @@ function registerValidSW(swUrl: string, config?: Config) {
                     'PWA: New content is available and will be used when all '
                 );
 
+                  // registration?.waiting?.postMessage({ type: 'SKIP_WAITING' });
+                  toast.info("New content is available! Auto-updating...", {
+                      position: toast.POSITION.BOTTOM_LEFT,
+                      autoClose: false
+                  });
+
+                  registration.waiting?.postMessage({ type: 'SKIP_WAITING' });
+                  registration.update();
+
                 // Execute callback
                 if (config && config.onUpdate) {
                   config.onUpdate(registration);
@@ -85,6 +100,10 @@ function registerValidSW(swUrl: string, config?: Config) {
                 // It's the perfect time to display a
                 // "Content is cached for offline use." message.
                 console.log('PWA: Content is cached for offline use.');
+
+                  toast.info("PWA is available!", {
+                      position: toast.POSITION.BOTTOM_LEFT,
+                  });
 
                 // Execute callback
                 if (config && config.onSuccess) {

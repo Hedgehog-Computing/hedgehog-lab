@@ -80,7 +80,7 @@ const Timeline = () => {
                                 </Stack>
 
                                 {item.snippet?.user.username &&
-                                    <Card variant="outlined" sx={{mt: "5px", ml: 4, bgcolor: grey[50]}}>
+                                    <Card variant="outlined" sx={{mt: "4px", ml: 4, bgcolor: grey[50]}}>
                                         <CardContent>
                                             <Grid container>
                                                 <Grid item xs={12} md={10}>

@@ -81,7 +81,7 @@ const Snippets = (): React.ReactElement => {
             const snippetMetaUrl = `/snippets/meta?user=${currentName}`
             await mutate(snippetMetaUrl)
         } catch (e) {
-            console.log(e.response.data.message)
+            console.log(e)
         } finally {
             setUpdateUserDescLoading(false)
         }
