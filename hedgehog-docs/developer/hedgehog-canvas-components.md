@@ -1,4 +1,4 @@
-# hedgehog Canvas  Components
+# Hedgehog Canvas  Components
 
 This package can be used to render the output of the hedgehog compiler result easily.
 

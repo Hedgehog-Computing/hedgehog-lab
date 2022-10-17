@@ -1,4 +1,4 @@
-# Hedgehog Core  components
+# Hedgehog Core  Components
 
 This package provides a simple way to run Hedgehog compiler in your application.
 

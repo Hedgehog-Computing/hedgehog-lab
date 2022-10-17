@@ -1,4 +1,4 @@
-# hedgehog Lab Components
+# Hedgehog Lab Components
 
 We are developing a set of components for the hedgehog Lab. These components are designed to be used in the hedgehog Lab and can be used in other projects as well.
 
