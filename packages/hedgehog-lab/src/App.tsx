@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 const App = (): React.ReactElement => {
     return (
