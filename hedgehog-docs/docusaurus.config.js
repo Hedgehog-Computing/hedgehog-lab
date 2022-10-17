@@ -105,6 +105,13 @@ const config = {
             activeBaseRegex: `/contribution/`,
             docsPluginId: 'contribution'
           },
+          {
+            to: '/developer/hedgehog-lab-components',    // ./math/intro.md
+            label: 'Developer',
+            position: 'left',
+            activeBaseRegex: `/Developer/`,
+            docsPluginId: 'Developer' // related the plugin id in this file.
+          },
           /*{to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/facebook/docusaurus',
@@ -186,6 +193,15 @@ const config = {
         id: 'contribution',
         path: 'contribution',
         routeBasePath: 'contribution',
+        sidebarPath: require.resolve('./sidebars.js'),
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'developer',
+        path: 'developer',
+        routeBasePath: 'developer',
         sidebarPath: require.resolve('./sidebars.js'),
       },
     ],
