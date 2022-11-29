@@ -37,8 +37,7 @@ yarn install
 yarn watch
 ```
 
-On each run the program compiles and it takes time. Please wait until it shows "Compiled successfully!" and an
-instruction about with which IP:PORT to connect.
+On each run the program compiles, and it takes time. Please wait a few minutes and refresh the page.
 
 ## User Manual
 
