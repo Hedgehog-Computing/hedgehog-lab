@@ -1,8 +1,8 @@
 import preprocessor from './preprocessor';
 import operatorOverload from './operator-overload';
-import { CodeSnippet, CodeSnippetType } from './CodeSnippetObject';
+import { CodeSnippetType } from './CodeSnippetObject';
 
-async function transpilerCore(source: string) {
+async function transpilerCore(source: string): Promise<string> {
   //todo: move the registration of plugins and presets to the constructor
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const babel = require('@babel/standalone');
@@ -51,8 +51,11 @@ async function transpilerCore(source: string) {
       const transpiled = babel.transform(
         codeSnippet.code, // the code
         {
-          plugins: ['overload', ['@babel/plugin-proposal-class-properties', {"loose":true}], 
-          ['@babel/plugin-proposal-private-methods',{"loose":true}]],
+          plugins: [
+            'overload',
+            ['@babel/plugin-proposal-class-properties', { loose: true }],
+            ['@babel/plugin-proposal-private-methods', { loose: true }]
+          ],
           presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
           filename: 'source.tsx',
           sourceType: 'script'
