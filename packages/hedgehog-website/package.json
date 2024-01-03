@@ -24,7 +24,7 @@
     "keyboardjs": "^2.6.4",
     "material-ui-popup-state": "^2.0.0",
     "notistack": "^2.0.2",
-    "plotly.js": "^1.54.6",
+    "plotly.js": "^2.25.2",
     "react": "^18.0.0",
     "react-code-blocks": "^0.0.9-0",
     "react-dom": "^18.0.0",
